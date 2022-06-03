@@ -1,23 +1,29 @@
 import React from 'react';
 
 //? <----- Components ----->
-import Anime from './Anime/Anime';
-import Books from './Books/Books';
-import Games from './Games/Games';
-import LightNovels from './LightNovels/LightNovels';
-import Movies from './Movies/Movies';
-import VisualNovels from './VisualNovels/VisualNovels';
+// import CardComponent from '../Layout/CardComponent';
+import Anime from './Anime/pages/Anime';
+// import SingleAnime from './Anime/components/SingleAnime';
+// import Books from './Books/Books';
+// import Games from './Games/Games';
+// import LightNovels from './LightNovels/LightNovels';
+// import Movies from './Movies/Movies';
+// import VisualNovels from './VisualNovels/VisualNovels';
 
 const Media = () => {
 	return (
-		<>
+		<div>
+			{/* <CardComponent title='Media'> */}
 			<Anime />
-			<Books />
+			{/* <Books />
 			<Games />
 			<LightNovels />
 			<Movies />
-			<VisualNovels />
-		</>
+			<VisualNovels /> */}
+
+			{/* <SingleAnime /> */}
+			{/* </CardComponent> */}
+		</div>
 	);
 };
 

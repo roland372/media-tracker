@@ -11,7 +11,7 @@ const NavigationBar = () => {
 				<Container>
 					<Navbar.Brand>
 						<Link className='navbar-brand' to='/'>
-							Home
+							Media-Tracker
 						</Link>
 					</Navbar.Brand>
 					<Navbar.Collapse>
