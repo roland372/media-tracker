@@ -1,11 +1,24 @@
 import React from 'react';
 
+//? <----- Router ----->
+import { Link } from 'react-router-dom';
+
 //? <----- Components ----->
 import CardComponent from '../../../Layout/CardComponent';
 
 const SingleAnime = () => {
 	return (
 		<CardComponent title='JoJo no Kimyou na Bouken Part 7: Steel Ball Run'>
+			<section className='text-color'>
+				<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
+					<Link className='btn btn-primary' to='/media/anime'>
+						Back to Media
+					</Link>
+				</div>
+				<div className='mx-2'>
+					<hr />
+				</div>
+			</section>
 			<section className='mx-2 mt-2'>
 				<section className='d-lg-flex align-items-start'>
 					<img

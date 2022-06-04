@@ -20,9 +20,8 @@ const Media = () => {
 		<section>
 			<Routes>
 				<Route path='/' element={<AllMedia />} />
-				<Route path='anime' element={<Anime anime={anime} />}>
-					<Route path=':1' element={<SingleAnime />} />
-				</Route>
+				<Route path='anime' element={<Anime anime={anime} />} />
+				<Route path='anime/:id' element={<SingleAnime />} />
 			</Routes>
 		</section>
 	);
