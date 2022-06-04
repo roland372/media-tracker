@@ -13,8 +13,8 @@ import Anime from './Anime/pages/Anime';
 const Media = () => {
 	return (
 		<div>
-			{/* <CardComponent title='Media'> */}
 			<Anime />
+			{/* <CardComponent title='Media'> */}
 			{/* <Books />
 			<Games />
 			<LightNovels />

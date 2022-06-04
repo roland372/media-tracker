@@ -1,60 +1,40 @@
 import React from 'react';
-
-import Select from 'react-select';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
+import { AiOutlineStar } from 'react-icons/ai';
+// import { AiFillStar } from 'react-icons/ai';
 
 const SingleAnimeCard = () => {
-	const ratingOptions = [
-		{ value: '1', label: '⭐1' },
-		{ value: '2', label: '⭐2' },
-		{ value: '3', label: '⭐3' },
-	];
-
-	const statusOptions = [
-		{ value: 'watching', label: 'Watching' },
-		{ value: 'completed', label: 'Completed' },
-		{ value: 'on-hold', label: 'On-Hold' },
-		{ value: 'dropped', label: 'Dropped' },
-		{ value: 'plan-to-watch', label: 'Plan to Watch' },
-	];
-
 	return (
-		<section className='border'>
-			<h3>Jojo</h3>
-			<h5>Synopsis</h5>
-			<p>
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia iusto
-				quisquam harum pariatur a, molestiae error corrupti laborum
-				necessitatibus porro!
-			</p>
-			<h5>
-				Type <span>TV-Series</span>
-			</h5>
-			<a
-				href='https://reactrouter.com/docs/en/v6/getting-started/overview'
-				target='_blank'
-				rel='noreferrer'
+		<section className='p-2 bg-image hover-zoom'>
+			<OverlayTrigger
+				trigger='click'
+				placement='auto'
+				rootClose
+				// delay={{ show: 100, hide: 2000 }}
+				overlay={
+					<Popover>
+						<Popover.Header>Higurashi no Naku Koro ni Kai</Popover.Header>
+						<Popover.Body>
+							<div className='d-flex justify-content-between'>
+								<button className='btn btn-sm btn-primary'>View</button>
+								<button className='btn btn-sm btn-success'>Edit</button>
+								<button className='btn btn-sm btn-danger'>Delete</button>
+								<button className='btn btn-sm btn-warning'>
+									<AiOutlineStar size={15} />
+								</button>
+							</div>
+						</Popover.Body>
+					</Popover>
+				}
 			>
-				Link
-			</a>
-			<div>
 				<img
+					src='https://cdn.myanimelist.net/images/anime/12/14114.jpg'
+					alt=''
 					className='img img-fluid'
-					width='200px'
-					src='https://cdn.myanimelist.net/images/manga/3/179882l.jpg'
-					alt='Jojo'
+					width='150px'
+					role='button'
 				/>
-			</div>
-			<Select
-				defaultValue={{ label: 'Rating', value: 0 }}
-				options={ratingOptions}
-				className='text-dark'
-			/>
-			<Select
-				defaultValue={{ label: 'Plan to Watch', value: 'plan-to-watch' }}
-				options={statusOptions}
-				className='text-dark'
-			/>
-			<div>Episodes: 23/24</div>
+			</OverlayTrigger>
 		</section>
 	);
 };
