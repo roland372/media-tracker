@@ -22,7 +22,16 @@ const NavigationBar = () => {
 									className='nav-link'
 									activeclassname='active-navbar'
 								>
-									Media
+									All Media
+								</NavLink>
+							</li>
+							<li className='nav-item'>
+								<NavLink
+									to='media/anime'
+									className='nav-link'
+									activeclassname='active-navbar'
+								>
+									Anime
 								</NavLink>
 							</li>
 							<li className='nav-item'>
