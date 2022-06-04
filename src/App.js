@@ -13,6 +13,7 @@ import Media from './pages/Media';
 import Layout from './components/Layout/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import NotFound from './pages/NotFound';
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 						<Route path='media/*' element={<Media />} />
 						<Route path='charts' element={<Charts />} />
 						<Route path='about' element={<About />} />
+						<Route path='*' element={<NotFound />} />
 					</Routes>
 				</Layout>
 			</Router>
