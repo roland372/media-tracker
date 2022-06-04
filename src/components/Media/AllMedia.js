@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 
+//? <----- Router ----->
+import { Link } from 'react-router-dom';
+
 //? <----- Components ----->
 import CardComponent from '../Layout/CardComponent';
 import SingleAnimeCard from './Anime/components/SingleAnimeCard';
 import { Modal } from 'react-bootstrap';
 import Select from 'react-select';
+import AnimeForm from './Anime/components/Form';
 
 const AllMedia = () => {
 	const mediaOptions = [
@@ -13,25 +17,7 @@ const AllMedia = () => {
 		{ value: 'game', label: 'Game' },
 	];
 
-	const animeType = [
-		{ value: 'tv-show', label: 'TV-Show' },
-		{ value: 'movie', label: 'Movie' },
-		{ value: 'ova', label: 'OVA' },
-	];
-
-	const ratingOptions = [
-		{ value: '1', label: '⭐1' },
-		{ value: '2', label: '⭐2' },
-		{ value: '3', label: '⭐3' },
-	];
-
-	const statusOptions = [
-		{ value: 'watching', label: 'Watching' },
-		{ value: 'completed', label: 'Completed' },
-		{ value: 'on-hold', label: 'On-Hold' },
-		{ value: 'dropped', label: 'Dropped' },
-		{ value: 'plan-to-watch', label: 'Plan to Watch' },
-	];
+	let [selectMediaValue, setSelectMediaValue] = useState('');
 
 	//* <----- Modal state ----->
 	const [show, setShow] = useState(false);
@@ -55,97 +41,12 @@ const AllMedia = () => {
 						defaultValue={{ label: 'Select Media', value: 0 }}
 						options={mediaOptions}
 						className='text-dark'
+						onChange={e => setSelectMediaValue(e.value)}
 					/>
-					<form>
-						<div className='mt-3 mb-2'>
-							<input
-								type='text'
-								className='form-control'
-								placeholder='Enter Anime Title'
-								maxLength='100'
-							/>
-						</div>
-						<div className='mt-3 mb-2'>
-							<textarea
-								type='text'
-								className='form-control'
-								placeholder='Enter Synopsis'
-								rows='3'
-							/>
-						</div>
-						<div className='mt-3 mb-2'>
-							<Select
-								defaultValue={{ label: 'Select Type', value: 0 }}
-								options={animeType}
-								className='text-dark'
-							/>
-						</div>
-						<div className='mt-3 mb-2'>
-							<input
-								type='text'
-								className='form-control'
-								placeholder='Enter Link'
-								maxLength='200'
-							/>
-						</div>
-						<div className='mt-3 mb-2'>
-							<input
-								type='text'
-								className='form-control'
-								placeholder='Enter Image URL'
-								maxLength='200'
-							/>
-						</div>
-						<div className='mt-3 mb-2'>
-							<Select
-								defaultValue={{ label: 'Rating', value: 0 }}
-								options={ratingOptions}
-								className='text-dark'
-							/>
-						</div>
-						<div className='mt-3 mb-2'>
-							<Select
-								defaultValue={{
-									label: 'Plan to Watch',
-									value: 'plan-to-watch',
-								}}
-								options={statusOptions}
-								className='text-dark'
-							/>
-						</div>
-						<div className='mt-3 mb-2'>
-							<div className='d-flex align-items-center'>
-								<h5 className='pe-2'>Episodes</h5>
-								<input
-									style={{ width: '50px' }}
-									type='number'
-									className='form-control '
-									placeholder='1'
-								/>
-								<span className='mx-2'>/</span>
-								<input
-									style={{ width: '50px' }}
-									type='number'
-									className='form-control '
-									placeholder='24'
-								/>
-							</div>
-						</div>
-						<div className='mb-3 form-check'>
-							<input type='checkbox' className='form-check-input' />
-							<label className='form-check-label'>Add to Favourites?</label>
-						</div>
-						<button
-							className='btn btn-success'
-							onClick={e => {
-								e.preventDefault();
-								handleClose();
-								console.log('Added');
-							}}
-						>
-							Add
-						</button>
-					</form>
+
+					{selectMediaValue === 'anime' ? (
+						<AnimeForm handleClose={handleClose} />
+					) : null}
 				</Modal.Body>
 				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
 			</Modal>
@@ -163,11 +64,15 @@ const AllMedia = () => {
 			<div className='mx-2'>
 				<hr />
 			</div>
-			{/* <h5>Anime</h5> */}
-			{/* <SingleAnimeCard /> */}
-			{/* <SingleAnimeCard /> */}
-			{/* <SingleAnimeCard /> */}
-			{/* <Link to='/media/anime'>anime</Link> */}
+			<h5>Recent Anime</h5>
+			<div className='d-flex'>
+				<SingleAnimeCard />
+				<SingleAnimeCard />
+				<SingleAnimeCard />
+			</div>
+			<Link to='/media/anime'>All Anime</Link>
+			<hr />
+			<h5>Recent Manga</h5>
 		</CardComponent>
 	);
 };

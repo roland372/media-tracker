@@ -1,6 +1,7 @@
 import React from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { AiOutlineStar } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 // import { AiFillStar } from 'react-icons/ai';
 
 const SingleAnimeCard = () => {
@@ -16,10 +17,20 @@ const SingleAnimeCard = () => {
 						<Popover.Header>Higurashi no Naku Koro ni Kai</Popover.Header>
 						<Popover.Body>
 							<div className='d-flex justify-content-between'>
-								<button className='btn btn-sm btn-primary'>View</button>
+								<Link to='/media/anime/1' className='btn btn-sm btn-primary'>
+									View
+								</Link>
 								<button className='btn btn-sm btn-success'>Edit</button>
-								<button className='btn btn-sm btn-danger'>Delete</button>
-								<button className='btn btn-sm btn-warning'>
+								<button
+									className='btn btn-sm btn-danger'
+									onClick={() => console.log('Deleted')}
+								>
+									Delete
+								</button>
+								<button
+									className='btn btn-sm btn-warning'
+									onClick={() => console.log('Added to favourites')}
+								>
 									<AiOutlineStar size={15} />
 								</button>
 							</div>

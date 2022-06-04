@@ -1,22 +1,9 @@
 import React from 'react';
 
-import Select from 'react-select';
+//? <----- Components ----->
 import CardComponent from '../../../Layout/CardComponent';
 
 const SingleAnime = () => {
-	const ratingOptions = [
-		{ value: '1', label: '⭐1' },
-		{ value: '2', label: '⭐2' },
-		{ value: '3', label: '⭐3' },
-	];
-
-	const statusOptions = [
-		{ value: 'watching', label: 'Watching' },
-		{ value: 'completed', label: 'Completed' },
-		{ value: 'on-hold', label: 'On-Hold' },
-		{ value: 'dropped', label: 'Dropped' },
-		{ value: 'plan-to-watch', label: 'Plan to Watch' },
-	];
 	return (
 		<CardComponent title='JoJo no Kimyou na Bouken Part 7: Steel Ball Run'>
 			<section className='mx-2 mt-2'>
@@ -79,16 +66,6 @@ const SingleAnime = () => {
 						</section>
 					</div>
 				</section>
-				{/* <Select
-					defaultValue={{ label: 'Rating', value: 0 }}
-					options={ratingOptions}
-					className='text-dark'
-				/>
-				<Select
-					defaultValue={{ label: 'Plan to Watch', value: 'plan-to-watch' }}
-					options={statusOptions}
-					className='text-dark'
-				/> */}
 			</section>
 		</CardComponent>
 	);
