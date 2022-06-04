@@ -21,9 +21,9 @@ function App() {
 				<Layout>
 					<Routes>
 						<Route path='/' element={<Home />} />
-						<Route path='/media/*' element={<Media />} />
-						<Route path='/charts' element={<Charts />} />
-						<Route path='/about' element={<About />} />
+						<Route path='media/*' element={<Media />} />
+						<Route path='charts' element={<Charts />} />
+						<Route path='about' element={<About />} />
 					</Routes>
 				</Layout>
 			</Router>

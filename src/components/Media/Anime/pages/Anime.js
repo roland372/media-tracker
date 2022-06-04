@@ -1,19 +1,18 @@
 import React from 'react';
 
 //? <----- Router ----->
-import { Route, Routes } from 'react-router-dom';
 
 //? <----- Components ----->
 import AllAnime from './AllAnime';
 import SingleAnime from '../components/SingleAnime';
+import CardComponent from '../../../Layout/CardComponent';
+import SingleAnimeCard from '../components/SingleAnimeCard';
 
 const Anime = () => {
 	return (
-		<Routes>
-			<Route path='anime' element={<AllAnime />}>
-				<Route path=':animeId' element={<SingleAnime />} />
-			</Route>
-		</Routes>
+		<CardComponent title='Anime'>
+			<SingleAnimeCard />
+		</CardComponent>
 	);
 };
 
