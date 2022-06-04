@@ -15,12 +15,11 @@ import SingleAnime from './Anime/components/SingleAnime';
 //* root component, contains all routes, default route is to display all media
 
 const Media = () => {
-	const anime = [{ id: '1' }, { id: '2' }];
 	return (
 		<section>
 			<Routes>
 				<Route path='/' element={<AllMedia />} />
-				<Route path='anime' element={<Anime anime={anime} />} />
+				<Route path='anime' element={<Anime />} />
 				<Route path='anime/:id' element={<SingleAnime />} />
 			</Routes>
 		</section>

@@ -1,15 +1,13 @@
 import React from 'react';
 
 //? <----- Components ----->
-import SingleAnimeCard from '../components/SingleAnimeCard';
+import SingleAnimeCard from './SingleAnimeCard';
 
-const AllAnime = () => {
+const FavouriteAnime = () => {
 	return (
 		<div>
+			<h5>Favourites</h5>
 			<section className='d-flex align-items-center justify-content-start flex-wrap'>
-				<SingleAnimeCard />
-				<SingleAnimeCard />
-				<SingleAnimeCard />
 				<SingleAnimeCard />
 				<SingleAnimeCard />
 				<SingleAnimeCard />
@@ -18,4 +16,4 @@ const AllAnime = () => {
 	);
 };
 
-export default AllAnime;
+export default FavouriteAnime;

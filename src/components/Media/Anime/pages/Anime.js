@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 //? <----- Components ----->
-import AllAnime from './AllAnime';
+import AllAnime from '../components/AllAnime';
 import CardComponent from '../../../Layout/CardComponent';
 import Form from '../components/Form';
 import { Modal } from 'react-bootstrap';
+import RecentAnime from '../components/RecentAnime';
+import FavouriteAnime from '../components/FavouriteAnime';
 
-const Anime = ({ anime }) => {
+const Anime = () => {
 	//* <----- Modal state ----->
 	const [show, setShow] = useState(false);
 
@@ -49,6 +51,10 @@ const Anime = ({ anime }) => {
 					<hr />
 				</div>
 			</section>
+			<RecentAnime />
+			<hr />
+			<FavouriteAnime />
+			<hr />
 			<AllAnime />
 		</CardComponent>
 	);

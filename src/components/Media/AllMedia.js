@@ -9,6 +9,7 @@ import SingleAnimeCard from './Anime/components/SingleAnimeCard';
 import { Modal } from 'react-bootstrap';
 import Select from 'react-select';
 import AnimeForm from './Anime/components/Form';
+import RecentAnime from './Anime/components/RecentAnime';
 
 const AllMedia = () => {
 	const mediaOptions = [
@@ -64,12 +65,7 @@ const AllMedia = () => {
 			<div className='mx-2'>
 				<hr />
 			</div>
-			<h5>Recent Anime</h5>
-			<div className='d-flex'>
-				<SingleAnimeCard />
-				<SingleAnimeCard />
-				<SingleAnimeCard />
-			</div>
+			<RecentAnime />
 			<Link to='/media/anime'>All Anime</Link>
 			<hr />
 			<h5>Recent Manga</h5>
