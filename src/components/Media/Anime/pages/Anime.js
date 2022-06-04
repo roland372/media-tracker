@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 
 //? <----- Components ----->
 import AllAnime from './AllAnime';
-import SingleAnime from '../components/SingleAnime';
 import CardComponent from '../../../Layout/CardComponent';
-import SingleAnimeCard from '../components/SingleAnimeCard';
 import Form from '../components/Form';
 import { Modal } from 'react-bootstrap';
 
