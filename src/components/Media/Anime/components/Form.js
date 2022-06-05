@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 //? <----- Components ----->
 import Select from 'react-select';
 
+//? <----- Firebase ----->
+import AnimeDataService from '../services/anime.services';
+
 const Form = props => {
+	//* select values
 	const animeType = [
 		{ value: 'tv-show', label: 'TV-Show' },
 		{ value: 'movie', label: 'Movie' },
@@ -40,6 +44,7 @@ const Form = props => {
 		lastModified: Date.now(),
 	});
 
+	//* input handlers
 	const handleSetTitle = e => {
 		setAnime({ ...anime, title: e.target.value });
 	};
@@ -71,8 +76,20 @@ const Form = props => {
 		setAnime({ ...anime, favourites: e.target.checked });
 	};
 
+	const onSubmit = async e => {
+		e.preventDefault();
+		try {
+			await AnimeDataService.addAnime(anime);
+			console.log('anime added to database');
+			props.handleClose();
+			console.log(anime);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
-		<form>
+		<form onSubmit={e => onSubmit(e)}>
 			<div className='mt-3 mb-2'>
 				<input
 					type='text'
@@ -167,11 +184,11 @@ const Form = props => {
 			</div>
 			<button
 				className='btn btn-success'
-				onClick={e => {
-					e.preventDefault();
-					props.handleClose();
-					console.log(anime);
-				}}
+				// onClick={e => {
+				// 	// e.preventDefault();
+				// 	props.handleClose();
+				// 	console.log(anime);
+				// }}
 			>
 				Add
 			</button>
