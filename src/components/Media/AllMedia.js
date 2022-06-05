@@ -15,9 +15,9 @@ import RecentAnime from './Anime/components/RecentAnime';
 
 const AllMedia = () => {
 	const mediaOptions = [
-		{ value: 'anime', label: 'Anime' },
-		{ value: 'manga', label: 'Manga' },
-		{ value: 'game', label: 'Game' },
+		{ value: 'Anime', label: 'Anime' },
+		{ value: 'Manga', label: 'Manga' },
+		{ value: 'Game', label: 'Game' },
 	];
 
 	let [selectMediaValue, setSelectMediaValue] = useState('');

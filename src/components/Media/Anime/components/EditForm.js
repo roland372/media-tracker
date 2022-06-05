@@ -6,7 +6,20 @@ import Select from 'react-select';
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
 
-const Form = props => {
+const EditForm = ({ handleClose, singleAnime, id }) => {
+	const {
+		title,
+		imageURL,
+		synopsis,
+		type,
+		link,
+		episodesMin,
+		episodesMax,
+		status,
+		rating,
+		favourites,
+	} = singleAnime;
+
 	//* select values
 	const animeType = [
 		{ value: 'TV-Show', label: 'TV-Show' },
@@ -30,16 +43,16 @@ const Form = props => {
 
 	//* initialize anime object
 	const [anime, setAnime] = useState({
-		title: '',
-		synopsis: '',
-		type: '',
-		link: '',
-		imageURL: '',
-		rating: 0,
-		status: '',
-		episodesMin: 0,
-		episodesMax: 0,
-		favourites: false,
+		title: title,
+		synopsis: synopsis,
+		type: type,
+		link: link,
+		imageURL: imageURL,
+		rating: rating,
+		status: status,
+		episodesMin: episodesMin,
+		episodesMax: episodesMax,
+		favourites: favourites,
 		// owner: user.uid,
 		lastModified: Date.now(),
 	});
@@ -79,9 +92,10 @@ const Form = props => {
 	const onSubmit = async e => {
 		e.preventDefault();
 		try {
-			await AnimeDataService.addAnime(anime);
-			console.log('anime added to database');
-			props.handleClose();
+			// await AnimeDataService.addAnime(anime);
+			await AnimeDataService.updateAnime(id, anime);
+			console.log('anime edited');
+			handleClose();
 			console.log(anime);
 		} catch (error) {
 			console.log(error);
@@ -96,7 +110,7 @@ const Form = props => {
 					className='form-control'
 					placeholder='Enter Anime Title'
 					maxLength='100'
-					// value={anime.name}
+					defaultValue={title}
 					onChange={e => handleSetTitle(e)}
 				/>
 			</div>
@@ -106,12 +120,13 @@ const Form = props => {
 					className='form-control'
 					placeholder='Enter Synopsis'
 					rows='3'
+					defaultValue={synopsis}
 					onChange={e => handleSetSynopsis(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-					defaultValue={{ label: 'Select Type', value: 0 }}
+					defaultValue={{ label: type, value: type }}
 					options={animeType}
 					className='text-dark'
 					onChange={e => handleSetType(e)}
@@ -123,6 +138,7 @@ const Form = props => {
 					className='form-control'
 					placeholder='Enter Link'
 					maxLength='200'
+					defaultValue={link}
 					onChange={e => handleSetLink(e)}
 				/>
 			</div>
@@ -132,12 +148,13 @@ const Form = props => {
 					className='form-control'
 					placeholder='Enter Image URL'
 					maxLength='200'
+					defaultValue={imageURL}
 					onChange={e => handleSetImageURL(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-					defaultValue={{ label: 'Rating', value: 0 }}
+					defaultValue={{ label: '⭐' + rating, value: rating }}
 					options={ratingOptions}
 					className='text-dark'
 					onChange={e => handleSetRating(e)}
@@ -145,9 +162,10 @@ const Form = props => {
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
+        // defaultValue={{ label: type, value: type }}
 					defaultValue={{
-						label: 'Plan to Watch',
-						value: 'plan-to-watch',
+						label: status,
+						value: status,
 					}}
 					options={statusOptions}
 					className='text-dark'
@@ -162,6 +180,7 @@ const Form = props => {
 						type='number'
 						className='form-control '
 						placeholder='1'
+						defaultValue={episodesMin}
 						onChange={e => handleSetEpisodesMin(e)}
 					/>
 					<span className='mx-2'>/</span>
@@ -170,6 +189,7 @@ const Form = props => {
 						type='number'
 						className='form-control '
 						placeholder='24'
+						defaultValue={episodesMax}
 						onChange={e => handleSetEpisodesMax(e)}
 					/>
 				</div>
@@ -178,22 +198,14 @@ const Form = props => {
 				<input
 					type='checkbox'
 					className='form-check-input'
+					defaultChecked={favourites}
 					onChange={e => handleSetFavourites(e)}
 				/>
 				<label className='form-check-label'>Add to Favourites?</label>
 			</div>
-			<button
-				className='btn btn-success'
-				// onClick={e => {
-				// 	// e.preventDefault();
-				// 	props.handleClose();
-				// 	console.log(anime);
-				// }}
-			>
-				Add
-			</button>
+			<button className='btn btn-warning'>Update</button>
 		</form>
 	);
 };
 
-export default Form;
+export default EditForm;

@@ -1,12 +1,58 @@
-import React from 'react';
-import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { AiOutlineStar } from 'react-icons/ai';
+import React, { useState, useEffect } from 'react';
+
+//? <----- Router ----->
 import { Link } from 'react-router-dom';
+
+//? <----- Firebase ----->
+import AnimeDataService from '../services/anime.services';
+
+//? <----- Components ----->
+import EditForm from '../components/EditForm';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+
+//? <----- Icons ----->
+import { AiOutlineStar } from 'react-icons/ai';
 // import { AiFillStar } from 'react-icons/ai';
 
 const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
+	//* <----- Modal state ----->
+	const [show, setShow] = useState(false);
+
+	//* <----- Modal functions ----->
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
+	const [singleAnime, setSingleAnime] = useState({});
+
+	const getSingleAnimeDatabase = async id => {
+		const data = await AnimeDataService.getAnime(id);
+		setSingleAnime(data.data());
+	};
+
+	useEffect(() => {
+		getSingleAnimeDatabase(id);
+	}, [id]);
+
 	return (
-		<section className='p-2 bg-image hover-zoom'>
+		<section className='p-2 bg-image'>
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header
+					closeButton
+					closeVariant='white'
+					className='bg-primary-light text-color'
+				>
+					<Modal.Title>Edit Anime</Modal.Title>
+				</Modal.Header>
+				<Modal.Body className='bg-primary-dark text-color'>
+					<EditForm
+						handleClose={handleClose}
+						singleAnime={singleAnime}
+						id={id}
+					/>
+				</Modal.Body>
+				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
+			</Modal>
 			<OverlayTrigger
 				trigger='click'
 				placement='auto'
@@ -23,7 +69,15 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 								>
 									View
 								</Link>
-								<button className='btn btn-sm btn-success'>Edit</button>
+								<button
+									className='btn btn-sm btn-success'
+									onClick={() => {
+										handleShow();
+										getSingleAnimeDatabase(id);
+									}}
+								>
+									Edit
+								</button>
 								<button
 									className='btn btn-sm btn-danger'
 									onClick={() => deleteAnime(id)}
