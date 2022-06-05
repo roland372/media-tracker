@@ -12,8 +12,6 @@ import SingleAnime from './Anime/components/SingleAnime';
 // import Movies from './Movies/Movies';
 // import VisualNovels from './VisualNovels/VisualNovels';
 
-//* root component, contains all routes, default route is to display all media
-
 const Media = () => {
 	return (
 		<section>

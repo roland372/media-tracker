@@ -17,7 +17,10 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 						<Popover.Header>{title}</Popover.Header>
 						<Popover.Body>
 							<div className='d-flex justify-content-between'>
-								<Link to='/media/anime/1' className='btn btn-sm btn-primary'>
+								<Link
+									to={`/media/anime/${id}`}
+									className='btn btn-sm btn-primary'
+								>
 									View
 								</Link>
 								<button className='btn btn-sm btn-success'>Edit</button>

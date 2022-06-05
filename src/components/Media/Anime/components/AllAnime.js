@@ -15,7 +15,7 @@ const AllAnime = ({ allAnime, deleteAnime }) => {
 		return 0; //default return value (no sorting)
 	});
 
-	console.log(allAnime);
+	// console.log(allAnime);
 
 	return (
 		<div>
