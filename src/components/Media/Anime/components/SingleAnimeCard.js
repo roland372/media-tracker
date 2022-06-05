@@ -4,7 +4,7 @@ import { AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 // import { AiFillStar } from 'react-icons/ai';
 
-const SingleAnimeCard = () => {
+const SingleAnimeCard = props => {
 	return (
 		<section className='p-2 bg-image hover-zoom'>
 			<OverlayTrigger
@@ -14,7 +14,7 @@ const SingleAnimeCard = () => {
 				// delay={{ show: 100, hide: 2000 }}
 				overlay={
 					<Popover>
-						<Popover.Header>Higurashi no Naku Koro ni Kai</Popover.Header>
+						<Popover.Header>{props.title}</Popover.Header>
 						<Popover.Body>
 							<div className='d-flex justify-content-between'>
 								<Link to='/media/anime/1' className='btn btn-sm btn-primary'>
@@ -39,10 +39,10 @@ const SingleAnimeCard = () => {
 				}
 			>
 				<img
-					src='https://cdn.myanimelist.net/images/anime/12/14114.jpg'
-					alt=''
+					style={{ maxHeight: '200px', maxWidth: '150px' }}
+					src={props.imageURL}
+					alt={props.title}
 					className='img img-fluid'
-					width='150px'
 					role='button'
 				/>
 			</OverlayTrigger>

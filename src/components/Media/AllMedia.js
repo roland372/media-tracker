@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //? <----- Router ----->
 import { Link } from 'react-router-dom';
+
+//? <----- Firebase ----->
+import AnimeDataService from './Anime/services/anime.services';
 
 //? <----- Components ----->
 import CardComponent from '../Layout/CardComponent';
@@ -25,6 +28,19 @@ const AllMedia = () => {
 	//* <----- Modal functions ----->
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+
+	const [animeDatabase, setAnimeDatabase] = useState([]);
+
+	//* fetch data from database
+	const getAnimeDatabase = async () => {
+		const data = await AnimeDataService.getAllAnime();
+		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+	};
+
+	useEffect(() => {
+		getAnimeDatabase();
+	}, []);
 
 	return (
 		<CardComponent title='Media'>
@@ -64,7 +80,7 @@ const AllMedia = () => {
 			<div className='mx-2'>
 				<hr />
 			</div>
-			<RecentAnime />
+			<RecentAnime allAnime={animeDatabase} />
 			<Link to='/media/anime'>All Anime</Link>
 			<hr />
 			<h5>Recent Manga</h5>
