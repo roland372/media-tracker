@@ -3,7 +3,7 @@ import React from 'react';
 //? <----- Components ----->
 import SingleAnimeCard from './SingleAnimeCard';
 
-const AllAnime = ({ allAnime }) => {
+const AllAnime = ({ allAnime, deleteAnime }) => {
 	//* sort anime by name
 	const sortedAnime = allAnime.sort(function (a, b) {
 		const nameA = a.title.toLowerCase(),
@@ -15,6 +15,8 @@ const AllAnime = ({ allAnime }) => {
 		return 0; //default return value (no sorting)
 	});
 
+	console.log(allAnime);
+
 	return (
 		<div>
 			<h5>All Anime</h5>
@@ -24,6 +26,8 @@ const AllAnime = ({ allAnime }) => {
 						key={anime.title}
 						title={anime.title}
 						imageURL={anime.imageURL}
+						id={anime.id}
+						deleteAnime={deleteAnime}
 					/>
 				))}
 			</section>

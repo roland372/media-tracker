@@ -4,7 +4,7 @@ import { AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 // import { AiFillStar } from 'react-icons/ai';
 
-const SingleAnimeCard = props => {
+const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 	return (
 		<section className='p-2 bg-image hover-zoom'>
 			<OverlayTrigger
@@ -14,7 +14,7 @@ const SingleAnimeCard = props => {
 				// delay={{ show: 100, hide: 2000 }}
 				overlay={
 					<Popover>
-						<Popover.Header>{props.title}</Popover.Header>
+						<Popover.Header>{title}</Popover.Header>
 						<Popover.Body>
 							<div className='d-flex justify-content-between'>
 								<Link to='/media/anime/1' className='btn btn-sm btn-primary'>
@@ -23,7 +23,7 @@ const SingleAnimeCard = props => {
 								<button className='btn btn-sm btn-success'>Edit</button>
 								<button
 									className='btn btn-sm btn-danger'
-									onClick={() => console.log('Deleted')}
+									onClick={() => deleteAnime(id)}
 								>
 									Delete
 								</button>
@@ -39,9 +39,9 @@ const SingleAnimeCard = props => {
 				}
 			>
 				<img
-					style={{ maxHeight: '200px', maxWidth: '150px' }}
-					src={props.imageURL}
-					alt={props.title}
+					style={{ height: '200px', width: '150px' }}
+					src={imageURL}
+					alt={title}
 					className='img img-fluid'
 					role='button'
 				/>

@@ -3,10 +3,9 @@ import React from 'react';
 //? <----- Components ----->
 import SingleAnimeCard from './SingleAnimeCard';
 
-const FavouriteAnime = ({ allAnime }) => {
+const FavouriteAnime = ({ allAnime, deleteAnime }) => {
 	//* show only favourites
 	const filteredAnime = allAnime.filter(anime => anime.favourites);
-	console.log(filteredAnime);
 
 	return (
 		<div>
@@ -17,6 +16,8 @@ const FavouriteAnime = ({ allAnime }) => {
 						key={anime.title}
 						title={anime.title}
 						imageURL={anime.imageURL}
+						id={anime.id}
+						deleteAnime={deleteAnime}
 					/>
 				))}
 

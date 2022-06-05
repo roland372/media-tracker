@@ -31,6 +31,11 @@ const Anime = () => {
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 	};
 
+	const deleteAnime = async id => {
+		await AnimeDataService.deleteAnime(id);
+		getAnimeDatabase();
+	};
+
 	useEffect(() => {
 		getAnimeDatabase();
 	}, []);
@@ -67,11 +72,11 @@ const Anime = () => {
 					<hr />
 				</div>
 			</section>
-			<RecentAnime allAnime={animeDatabase} />
+			<RecentAnime allAnime={animeDatabase} deleteAnime={deleteAnime} />
 			<hr />
-			<FavouriteAnime allAnime={animeDatabase} />
+			<FavouriteAnime allAnime={animeDatabase} deleteAnime={deleteAnime} />
 			<hr />
-			<AllAnime allAnime={animeDatabase} />
+			<AllAnime allAnime={animeDatabase} deleteAnime={deleteAnime} />
 		</CardComponent>
 	);
 };

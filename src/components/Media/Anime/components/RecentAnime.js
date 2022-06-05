@@ -3,7 +3,7 @@ import React from 'react';
 //? <----- Components ----->
 import SingleAnimeCard from './SingleAnimeCard';
 
-const RecentAnime = ({ allAnime }) => {
+const RecentAnime = ({ allAnime, deleteAnime }) => {
 	//* sort anime by date
 	const sortByDate = allAnime.sort((a, b) => b.lastModified - a.lastModified);
 
@@ -16,6 +16,8 @@ const RecentAnime = ({ allAnime }) => {
 						key={anime.title}
 						title={anime.title}
 						imageURL={anime.imageURL}
+						id={anime.id}
+						deleteAnime={deleteAnime}
 					/>
 				))}
 			</section>
