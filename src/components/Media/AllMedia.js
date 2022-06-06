@@ -60,7 +60,7 @@ const AllMedia = () => {
 						onChange={e => setSelectMediaValue(e.value)}
 					/>
 
-					{selectMediaValue === 'anime' ? (
+					{selectMediaValue === 'Anime' ? (
 						<AnimeForm handleClose={handleClose} />
 					) : null}
 				</Modal.Body>
