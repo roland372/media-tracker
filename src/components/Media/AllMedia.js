@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 //? <----- Firebase ----->
 import AnimeDataService from './Anime/services/anime.services';
 
+//? <----- User Auth ----->
+import { useUserAuth } from '../../context/UserAuthContext';
+
 //? <----- Components ----->
 import CardComponent from '../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
@@ -14,6 +17,8 @@ import AnimeForm from './Anime/components/Form';
 import RecentAnime from './Anime/components/RecentAnime';
 
 const AllMedia = () => {
+	const { user } = useUserAuth();
+
 	const mediaOptions = [
 		{ value: 'Anime', label: 'Anime' },
 		{ value: 'Manga', label: 'Manga' },
@@ -61,7 +66,7 @@ const AllMedia = () => {
 					/>
 
 					{selectMediaValue === 'Anime' ? (
-						<AnimeForm handleClose={handleClose} />
+						<AnimeForm handleClose={handleClose} user={user} />
 					) : null}
 				</Modal.Body>
 				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
@@ -80,7 +85,7 @@ const AllMedia = () => {
 			<div className='mx-2'>
 				<hr />
 			</div>
-			<RecentAnime allAnime={animeDatabase} />
+			<RecentAnime allAnime={animeDatabase} user={user} />
 			<Link to='/media/anime'>All Anime</Link>
 			<hr />
 			<h5>Recent Manga</h5>

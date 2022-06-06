@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
 
+//? <----- User Auth ----->
+import { useUserAuth } from '../../../../context/UserAuthContext';
+
 //? <----- Components ----->
 import AllAnime from '../components/AllAnime';
 import CardComponent from '../../../Layout/CardComponent';
@@ -15,6 +18,8 @@ import RecentAnime from '../components/RecentAnime';
 import FavouriteAnime from '../components/FavouriteAnime';
 
 const Anime = () => {
+	const { user } = useUserAuth();
+
 	//* <----- Modal state ----->
 	const [show, setShow] = useState(false);
 
@@ -51,7 +56,7 @@ const Anime = () => {
 					<Modal.Title>Add Anime</Modal.Title>
 				</Modal.Header>
 				<Modal.Body className='bg-primary-dark text-color'>
-					<Form handleClose={handleClose} />
+					<Form handleClose={handleClose} user={user} />
 				</Modal.Body>
 				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
 			</Modal>
@@ -72,11 +77,23 @@ const Anime = () => {
 					<hr />
 				</div>
 			</section>
-			<RecentAnime allAnime={animeDatabase} deleteAnime={deleteAnime} />
+			<RecentAnime
+				allAnime={animeDatabase}
+				deleteAnime={deleteAnime}
+				user={user}
+			/>
 			<hr />
-			<FavouriteAnime allAnime={animeDatabase} deleteAnime={deleteAnime} />
+			<FavouriteAnime
+				allAnime={animeDatabase}
+				deleteAnime={deleteAnime}
+				user={user}
+			/>
 			<hr />
-			<AllAnime allAnime={animeDatabase} deleteAnime={deleteAnime} />
+			<AllAnime
+				allAnime={animeDatabase}
+				deleteAnime={deleteAnime}
+				user={user}
+			/>
 		</CardComponent>
 	);
 };

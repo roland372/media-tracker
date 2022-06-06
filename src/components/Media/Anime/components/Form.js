@@ -6,7 +6,7 @@ import Select from 'react-select';
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
 
-const Form = props => {
+const Form = ({ handleClose, user }) => {
 	//* select values
 	const animeType = [
 		{ value: 'TV-Show', label: 'TV-Show' },
@@ -40,7 +40,7 @@ const Form = props => {
 		episodesMin: 0,
 		episodesMax: 0,
 		favourites: false,
-		// owner: user.uid,
+		owner: user.uid,
 		lastModified: Date.now(),
 	});
 
@@ -81,7 +81,7 @@ const Form = props => {
 		try {
 			await AnimeDataService.addAnime(anime);
 			console.log('anime added to database');
-			props.handleClose();
+			handleClose();
 			console.log(anime);
 		} catch (error) {
 			console.log(error);

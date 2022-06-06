@@ -6,7 +6,12 @@ import Select from 'react-select';
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
 
+//? <----- User Auth ----->
+import { useUserAuth } from '../../../../context/UserAuthContext';
+
 const EditForm = ({ handleClose, singleAnime, id }) => {
+	const { user } = useUserAuth();
+
 	const {
 		title,
 		imageURL,
@@ -53,7 +58,7 @@ const EditForm = ({ handleClose, singleAnime, id }) => {
 		episodesMin: episodesMin,
 		episodesMax: episodesMax,
 		favourites: favourites,
-		// owner: user.uid,
+		owner: user.uid,
 		lastModified: Date.now(),
 	});
 
@@ -162,7 +167,7 @@ const EditForm = ({ handleClose, singleAnime, id }) => {
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-        // defaultValue={{ label: type, value: type }}
+					// defaultValue={{ label: type, value: type }}
 					defaultValue={{
 						label: status,
 						value: status,

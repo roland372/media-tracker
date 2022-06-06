@@ -3,7 +3,7 @@ import React from 'react';
 //? <----- Components ----->
 import SingleAnimeCard from './SingleAnimeCard';
 
-const AllAnime = ({ allAnime, deleteAnime }) => {
+const AllAnime = ({ allAnime, deleteAnime, user }) => {
 	//* sort anime by name
 	const sortedAnime = allAnime.sort(function (a, b) {
 		const nameA = a.title.toLowerCase(),
@@ -21,15 +21,18 @@ const AllAnime = ({ allAnime, deleteAnime }) => {
 		<div>
 			<h5>All Anime</h5>
 			<section className='d-flex align-items-center justify-content-start flex-wrap'>
-				{sortedAnime.map(anime => (
-					<SingleAnimeCard
-						key={anime.title}
-						title={anime.title}
-						imageURL={anime.imageURL}
-						id={anime.id}
-						deleteAnime={deleteAnime}
-					/>
-				))}
+				{user &&
+					sortedAnime
+						.filter(owner => owner.owner === user.uid)
+						.map(anime => (
+							<SingleAnimeCard
+								key={anime.title}
+								title={anime.title}
+								imageURL={anime.imageURL}
+								id={anime.id}
+								deleteAnime={deleteAnime}
+							/>
+						))}
 			</section>
 		</div>
 	);
