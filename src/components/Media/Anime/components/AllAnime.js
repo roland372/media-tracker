@@ -25,7 +25,7 @@ const AllAnime = ({ allAnime, deleteAnime, user }) => {
 						.filter(owner => owner.owner === user.uid)
 						.map(anime => (
 							<SingleAnimeCard
-								key={anime.title}
+								key={anime.id}
 								title={anime.title}
 								imageURL={anime.imageURL}
 								id={anime.id}

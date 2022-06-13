@@ -119,7 +119,7 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-					defaultValue={{ label: 'Select Type', value: 'Plan to Watch' }}
+					defaultValue={{ label: 'Select Type', value: '' }}
 					options={animeType}
 					className='text-dark'
 					onChange={e => handleSetType(e)}
@@ -145,7 +145,7 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-					defaultValue={{ label: 'Rating', value: '' }}
+					defaultValue={{ label: 'Select Rating', value: '' }}
 					options={ratingOptions}
 					className='text-dark'
 					onChange={e => handleSetRating(e)}
@@ -154,8 +154,8 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 			<div className='mt-3 mb-2'>
 				<Select
 					defaultValue={{
-						label: 'Plan to Watch',
-						value: 'plan-to-watch',
+						label: 'Select Status',
+						value: '',
 					}}
 					options={statusOptions}
 					className='text-dark'

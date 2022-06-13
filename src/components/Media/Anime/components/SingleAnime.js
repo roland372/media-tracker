@@ -52,7 +52,11 @@ const SingleAnime = () => {
 					<img
 						className='img img-fluid'
 						width='200px'
-						src={imageURL}
+						src={
+							imageURL
+								? imageURL
+								: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
+						}
 						alt={title}
 					/>
 					<div>

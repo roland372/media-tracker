@@ -13,6 +13,7 @@ import Form from '../components/Form';
 import { Modal, ProgressBar } from 'react-bootstrap';
 import RecentAnime from '../components/RecentAnime';
 import FavouriteAnime from '../components/FavouriteAnime';
+import { BsFillCircleFill } from 'react-icons/bs';
 
 const Anime = () => {
 	const { user } = useUserAuth();
@@ -47,6 +48,9 @@ const Anime = () => {
 		return Math.round(value * multiplier) / multiplier;
 	}
 
+	//* filter out anime that have score 0
+	const meanScore = animeDatabase.filter(anime => anime.rating !== 0).length;
+
 	const totalEpisodesSum = animeDatabase.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.episodesMax);
 	}, 0);
@@ -79,28 +83,26 @@ const Anime = () => {
 
 	const favourites = animeDatabase.filter(anime => anime.favourites);
 
-	// animeDatabase.map(anime => console.log(anime.favourites));
+	// console.log(
+	// 	'watching:',
+	// 	watchingAnime.length,
+	// 	'\ncompleted:',
+	// 	completedAnime.length,
+	// 	'\non-hold:',
+	// 	onHoldAnime.length,
+	// 	'\ndropped:',
+	// 	droppedAnime.length,
+	// 	'\nplan to watch:',
+	// 	planToWatchAnime.length
+	// );
 
-	console.log(
-		'watching:',
-		watchingAnime.length,
-		'\ncompleted:',
-		completedAnime.length,
-		'\non-hold:',
-		onHoldAnime.length,
-		'\ndropped:',
-		droppedAnime.length,
-		'\nplan to watch:',
-		planToWatchAnime.length
-	);
-
-	console.log(
-		watchingAnime.length +
-			completedAnime.length +
-			onHoldAnime.length +
-			droppedAnime.length +
-			planToWatchAnime.length
-	);
+	// console.log(
+	// 	watchingAnime.length +
+	// 		completedAnime.length +
+	// 		onHoldAnime.length +
+	// 		droppedAnime.length +
+	// 		planToWatchAnime.length
+	// );
 
 	return (
 		<>
@@ -150,16 +152,33 @@ const Anime = () => {
 					<hr />
 					<section className='d-flex justify-content-between'>
 						<div>Days {totalEpisodesSum / 60}</div>
-						<div>Mean Score {round(totalRating / animeDatabase.length, 1)}</div>
+						<div>Mean Score {round(totalRating / meanScore, 1)}</div>
 					</section>
 					<hr />
 					<div className='d-flex justify-content-between'>
 						<section className='text-start'>
-							<div>Watching {watchingAnime.length}</div>
-							<div>Completed {completedAnime.length}</div>
-							<div>On-Hold {onHoldAnime.length}</div>
-							<div>Dropped {droppedAnime.length}</div>
-							<div>Plan to Watch {planToWatchAnime.length}</div>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-success' />
+								<span className='ms-1'>Watching {watchingAnime.length}</span>
+							</div>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-primary' />
+								<span className='ms-1'>Completed {completedAnime.length}</span>
+							</div>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-warning' />
+								<span className='ms-1'>On-Hold {onHoldAnime.length}</span>
+							</div>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-danger' />
+								<span className='ms-1'>Dropped {droppedAnime.length}</span>
+							</div>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-light' />
+								<span className='ms-1'>
+									Plan to Watch {planToWatchAnime.length}
+								</span>
+							</div>
 						</section>
 						<section className='text-end'>
 							<div>Total Anime {animeDatabase.length}</div>
