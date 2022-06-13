@@ -189,6 +189,7 @@ const Anime = () => {
 					</div>
 				</section>
 			</CardComponent>
+
 			<RecentAnime
 				allAnime={animeDatabase}
 				deleteAnime={deleteAnime}

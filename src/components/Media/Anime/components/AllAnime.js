@@ -1,7 +1,7 @@
 import React from 'react';
-import CardComponent from '../../../Layout/CardComponent';
 
 //? <----- Components ----->
+import CardComponent from '../../../Layout/CardComponent';
 import SingleAnimeCard from './SingleAnimeCard';
 
 const AllAnime = ({ allAnime, deleteAnime, user }) => {
@@ -25,11 +25,11 @@ const AllAnime = ({ allAnime, deleteAnime, user }) => {
 						.filter(owner => owner.owner === user.uid)
 						.map(anime => (
 							<SingleAnimeCard
+								deleteAnime={deleteAnime}
+								id={anime.id}
+								imageURL={anime.imageURL}
 								key={anime.id}
 								title={anime.title}
-								imageURL={anime.imageURL}
-								id={anime.id}
-								deleteAnime={deleteAnime}
 							/>
 						))}
 			</section>
