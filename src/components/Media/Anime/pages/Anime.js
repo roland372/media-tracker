@@ -121,7 +121,7 @@ const Anime = () => {
 					{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
 				</Modal>
 				<section className='text-color'>
-					<div className='d-flex align-items-center justify-content-between mx-2 pt-1'>
+					<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
 						<button
 							className='btn btn-primary'
 							to='/media'
@@ -129,9 +129,6 @@ const Anime = () => {
 						>
 							Add Anime
 						</button>
-						<Link className='btn btn-primary' to='/'>
-							Back to Media
-						</Link>
 					</div>
 					<div className='mx-2'>
 						<hr />

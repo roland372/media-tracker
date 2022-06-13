@@ -57,13 +57,13 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 			<OverlayTrigger
 				trigger='click'
 				placement='auto'
-				rootClose
+				rootClose={true}
 				// delay={{ show: 100, hide: 2000 }}
 				overlay={
 					<Popover>
 						<Popover.Header>{title}</Popover.Header>
-						<Popover.Body>
-							<div className='d-flex justify-content-between'>
+						<Popover.Body onClick={() => document.body.click()}>
+							<div className='d-flex justify-content-start'>
 								<Link
 									to={`/media/anime/${id}`}
 									className='btn btn-sm btn-primary'
@@ -71,7 +71,7 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 									View
 								</Link>
 								<button
-									className='btn btn-sm btn-success'
+									className='btn btn-sm btn-success mx-1'
 									onClick={() => {
 										handleShow();
 										getSingleAnimeDatabase(id);
@@ -86,7 +86,7 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 									Delete
 								</button>
 								<button
-									className='btn btn-sm btn-warning'
+									className='btn btn-sm btn-warning mx-1'
 									onClick={() => console.log('Added to favourites')}
 								>
 									<AiOutlineStar size={15} />
@@ -96,13 +96,15 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 					</Popover>
 				}
 			>
-				<img
-					style={{ height: '200px', width: '150px' }}
-					src={imageURL}
-					alt={title}
-					className='img img-fluid'
-					role='button'
-				/>
+				<div className='position-relative'>
+					<img
+						style={{ height: '200px', width: '150px' }}
+						src={imageURL}
+						alt={title}
+						className='img img-fluid'
+						role='button'
+					/>
+				</div>
 			</OverlayTrigger>
 		</section>
 	);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 //? <----- Router ----->
-import { Route, Routes, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../Media/Anime/services/anime.services';
@@ -13,7 +13,6 @@ import { useUserAuth } from '../../context/UserAuthContext';
 import CardComponent from '../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
 import Select from 'react-select';
-import SingleAnime from '../Media/Anime/components/SingleAnime';
 import AnimeForm from '../Media/Anime/components/Form';
 import RecentAnime from '../Media/Anime/components/RecentAnime';
 
@@ -44,11 +43,15 @@ const Homepage = () => {
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 	};
 
+	//* handle delete
+	const deleteAnime = async id => {
+		await AnimeDataService.deleteAnime(id);
+		getAnimeDatabase(user.uid);
+	};
+
 	useEffect(() => {
 		getAnimeDatabase(user.uid);
 	}, [user.uid]);
-
-	console.log(animeDatabase);
 
 	return (
 		<>
@@ -69,7 +72,11 @@ const Homepage = () => {
 					/>
 
 					{selectMediaValue === 'Anime' ? (
-						<AnimeForm handleClose={handleClose} user={user} />
+						<AnimeForm
+							getAnimeDatabase={getAnimeDatabase}
+							handleClose={handleClose}
+							user={user}
+						/>
 					) : null}
 				</Modal.Body>
 				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
@@ -91,10 +98,18 @@ const Homepage = () => {
 			<div className='mx-2'>
 				<hr />
 			</div>
-			<RecentAnime allAnime={animeDatabase} user={user} />
+			<RecentAnime
+				allAnime={animeDatabase}
+				deleteAnime={deleteAnime}
+				user={user}
+			/>
 			<Link to='/media/anime'>All Anime</Link>
 			<hr />
-			<RecentAnime allAnime={animeDatabase} user={user} />
+			<RecentAnime
+				allAnime={animeDatabase}
+				deleteAnime={deleteAnime}
+				user={user}
+			/>
 			<Link to='/media/anime'>All Anime</Link>
 		</>
 	);

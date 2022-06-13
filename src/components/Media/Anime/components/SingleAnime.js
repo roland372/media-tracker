@@ -40,7 +40,7 @@ const SingleAnime = () => {
 			<section className='text-color'>
 				<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
 					<Link className='btn btn-primary' to='/media/anime'>
-						Back to Media
+						Back to Anime
 					</Link>
 				</div>
 				<div className='mx-2'>

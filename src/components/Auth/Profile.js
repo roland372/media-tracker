@@ -118,7 +118,7 @@ const Profile = () => {
 
 	//* <----- Fetch user data from database ----->
 	useEffect(() => {
-		user && getAnimeDatabase();
+		user && getAnimeDatabase(user?.uid);
 		user && getUsersDatabase();
 		// user && getCurrentUser();
 		// if (user && user.photoURL) {
@@ -149,8 +149,8 @@ const Profile = () => {
 	}, [usersDatabase, user.uid]);
 
 	//* <----- Get user collections from database ----->
-	const getAnimeDatabase = async () => {
-		const data = await AnimeDataService.getAllAnime();
+	const getAnimeDatabase = async userId => {
+		const data = await AnimeDataService.getAllAnime(userId);
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 	};
 
