@@ -49,6 +49,7 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 						handleClose={handleClose}
 						singleAnime={singleAnime}
 						id={id}
+						getSingleAnimeDatabase={getSingleAnimeDatabase}
 					/>
 				</Modal.Body>
 				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import CardComponent from '../../../Layout/CardComponent';
 
 //? <----- Components ----->
 import SingleAnimeCard from './SingleAnimeCard';
@@ -8,8 +9,7 @@ const FavouriteAnime = ({ allAnime, deleteAnime, user }) => {
 	const filteredAnime = allAnime.filter(anime => anime.favourites);
 
 	return (
-		<div>
-			<h5>Favourites</h5>
+		<CardComponent title='Favourites'>
 			<section className='d-flex align-items-center justify-content-start flex-wrap'>
 				{user &&
 					filteredAnime
@@ -28,7 +28,7 @@ const FavouriteAnime = ({ allAnime, deleteAnime, user }) => {
 				<SingleAnimeCard />
 				<SingleAnimeCard /> */}
 			</section>
-		</div>
+		</CardComponent>
 	);
 };
 

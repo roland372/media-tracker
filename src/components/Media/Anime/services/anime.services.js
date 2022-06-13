@@ -8,6 +8,8 @@ import {
 	updateDoc,
 	deleteDoc,
 	doc,
+	query,
+	where,
 } from 'firebase/firestore';
 
 const animeCollectionRef = collection(db, 'anime');
@@ -29,8 +31,13 @@ class AnimeDataService {
 		return deleteDoc(animeDoc);
 	};
 
-	getAllAnime = () => {
-		return getDocs(animeCollectionRef);
+	// getAllAnime = () => {
+	// 	return getDocs(animeCollectionRef);
+	// };
+
+	getAllAnime = userId => {
+		const q = query(animeCollectionRef, where('owner', '==', userId));
+		return getDocs(q);
 	};
 
 	getAnime = id => {

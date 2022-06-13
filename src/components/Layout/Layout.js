@@ -2,6 +2,7 @@ import React from 'react';
 
 //? <----- Components ----->
 import Container from './Container';
+import Footer from './Footer';
 import Navbar from './NavigationBar';
 
 const Layout = ({ children }) => {
@@ -11,6 +12,7 @@ const Layout = ({ children }) => {
 				<Navbar />
 			</section>
 			<Container>{children}</Container>
+			<Footer />
 		</>
 	);
 };

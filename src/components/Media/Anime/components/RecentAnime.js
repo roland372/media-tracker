@@ -2,14 +2,14 @@ import React from 'react';
 
 //? <----- Components ----->
 import SingleAnimeCard from './SingleAnimeCard';
+import CardComponent from '../../../Layout/CardComponent';
 
 const RecentAnime = ({ allAnime, deleteAnime, user }) => {
 	//* sort anime by date
 	const sortByDate = allAnime.sort((a, b) => b.lastModified - a.lastModified);
 
 	return (
-		<div>
-			<h5>Recent Anime</h5>
+		<CardComponent title='Recent Anime'>
 			<section className='d-flex align-items-center justify-content-start flex-wrap'>
 				{user &&
 					sortByDate
@@ -24,7 +24,7 @@ const RecentAnime = ({ allAnime, deleteAnime, user }) => {
 							/>
 						))}
 			</section>
-		</div>
+		</CardComponent>
 	);
 };
 

@@ -18,15 +18,6 @@ const NavigationBar = () => {
 						<Nav className='me-auto'>
 							<li className='nav-item'>
 								<NavLink
-									to='media'
-									className='nav-link'
-									activeclassname='active-navbar'
-								>
-									All Media
-								</NavLink>
-							</li>
-							<li className='nav-item'>
-								<NavLink
 									to='media/anime'
 									className='nav-link'
 									activeclassname='active-navbar'

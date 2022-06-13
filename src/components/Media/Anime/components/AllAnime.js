@@ -1,4 +1,5 @@
 import React from 'react';
+import CardComponent from '../../../Layout/CardComponent';
 
 //? <----- Components ----->
 import SingleAnimeCard from './SingleAnimeCard';
@@ -14,12 +15,10 @@ const AllAnime = ({ allAnime, deleteAnime, user }) => {
 		if (nameA > nameB) return 1;
 		return 0; //default return value (no sorting)
 	});
-
 	// console.log(allAnime);
 
 	return (
-		<div>
-			<h5>All Anime</h5>
+		<CardComponent title='All Anime'>
 			<section className='d-flex align-items-center justify-content-start flex-wrap'>
 				{user &&
 					sortedAnime
@@ -34,7 +33,7 @@ const AllAnime = ({ allAnime, deleteAnime, user }) => {
 							/>
 						))}
 			</section>
-		</div>
+		</CardComponent>
 	);
 };
 
