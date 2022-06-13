@@ -12,8 +12,7 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 
 //? <----- Icons ----->
-import { AiOutlineStar } from 'react-icons/ai';
-// import { AiFillStar } from 'react-icons/ai';
+import { AiFillStar } from 'react-icons/ai';
 
 const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 	//* <----- Modal state ----->
@@ -61,7 +60,12 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 				// delay={{ show: 100, hide: 2000 }}
 				overlay={
 					<Popover>
-						<Popover.Header>{title}</Popover.Header>
+						<Popover.Header>
+							{title}{' '}
+							{singleAnime?.favourites ? (
+								<AiFillStar size={18} className='text-warning' />
+							) : null}
+						</Popover.Header>
 						<Popover.Body onClick={() => document.body.click()}>
 							<div className='d-flex justify-content-start'>
 								<Link
@@ -84,12 +88,6 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 									onClick={() => deleteAnime(id)}
 								>
 									Delete
-								</button>
-								<button
-									className='btn btn-sm btn-warning mx-1'
-									onClick={() => console.log('Added to favourites')}
-								>
-									<AiOutlineStar size={15} />
 								</button>
 							</div>
 						</Popover.Body>
