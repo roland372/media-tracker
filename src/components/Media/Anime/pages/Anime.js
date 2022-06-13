@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-//? <----- Router ----->
-import { Link } from 'react-router-dom';
-
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
 
@@ -44,6 +41,11 @@ const Anime = () => {
 	useEffect(() => {
 		getAnimeDatabase(user.uid);
 	}, [user.uid]);
+
+	function round(value, precision) {
+		let multiplier = Math.pow(10, precision || 0);
+		return Math.round(value * multiplier) / multiplier;
+	}
 
 	const totalEpisodesSum = animeDatabase.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.episodesMax);
@@ -148,7 +150,7 @@ const Anime = () => {
 					<hr />
 					<section className='d-flex justify-content-between'>
 						<div>Days {totalEpisodesSum / 60}</div>
-						<div>Mean Score {totalRating / animeDatabase.length}</div>
+						<div>Mean Score {round(totalRating / animeDatabase.length, 1)}</div>
 					</section>
 					<hr />
 					<div className='d-flex justify-content-between'>

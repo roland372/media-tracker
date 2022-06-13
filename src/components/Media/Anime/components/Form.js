@@ -39,11 +39,11 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 	const [anime, setAnime] = useState({
 		title: '',
 		synopsis: '',
-		type: '',
+		type: 'TV-Show',
 		link: '',
 		imageURL: '',
 		rating: 0,
-		status: '',
+		status: 'Plan to Watch',
 		episodesMin: 0,
 		episodesMax: 0,
 		favourites: false,
@@ -119,7 +119,7 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-					defaultValue={{ label: 'Select Type', value: 0 }}
+					defaultValue={{ label: 'Select Type', value: 'Plan to Watch' }}
 					options={animeType}
 					className='text-dark'
 					onChange={e => handleSetType(e)}
@@ -145,7 +145,7 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-					defaultValue={{ label: 'Rating', value: 0 }}
+					defaultValue={{ label: 'Rating', value: '' }}
 					options={ratingOptions}
 					className='text-dark'
 					onChange={e => handleSetRating(e)}

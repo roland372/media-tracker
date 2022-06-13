@@ -99,8 +99,12 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 				<div className='position-relative'>
 					<img
 						style={{ height: '200px', width: '150px' }}
-						src={imageURL}
-						alt={title}
+						src={
+							imageURL
+								? imageURL
+								: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
+						}
+						alt=''
 						className='img img-fluid'
 						role='button'
 					/>
