@@ -9,10 +9,14 @@ import AnimeDataService from '../services/anime.services';
 //? <----- Components ----->
 import CardComponent from '../../../Layout/CardComponent';
 
+//? <----- Custom Hooks ----->
+import useDocumentTitle from '../../../../hooks/useDocumentTitle';
+
 const SingleAnime = () => {
 	const { id } = useParams();
 
 	const [singleAnimeDatabase, setSingleAnimeDatabase] = useState({});
+	useDocumentTitle(singleAnimeDatabase?.title);
 
 	useEffect(() => {
 		const getAnimeDatabase = async id => {

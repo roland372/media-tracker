@@ -14,7 +14,14 @@ import { Modal } from 'react-bootstrap';
 //? <----- Icons ----->
 import { AiFillStar } from 'react-icons/ai';
 
-const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
+const SingleAnimeCard = ({
+	title,
+	imageURL,
+	id,
+	deleteAnime,
+	getAnimeDatabase,
+	user,
+}) => {
 	//* <----- Modal state ----->
 	const [show, setShow] = useState(false);
 
@@ -49,6 +56,8 @@ const SingleAnimeCard = ({ title, imageURL, id, deleteAnime }) => {
 						singleAnime={singleAnime}
 						id={id}
 						getSingleAnimeDatabase={getSingleAnimeDatabase}
+						getAnimeDatabase={getAnimeDatabase}
+						user={user}
 					/>
 				</Modal.Body>
 				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}

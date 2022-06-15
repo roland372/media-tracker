@@ -4,7 +4,7 @@ function useDocumentTitle(title, prevailOnUnmount = false) {
 	const defaultTitle = useRef(document.title);
 
 	useEffect(() => {
-		document.title = title + ' | Genshin-App';
+		document.title = title + ' | Media-Tracker';
 	}, [title]);
 
 	useEffect(

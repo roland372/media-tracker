@@ -4,7 +4,7 @@ import CardComponent from '../../../Layout/CardComponent';
 //? <----- Components ----->
 import SingleAnimeCard from './SingleAnimeCard';
 
-const FavouriteAnime = ({ allAnime, deleteAnime, user }) => {
+const FavouriteAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 	//* show only favourites
 	const filteredAnime = allAnime.filter(anime => anime.favourites);
 
@@ -16,17 +16,15 @@ const FavouriteAnime = ({ allAnime, deleteAnime, user }) => {
 						.filter(owner => owner.owner === user.uid)
 						.map(anime => (
 							<SingleAnimeCard
+								deleteAnime={deleteAnime}
+								getAnimeDatabase={getAnimeDatabase}
+								id={anime.id}
+								imageURL={anime.imageURL}
 								key={anime.id}
 								title={anime.title}
-								imageURL={anime.imageURL}
-								id={anime.id}
-								deleteAnime={deleteAnime}
+								user={user}
 							/>
 						))}
-
-				{/* <SingleAnimeCard />
-				<SingleAnimeCard />
-				<SingleAnimeCard /> */}
 			</section>
 		</CardComponent>
 	);

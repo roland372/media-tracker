@@ -9,7 +9,7 @@ import SingleAnimeTable from './SingleAnimeTable';
 import { IoGrid } from 'react-icons/io5';
 import { FaThList, FaSort } from 'react-icons/fa';
 
-const AllAnime = ({ allAnime, deleteAnime, user }) => {
+const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 	//* sort anime by name
 	const sortedAnime = allAnime.sort(function (a, b) {
 		const nameA = a.title.toLowerCase(),
@@ -166,17 +166,17 @@ const AllAnime = ({ allAnime, deleteAnime, user }) => {
 								})
 								.map((anime, index) => (
 									<SingleAnimeTable
-										key={index}
+										episodesMax={anime.episodesMax}
+										episodesMin={anime.episodesMin}
 										id={anime.id}
 										image={anime.imageURL}
 										index={index + 1}
-										title={anime.title}
-										rating={anime.rating}
-										type={anime.type}
-										episodesMin={anime.episodesMin}
-										episodesMax={anime.episodesMax}
+										key={index}
 										lastModified={anime.lastModified}
+										rating={anime.rating}
 										status={anime.status}
+										title={anime.title}
+										type={anime.type}
 									/>
 								))}
 						</tbody>
@@ -201,10 +201,12 @@ const AllAnime = ({ allAnime, deleteAnime, user }) => {
 							.map(anime => (
 								<SingleAnimeCard
 									deleteAnime={deleteAnime}
+									getAnimeDatabase={getAnimeDatabase}
 									id={anime.id}
 									imageURL={anime.imageURL}
 									key={anime.id}
 									title={anime.title}
+									user={user}
 								/>
 							))}
 				</section>

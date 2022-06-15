@@ -4,7 +4,7 @@ import React from 'react';
 import SingleAnimeCard from './SingleAnimeCard';
 import CardComponent from '../../../Layout/CardComponent';
 
-const RecentAnime = ({ allAnime, deleteAnime, user }) => {
+const RecentAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 	//* sort anime by date
 	const sortByDate = allAnime.sort((a, b) => b.lastModified - a.lastModified);
 
@@ -16,11 +16,13 @@ const RecentAnime = ({ allAnime, deleteAnime, user }) => {
 						.filter(owner => owner.owner === user.uid)
 						.map(anime => (
 							<SingleAnimeCard
+								deleteAnime={deleteAnime}
+								getAnimeDatabase={getAnimeDatabase}
+								id={anime.id}
+								imageURL={anime.imageURL}
 								key={anime.id}
 								title={anime.title}
-								imageURL={anime.imageURL}
-								id={anime.id}
-								deleteAnime={deleteAnime}
+								user={user}
 							/>
 						))}
 			</section>

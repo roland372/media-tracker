@@ -16,7 +16,12 @@ import Select from 'react-select';
 import AnimeForm from '../Media/Anime/components/Form';
 import RecentAnime from '../Media/Anime/components/RecentAnime';
 
+//? <----- Custom Hooks ----->
+import useDocumentTitle from '../../hooks/useDocumentTitle';
+
 const Homepage = () => {
+	useDocumentTitle('Home');
+
 	const { user } = useUserAuth();
 
 	const mediaOptions = [

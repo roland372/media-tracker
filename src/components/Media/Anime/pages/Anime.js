@@ -15,7 +15,12 @@ import RecentAnime from '../components/RecentAnime';
 import FavouriteAnime from '../components/FavouriteAnime';
 import { BsFillCircleFill } from 'react-icons/bs';
 
+//? <----- Custom Hooks ----->
+import useDocumentTitle from '../../../../hooks/useDocumentTitle';
+
 const Anime = () => {
+	useDocumentTitle('Anime');
+
 	const { user } = useUserAuth();
 
 	//* <----- Modal state ----->
@@ -189,24 +194,26 @@ const Anime = () => {
 					</div>
 				</section>
 			</CardComponent>
-
-			{/* <RecentAnime
+			<AllAnime
 				allAnime={animeDatabase}
 				deleteAnime={deleteAnime}
+				getAnimeDatabase={getAnimeDatabase}
+				user={user}
+			/>
+			<hr />
+			<RecentAnime
+				allAnime={animeDatabase}
+				deleteAnime={deleteAnime}
+				getAnimeDatabase={getAnimeDatabase}
 				user={user}
 			/>
 			<hr />
 			<FavouriteAnime
 				allAnime={animeDatabase}
 				deleteAnime={deleteAnime}
-				user={user}
-			/> */}
-			<AllAnime
-				allAnime={animeDatabase}
-				deleteAnime={deleteAnime}
+				getAnimeDatabase={getAnimeDatabase}
 				user={user}
 			/>
-			<hr />
 		</>
 	);
 };

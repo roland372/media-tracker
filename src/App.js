@@ -26,11 +26,13 @@ import Layout from './components/Layout/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import SingleAnime from './components/Media/Anime/components/SingleAnime';
+import ScrollToTopRouter from './components/Layout/ScrollToTopRouter';
 
 function App() {
 	return (
 		<>
 			<Router>
+				<ScrollToTopRouter />
 				<Layout>
 					<UserAuthContextProvider>
 						<ToastContainer

@@ -9,7 +9,13 @@ import AnimeDataService from '../services/anime.services';
 //? <----- User Auth ----->
 import { useUserAuth } from '../../../../context/UserAuthContext';
 
-const EditForm = ({ handleClose, singleAnime, id, getSingleAnimeDatabase }) => {
+const EditForm = ({
+	handleClose,
+	singleAnime,
+	id,
+	getSingleAnimeDatabase,
+	getAnimeDatabase,
+}) => {
 	const { user } = useUserAuth();
 
 	const {
@@ -106,9 +112,11 @@ const EditForm = ({ handleClose, singleAnime, id, getSingleAnimeDatabase }) => {
 		try {
 			// await AnimeDataService.addAnime(anime);
 			await AnimeDataService.updateAnime(id, anime);
-			getSingleAnimeDatabase(id);
+			await getSingleAnimeDatabase(id);
 			console.log('anime edited');
 			handleClose();
+			getAnimeDatabase(user?.uid);
+			console.log(getSingleAnimeDatabase(id));
 			console.log(anime);
 		} catch (error) {
 			console.log(error);

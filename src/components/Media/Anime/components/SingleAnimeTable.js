@@ -25,7 +25,7 @@ const SingleAnimeTable = ({
 							: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
 					}
 					width='80px'
-					alt=''
+					alt='placeholder'
 				/>
 			</td>
 			<td>
