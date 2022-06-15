@@ -190,7 +190,7 @@ const Anime = () => {
 				</section>
 			</CardComponent>
 
-			<RecentAnime
+			{/* <RecentAnime
 				allAnime={animeDatabase}
 				deleteAnime={deleteAnime}
 				user={user}
@@ -200,13 +200,13 @@ const Anime = () => {
 				allAnime={animeDatabase}
 				deleteAnime={deleteAnime}
 				user={user}
-			/>
-			<hr />
+			/> */}
 			<AllAnime
 				allAnime={animeDatabase}
 				deleteAnime={deleteAnime}
 				user={user}
 			/>
+			<hr />
 		</>
 	);
 };

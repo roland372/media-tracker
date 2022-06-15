@@ -55,7 +55,7 @@
 }
 
 /** <----- Table striped color -----> */
-.table-striped.table-striped > tbody > tr:nth-of-type(odd) {
+.table-striped.table-striped > tbody > tr:nth-of-type(odd) * {
 	/* background-color: var(--blue-400); */
 	background-color: var(--bg-primary-medium);
 	color: var(--text-color);
