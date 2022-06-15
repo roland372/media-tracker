@@ -26,7 +26,7 @@ import Layout from './components/Layout/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import SingleAnime from './components/Media/Anime/components/SingleAnime';
- 
+
 function App() {
 	return (
 		<>
@@ -48,10 +48,38 @@ function App() {
 							limit={3}
 						/>
 						<Routes>
-							<Route path='/' element={<Home />} />
-							<Route path='media/anime' element={<Anime />} />
-							<Route path='media/anime/:id' element={<SingleAnime />} />
-							<Route path='charts' element={<Charts />} />
+							<Route
+								path='/'
+								element={
+									<ProtectedRoute>
+										<Home />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='media/anime'
+								element={
+									<ProtectedRoute>
+										<Anime />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='media/anime/:id'
+								element={
+									<ProtectedRoute>
+										<SingleAnime />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='charts'
+								element={
+									<ProtectedRoute>
+										<Charts />
+									</ProtectedRoute>
+								}
+							/>
 							<Route path='about' element={<About />} />
 							<Route path='login' element={<Login />} />
 							<Route path='signup' element={<Signup />} />
