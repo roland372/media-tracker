@@ -151,7 +151,7 @@ const Anime = () => {
 					</ProgressBar>
 					<hr />
 					<section className='d-flex justify-content-between'>
-						<div>Days {totalEpisodesSum / 60}</div>
+						<div>Days {round(totalEpisodesSum / 60, 1)}</div>
 						<div>Mean Score {round(totalRating / meanScore, 1)}</div>
 					</section>
 					<hr />
