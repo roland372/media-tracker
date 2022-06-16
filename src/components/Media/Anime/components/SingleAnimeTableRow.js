@@ -3,7 +3,7 @@ import React from 'react';
 //? <----- Router ----->
 import { Link } from 'react-router-dom';
 
-const SingleAnimeTable = ({
+const SingleAnimeTableRow = ({
 	index,
 	image,
 	title,
@@ -48,4 +48,4 @@ const SingleAnimeTable = ({
 	);
 };
 
-export default SingleAnimeTable;
+export default SingleAnimeTableRow;

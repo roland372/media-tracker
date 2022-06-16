@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react';
 //? <----- Components ----->
 import CardComponent from '../../../Layout/CardComponent';
 import SingleAnimeCard from './SingleAnimeCard';
-import SingleAnimeTable from './SingleAnimeTable';
+import SingleAnimeTableRow from './SingleAnimeTableRow';
 
-//? <----- Icons ----->
-import { IoGrid } from 'react-icons/io5';
-import { FaThList, FaSort } from 'react-icons/fa';
+//? <----- Functions ----->
+import { sortNumber, sortString } from '../../utils/sortFunctions';
+import DisplayFilterSearchPanel from '../../components/DisplayFilterSearchPanel';
+import MediaTable from '../../components/MediaTable';
 
 const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 	//* sort anime by name
@@ -20,10 +21,6 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 		if (nameA > nameB) return 1;
 		return 0; //default return value (no sorting)
 	});
-	// console.log(allAnime);
-	// const sortedAnime = allAnime.sort(function (a, b) {
-	// 	return a.rating - b.rating;
-	// });
 
 	//* display as list or grid state
 	const [animeDisplay, setAnimeDisplay] = useState(false);
@@ -55,36 +52,6 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 	//* sorting state
 	const [order, setOrder] = useState('DSC');
 
-	const sortString = column => {
-		if (order === 'ASC') {
-			const sorted = [...menuItems].sort((a, b) =>
-				a[column] > b[column] ? 1 : -1
-			);
-			setMenuItems(sorted);
-			setOrder('DSC');
-		}
-		if (order === 'DSC') {
-			const sorted = [...menuItems].sort((a, b) =>
-				a[column] < b[column] ? 1 : -1
-			);
-			setMenuItems(sorted);
-			setOrder('ASC');
-		}
-	};
-
-	const sortNumber = column => {
-		if (order === 'ASC') {
-			const sorted = [...menuItems].sort((a, b) => a[column] - b[column]);
-			setMenuItems(sorted);
-			setOrder('DSC');
-		}
-		if (order === 'DSC') {
-			const sorted = [...menuItems].sort((a, b) => b[column] - a[column]);
-			setMenuItems(sorted);
-			setOrder('ASC');
-		}
-	};
-
 	const filterType = animeStatus => {
 		if (animeStatus === 'All Anime') {
 			setMenuItems(sortedAnime);
@@ -98,108 +65,55 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 
 	return (
 		<CardComponent title='All Anime'>
-			<div className='d-lg-flex align-items-center justify-content-between mx-2'>
-				<button
-					className='btn btn-warning'
-					onClick={() => setAnimeDisplay(!animeDisplay)}
-				>
-					{animeDisplay ? <IoGrid size={20} /> : <FaThList size={20} />}
-				</button>
-				<section className='ps-2'>
-					{status.map((category, index) => {
-						return (
-							<button
-								type='button'
-								className='btn btn-sm m-1 p-1'
-								key={index + category}
-								onClick={() => filterType(category)}
-							>
-								<h5 className='text-color my-1'>{category}</h5>
-							</button>
-						);
-					})}
-				</section>
-				<section>
-					<input
-						type='text'
-						className='form-control'
-						placeholder='Search for anime'
-						onChange={event => {
-							setSearchTerm(event.target.value);
-							// console.log(event.target.value);
-						}}
-					/>
-				</section>
-			</div>
+			<DisplayFilterSearchPanel
+				filterType={filterType}
+				mediaDisplay={animeDisplay}
+				setMediaDisplay={setAnimeDisplay}
+				setSearchTerm={setSearchTerm}
+				searchPlaceholder='Search for Anime'
+				status={status}
+			/>
 			{animeDisplay ? (
-				<div className='table-responsive mx-2 rounded'>
-					<table
-						id='table-striped'
-						className='table table-sm bg-secondary-medium text-color table-striped align-middle table-borderless'
-						style={{ minWidth: '700px' }}
-					>
-						<thead className='bg-primary-dark text-center'>
-							<tr>
-								<th className='px-2' scope='col'>
-									#
-								</th>
-								<th scope='col'>Image</th>
-								<th scope='col'>
-									Anime Title
-									<FaSort onClick={() => sortString('title')} />
-								</th>
-								<th scope='col'>
-									Score
-									<FaSort onClick={() => sortNumber('rating')} />
-								</th>
-								<th scope='col'>
-									Type
-									<FaSort onClick={() => sortString('type')} />
-								</th>
-								<th scope='col'>
-									Progress
-									<FaSort onClick={() => sortNumber('episodesMin')} />
-								</th>
-								<th scope='col'>
-									Last Modified
-									<FaSort onClick={() => sortNumber('lastModified')} />
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							{menuItems
-								.filter(value => {
-									if (searchTerm === '') {
-										return value;
-									} else if (
-										value.title
-											.toLowerCase()
-											.includes(searchTerm.toLocaleLowerCase())
-									) {
-										return value;
-									}
-									return 0;
-								})
-								.map((anime, index) => (
-									<SingleAnimeTable
-										episodesMax={anime.episodesMax}
-										episodesMin={anime.episodesMin}
-										id={anime.id}
-										image={anime.imageURL}
-										index={index + 1}
-										key={index}
-										lastModified={anime.lastModified}
-										rating={anime.rating}
-										status={anime.status}
-										title={anime.title}
-										type={anime.type}
-									/>
-								))}
-						</tbody>
-					</table>
-				</div>
+				<MediaTable
+					menuItems={menuItems}
+					order={order}
+					setMenuItems={setMenuItems}
+					setOrder={setOrder}
+					sortNumber={sortNumber}
+					sortString={sortString}
+				>
+					{menuItems
+						.filter(value => {
+							if (searchTerm === '') {
+								return value;
+							} else if (
+								value.title
+									.toLowerCase()
+									.includes(searchTerm.toLocaleLowerCase())
+							) {
+								return value;
+							}
+							return 0;
+						})
+						.map((anime, index) => (
+							<SingleAnimeTableRow
+								episodesMax={anime.episodesMax}
+								episodesMin={anime.episodesMin}
+								id={anime.id}
+								image={anime.imageURL}
+								index={index + 1}
+								key={index}
+								lastModified={anime.lastModified}
+								rating={anime.rating}
+								status={anime.status}
+								title={anime.title}
+								type={anime.type}
+							/>
+						))}
+				</MediaTable>
 			) : (
-				<section className='d-flex align-items-center justify-content-start flex-wrap'>
+				// <section className='d-flex align-items-center justify-items-start flex-wrap'>
+				<section className='row justify-content-center align-items-center'>
 					{user &&
 						menuItems
 							.filter(value => {
