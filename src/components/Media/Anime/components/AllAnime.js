@@ -21,6 +21,9 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 		return 0; //default return value (no sorting)
 	});
 	// console.log(allAnime);
+	// const sortedAnime = allAnime.sort(function (a, b) {
+	// 	return a.rating - b.rating;
+	// });
 
 	//* display as list or grid state
 	const [animeDisplay, setAnimeDisplay] = useState(false);
@@ -52,7 +55,7 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 	//* sorting state
 	const [order, setOrder] = useState('DSC');
 
-	const sorting = column => {
+	const sortString = column => {
 		if (order === 'ASC') {
 			const sorted = [...menuItems].sort((a, b) =>
 				a[column] > b[column] ? 1 : -1
@@ -64,6 +67,19 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 			const sorted = [...menuItems].sort((a, b) =>
 				a[column] < b[column] ? 1 : -1
 			);
+			setMenuItems(sorted);
+			setOrder('ASC');
+		}
+	};
+
+	const sortNumber = column => {
+		if (order === 'ASC') {
+			const sorted = [...menuItems].sort((a, b) => a[column] - b[column]);
+			setMenuItems(sorted);
+			setOrder('DSC');
+		}
+		if (order === 'DSC') {
+			const sorted = [...menuItems].sort((a, b) => b[column] - a[column]);
 			setMenuItems(sorted);
 			setOrder('ASC');
 		}
@@ -130,23 +146,23 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 								<th scope='col'>Image</th>
 								<th scope='col'>
 									Anime Title
-									<FaSort onClick={() => sorting('title')} />
+									<FaSort onClick={() => sortString('title')} />
 								</th>
 								<th scope='col'>
 									Score
-									<FaSort onClick={() => sorting('rating')} />
+									<FaSort onClick={() => sortNumber('rating')} />
 								</th>
 								<th scope='col'>
 									Type
-									<FaSort onClick={() => sorting('type')} />
+									<FaSort onClick={() => sortString('type')} />
 								</th>
 								<th scope='col'>
 									Progress
-									<FaSort onClick={() => sorting('episodesMin')} />
+									<FaSort onClick={() => sortNumber('episodesMin')} />
 								</th>
 								<th scope='col'>
 									Last Modified
-									<FaSort onClick={() => sorting('lastModified')} />
+									<FaSort onClick={() => sortNumber('lastModified')} />
 								</th>
 							</tr>
 						</thead>
