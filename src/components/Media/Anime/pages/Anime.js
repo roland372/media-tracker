@@ -102,11 +102,11 @@ const Anime = () => {
 	// );
 
 	// console.log(
-	// 	watchingAnime.length +
-	// 		completedAnime.length +
-	// 		onHoldAnime.length +
-	// 		droppedAnime.length +
-	// 		planToWatchAnime.length
+	// 	watchingAnime.length,
+	// 	completedAnime.length,
+	// 	onHoldAnime.length,
+	// 	droppedAnime.length,
+	// 	planToWatchAnime.length
 	// );
 
 	return (
@@ -148,11 +148,31 @@ const Anime = () => {
 			<CardComponent title='Anime Stats'>
 				<section className='mx-2'>
 					<ProgressBar style={{ height: '30px' }}>
-						<ProgressBar variant='success' now={35} key={1} />
-						<ProgressBar variant='warning' now={20} key={2} />
-						<ProgressBar variant='danger' now={10} key={3} />
-						<ProgressBar variant='primary' now={10} key={4} />
-						<ProgressBar variant='dark' now={2} key={5} />
+						<ProgressBar
+							variant='success'
+							now={watchingAnime.length * 100}
+							key={1}
+						/>
+						<ProgressBar
+							variant='primary'
+							now={completedAnime.length * 100}
+							key={2}
+						/>
+						<ProgressBar
+							variant='warning'
+							now={onHoldAnime.length * 100}
+							key={3}
+						/>
+						<ProgressBar
+							variant='danger'
+							now={droppedAnime.length * 100}
+							key={4}
+						/>
+						<ProgressBar
+							variant='light'
+							now={planToWatchAnime.length * 100}
+							key={5}
+						/>
 					</ProgressBar>
 					<hr />
 					<section className='d-flex justify-content-between'>
