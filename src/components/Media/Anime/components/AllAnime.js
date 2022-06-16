@@ -112,8 +112,7 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 						))}
 				</MediaTable>
 			) : (
-				// <section className='d-flex align-items-center justify-items-start flex-wrap'>
-				<section className='row justify-content-center align-items-center'>
+				<section className='d-flex align-items-center justify-content-start flex-wrap'>
 					{user &&
 						menuItems
 							.filter(value => {
