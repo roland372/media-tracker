@@ -9,7 +9,7 @@ import DisplayMoreButton from '../../components/DisplayMoreButton';
 //? <----- Functions ----->
 import { sortNumber, sortString } from '../../utils/sortFunctions';
 import DisplayFilterSearchPanel from '../../components/DisplayFilterSearchPanel';
-import MediaTable from '../../components/MediaTable';
+import AnimeTable from './AnimeTable';
 
 const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 	//* sort anime by name
@@ -146,7 +146,7 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 			) : (
 				//* display as table
 				<>
-					<MediaTable
+					<AnimeTable
 						menuItems={menuItems}
 						order={order}
 						setMenuItems={setMenuItems}
@@ -217,7 +217,7 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 										/>
 									))
 							: null}
-					</MediaTable>
+					</AnimeTable>
 					<DisplayMoreButton
 						displayMore={displayMore}
 						menuItems={menuItems}

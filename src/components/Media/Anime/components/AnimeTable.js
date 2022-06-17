@@ -3,7 +3,7 @@ import React from 'react';
 //? <----- Icons ----->
 import { FaSort } from 'react-icons/fa';
 
-const MediaTable = ({
+const AnimeTable = ({
 	children,
 	menuItems,
 	order,
@@ -21,11 +21,11 @@ const MediaTable = ({
 			>
 				<thead className='bg-primary-dark text-center'>
 					<tr>
-						<th className='px-2' scope='col'>
+						<th className='px-2' scope='col' style={{ minWidth: '70px' }}>
 							#
 						</th>
 						<th scope='col'>Image</th>
-						<th scope='col'>
+						<th scope='col' style={{ width: '200px' }}>
 							Anime Title
 							<FaSort
 								onClick={() =>
@@ -33,7 +33,7 @@ const MediaTable = ({
 								}
 							/>
 						</th>
-						<th scope='col'>
+						<th scope='col' style={{ minWidth: '70px' }}>
 							Score
 							<FaSort
 								onClick={() =>
@@ -41,7 +41,7 @@ const MediaTable = ({
 								}
 							/>
 						</th>
-						<th scope='col'>
+						<th scope='col' style={{ minWidth: '80px' }}>
 							Type
 							<FaSort
 								onClick={() =>
@@ -49,7 +49,7 @@ const MediaTable = ({
 								}
 							/>
 						</th>
-						<th scope='col'>
+						<th scope='col' style={{ minWidth: '100px' }}>
 							Progress
 							<FaSort
 								onClick={() =>
@@ -63,7 +63,7 @@ const MediaTable = ({
 								}
 							/>
 						</th>
-						<th scope='col'>
+						<th scope='col' style={{ minWidth: '110px' }}>
 							Last Modified
 							<FaSort
 								onClick={() =>
@@ -85,4 +85,4 @@ const MediaTable = ({
 	);
 };
 
-export default MediaTable;
+export default AnimeTable;

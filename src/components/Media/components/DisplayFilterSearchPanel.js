@@ -13,7 +13,7 @@ const DisplayFilterSearchPanel = ({
 	status,
 }) => {
 	return (
-		<div className='d-xl-flex align-items-center justify-content-between mx-2 mb-2 border rounded p-2'>
+		<div className='d-xl-flex align-items-center justify-content-between mx-2 mb-2 bg-primary-dark rounded p-2'>
 			<button
 				className='btn btn-warning'
 				onClick={() => setMediaDisplay(!mediaDisplay)}
