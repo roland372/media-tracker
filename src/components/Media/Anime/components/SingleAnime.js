@@ -63,35 +63,37 @@ const SingleAnime = () => {
 						}
 						alt={title}
 					/>
+					{synopsis ? (
+						<div className=''>
+							<h5 className='mt-lg-0 mt-3 text-center'>Synopsis</h5>
+							<p className='px-3 text-start'>{synopsis}</p>
+						</div>
+					) : null}
+				</section>
+				<section className='d-flex justify-content-around mt-3'>
 					<div>
-						<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
-						<p className='px-3 text-start'>{synopsis}</p>
-						<section className='d-flex justify-content-around'>
-							<div>
-								<h5>Type</h5>
-								<p>{type}</p>
-							</div>
-							<div>
-								<h5>Link</h5>
-								<a href={link} target='_blank' rel='noreferrer'>
-									<p>Link</p>
-								</a>
-							</div>
-							<div>
-								<h5>Episodes</h5>
-								<p>
-									{episodesMin}/{episodesMax}
-								</p>
-							</div>
-							<div>
-								<h5>Status</h5>
-								<p>{status}</p>
-							</div>
-							<div>
-								<h5>Rating</h5>
-								<p>⭐{rating}</p>
-							</div>
-						</section>
+						<h5>Type</h5>
+						<p>{type}</p>
+					</div>
+					<div>
+						<h5>Link</h5>
+						<a href={link} target='_blank' rel='noreferrer'>
+							<p>Link</p>
+						</a>
+					</div>
+					<div>
+						<h5>Episodes</h5>
+						<p>
+							{episodesMin}/{episodesMax}
+						</p>
+					</div>
+					<div>
+						<h5>Status</h5>
+						<p>{status}</p>
+					</div>
+					<div>
+						<h5>Rating</h5>
+						<p>⭐{rating}</p>
 					</div>
 				</section>
 			</section>

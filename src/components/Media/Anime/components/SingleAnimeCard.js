@@ -8,11 +8,11 @@ import EditForm from '../components/EditForm';
 import SingleMediaCard from '../../components/SingleMediaCard';
 
 const SingleAnimeCard = ({
-	title,
-	imageURL,
-	id,
 	deleteAnime,
+	id,
+	imageURL,
 	getAnimeDatabase,
+	title,
 	user,
 }) => {
 	//* <----- Modal state ----->

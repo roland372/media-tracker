@@ -88,18 +88,17 @@ const Homepage = () => {
 			</Modal>
 			<CardComponent title='Welcome to Media-Tracker'>
 				general information about the app, what you can find in the app
+				<div className='d-flex align-items-center justify-content-start ms-2 pt-1 mt-2'>
+					<button
+						className='btn btn-primary'
+						onClick={() => {
+							handleShow();
+						}}
+					>
+						Add Media
+					</button>
+				</div>
 			</CardComponent>
-			<div className='d-flex align-items-center justify-content-start ms-2 pt-1'>
-				<button
-					className='btn btn-primary'
-					onClick={() => {
-						handleShow();
-						console.log('clicked');
-					}}
-				>
-					Add Media
-				</button>
-			</div>
 			<div className='mx-2'>
 				<hr />
 			</div>

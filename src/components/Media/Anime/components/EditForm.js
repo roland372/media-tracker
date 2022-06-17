@@ -11,18 +11,14 @@ import {
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
 
-//? <----- User Auth ----->
-import { useUserAuth } from '../../../../context/UserAuthContext';
-
 const EditForm = ({
 	handleClose,
 	singleAnime,
 	id,
 	getSingleAnimeDatabase,
 	getAnimeDatabase,
+	user,
 }) => {
-	const { user } = useUserAuth();
-
 	const {
 		title,
 		imageURL,
@@ -89,14 +85,12 @@ const EditForm = ({
 	const onSubmit = async e => {
 		e.preventDefault();
 		try {
-			// await AnimeDataService.addAnime(anime);
 			await AnimeDataService.updateAnime(id, anime);
 			await getSingleAnimeDatabase(id);
-			console.log('anime edited');
+			// console.log('anime edited');
 			handleClose();
 			getAnimeDatabase(user?.uid);
-			console.log(getSingleAnimeDatabase(id));
-			console.log(anime);
+			// console.log(anime);
 		} catch (error) {
 			console.log(error);
 		}

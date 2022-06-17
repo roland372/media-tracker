@@ -67,7 +67,7 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 			await getAnimeDatabase(user.uid);
 			console.log('anime added to database');
 			handleClose();
-			console.log(anime);
+			// console.log(anime);
 		} catch (error) {
 			console.log(error);
 		}
@@ -167,16 +167,7 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 				/>
 				<label className='form-check-label'>Add to Favourites?</label>
 			</div>
-			<button
-				className='btn btn-success'
-				// onClick={e => {
-				// 	// e.preventDefault();
-				// 	props.handleClose();
-				// 	console.log(anime);
-				// }}
-			>
-				Add
-			</button>
+			<button className='btn btn-success'>Add</button>
 		</form>
 	);
 };
