@@ -15,7 +15,7 @@ const DisplayFilterSearchPanel = ({
 	return (
 		<div className='d-xl-flex align-items-center justify-content-between mx-2 mb-2 bg-primary-dark rounded p-2'>
 			<button
-				className='btn btn-warning'
+				className='btn btn-light mx-2 mt-xl-0 mt-2'
 				onClick={() => setMediaDisplay(!mediaDisplay)}
 			>
 				{mediaDisplay ? <IoGrid size={20} /> : <FaThList size={20} />}
@@ -34,7 +34,7 @@ const DisplayFilterSearchPanel = ({
 					);
 				})}
 			</section>
-			<section>
+			<section className='mx-2 mb-xl-0 mb-2'>
 				<input
 					type='text'
 					className='form-control'
