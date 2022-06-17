@@ -7,6 +7,7 @@ import {
 	ratingOptions,
 	statusOptions,
 } from '../utils/selectOptions';
+import validation from './FormValidation';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
@@ -32,8 +33,6 @@ const EditForm = ({
 		favourites,
 	} = singleAnime;
 
-	//* select values
-
 	//* initialize anime object
 	const [anime, setAnime] = useState({
 		title: title,
@@ -49,6 +48,9 @@ const EditForm = ({
 		owner: user.uid,
 		lastModified: Date.now(),
 	});
+
+	//* form errors state
+	const [formErrors, setFormErrors] = useState({});
 
 	//* input handlers
 	const handleSetTitle = e => {
@@ -84,15 +86,19 @@ const EditForm = ({
 
 	const onSubmit = async e => {
 		e.preventDefault();
-		try {
-			await AnimeDataService.updateAnime(id, anime);
-			await getSingleAnimeDatabase(id);
-			// console.log('anime edited');
-			handleClose();
-			getAnimeDatabase(user?.uid);
-			// console.log(anime);
-		} catch (error) {
-			console.log(error);
+
+		setFormErrors(validation(anime.title));
+		if (anime.title.length !== 0) {
+			try {
+				await AnimeDataService.updateAnime(id, anime);
+				await getSingleAnimeDatabase(id);
+				// console.log('anime edited');
+				handleClose();
+				getAnimeDatabase(user?.uid);
+				// console.log(anime);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 
@@ -108,7 +114,10 @@ const EditForm = ({
 					onChange={e => handleSetTitle(e)}
 				/>
 			</div>
-			<div className='mt-3 mb-2'>
+			{formErrors ? (
+				<small className='text-danger d-flex mx-2'>{formErrors.title}</small>
+			) : null}
+			<div className='mt-2 mb-2'>
 				<textarea
 					type='text'
 					className='form-control'

@@ -7,6 +7,7 @@ import {
 	ratingOptions,
 	statusOptions,
 } from '../utils/selectOptions';
+import validation from './FormValidation';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
@@ -27,6 +28,9 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 		owner: user.uid,
 		lastModified: Date.now(),
 	});
+
+	//* form errors state
+	const [formErrors, setFormErrors] = useState({});
 
 	//* input handlers
 	const handleSetTitle = e => {
@@ -62,14 +66,18 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 
 	const onSubmit = async e => {
 		e.preventDefault();
-		try {
-			await AnimeDataService.addAnime(anime);
-			await getAnimeDatabase(user.uid);
-			console.log('anime added to database');
-			handleClose();
-			// console.log(anime);
-		} catch (error) {
-			console.log(error);
+
+		setFormErrors(validation(anime.title));
+		if (anime.title.length !== 0) {
+			try {
+				await AnimeDataService.addAnime(anime);
+				await getAnimeDatabase(user.uid);
+				console.log('anime added to database');
+				handleClose();
+				// console.log(anime);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 
@@ -85,7 +93,10 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 					onChange={e => handleSetTitle(e)}
 				/>
 			</div>
-			<div className='mt-3 mb-2'>
+			{formErrors ? (
+				<small className='text-danger d-flex mx-2'>{formErrors.title}</small>
+			) : null}
+			<div className='mt-2 mb-2'>
 				<textarea
 					type='text'
 					className='form-control'
