@@ -105,6 +105,7 @@ const Homepage = () => {
 			<RecentAnime
 				allAnime={animeDatabase}
 				deleteAnime={deleteAnime}
+				getAnimeDatabase={getAnimeDatabase}
 				user={user}
 			/>
 			<Link to='/media/anime'>All Anime</Link>

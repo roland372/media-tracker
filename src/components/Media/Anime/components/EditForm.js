@@ -8,6 +8,7 @@ import {
 	statusOptions,
 } from '../utils/selectOptions';
 import validation from './FormValidation';
+import { toast } from 'react-toastify';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
@@ -42,12 +43,23 @@ const EditForm = ({
 		imageURL: imageURL,
 		rating: rating,
 		status: status,
-		episodesMin: episodesMin,
-		episodesMax: episodesMax,
+		episodesMin: Number(episodesMin),
+		episodesMax: Number(episodesMax),
 		favourites: favourites,
 		owner: user.uid,
 		lastModified: Date.now(),
 	});
+
+	const animeUpdatedNotification = () =>
+		toast.success('Anime Updated', {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: '',
+		});
 
 	//* form errors state
 	const [formErrors, setFormErrors] = useState({});
@@ -75,25 +87,31 @@ const EditForm = ({
 		setAnime({ ...anime, status: e.value });
 	};
 	const handleSetEpisodesMin = e => {
-		setAnime({ ...anime, episodesMin: e.target.value });
+		setAnime({ ...anime, episodesMin: e });
 	};
 	const handleSetEpisodesMax = e => {
-		setAnime({ ...anime, episodesMax: e.target.value });
+		setAnime({ ...anime, episodesMax: e });
 	};
 	const handleSetFavourites = e => {
 		setAnime({ ...anime, favourites: e.target.checked });
 	};
 
+	// console.log('min', parseInt(anime.episodesMin));
+	// console.log('max', parseInt(anime.episodesMax));
+
 	const onSubmit = async e => {
 		e.preventDefault();
 
-		setFormErrors(validation(anime.title));
-		if (anime.title.length !== 0) {
+		setFormErrors(
+			validation(anime.episodesMax, anime.episodesMin, anime.title)
+		);
+		if (anime.title.length !== 0 && anime.episodesMax >= anime.episodesMin) {
 			try {
 				await AnimeDataService.updateAnime(id, anime);
 				await getSingleAnimeDatabase(id);
-				// console.log('anime edited');
+				console.log('anime edited');
 				handleClose();
+				animeUpdatedNotification();
 				getAnimeDatabase(user?.uid);
 				// console.log(anime);
 			} catch (error) {
@@ -122,6 +140,7 @@ const EditForm = ({
 					type='text'
 					className='form-control'
 					placeholder='Enter Synopsis'
+					maxLength='1000'
 					rows='3'
 					defaultValue={synopsis}
 					onChange={e => handleSetSynopsis(e)}
@@ -179,24 +198,47 @@ const EditForm = ({
 				<div className='d-flex align-items-center'>
 					<h5 className='pe-2'>Episodes</h5>
 					<input
-						style={{ width: '50px' }}
-						type='number'
-						className='form-control '
+						style={{ width: '70px' }}
+						className='form-control'
+						maxLength='4'
 						placeholder='1'
 						defaultValue={episodesMin}
-						onChange={e => handleSetEpisodesMin(e)}
+						onKeyPress={event => {
+							if (!/[0-9]/.test(event.key)) {
+								event.preventDefault();
+							}
+						}}
+						// onPaste={event => {
+						// 	if (!/[0-9]/.test(event.key)) {
+						// 		event.preventDefault();
+						// 	}
+						// }}
+						onChange={e => handleSetEpisodesMin(e.target.value * 1)}
 					/>
 					<span className='mx-2'>/</span>
 					<input
-						style={{ width: '50px' }}
-						type='number'
-						className='form-control '
+						style={{ width: '70px' }}
+						className='form-control'
+						maxLength='4'
 						placeholder='24'
 						defaultValue={episodesMax}
-						onChange={e => handleSetEpisodesMax(e)}
+						onKeyPress={event => {
+							if (!/[0-9]/.test(event.key)) {
+								event.preventDefault();
+							}
+						}}
+						// onPaste={event => {
+						// 	if (!/[0-9]/.test(event.key)) {
+						// 		event.preventDefault();
+						// 	}
+						// }}
+						onChange={e => handleSetEpisodesMax(e.target.value * 1)}
 					/>
 				</div>
 			</div>
+			{formErrors ? (
+				<small className='text-danger d-flex mb-1'>{formErrors.episodes}</small>
+			) : null}
 			<div className='mb-3 form-check'>
 				<input
 					type='checkbox'
