@@ -14,7 +14,7 @@ import { Modal } from 'react-bootstrap';
 import RecentAnime from '../components/RecentAnime';
 import FavouriteAnime from '../components/FavouriteAnime';
 import AnimeStats from '../components/AnimeStats';
-import { toast } from 'react-toastify';
+import Loader from '../../../Layout/Loader';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
@@ -24,6 +24,9 @@ const Anime = () => {
 
 	const { user } = useUserAuth();
 
+	//* <----- Loading state ----->
+	const [loading, setLoading] = useState(<Loader />);
+
 	//* <----- Modal state ----->
 	const [show, setShow] = useState(false);
 
@@ -31,30 +34,23 @@ const Anime = () => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const animeDeletedNotification = () =>
-		toast.success('Anime Deleted', {
-			position: 'top-center',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: false,
-			draggable: true,
-			progress: '',
-		});
-
 	const [animeDatabase, setAnimeDatabase] = useState([]);
 
 	//* fetch data from database
 	const getAnimeDatabase = async userId => {
+		setLoading(true);
 		const data = await AnimeDataService.getAllAnime(userId);
 		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+		setLoading(false);
 	};
 
 	const deleteAnime = async id => {
+		setLoading(true);
 		await AnimeDataService.deleteAnime(id);
 		// animeDeletedNotification();
 		getAnimeDatabase(user.uid);
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -93,30 +89,36 @@ const Anime = () => {
 				</section>
 			</CardComponent>
 
-			<AnimeStats animeDatabase={animeDatabase} />
+			{loading ? (
+				<Loader />
+			) : (
+				<>
+					<AnimeStats animeDatabase={animeDatabase} />
 
-			<AllAnime
-				allAnime={animeDatabase}
-				deleteAnime={deleteAnime}
-				getAnimeDatabase={getAnimeDatabase}
-				user={user}
-			/>
-			<hr />
+					<AllAnime
+						allAnime={animeDatabase}
+						deleteAnime={deleteAnime}
+						getAnimeDatabase={getAnimeDatabase}
+						user={user}
+					/>
+					<hr />
 
-			<RecentAnime
-				allAnime={animeDatabase}
-				deleteAnime={deleteAnime}
-				getAnimeDatabase={getAnimeDatabase}
-				user={user}
-			/>
-			<hr />
+					<RecentAnime
+						allAnime={animeDatabase}
+						deleteAnime={deleteAnime}
+						getAnimeDatabase={getAnimeDatabase}
+						user={user}
+					/>
+					<hr />
 
-			<FavouriteAnime
-				allAnime={animeDatabase}
-				deleteAnime={deleteAnime}
-				getAnimeDatabase={getAnimeDatabase}
-				user={user}
-			/>
+					<FavouriteAnime
+						allAnime={animeDatabase}
+						deleteAnime={deleteAnime}
+						getAnimeDatabase={getAnimeDatabase}
+						user={user}
+					/>
+				</>
+			)}
 		</>
 	);
 };
