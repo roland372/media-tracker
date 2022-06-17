@@ -5,6 +5,9 @@ import CardComponent from '../../../Layout/CardComponent';
 import SingleAnimeCard from './SingleAnimeCard';
 import SingleAnimeTableRow from './SingleAnimeTableRow';
 
+//? <----- Components ----->
+import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
+
 //? <----- Functions ----->
 import { sortNumber, sortString } from '../../utils/sortFunctions';
 import DisplayFilterSearchPanel from '../../components/DisplayFilterSearchPanel';
@@ -27,6 +30,9 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 
 	//* menu items state
 	const [menuItems, setMenuItems] = useState(sortedAnime);
+
+	//* menu items state
+	const [displayMore, setDisplayMore] = useState(false);
 
 	useEffect(() => {
 		setMenuItems(sortedAnime);
@@ -74,47 +80,16 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 				status={status}
 			/>
 			{animeDisplay ? (
-				<MediaTable
-					menuItems={menuItems}
-					order={order}
-					setMenuItems={setMenuItems}
-					setOrder={setOrder}
-					sortNumber={sortNumber}
-					sortString={sortString}
-				>
-					{menuItems
-						.filter(value => {
-							if (searchTerm === '') {
-								return value;
-							} else if (
-								value.title
-									.toLowerCase()
-									.includes(searchTerm.toLocaleLowerCase())
-							) {
-								return value;
-							}
-							return 0;
-						})
-						.map((anime, index) => (
-							<SingleAnimeTableRow
-								episodesMax={anime.episodesMax}
-								episodesMin={anime.episodesMin}
-								id={anime.id}
-								image={anime.imageURL}
-								index={index + 1}
-								key={index}
-								lastModified={anime.lastModified}
-								rating={anime.rating}
-								status={anime.status}
-								title={anime.title}
-								type={anime.type}
-							/>
-						))}
-				</MediaTable>
-			) : (
-				<section className='d-flex align-items-center justify-content-start flex-wrap'>
-					{user &&
-						menuItems
+				<>
+					<MediaTable
+						menuItems={menuItems}
+						order={order}
+						setMenuItems={setMenuItems}
+						setOrder={setOrder}
+						sortNumber={sortNumber}
+						sortString={sortString}
+					>
+						{menuItems
 							.filter(value => {
 								if (searchTerm === '') {
 									return value;
@@ -127,18 +102,148 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 								}
 								return 0;
 							})
-							.map(anime => (
-								<SingleAnimeCard
-									deleteAnime={deleteAnime}
-									getAnimeDatabase={getAnimeDatabase}
+							.slice(0, 20)
+							.map((anime, index) => (
+								<SingleAnimeTableRow
+									episodesMax={anime.episodesMax}
+									episodesMin={anime.episodesMin}
 									id={anime.id}
-									imageURL={anime.imageURL}
+									image={anime.imageURL}
+									index={index + 1}
 									key={anime.id}
+									lastModified={anime.lastModified}
+									rating={anime.rating}
+									status={anime.status}
 									title={anime.title}
-									user={user}
+									type={anime.type}
 								/>
 							))}
-				</section>
+
+						{displayMore
+							? menuItems
+									.filter(value => {
+										if (searchTerm === '') {
+											return value;
+										} else if (
+											value.title
+												.toLowerCase()
+												.includes(searchTerm.toLocaleLowerCase())
+										) {
+											return value;
+										}
+										return 0;
+									})
+									.slice(20)
+									.map((anime, index) => (
+										<SingleAnimeTableRow
+											episodesMax={anime.episodesMax}
+											episodesMin={anime.episodesMin}
+											id={anime.id}
+											image={anime.imageURL}
+											index={21 + index}
+											key={anime.id}
+											lastModified={anime.lastModified}
+											rating={anime.rating}
+											status={anime.status}
+											title={anime.title}
+											type={anime.type}
+										/>
+									))
+							: null}
+					</MediaTable>
+					{menuItems.length >= 20 ? (
+						displayMore ? (
+							<button
+								className='btn bg-light mt-3'
+								onClick={() => setDisplayMore(!displayMore)}
+							>
+								Display Less <AiOutlineUp />
+							</button>
+						) : (
+							<button
+								className='btn bg-light mt-3'
+								onClick={() => setDisplayMore(!displayMore)}
+							>
+								Display All <AiOutlineDown />
+							</button>
+						)
+					) : null}
+				</>
+			) : (
+				<div>
+					<section className='d-flex align-items-center justify-content-start flex-wrap'>
+						{user &&
+							menuItems
+								.filter(value => {
+									if (searchTerm === '') {
+										return value;
+									} else if (
+										value.title
+											.toLowerCase()
+											.includes(searchTerm.toLocaleLowerCase())
+									) {
+										return value;
+									}
+									return 0;
+								})
+								.slice(0, 20)
+								.map(anime => (
+									<SingleAnimeCard
+										deleteAnime={deleteAnime}
+										getAnimeDatabase={getAnimeDatabase}
+										id={anime.id}
+										imageURL={anime.imageURL}
+										key={anime.id}
+										title={anime.title}
+										user={user}
+									/>
+								))}
+						{displayMore
+							? menuItems
+									.filter(value => {
+										if (searchTerm === '') {
+											return value;
+										} else if (
+											value.title
+												.toLowerCase()
+												.includes(searchTerm.toLocaleLowerCase())
+										) {
+											return value;
+										}
+										return 0;
+									})
+									.slice(20)
+									.map(anime => (
+										<SingleAnimeCard
+											deleteAnime={deleteAnime}
+											getAnimeDatabase={getAnimeDatabase}
+											id={anime.id}
+											imageURL={anime.imageURL}
+											key={anime.id}
+											title={anime.title}
+											user={user}
+										/>
+									))
+							: null}
+					</section>
+					{menuItems.length >= 20 ? (
+						displayMore ? (
+							<button
+								className='btn bg-light mt-3'
+								onClick={() => setDisplayMore(!displayMore)}
+							>
+								Display Less <AiOutlineUp />
+							</button>
+						) : (
+							<button
+								className='btn bg-light mt-3'
+								onClick={() => setDisplayMore(!displayMore)}
+							>
+								Display All <AiOutlineDown />
+							</button>
+						)
+					) : null}
+				</div>
 			)}
 		</CardComponent>
 	);
