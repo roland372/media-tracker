@@ -14,6 +14,7 @@ import { Modal } from 'react-bootstrap';
 import RecentAnime from '../components/RecentAnime';
 import FavouriteAnime from '../components/FavouriteAnime';
 import AnimeStats from '../components/AnimeStats';
+import { toast } from 'react-toastify';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
@@ -30,6 +31,17 @@ const Anime = () => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	const animeDeletedNotification = () =>
+		toast.success('Anime Deleted', {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: '',
+		});
+
 	const [animeDatabase, setAnimeDatabase] = useState([]);
 
 	//* fetch data from database
@@ -41,6 +53,7 @@ const Anime = () => {
 
 	const deleteAnime = async id => {
 		await AnimeDataService.deleteAnime(id);
+		// animeDeletedNotification();
 		getAnimeDatabase(user.uid);
 	};
 
@@ -70,11 +83,7 @@ const Anime = () => {
 				</Modal>
 				<section className='text-color'>
 					<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
-						<button
-							className='btn btn-primary'
-							to='/media'
-							onClick={() => handleShow()}
-						>
+						<button className='btn btn-primary' onClick={() => handleShow()}>
 							Add Anime
 						</button>
 					</div>

@@ -1,30 +1,64 @@
 import React, { useEffect, useState } from 'react';
 
 //? <----- Router ----->
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
 
+//? <----- User Auth ----->
+import { useUserAuth } from '../../../../context/UserAuthContext';
+
 //? <----- Components ----->
 import CardComponent from '../../../Layout/CardComponent';
+import { Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
+import EditForm from './EditForm';
 
 const SingleAnime = () => {
 	const { id } = useParams();
+	const { user } = useUserAuth();
+	const navigate = useNavigate();
+
+	//* <----- Modal state ----->
+	const [show, setShow] = useState(false);
+
+	//* <----- Modal functions ----->
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
+	const animeDeletedNotification = () =>
+		toast.success('Anime Deleted', {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: '',
+		});
 
 	const [singleAnimeDatabase, setSingleAnimeDatabase] = useState({});
 	useDocumentTitle(singleAnimeDatabase?.title);
 
-	useEffect(() => {
-		const getAnimeDatabase = async id => {
-			const data = await AnimeDataService.getAnime(id);
-			setSingleAnimeDatabase(data.data());
-		};
+	const getSingleAnimeDatabase = async id => {
+		const data = await AnimeDataService.getAnime(id);
+		setSingleAnimeDatabase(data.data());
+	};
 
-		getAnimeDatabase(id);
+	const getAnimeDatabase = userId => {};
+
+	const deleteAnime = async id => {
+		await AnimeDataService.deleteAnime(id);
+		animeDeletedNotification();
+		navigate('/media/anime');
+	};
+
+	useEffect(() => {
+		getSingleAnimeDatabase(id);
 	}, [id]);
 
 	const {
@@ -41,11 +75,42 @@ const SingleAnime = () => {
 
 	return (
 		<CardComponent title={title}>
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header
+					closeButton
+					closeVariant='white'
+					className='bg-primary-light text-color'
+				>
+					<Modal.Title>Edit Anime</Modal.Title>
+				</Modal.Header>
+				<Modal.Body className='bg-primary-dark text-color'>
+					<EditForm
+						handleClose={handleClose}
+						singleAnime={singleAnimeDatabase}
+						id={id}
+						getSingleAnimeDatabase={getSingleAnimeDatabase}
+						getAnimeDatabase={getAnimeDatabase}
+						user={user}
+					/>
+				</Modal.Body>
+				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
+			</Modal>
 			<section className='text-color'>
-				<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
+				<div className='d-flex align-items-center justify-content-between mx-2 pt-1'>
 					<Link className='btn btn-primary' to='/media/anime'>
 						Back to Anime
 					</Link>
+					<div>
+						<button
+							className='btn btn-danger mx-1'
+							onClick={() => deleteAnime(id)}
+						>
+							Delete
+						</button>
+						<button className='btn btn-success' onClick={() => handleShow()}>
+							Edit
+						</button>
+					</div>
 				</div>
 				<div className='mx-2'>
 					<hr />

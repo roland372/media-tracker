@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 //? <----- Components ----->
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 //? <----- Icons ----->
 import { AiFillStar } from 'react-icons/ai';
@@ -23,6 +24,17 @@ const SingleMediaCard = ({
 	deleteMedia,
 	imageURL,
 }) => {
+	const mediaDeletedNotification = () =>
+		toast.success(`${mediaType} Deleted`, {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: '',
+		});
+
 	return (
 		<section className='p-2'>
 			<Modal show={show} onHide={handleClose}>
@@ -70,7 +82,10 @@ const SingleMediaCard = ({
 								</button>
 								<button
 									className='btn btn-sm btn-danger'
-									onClick={() => deleteMedia(id)}
+									onClick={async () => {
+										await deleteMedia(id);
+										mediaDeletedNotification();
+									}}
 								>
 									Delete
 								</button>
