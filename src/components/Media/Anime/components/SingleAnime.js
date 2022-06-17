@@ -30,6 +30,13 @@ const SingleAnime = () => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	//* <----- Delete modal state ----->
+	const [showDelete, setShowDelete] = useState(false);
+
+	//* <----- Delete modal functions ----->
+	const handleCloseDelete = () => setShowDelete(false);
+	const handleShowDelete = () => setShowDelete(true);
+
 	const animeDeletedNotification = () =>
 		toast.success('Anime Deleted', {
 			position: 'top-center',
@@ -95,6 +102,32 @@ const SingleAnime = () => {
 				</Modal.Body>
 				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
 			</Modal>
+			<Modal show={showDelete} onHide={handleCloseDelete}>
+				<Modal.Header
+					closeButton
+					closeVariant='white'
+					className='bg-primary-light text-color'
+				>
+					<Modal.Title>Deleting Anime</Modal.Title>
+				</Modal.Header>
+				<Modal.Body className='bg-primary-dark text-color'>
+					Are you sure you want to delete this Anime?
+				</Modal.Body>
+				<Modal.Footer className='bg-primary-dark text-color'>
+					<button className='btn btn-warning' onClick={handleCloseDelete}>
+						Cancel
+					</button>
+					<button
+						className='btn btn-danger'
+						onClick={() => {
+							deleteAnime(id);
+							handleCloseDelete();
+						}}
+					>
+						Delete
+					</button>
+				</Modal.Footer>
+			</Modal>
 			<section className='text-color'>
 				<div className='d-flex align-items-center justify-content-between mx-2 pt-1'>
 					<Link className='btn btn-primary' to='/media/anime'>
@@ -103,7 +136,10 @@ const SingleAnime = () => {
 					<div>
 						<button
 							className='btn btn-danger mx-1'
-							onClick={() => deleteAnime(id)}
+							// onClick={() => deleteAnime(id)}
+							onClick={() => {
+								handleShowDelete();
+							}}
 						>
 							Delete
 						</button>

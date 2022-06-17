@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 //? <----- Router ----->
 import { Link } from 'react-router-dom';
@@ -35,6 +35,13 @@ const SingleMediaCard = ({
 			progress: '',
 		});
 
+	//* <----- Delete modal state ----->
+	const [showDelete, setShowDelete] = useState(false);
+
+	//* <----- Delete modal functions ----->
+	const handleCloseDelete = () => setShowDelete(false);
+	const handleShowDelete = () => setShowDelete(true);
+
 	return (
 		<section className='p-2'>
 			<Modal show={show} onHide={handleClose}>
@@ -48,7 +55,33 @@ const SingleMediaCard = ({
 				<Modal.Body className='bg-primary-dark text-color'>
 					{children}
 				</Modal.Body>
-				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
+			</Modal>
+			<Modal show={showDelete} onHide={handleCloseDelete}>
+				<Modal.Header
+					closeButton
+					closeVariant='white'
+					className='bg-primary-light text-color'
+				>
+					<Modal.Title>Deleting {mediaType}</Modal.Title>
+				</Modal.Header>
+				<Modal.Body className='bg-primary-dark text-color'>
+					Are you sure you want to delete this {mediaType}?
+				</Modal.Body>
+				<Modal.Footer className='bg-primary-dark text-color'>
+					<button className='btn btn-warning' onClick={handleCloseDelete}>
+						Cancel
+					</button>
+					<button
+						className='btn btn-danger'
+						onClick={() => {
+							deleteMedia(id);
+							handleCloseDelete();
+							mediaDeletedNotification();
+						}}
+					>
+						Delete
+					</button>
+				</Modal.Footer>
 			</Modal>
 			<OverlayTrigger
 				trigger='click'
@@ -82,9 +115,9 @@ const SingleMediaCard = ({
 								</button>
 								<button
 									className='btn btn-sm btn-danger'
-									onClick={async () => {
-										await deleteMedia(id);
-										mediaDeletedNotification();
+									onClick={() => {
+										//  deleteMedia(id);
+										handleShowDelete();
 									}}
 								>
 									Delete
