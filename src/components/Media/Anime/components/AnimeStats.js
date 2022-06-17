@@ -99,17 +99,49 @@ const AnimeStats = ({ animeDatabase }) => {
 				</ProgressBar>
 				<hr />
 				<section className='d-flex justify-content-between'>
-					<div>Days {round(totalEpisodesSum / 60, 1)}</div>
-					<div>Mean Score {round(totalRating / meanScore, 1)}</div>
+					<div>Days: {round(totalEpisodesSum / 60, 1)}</div>
+					<div>Mean Score: {round(totalRating / meanScore, 1)}</div>
 				</section>
 				<hr />
 				<div className='d-flex justify-content-between'>
 					<section className='text-start'>
-						<div className='d-flex align-items-center'>
-							<BsFillCircleFill className='text-success' />
-							<span className='ms-1'>Watching {watchingAnime.length}</span>
+						<div className='d-flex align-items-center justify-content-between'>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-success' />
+								<div className='ms-2'>Watching</div>
+							</div>
+							<span className='ms-4'>{watchingAnime.length}</span>
 						</div>
-						<div className='d-flex align-items-center'>
+						<div className='d-flex align-items-center justify-content-between'>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-primary' />
+								<div className='ms-2'>Completed</div>
+							</div>
+							<span className='ms-4'>{completedAnime.length}</span>
+						</div>
+						<div className='d-flex align-items-center justify-content-between'>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-warning' />
+								<div className='ms-2'>On-Hold</div>
+							</div>
+							<span className='ms-4'>{onHoldAnime.length}</span>
+						</div>
+						<div className='d-flex align-items-center justify-content-between'>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-danger' />
+								<div className='ms-2'>Dropped</div>
+							</div>
+							<span className='ms-4'>{droppedAnime.length}</span>
+						</div>
+						<div className='d-flex align-items-center justify-content-between'>
+							<div className='d-flex align-items-center'>
+								<BsFillCircleFill className='text-light' />
+								<div className='ms-2'>Plan to Watch</div>
+							</div>
+							<span className='ms-4'>{planToWatchAnime.length}</span>
+						</div>
+
+						{/* <div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-primary' />
 							<span className='ms-1'>Completed {completedAnime.length}</span>
 						</div>
@@ -126,13 +158,33 @@ const AnimeStats = ({ animeDatabase }) => {
 							<span className='ms-1'>
 								Plan to Watch {planToWatchAnime.length}
 							</span>
-						</div>
+						</div> */}
 					</section>
-					<section className='text-end'>
+					{/* <section className='text-end'>
 						<div>Total Anime {animeDatabase.length}</div>
 						<div>Favourites {favourites.length}</div>
 						<div>Total Episodes {totalEpisodesSum}</div>
 						<div>Watched Episodes {watchedEpisodesSum}</div>
+					</section> */}
+
+					<section className='d-flex flex-column'>
+						<div className='d-flex justify-content-between'>
+							<div>Total Anime</div>
+							<div className='ms-4'>{animeDatabase.length}</div>
+						</div>
+						<div className='d-flex justify-content-between'>
+							<div>Favourites</div>
+							<div className='ms-4'>{favourites.length}</div>
+						</div>
+						<div className='d-flex justify-content-between'>
+							<div>Total Episodes</div>
+							<div className='ms-4'>{totalEpisodesSum}</div>
+						</div>
+						<div className='d-flex justify-content-between'>
+							<div>Watched Episodes</div>
+							<div className='ms-4'>{watchedEpisodesSum}</div>
+						</div>
+						<div>&#8203;</div>
 					</section>
 				</div>
 			</section>

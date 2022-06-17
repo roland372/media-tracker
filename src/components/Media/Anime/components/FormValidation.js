@@ -1,7 +1,7 @@
 const validation = (episodesMax, episodesMin, title) => {
 	const errors = {};
-	console.log(typeof episodesMin);
-	console.log(typeof episodesMax);
+	// console.log(typeof episodesMin);
+	// console.log(typeof episodesMax);
 	if (!title) {
 		errors.title = 'Title cannot be empty';
 	}
