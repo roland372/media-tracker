@@ -1,7 +1,6 @@
-export const mangaType = [
-	{ value: 'Light Novel', label: 'Light Novel' },
-	{ value: 'Manga', label: 'Manga' },
-	{ value: 'Webtoon', label: 'Webtoon' },
+export const gameType = [
+	{ value: 'Game', label: 'Game' },
+	{ value: 'Visual Novel', label: 'Visual Novel' },
 ];
 
 export const ratingOptions = [
@@ -19,9 +18,9 @@ export const ratingOptions = [
 ];
 
 export const statusOptions = [
-	{ value: 'Reading', label: 'Reading' },
+	{ value: 'Playing', label: 'Playing' },
 	{ value: 'Completed', label: 'Completed' },
 	{ value: 'On-Hold', label: 'On-Hold' },
 	{ value: 'Dropped', label: 'Dropped' },
-	{ value: 'Plan to Read', label: 'Plan to Read' },
+	{ value: 'Plan to Play', label: 'Plan to Play' },
 ];

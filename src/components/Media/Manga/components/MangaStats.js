@@ -61,13 +61,13 @@ const MangaStats = ({ mangaDatabase }) => {
 			return accumulator + parseInt(object.volumesMin);
 		}, 0);
 
-	const filteredManhwa = mangaDatabase
-		.filter(manga => manga.type === 'Manhwa (Webtoon)')
+	const filteredWebtoonChapters = mangaDatabase
+		.filter(manga => manga.type === 'Webtoon')
 		.reduce((accumulator, object) => {
 			return accumulator + parseInt(object.chaptersMin);
 		}, 0);
 
-	const filteredLightNovels = mangaDatabase
+	const filteredLightNovelVolumes = mangaDatabase
 		.filter(manga => manga.type === 'Light Novel')
 		.reduce((accumulator, object) => {
 			return accumulator + parseInt(object.volumesMin);
@@ -77,15 +77,15 @@ const MangaStats = ({ mangaDatabase }) => {
 	// console.log((filteredMangaVolumes * 2) / 24);
 
 	// 1 chapter = 20 mins
-	// console.log((filteredManhwa * (1 / 3)) / 24);
+	// console.log((filteredWebtoonChapters * (1 / 3)) / 24);
 
 	// 1 volume = 6 hours
-	// console.log((filteredLightNovels * 6) / 24);
+	// console.log((filteredLightNovelVolumes * 6) / 24);
 
 	const watchedDays =
 		(filteredMangaVolumes * 2) / 24 +
-		(filteredManhwa * (1 / 3)) / 24 +
-		(filteredLightNovels * 6) / 24;
+		(filteredWebtoonChapters * (1 / 3)) / 24 +
+		(filteredLightNovelVolumes * 6) / 24;
 	// console.log(watchedDays);
 
 	return (

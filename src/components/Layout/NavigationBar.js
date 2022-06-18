@@ -27,6 +27,15 @@ const NavigationBar = () => {
 							</li>
 							<li className='nav-item'>
 								<NavLink
+									to='media/games'
+									className='nav-link'
+									activeclassname='active-navbar'
+								>
+									Games
+								</NavLink>
+							</li>
+							<li className='nav-item'>
+								<NavLink
 									to='media/manga'
 									className='nav-link'
 									activeclassname='active-navbar'

@@ -21,6 +21,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../utils/firebaseConfig';
 import UserDataService from './services/user.services';
 import AnimeDataService from '../../components/Media/Anime/services/anime.services';
+import GamesDataService from '../../components/Media/Games/services/games.services';
 import MangaDataService from '../../components/Media/Manga/services/manga.services';
 
 //? <----- Custom Hooks ----->
@@ -38,6 +39,7 @@ const Profile = () => {
 
 	//* <----- Database State ----->
 	const [animeDatabase, setAnimeDatabase] = useState([]);
+	const [gamesDatabase, setGamesDatabase] = useState([]);
 	const [mangaDatabase, setMangaDatabase] = useState([]);
 
 	//* <----- User State ----->
@@ -121,6 +123,7 @@ const Profile = () => {
 	//* <----- Fetch user data from database ----->
 	useEffect(() => {
 		user && getAnimeDatabase(user?.uid);
+		user && getGamesDatabase(user?.uid);
 		user && getMangaDatabase(user?.uid);
 		user && getUsersDatabase();
 		// user && getCurrentUser();
@@ -155,6 +158,11 @@ const Profile = () => {
 	const getAnimeDatabase = async userId => {
 		const data = await AnimeDataService.getAllAnime(userId);
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+	};
+
+	const getGamesDatabase = async userId => {
+		const data = await GamesDataService.getAllGames(userId);
+		setGamesDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 	};
 
 	const getMangaDatabase = async userId => {
@@ -456,6 +464,24 @@ const Profile = () => {
 																		).length
 																	}
 																	{''} Anime
+																</p>
+															</div>
+															<div className='col-6 mb-3'>
+																<h6>
+																	<Link
+																		to='/media/games'
+																		className='text-color'
+																	>
+																		Games
+																	</Link>
+																</h6>
+																<p className='text-color'>
+																	{
+																		gamesDatabase.filter(
+																			owner => owner.owner === user.uid
+																		).length
+																	}
+																	{''} Games
 																</p>
 															</div>
 															<div className='col-6 mb-3'>

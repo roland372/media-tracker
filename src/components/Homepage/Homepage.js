@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../Media/Anime/services/anime.services';
+import GamesDataService from '../Media/Games/services/games.services';
 import MangaDataService from '../Media/Manga/services/manga.services';
 
 //? <----- User Auth ----->
@@ -15,8 +16,10 @@ import CardComponent from '../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
 import Select from 'react-select';
 import AnimeForm from '../Media/Anime/components/Form';
+import GameForm from '../Media/Games/components/Form';
 import MangaForm from '../Media/Manga/components/Form';
 import RecentAnime from '../Media/Anime/components/RecentAnime';
+import RecentGames from '../Media/Games/components/RecentGames';
 import RecentManga from '../Media/Manga/components/RecentManga';
 import Loader from '../Layout/Loader';
 
@@ -48,6 +51,7 @@ const Homepage = () => {
 	const handleShow = () => setShow(true);
 
 	const [animeDatabase, setAnimeDatabase] = useState([]);
+	const [gamesDatabase, setGamesDatabase] = useState([]);
 	const [mangaDatabase, setMangaDatabase] = useState([]);
 
 	//* fetch data from database
@@ -56,6 +60,14 @@ const Homepage = () => {
 		const data = await AnimeDataService.getAllAnime(userId);
 		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+		setLoading(false);
+	};
+
+	const getGamesDatabase = async userId => {
+		setLoading(true);
+		const data = await GamesDataService.getAllGames(userId);
+		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+		setGamesDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setLoading(false);
 	};
 
@@ -75,6 +87,13 @@ const Homepage = () => {
 		setLoading(false);
 	};
 
+	const deleteGame = async id => {
+		setLoading(true);
+		await GamesDataService.deleteGame(id);
+		getGamesDatabase(user.uid);
+		setLoading(false);
+	};
+
 	const deleteManga = async id => {
 		setLoading(true);
 		await MangaDataService.deleteManga(id);
@@ -84,6 +103,7 @@ const Homepage = () => {
 
 	useEffect(() => {
 		getAnimeDatabase(user.uid);
+		getGamesDatabase(user.uid);
 		getMangaDatabase(user.uid);
 	}, [user.uid]);
 
@@ -108,6 +128,13 @@ const Homepage = () => {
 					{selectMediaValue === 'Anime' ? (
 						<AnimeForm
 							getAnimeDatabase={getAnimeDatabase}
+							handleClose={handleClose}
+							user={user}
+						/>
+					) : null}
+					{selectMediaValue === 'Game' ? (
+						<GameForm
+							getGamesDatabase={getGamesDatabase}
 							handleClose={handleClose}
 							user={user}
 						/>
@@ -149,6 +176,15 @@ const Homepage = () => {
 					/>
 					<Link to='/media/anime' className='btn btn-light'>
 						All Anime
+					</Link>
+					<RecentGames
+						allGames={gamesDatabase}
+						deleteGame={deleteGame}
+						getGamesDatabase={getGamesDatabase}
+						user={user}
+					/>
+					<Link to='/media/games' className='btn btn-light'>
+						All Games
 					</Link>
 					<RecentManga
 						allManga={mangaDatabase}

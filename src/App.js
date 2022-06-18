@@ -19,9 +19,11 @@ import Anime from './components/Media/Anime/pages/Anime';
 import About from './pages/About';
 import Charts from './pages/Charts';
 import Home from './pages/Home';
+import Games from './components/Media/Games/pages/Games';
 import Manga from './components/Media/Manga/pages/Manga';
 import NotFound from './pages/NotFound';
 import SingleAnime from './components/Media/Anime/components/SingleAnime';
+import SingleGame from './components/Media/Games/components/SingleGame';
 import SingleManga from './components/Media/Manga/components/SingleManga';
 
 //? <----- Styles ----->
@@ -73,6 +75,22 @@ function App() {
 								element={
 									<ProtectedRoute>
 										<SingleAnime />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='media/games'
+								element={
+									<ProtectedRoute>
+										<Games />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='media/games/:id'
+								element={
+									<ProtectedRoute>
+										<SingleGame />
 									</ProtectedRoute>
 								}
 							/>
