@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../Media/Anime/services/anime.services';
+import MangaDataService from '../Media/Manga/services/manga.services';
 
 //? <----- User Auth ----->
 import { useUserAuth } from '../../context/UserAuthContext';
@@ -14,7 +15,9 @@ import CardComponent from '../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
 import Select from 'react-select';
 import AnimeForm from '../Media/Anime/components/Form';
+import MangaForm from '../Media/Manga/components/Form';
 import RecentAnime from '../Media/Anime/components/RecentAnime';
+import RecentManga from '../Media/Manga/components/RecentManga';
 import Loader from '../Layout/Loader';
 
 //? <----- Custom Hooks ----->
@@ -32,6 +35,7 @@ const Homepage = () => {
 		{ value: 'Anime', label: 'Anime' },
 		{ value: 'Manga', label: 'Manga' },
 		{ value: 'Game', label: 'Game' },
+		{ value: 'Movie', label: 'Movie' },
 	];
 
 	let [selectMediaValue, setSelectMediaValue] = useState('');
@@ -44,6 +48,7 @@ const Homepage = () => {
 	const handleShow = () => setShow(true);
 
 	const [animeDatabase, setAnimeDatabase] = useState([]);
+	const [mangaDatabase, setMangaDatabase] = useState([]);
 
 	//* fetch data from database
 	const getAnimeDatabase = async userId => {
@@ -51,6 +56,14 @@ const Homepage = () => {
 		const data = await AnimeDataService.getAllAnime(userId);
 		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+		setLoading(false);
+	};
+
+	const getMangaDatabase = async userId => {
+		setLoading(true);
+		const data = await MangaDataService.getAllManga(userId);
+		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+		setMangaDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setLoading(false);
 	};
 
@@ -62,8 +75,16 @@ const Homepage = () => {
 		setLoading(false);
 	};
 
+	const deleteManga = async id => {
+		setLoading(true);
+		await MangaDataService.deleteManga(id);
+		getMangaDatabase(user.uid);
+		setLoading(false);
+	};
+
 	useEffect(() => {
 		getAnimeDatabase(user.uid);
+		getMangaDatabase(user.uid);
 	}, [user.uid]);
 
 	return (
@@ -91,8 +112,14 @@ const Homepage = () => {
 							user={user}
 						/>
 					) : null}
+					{selectMediaValue === 'Manga' ? (
+						<MangaForm
+							getMangaDatabase={getMangaDatabase}
+							handleClose={handleClose}
+							user={user}
+						/>
+					) : null}
 				</Modal.Body>
-				{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
 			</Modal>
 			<CardComponent title='Welcome to Media-Tracker'>
 				<div className='d-flex align-items-center justify-content-start ms-2 pt-1 mt-2'>
@@ -123,13 +150,14 @@ const Homepage = () => {
 					<Link to='/media/anime' className='btn btn-light'>
 						All Anime
 					</Link>
-					<RecentAnime
-						allAnime={animeDatabase}
-						deleteAnime={deleteAnime}
+					<RecentManga
+						allManga={mangaDatabase}
+						deleteManga={deleteManga}
+						getMangaDatabase={getMangaDatabase}
 						user={user}
 					/>
-					<Link to='/media/anime' className='btn btn-light mb-3'>
-						All Anime
+					<Link to='/media/manga' className='btn btn-light mb-3'>
+						All Manga
 					</Link>
 				</>
 			)}

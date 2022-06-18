@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 //? <----- Components ----->
 import Select from 'react-select';
 import {
-	animeType,
+	mangaType,
 	ratingOptions,
 	statusOptions,
 } from '../utils/selectOptions';
@@ -11,47 +11,29 @@ import validation from './FormValidation';
 import { toast } from 'react-toastify';
 
 //? <----- Firebase ----->
-import AnimeDataService from '../services/anime.services';
+import MangaDataService from '../services/manga.services';
 
-const EditForm = ({
-	handleClose,
-	singleAnime,
-	id,
-	getSingleAnimeDatabase,
-	getAnimeDatabase,
-	user,
-}) => {
-	const {
-		title,
-		imageURL,
-		synopsis,
-		type,
-		link,
-		episodesMin,
-		episodesMax,
-		status,
-		rating,
-		favourites,
-	} = singleAnime;
-
-	//* initialize anime object
-	const [anime, setAnime] = useState({
-		title: title,
-		synopsis: synopsis,
-		type: type,
-		link: link,
-		imageURL: imageURL,
-		rating: rating,
-		status: status,
-		episodesMin: Number(episodesMin),
-		episodesMax: Number(episodesMax),
-		favourites: favourites,
-		owner: user.uid,
+const Form = ({ handleClose, user, getMangaDatabase }) => {
+	//* initialize manga object
+	const [manga, setManga] = useState({
+		chaptersMax: 0,
+		chaptersMin: 0,
+		favourites: false,
+		imageURL: '',
 		lastModified: Date.now(),
+		link: 'link',
+		owner: user.uid,
+		rating: 0,
+		status: 'Plan to Read',
+		synopsis: '',
+		title: '',
+		type: 'Manga',
+		volumesMax: 0,
+		volumesMin: 0,
 	});
 
-	const animeUpdatedNotification = () =>
-		toast.success('Anime Updated', {
+	const mangaAddedNotification = () =>
+		toast.success('Manga Added', {
 			position: 'top-center',
 			autoClose: 2000,
 			hideProgressBar: false,
@@ -66,54 +48,66 @@ const EditForm = ({
 
 	//* input handlers
 	const handleSetTitle = e => {
-		setAnime({ ...anime, title: e.target.value });
+		setManga({ ...manga, title: e.target.value });
 	};
 	const handleSetSynopsis = e => {
-		setAnime({ ...anime, synopsis: e.target.value });
+		setManga({ ...manga, synopsis: e.target.value });
 	};
 	const handleSetType = e => {
-		setAnime({ ...anime, type: e.value });
+		setManga({ ...manga, type: e.value });
 	};
 	const handleSetLink = e => {
-		setAnime({ ...anime, link: e.target.value });
+		setManga({ ...manga, link: e.target.value });
 	};
 	const handleSetImageURL = e => {
-		setAnime({ ...anime, imageURL: e.target.value });
+		setManga({ ...manga, imageURL: e.target.value });
 	};
 	const handleSetRating = e => {
-		setAnime({ ...anime, rating: e.value });
+		setManga({ ...manga, rating: e.value });
 	};
 	const handleSetStatus = e => {
-		setAnime({ ...anime, status: e.value });
+		setManga({ ...manga, status: e.value });
 	};
-	const handleSetEpisodesMin = e => {
-		setAnime({ ...anime, episodesMin: e });
+	const handleSetChaptersMin = e => {
+		setManga({ ...manga, chaptersMin: e });
 	};
-	const handleSetEpisodesMax = e => {
-		setAnime({ ...anime, episodesMax: e });
+	const handleSetChaptersMax = e => {
+		setManga({ ...manga, chaptersMax: e });
+	};
+	const handleSetVolumesMin = e => {
+		setManga({ ...manga, volumesMin: e });
+	};
+	const handleSetVolumesMax = e => {
+		setManga({ ...manga, volumesMax: e });
 	};
 	const handleSetFavourites = e => {
-		setAnime({ ...anime, favourites: e.target.checked });
+		setManga({ ...manga, favourites: e.target.checked });
 	};
-
-	// console.log('min', parseInt(anime.episodesMin));
-	// console.log('max', parseInt(anime.episodesMax));
 
 	const onSubmit = async e => {
 		e.preventDefault();
 
 		setFormErrors(
-			validation(anime.episodesMax, anime.episodesMin, anime.title)
+			validation(
+				manga.chaptersMax,
+				manga.chaptersMin,
+				manga.volumesMax,
+				manga.volumesMin,
+				manga.title
+			)
 		);
-		if (anime.title.length !== 0 && anime.episodesMax >= anime.episodesMin) {
+		if (
+			manga.title.length !== 0 &&
+			manga.chaptersMax >= manga.chaptersMin &&
+			manga.volumesMax >= manga.volumesMin
+		) {
 			try {
-				await AnimeDataService.updateAnime(id, anime);
-				await getSingleAnimeDatabase(id);
-				console.log('anime edited');
+				await MangaDataService.addManga(manga);
+				await getMangaDatabase(user.uid);
+				console.log('manga added to database');
+				mangaAddedNotification();
 				handleClose();
-				animeUpdatedNotification();
-				getAnimeDatabase(user?.uid);
-				// console.log(anime);
+				// console.log(manga);
 			} catch (error) {
 				console.log(error);
 			}
@@ -126,14 +120,13 @@ const EditForm = ({
 				<input
 					type='text'
 					className='form-control'
-					placeholder='Enter Anime Title'
+					placeholder='Enter Manga Title'
 					maxLength='100'
-					defaultValue={title}
 					onChange={e => handleSetTitle(e)}
 				/>
 			</div>
 			{formErrors ? (
-				<small className='text-danger d-flex mx-2'>{formErrors.title}</small>
+				<small className='text-danger d-flex ms-1'>{formErrors.title}</small>
 			) : null}
 			<div className='mt-2 mb-2'>
 				<textarea
@@ -142,14 +135,13 @@ const EditForm = ({
 					placeholder='Enter Synopsis'
 					maxLength='1000'
 					rows='3'
-					defaultValue={synopsis}
 					onChange={e => handleSetSynopsis(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-					defaultValue={{ label: type, value: type }}
-					options={animeType}
+					defaultValue={{ label: 'Select Type', value: '' }}
+					options={mangaType}
 					className='text-dark'
 					onChange={e => handleSetType(e)}
 				/>
@@ -160,7 +152,6 @@ const EditForm = ({
 					className='form-control'
 					placeholder='Enter Link'
 					maxLength='200'
-					defaultValue={link}
 					onChange={e => handleSetLink(e)}
 				/>
 			</div>
@@ -170,13 +161,12 @@ const EditForm = ({
 					className='form-control'
 					placeholder='Enter Image URL'
 					maxLength='200'
-					defaultValue={imageURL}
 					onChange={e => handleSetImageURL(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-					defaultValue={{ label: '⭐' + rating, value: rating }}
+					defaultValue={{ label: 'Select Rating', value: '' }}
 					options={ratingOptions}
 					className='text-dark'
 					onChange={e => handleSetRating(e)}
@@ -184,10 +174,9 @@ const EditForm = ({
 			</div>
 			<div className='mt-3 mb-2'>
 				<Select
-					// defaultValue={{ label: type, value: type }}
 					defaultValue={{
-						label: status,
-						value: status,
+						label: 'Select Status',
+						value: '',
 					}}
 					options={statusOptions}
 					className='text-dark'
@@ -196,24 +185,18 @@ const EditForm = ({
 			</div>
 			<div className='mt-3 mb-2'>
 				<div className='d-flex align-items-center'>
-					<h5 className='pe-2'>Episodes</h5>
+					<h5 className='pe-2'>Chapters</h5>
 					<input
 						style={{ width: '70px' }}
 						className='form-control'
 						maxLength='4'
 						placeholder='1'
-						defaultValue={status === 'Completed' ? episodesMax : episodesMin}
 						onKeyPress={event => {
 							if (!/[0-9]/.test(event.key)) {
 								event.preventDefault();
 							}
 						}}
-						// onPaste={event => {
-						// 	if (!/[0-9]/.test(event.key)) {
-						// 		event.preventDefault();
-						// 	}
-						// }}
-						onChange={e => handleSetEpisodesMin(e.target.value * 1)}
+						onChange={e => handleSetChaptersMin(e.target.value * 1)}
 					/>
 					<span className='mx-2'>/</span>
 					<input
@@ -221,36 +204,62 @@ const EditForm = ({
 						className='form-control'
 						maxLength='4'
 						placeholder='24'
-						defaultValue={episodesMax}
 						onKeyPress={event => {
 							if (!/[0-9]/.test(event.key)) {
 								event.preventDefault();
 							}
 						}}
-						// onPaste={event => {
-						// 	if (!/[0-9]/.test(event.key)) {
-						// 		event.preventDefault();
-						// 	}
-						// }}
-						onChange={e => handleSetEpisodesMax(e.target.value * 1)}
+						onChange={e => handleSetChaptersMax(e.target.value * 1)}
 					/>
 				</div>
 			</div>
 			{formErrors ? (
-				<small className='text-danger d-flex mb-1'>{formErrors.episodes}</small>
+				<small className='text-danger d-flex mb-1'>{formErrors.chapters}</small>
+			) : null}
+			<div className='mt-3 mb-2'>
+				<div className='d-flex align-items-center'>
+					<h5 className='pe-2'>Volumes</h5>
+					<input
+						style={{ width: '70px' }}
+						className='form-control'
+						maxLength='4'
+						placeholder='1'
+						onKeyPress={event => {
+							if (!/[0-9]/.test(event.key)) {
+								event.preventDefault();
+							}
+						}}
+						onChange={e => handleSetVolumesMin(e.target.value * 1)}
+					/>
+					<span className='mx-2'>/</span>
+					<input
+						style={{ width: '70px' }}
+						className='form-control'
+						maxLength='4'
+						placeholder='24'
+						onKeyPress={event => {
+							if (!/[0-9]/.test(event.key)) {
+								event.preventDefault();
+							}
+						}}
+						onChange={e => handleSetVolumesMax(e.target.value * 1)}
+					/>
+				</div>
+			</div>
+			{formErrors ? (
+				<small className='text-danger d-flex mb-1'>{formErrors.volumes}</small>
 			) : null}
 			<div className='mb-3 form-check'>
 				<input
 					type='checkbox'
 					className='form-check-input'
-					defaultChecked={favourites}
 					onChange={e => handleSetFavourites(e)}
 				/>
 				<label className='form-check-label'>Add to Favourites?</label>
 			</div>
-			<button className='btn btn-warning'>Update</button>
+			<button className='btn btn-success'>Add</button>
 		</form>
 	);
 };
 
-export default EditForm;
+export default Form;

@@ -99,8 +99,11 @@ const AnimeStats = ({ animeDatabase }) => {
 				</ProgressBar>
 				<hr />
 				<section className='d-flex justify-content-between'>
-					<div>Days: {round(totalEpisodesSum / 60, 1)}</div>
-					<div>Mean Score: {round(totalRating / meanScore, 1)}</div>
+					<div>Days: {round(watchedEpisodesSum / 60, 1)}</div>
+					<div>
+						Mean Score:{' '}
+						{meanScore === 0 ? 0 : round(totalRating / meanScore, 1)}
+					</div>
 				</section>
 				<hr />
 				<div className='d-flex justify-content-between'>

@@ -99,7 +99,7 @@ const SingleMediaCard = ({
 						<Popover.Body onClick={() => document.body.click()}>
 							<div className='d-flex justify-content-start'>
 								<Link
-									to={`/media/anime/${id}`}
+									to={`/media/${mediaType.toLowerCase()}/${id}`}
 									className='btn btn-sm btn-primary'
 								>
 									View

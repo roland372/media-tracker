@@ -21,6 +21,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../utils/firebaseConfig';
 import UserDataService from './services/user.services';
 import AnimeDataService from '../../components/Media/Anime/services/anime.services';
+import MangaDataService from '../../components/Media/Manga/services/manga.services';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -37,6 +38,7 @@ const Profile = () => {
 
 	//* <----- Database State ----->
 	const [animeDatabase, setAnimeDatabase] = useState([]);
+	const [mangaDatabase, setMangaDatabase] = useState([]);
 
 	//* <----- User State ----->
 	const [name, setName] = useState('');
@@ -119,6 +121,7 @@ const Profile = () => {
 	//* <----- Fetch user data from database ----->
 	useEffect(() => {
 		user && getAnimeDatabase(user?.uid);
+		user && getMangaDatabase(user?.uid);
 		user && getUsersDatabase();
 		// user && getCurrentUser();
 		// if (user && user.photoURL) {
@@ -152,6 +155,11 @@ const Profile = () => {
 	const getAnimeDatabase = async userId => {
 		const data = await AnimeDataService.getAllAnime(userId);
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+	};
+
+	const getMangaDatabase = async userId => {
+		const data = await MangaDataService.getAllManga(userId);
+		setMangaDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 	};
 
 	//* <----- Handler functions ----->
@@ -448,6 +456,24 @@ const Profile = () => {
 																		).length
 																	}
 																	{''} Anime
+																</p>
+															</div>
+															<div className='col-6 mb-3'>
+																<h6>
+																	<Link
+																		to='/media/manga'
+																		className='text-color'
+																	>
+																		Manga
+																	</Link>
+																</h6>
+																<p className='text-color'>
+																	{
+																		mangaDatabase.filter(
+																			owner => owner.owner === user.uid
+																		).length
+																	}
+																	{''} Manga
 																</p>
 															</div>
 														</div>

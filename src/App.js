@@ -19,13 +19,15 @@ import Anime from './components/Media/Anime/pages/Anime';
 import About from './pages/About';
 import Charts from './pages/Charts';
 import Home from './pages/Home';
+import Manga from './components/Media/Manga/pages/Manga';
 import NotFound from './pages/NotFound';
+import SingleAnime from './components/Media/Anime/components/SingleAnime';
+import SingleManga from './components/Media/Manga/components/SingleManga';
 
 //? <----- Styles ----->
 import Layout from './components/Layout/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import SingleAnime from './components/Media/Anime/components/SingleAnime';
 import ScrollToTopRouter from './components/Layout/ScrollToTopRouter';
 
 function App() {
@@ -71,6 +73,22 @@ function App() {
 								element={
 									<ProtectedRoute>
 										<SingleAnime />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='media/manga'
+								element={
+									<ProtectedRoute>
+										<Manga />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='media/manga/:id'
+								element={
+									<ProtectedRoute>
+										<SingleManga />
 									</ProtectedRoute>
 								}
 							/>

@@ -27,6 +27,15 @@ const NavigationBar = () => {
 							</li>
 							<li className='nav-item'>
 								<NavLink
+									to='media/manga'
+									className='nav-link'
+									activeclassname='active-navbar'
+								>
+									Manga
+								</NavLink>
+							</li>
+							<li className='nav-item'>
+								<NavLink
 									to='charts'
 									className='nav-link'
 									activeclassname='active-navbar'
