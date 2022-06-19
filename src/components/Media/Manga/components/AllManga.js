@@ -65,6 +65,13 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 		setMenuItems(newData);
 	};
 
+	if (sortedManga.length < 1)
+		return (
+			<CardComponent title='All Manga'>
+				<h4 className='text-center'>No Manga</h4>
+			</CardComponent>
+		);
+
 	return (
 		<CardComponent title='All Manga'>
 			<DisplayFilterSearchPanel

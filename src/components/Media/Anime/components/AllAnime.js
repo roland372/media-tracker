@@ -67,6 +67,13 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 		setMenuItems(newData);
 	};
 
+	if (sortedAnime.length < 1)
+		return (
+			<CardComponent title='All Anime'>
+				<h4 className='text-center'>No Anime</h4>
+			</CardComponent>
+		);
+
 	return (
 		<CardComponent title='All Anime'>
 			<DisplayFilterSearchPanel

@@ -36,8 +36,9 @@ const Homepage = () => {
 
 	const mediaOptions = [
 		{ value: 'Anime', label: 'Anime' },
-		{ value: 'Manga', label: 'Manga' },
+		{ value: 'Book', label: 'Book' },
 		{ value: 'Game', label: 'Game' },
+		{ value: 'Manga', label: 'Manga' },
 		{ value: 'Movie', label: 'Movie' },
 	];
 
@@ -174,27 +175,35 @@ const Homepage = () => {
 						getAnimeDatabase={getAnimeDatabase}
 						user={user}
 					/>
-					<Link to='/media/anime' className='btn btn-light'>
-						All Anime
-					</Link>
+					{animeDatabase.length < 1 ? null : (
+						<Link to='/media/anime' className='btn btn-light'>
+							All Anime
+						</Link>
+					)}
+
 					<RecentGames
 						allGames={gamesDatabase}
 						deleteGame={deleteGame}
 						getGamesDatabase={getGamesDatabase}
 						user={user}
 					/>
-					<Link to='/media/games' className='btn btn-light'>
-						All Games
-					</Link>
+					{gamesDatabase.length < 1 ? null : (
+						<Link to='/media/games' className='btn btn-light'>
+							All Games
+						</Link>
+					)}
+
 					<RecentManga
 						allManga={mangaDatabase}
 						deleteManga={deleteManga}
 						getMangaDatabase={getMangaDatabase}
 						user={user}
 					/>
-					<Link to='/media/manga' className='btn btn-light mb-3'>
-						All Manga
-					</Link>
+					{mangaDatabase.length < 1 ? null : (
+						<Link to='/media/manga' className='btn btn-light mb-3'>
+							All Manga
+						</Link>
+					)}
 				</>
 			)}
 		</>

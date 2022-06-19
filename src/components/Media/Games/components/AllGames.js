@@ -65,6 +65,13 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 		setMenuItems(newData);
 	};
 
+	if (sortedGames.length < 1)
+		return (
+			<CardComponent title='All Games'>
+				<h4 className='text-center'>No Games</h4>
+			</CardComponent>
+		);
+
 	return (
 		<CardComponent title='All Games'>
 			<DisplayFilterSearchPanel
