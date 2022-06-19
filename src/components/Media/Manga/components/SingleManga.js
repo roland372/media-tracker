@@ -73,7 +73,10 @@ const SingleManga = () => {
 		imageURL,
 		synopsis,
 		type,
-		link,
+		link1,
+		link1Name,
+		link2,
+		link2Name,
 		chaptersMin,
 		chaptersMax,
 		status,
@@ -165,43 +168,58 @@ const SingleManga = () => {
 						alt={title}
 					/>
 					{synopsis ? (
-						<div className=''>
-							<h5 className='mt-lg-0 mt-3 text-center'>Synopsis</h5>
-							<p className='px-3 text-start'>{synopsis}</p>
+						<div className='col'>
+							<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
+							<p className='px-3 text-start mx-3'>{synopsis}</p>
 						</div>
 					) : null}
 				</section>
 				<section className='d-flex justify-content-around mt-3'>
-					<div>
-						<h5>Type</h5>
-						<p>{type}</p>
-					</div>
-					<div>
-						<h5>Link</h5>
-						<a href={link} target='_blank' rel='noreferrer'>
-							<p>Link</p>
-						</a>
-					</div>
-					<div>
-						<h5>Chapters</h5>
-						<p>
-							{chaptersMin}/{chaptersMax}
-						</p>
-					</div>
-					<div>
-						<h5>Volumes</h5>
-						<p>
-							{volumesMin}/{volumesMax}
-						</p>
-					</div>
-					<div>
-						<h5>Status</h5>
-						<p>{status}</p>
-					</div>
-					<div>
-						<h5>Rating</h5>
-						<p>⭐{rating}</p>
-					</div>
+					<section>
+						<div>
+							<h5>Type</h5>
+							<p>{type}</p>
+						</div>
+						<div>
+							<h5>Status</h5>
+							<p>{status}</p>
+						</div>
+					</section>
+					<section>
+						<div>
+							<h5>Chapters</h5>
+							<p>
+								{chaptersMin}/{chaptersMax}
+							</p>
+						</div>
+						<div>
+							<h5>Volumes</h5>
+							<p>
+								{volumesMin}/{volumesMax}
+							</p>
+						</div>
+					</section>
+					<section>
+						<div>
+							<h5>Rating</h5>
+							<p>⭐{rating}</p>
+						</div>
+						{link1 || link2 ? (
+							<div>
+								<h5>Links</h5>
+								{link1 ? (
+									<a href={link1} target='_blank' rel='noreferrer'>
+										<div>{link1Name}</div>
+									</a>
+								) : null}
+								{link2 ? (
+									<a href={link2} target='_blank' rel='noreferrer'>
+										<div>{link2Name}</div>
+									</a>
+								) : null}
+							</div>
+						) : null}
+					</section>
 				</section>
 			</section>
 		</CardComponent>

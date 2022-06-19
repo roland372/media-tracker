@@ -19,7 +19,10 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 		title: '',
 		synopsis: '',
 		type: 'TV-Show',
-		link: '',
+		link1: '',
+		link1Name: 'Link',
+		link2: '',
+		link2Name: 'Link',
 		imageURL: '',
 		rating: 0,
 		status: 'Plan to Watch',
@@ -54,8 +57,17 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 	const handleSetType = e => {
 		setAnime({ ...anime, type: e.value });
 	};
-	const handleSetLink = e => {
-		setAnime({ ...anime, link: e.target.value });
+	const handleSetLink1 = e => {
+		setAnime({ ...anime, link1: e.target.value });
+	};
+	const handleSetLink1Name = e => {
+		setAnime({ ...anime, link1Name: e.target.value });
+	};
+	const handleSetLink2 = e => {
+		setAnime({ ...anime, link2: e.target.value });
+	};
+	const handleSetLink2Name = e => {
+		setAnime({ ...anime, link2Name: e.target.value });
 	};
 	const handleSetImageURL = e => {
 		setAnime({ ...anime, imageURL: e.target.value });
@@ -133,9 +145,36 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 				<input
 					type='text'
 					className='form-control'
-					placeholder='Enter Link'
+					placeholder='Enter Link 1 Name'
+					maxLength='20'
+					onChange={e => handleSetLink1Name(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 1'
 					maxLength='200'
-					onChange={e => handleSetLink(e)}
+					onChange={e => handleSetLink1(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 2 Name'
+					maxLength='200'
+					onChange={e => handleSetLink2Name(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 2'
+					maxLength='20'
+					onChange={e => handleSetLink2(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>

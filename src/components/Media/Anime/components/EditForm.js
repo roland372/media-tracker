@@ -26,7 +26,10 @@ const EditForm = ({
 		imageURL,
 		synopsis,
 		type,
-		link,
+		link1,
+		link1Name,
+		link2,
+		link2Name,
 		episodesMin,
 		episodesMax,
 		status,
@@ -39,7 +42,10 @@ const EditForm = ({
 		title: title,
 		synopsis: synopsis,
 		type: type,
-		link: link,
+		link1: link1,
+		link1Name: link1Name,
+		link2: link2,
+		link2Name: link2Name,
 		imageURL: imageURL,
 		rating: rating,
 		status: status,
@@ -74,8 +80,17 @@ const EditForm = ({
 	const handleSetType = e => {
 		setAnime({ ...anime, type: e.value });
 	};
-	const handleSetLink = e => {
-		setAnime({ ...anime, link: e.target.value });
+	const handleSetLink1 = e => {
+		setAnime({ ...anime, link1: e.target.value });
+	};
+	const handleSetLink1Name = e => {
+		setAnime({ ...anime, link1Name: e.target.value });
+	};
+	const handleSetLink2 = e => {
+		setAnime({ ...anime, link2: e.target.value });
+	};
+	const handleSetLink2Name = e => {
+		setAnime({ ...anime, link2Name: e.target.value });
 	};
 	const handleSetImageURL = e => {
 		setAnime({ ...anime, imageURL: e.target.value });
@@ -158,10 +173,40 @@ const EditForm = ({
 				<input
 					type='text'
 					className='form-control'
-					placeholder='Enter Link'
+					placeholder='Enter Link 1 Name'
+					maxLength='20'
+					defaultValue={link1Name}
+					onChange={e => handleSetLink1Name(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 1'
 					maxLength='200'
-					defaultValue={link}
-					onChange={e => handleSetLink(e)}
+					defaultValue={link1}
+					onChange={e => handleSetLink1(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 2 Name'
+					maxLength='20'
+					defaultValue={link2Name}
+					onChange={e => handleSetLink2Name(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 2'
+					maxLength='200'
+					defaultValue={link2}
+					onChange={e => handleSetLink2(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>

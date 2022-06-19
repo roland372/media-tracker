@@ -21,7 +21,10 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 		favourites: false,
 		imageURL: '',
 		lastModified: Date.now(),
-		link: 'link',
+		link1: '',
+		link1Name: 'Link',
+		link2: '',
+		link2Name: 'Link',
 		owner: user.uid,
 		rating: 0,
 		status: 'Plan to Read',
@@ -56,8 +59,17 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 	const handleSetType = e => {
 		setManga({ ...manga, type: e.value });
 	};
-	const handleSetLink = e => {
-		setManga({ ...manga, link: e.target.value });
+	const handleSetLink1 = e => {
+		setManga({ ...manga, link1: e.target.value });
+	};
+	const handleSetLink1Name = e => {
+		setManga({ ...manga, link1Name: e.target.value });
+	};
+	const handleSetLink2 = e => {
+		setManga({ ...manga, link2: e.target.value });
+	};
+	const handleSetLink2Name = e => {
+		setManga({ ...manga, link2Name: e.target.value });
 	};
 	const handleSetImageURL = e => {
 		setManga({ ...manga, imageURL: e.target.value });
@@ -150,9 +162,36 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 				<input
 					type='text'
 					className='form-control'
-					placeholder='Enter Link'
+					placeholder='Enter Link 1 Name'
+					maxLength='20'
+					onChange={e => handleSetLink1Name(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 1'
 					maxLength='200'
-					onChange={e => handleSetLink(e)}
+					onChange={e => handleSetLink1(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 2 Name'
+					maxLength='200'
+					onChange={e => handleSetLink2Name(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 2'
+					maxLength='20'
+					onChange={e => handleSetLink2(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>

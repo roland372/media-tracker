@@ -15,7 +15,10 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 		favourites: false,
 		imageURL: '',
 		lastModified: Date.now(),
-		link: 'link',
+		link1: '',
+		link1Name: 'Link',
+		link2: '',
+		link2Name: 'Link',
 		owner: user.uid,
 		playtime: 0,
 		rating: 0,
@@ -49,8 +52,17 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 	const handleSetType = e => {
 		setGame({ ...game, type: e.value });
 	};
-	const handleSetLink = e => {
-		setGame({ ...game, link: e.target.value });
+	const handleSetLink1 = e => {
+		setGame({ ...game, link1: e.target.value });
+	};
+	const handleSetLink1Name = e => {
+		setGame({ ...game, link1Name: e.target.value });
+	};
+	const handleSetLink2 = e => {
+		setGame({ ...game, link2: e.target.value });
+	};
+	const handleSetLink2Name = e => {
+		setGame({ ...game, link2Name: e.target.value });
 	};
 	const handleSetImageURL = e => {
 		setGame({ ...game, imageURL: e.target.value });
@@ -122,9 +134,36 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 				<input
 					type='text'
 					className='form-control'
-					placeholder='Enter Link'
+					placeholder='Enter Link 1 Name'
+					maxLength='20'
+					onChange={e => handleSetLink1Name(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 1'
 					maxLength='200'
-					onChange={e => handleSetLink(e)}
+					onChange={e => handleSetLink1(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 2 Name'
+					maxLength='200'
+					onChange={e => handleSetLink2Name(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Enter Link 2'
+					maxLength='20'
+					onChange={e => handleSetLink2(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
