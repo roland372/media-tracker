@@ -91,7 +91,9 @@ const Manga = () => {
 				<Loader />
 			) : (
 				<>
-					<MangaStats mangaDatabase={mangaDatabase} />
+					<CardComponent title='Manga Stats'>
+						<MangaStats mangaDatabase={mangaDatabase} />
+					</CardComponent>
 
 					<AllManga
 						allManga={mangaDatabase}

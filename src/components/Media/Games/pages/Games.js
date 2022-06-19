@@ -91,7 +91,9 @@ const Games = () => {
 				<Loader />
 			) : (
 				<>
-					<GamesStats gamesDatabase={gamesDatabase} />
+					<CardComponent title='Games Stats'>
+						<GamesStats gamesDatabase={gamesDatabase} />
+					</CardComponent>
 
 					<AllGames
 						allGames={gamesDatabase}

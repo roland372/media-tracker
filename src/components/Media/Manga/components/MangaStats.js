@@ -89,112 +89,101 @@ const MangaStats = ({ mangaDatabase }) => {
 	// console.log(watchedDays);
 
 	return (
-		<CardComponent title='Manga Stats'>
-			<section className='mx-2'>
-				<ProgressBar style={{ height: '30px' }}>
-					<ProgressBar
-						variant='success'
-						now={readingManga.length * 100}
-						key={1}
-					/>
-					<ProgressBar
-						variant='primary'
-						now={completedManga.length * 100}
-						key={2}
-					/>
-					<ProgressBar
-						variant='warning'
-						now={onHoldManga.length * 100}
-						key={3}
-					/>
-					<ProgressBar
-						variant='danger'
-						now={droppedManga.length * 100}
-						key={4}
-					/>
-					<ProgressBar
-						variant='light'
-						now={planToReadManga.length * 100}
-						key={5}
-					/>
-				</ProgressBar>
-				<hr />
-				<section className='d-flex justify-content-between'>
-					<div>Days: {round(watchedDays, 1)}</div>
-					<div>
-						Mean Score:{' '}
-						{meanScore === 0 ? 0 : round(totalRating / meanScore, 1)}
-					</div>
-				</section>
-				<hr />
-				<div className='d-flex justify-content-between'>
-					<section className='text-start'>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-success' />
-								<div className='ms-2'>Reading</div>
-							</div>
-							<span className='ms-4'>{readingManga.length}</span>
-						</div>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-primary' />
-								<div className='ms-2'>Completed</div>
-							</div>
-							<span className='ms-4'>{completedManga.length}</span>
-						</div>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-warning' />
-								<div className='ms-2'>On-Hold</div>
-							</div>
-							<span className='ms-4'>{onHoldManga.length}</span>
-						</div>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-danger' />
-								<div className='ms-2'>Dropped</div>
-							</div>
-							<span className='ms-4'>{droppedManga.length}</span>
-						</div>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-light' />
-								<div className='ms-2'>Plan to Read</div>
-							</div>
-							<span className='ms-4'>{planToReadManga.length}</span>
-						</div>
-					</section>
-
-					<section className='d-flex flex-column'>
-						<div className='d-flex justify-content-between'>
-							<div>Total Manga</div>
-							<div className='ms-4'>{mangaDatabase.length}</div>
-						</div>
-						<div className='d-flex justify-content-between'>
-							<div>Favourites</div>
-							<div className='ms-4'>{favourites.length}</div>
-						</div>
-						<div className='d-flex justify-content-between'>
-							<div>Total Chapters</div>
-							<div className='ms-4'>{totalChaptersSum}</div>
-						</div>
-						<div className='d-flex justify-content-between'>
-							<div>Read Chapters</div>
-							<div className='ms-4'>{readChaptersSum}</div>
-						</div>
-						<div className='d-flex justify-content-between'>
-							<div>Total Volumes</div>
-							<div className='ms-4'>{totalVolumesSum}</div>
-						</div>
-						<div className='d-flex justify-content-between'>
-							<div>Read Volumes</div>
-							<div className='ms-4'>{readVolumesSum}</div>
-						</div>
-					</section>
+		<section className='mx-2'>
+			<ProgressBar style={{ height: '30px' }}>
+				<ProgressBar
+					variant='success'
+					now={readingManga.length * 100}
+					key={1}
+				/>
+				<ProgressBar
+					variant='primary'
+					now={completedManga.length * 100}
+					key={2}
+				/>
+				<ProgressBar variant='warning' now={onHoldManga.length * 100} key={3} />
+				<ProgressBar variant='danger' now={droppedManga.length * 100} key={4} />
+				<ProgressBar
+					variant='light'
+					now={planToReadManga.length * 100}
+					key={5}
+				/>
+			</ProgressBar>
+			<hr />
+			<section className='d-flex justify-content-between'>
+				<div>Days: {round(watchedDays, 1)}</div>
+				<div>
+					Mean Score: {meanScore === 0 ? 0 : round(totalRating / meanScore, 1)}
 				</div>
 			</section>
-		</CardComponent>
+			<hr />
+			<div className='d-flex justify-content-between'>
+				<section className='text-start'>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-success' />
+							<div className='ms-2'>Reading</div>
+						</div>
+						<span className='ms-4'>{readingManga.length}</span>
+					</div>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-primary' />
+							<div className='ms-2'>Completed</div>
+						</div>
+						<span className='ms-4'>{completedManga.length}</span>
+					</div>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-warning' />
+							<div className='ms-2'>On-Hold</div>
+						</div>
+						<span className='ms-4'>{onHoldManga.length}</span>
+					</div>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-danger' />
+							<div className='ms-2'>Dropped</div>
+						</div>
+						<span className='ms-4'>{droppedManga.length}</span>
+					</div>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-light' />
+							<div className='ms-2'>Plan to Read</div>
+						</div>
+						<span className='ms-4'>{planToReadManga.length}</span>
+					</div>
+				</section>
+
+				<section className='d-flex flex-column'>
+					<div className='d-flex justify-content-between'>
+						<div>Total Manga</div>
+						<div className='ms-4'>{mangaDatabase.length}</div>
+					</div>
+					<div className='d-flex justify-content-between'>
+						<div>Favourites</div>
+						<div className='ms-4'>{favourites.length}</div>
+					</div>
+					<div className='d-flex justify-content-between'>
+						<div>Total Chapters</div>
+						<div className='ms-4'>{totalChaptersSum}</div>
+					</div>
+					<div className='d-flex justify-content-between'>
+						<div>Read Chapters</div>
+						<div className='ms-4'>{readChaptersSum}</div>
+					</div>
+					<div className='d-flex justify-content-between'>
+						<div>Total Volumes</div>
+						<div className='ms-4'>{totalVolumesSum}</div>
+					</div>
+					<div className='d-flex justify-content-between'>
+						<div>Read Volumes</div>
+						<div className='ms-4'>{readVolumesSum}</div>
+					</div>
+				</section>
+			</div>
+		</section>
 	);
 };
 

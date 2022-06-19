@@ -93,7 +93,9 @@ const Anime = () => {
 				<Loader />
 			) : (
 				<>
-					<AnimeStats animeDatabase={animeDatabase} />
+					<CardComponent title='Anime Stats'>
+						<AnimeStats animeDatabase={animeDatabase} />
+					</CardComponent>
 
 					<AllAnime
 						allAnime={animeDatabase}

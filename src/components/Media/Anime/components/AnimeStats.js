@@ -68,83 +68,73 @@ const AnimeStats = ({ animeDatabase }) => {
 	// );
 
 	return (
-		<CardComponent title='Anime Stats'>
-			<section className='mx-2'>
-				<ProgressBar style={{ height: '30px' }}>
-					<ProgressBar
-						variant='success'
-						now={watchingAnime.length * 100}
-						key={1}
-					/>
-					<ProgressBar
-						variant='primary'
-						now={completedAnime.length * 100}
-						key={2}
-					/>
-					<ProgressBar
-						variant='warning'
-						now={onHoldAnime.length * 100}
-						key={3}
-					/>
-					<ProgressBar
-						variant='danger'
-						now={droppedAnime.length * 100}
-						key={4}
-					/>
-					<ProgressBar
-						variant='light'
-						now={planToWatchAnime.length * 100}
-						key={5}
-					/>
-				</ProgressBar>
-				<hr />
-				<section className='d-flex justify-content-between'>
-					<div>Days: {round(watchedEpisodesSum / 60, 1)}</div>
-					<div>
-						Mean Score:{' '}
-						{meanScore === 0 ? 0 : round(totalRating / meanScore, 1)}
+		<section className='mx-2'>
+			<ProgressBar style={{ height: '30px' }}>
+				<ProgressBar
+					variant='success'
+					now={watchingAnime.length * 100}
+					key={1}
+				/>
+				<ProgressBar
+					variant='primary'
+					now={completedAnime.length * 100}
+					key={2}
+				/>
+				<ProgressBar variant='warning' now={onHoldAnime.length * 100} key={3} />
+				<ProgressBar variant='danger' now={droppedAnime.length * 100} key={4} />
+				<ProgressBar
+					variant='light'
+					now={planToWatchAnime.length * 100}
+					key={5}
+				/>
+			</ProgressBar>
+			<hr />
+			<section className='d-flex justify-content-between'>
+				<div>Days: {round(watchedEpisodesSum / 60, 1)}</div>
+				<div>
+					Mean Score: {meanScore === 0 ? 0 : round(totalRating / meanScore, 1)}
+				</div>
+			</section>
+			<hr />
+			<div className='d-flex justify-content-between'>
+				<section className='text-start'>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-success' />
+							<div className='ms-2'>Watching</div>
+						</div>
+						<span className='ms-4'>{watchingAnime.length}</span>
 					</div>
-				</section>
-				<hr />
-				<div className='d-flex justify-content-between'>
-					<section className='text-start'>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-success' />
-								<div className='ms-2'>Watching</div>
-							</div>
-							<span className='ms-4'>{watchingAnime.length}</span>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-primary' />
+							<div className='ms-2'>Completed</div>
 						</div>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-primary' />
-								<div className='ms-2'>Completed</div>
-							</div>
-							<span className='ms-4'>{completedAnime.length}</span>
+						<span className='ms-4'>{completedAnime.length}</span>
+					</div>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-warning' />
+							<div className='ms-2'>On-Hold</div>
 						</div>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-warning' />
-								<div className='ms-2'>On-Hold</div>
-							</div>
-							<span className='ms-4'>{onHoldAnime.length}</span>
+						<span className='ms-4'>{onHoldAnime.length}</span>
+					</div>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-danger' />
+							<div className='ms-2'>Dropped</div>
 						</div>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-danger' />
-								<div className='ms-2'>Dropped</div>
-							</div>
-							<span className='ms-4'>{droppedAnime.length}</span>
+						<span className='ms-4'>{droppedAnime.length}</span>
+					</div>
+					<div className='d-flex align-items-center justify-content-between'>
+						<div className='d-flex align-items-center'>
+							<BsFillCircleFill className='text-light' />
+							<div className='ms-2'>Plan to Watch</div>
 						</div>
-						<div className='d-flex align-items-center justify-content-between'>
-							<div className='d-flex align-items-center'>
-								<BsFillCircleFill className='text-light' />
-								<div className='ms-2'>Plan to Watch</div>
-							</div>
-							<span className='ms-4'>{planToWatchAnime.length}</span>
-						</div>
+						<span className='ms-4'>{planToWatchAnime.length}</span>
+					</div>
 
-						{/* <div className='d-flex align-items-center'>
+					{/* <div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-primary' />
 							<span className='ms-1'>Completed {completedAnime.length}</span>
 						</div>
@@ -162,36 +152,35 @@ const AnimeStats = ({ animeDatabase }) => {
 								Plan to Watch {planToWatchAnime.length}
 							</span>
 						</div> */}
-					</section>
-					{/* <section className='text-end'>
+				</section>
+				{/* <section className='text-end'>
 						<div>Total Anime {animeDatabase.length}</div>
 						<div>Favourites {favourites.length}</div>
 						<div>Total Episodes {totalEpisodesSum}</div>
 						<div>Watched Episodes {watchedEpisodesSum}</div>
 					</section> */}
 
-					<section className='d-flex flex-column'>
-						<div className='d-flex justify-content-between'>
-							<div>Total Anime</div>
-							<div className='ms-4'>{animeDatabase.length}</div>
-						</div>
-						<div className='d-flex justify-content-between'>
-							<div>Favourites</div>
-							<div className='ms-4'>{favourites.length}</div>
-						</div>
-						<div className='d-flex justify-content-between'>
-							<div>Total Episodes</div>
-							<div className='ms-4'>{totalEpisodesSum}</div>
-						</div>
-						<div className='d-flex justify-content-between'>
-							<div>Watched Episodes</div>
-							<div className='ms-4'>{watchedEpisodesSum}</div>
-						</div>
-						<div>&#8203;</div>
-					</section>
-				</div>
-			</section>
-		</CardComponent>
+				<section className='d-flex flex-column'>
+					<div className='d-flex justify-content-between'>
+						<div>Total Anime</div>
+						<div className='ms-4'>{animeDatabase.length}</div>
+					</div>
+					<div className='d-flex justify-content-between'>
+						<div>Favourites</div>
+						<div className='ms-4'>{favourites.length}</div>
+					</div>
+					<div className='d-flex justify-content-between'>
+						<div>Total Episodes</div>
+						<div className='ms-4'>{totalEpisodesSum}</div>
+					</div>
+					<div className='d-flex justify-content-between'>
+						<div>Watched Episodes</div>
+						<div className='ms-4'>{watchedEpisodesSum}</div>
+					</div>
+					<div>&#8203;</div>
+				</section>
+			</div>
+		</section>
 	);
 };
 
