@@ -21,6 +21,7 @@ const RecentAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 			{user &&
 				sortByDate
 					.filter(owner => owner.owner === user.uid)
+					.slice(0, 20)
 					.map(anime => (
 						<SingleAnimeCard
 							deleteAnime={deleteAnime}

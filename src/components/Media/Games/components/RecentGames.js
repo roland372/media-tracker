@@ -21,6 +21,7 @@ const RecentGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 			{user &&
 				sortByDate
 					.filter(owner => owner.owner === user.uid)
+					.slice(0, 20)
 					.map(game => (
 						<SingleGameCard
 							deleteGame={deleteGame}

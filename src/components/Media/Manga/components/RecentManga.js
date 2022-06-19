@@ -21,6 +21,7 @@ const RecentManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 			{user &&
 				sortByDate
 					.filter(owner => owner.owner === user.uid)
+					.slice(0, 20)
 					.map(manga => (
 						<SingleMangaCard
 							deleteManga={deleteManga}
