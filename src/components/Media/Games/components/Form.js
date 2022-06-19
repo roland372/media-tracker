@@ -105,7 +105,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 					type='text'
 					className='form-control'
 					placeholder='Enter Game Title'
-					maxLength='100'
+					maxLength='500'
 					onChange={e => handleSetTitle(e)}
 				/>
 			</div>
@@ -117,7 +117,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 					type='text'
 					className='form-control'
 					placeholder='Enter Synopsis'
-					maxLength='1000'
+					maxLength='5000'
 					rows='3'
 					onChange={e => handleSetSynopsis(e)}
 				/>
@@ -135,7 +135,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 					type='text'
 					className='form-control'
 					placeholder='Enter Link 1 Name'
-					maxLength='20'
+					maxLength='100'
 					onChange={e => handleSetLink1Name(e)}
 				/>
 			</div>
@@ -144,7 +144,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 					type='text'
 					className='form-control'
 					placeholder='Enter Link 1'
-					maxLength='200'
+					maxLength='500'
 					onChange={e => handleSetLink1(e)}
 				/>
 			</div>
@@ -153,7 +153,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 					type='text'
 					className='form-control'
 					placeholder='Enter Link 2 Name'
-					maxLength='200'
+					maxLength='100'
 					onChange={e => handleSetLink2Name(e)}
 				/>
 			</div>
@@ -162,7 +162,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 					type='text'
 					className='form-control'
 					placeholder='Enter Link 2'
-					maxLength='20'
+					maxLength='500'
 					onChange={e => handleSetLink2(e)}
 				/>
 			</div>
@@ -171,7 +171,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 					type='text'
 					className='form-control'
 					placeholder='Enter Image URL'
-					maxLength='200'
+					maxLength='500'
 					onChange={e => handleSetImageURL(e)}
 				/>
 			</div>

@@ -142,7 +142,7 @@ const EditForm = ({
 					type='text'
 					className='form-control'
 					placeholder='Enter Anime Title'
-					maxLength='100'
+					maxLength='500'
 					defaultValue={title}
 					onChange={e => handleSetTitle(e)}
 				/>
@@ -155,7 +155,7 @@ const EditForm = ({
 					type='text'
 					className='form-control'
 					placeholder='Enter Synopsis'
-					maxLength='1000'
+					maxLength='5000'
 					rows='3'
 					defaultValue={synopsis}
 					onChange={e => handleSetSynopsis(e)}
@@ -174,7 +174,7 @@ const EditForm = ({
 					type='text'
 					className='form-control'
 					placeholder='Enter Link 1 Name'
-					maxLength='20'
+					maxLength='100'
 					defaultValue={link1Name}
 					onChange={e => handleSetLink1Name(e)}
 				/>
@@ -184,7 +184,7 @@ const EditForm = ({
 					type='text'
 					className='form-control'
 					placeholder='Enter Link 1'
-					maxLength='200'
+					maxLength='500'
 					defaultValue={link1}
 					onChange={e => handleSetLink1(e)}
 				/>
@@ -194,7 +194,7 @@ const EditForm = ({
 					type='text'
 					className='form-control'
 					placeholder='Enter Link 2 Name'
-					maxLength='20'
+					maxLength='100'
 					defaultValue={link2Name}
 					onChange={e => handleSetLink2Name(e)}
 				/>
@@ -204,7 +204,7 @@ const EditForm = ({
 					type='text'
 					className='form-control'
 					placeholder='Enter Link 2'
-					maxLength='200'
+					maxLength='500'
 					defaultValue={link2}
 					onChange={e => handleSetLink2(e)}
 				/>
@@ -214,7 +214,7 @@ const EditForm = ({
 					type='text'
 					className='form-control'
 					placeholder='Enter Image URL'
-					maxLength='200'
+					maxLength='500'
 					defaultValue={imageURL}
 					onChange={e => handleSetImageURL(e)}
 				/>
