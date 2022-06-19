@@ -32,7 +32,7 @@ class GamesDataService {
 	};
 
 	getAllGames = userId => {
-		const q = query(gamesCollectionRef, where('owner', '==', userId));
+		const q = query(gamesCollectionRef, where('owner', '==', userId || null));
 		return getDocs(q);
 	};
 

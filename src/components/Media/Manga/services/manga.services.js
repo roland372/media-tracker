@@ -32,7 +32,7 @@ class MangaDataService {
 	};
 
 	getAllManga = userId => {
-		const q = query(mangaCollectionRef, where('owner', '==', userId));
+		const q = query(mangaCollectionRef, where('owner', '==', userId || null));
 		return getDocs(q);
 	};
 

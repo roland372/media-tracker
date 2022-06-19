@@ -36,7 +36,7 @@ class AnimeDataService {
 	// };
 
 	getAllAnime = userId => {
-		const q = query(animeCollectionRef, where('owner', '==', userId));
+		const q = query(animeCollectionRef, where('owner', '==', userId || null));
 		return getDocs(q);
 	};
 
