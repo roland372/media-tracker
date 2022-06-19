@@ -9,7 +9,18 @@ const FavouriteManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 	//* show only favourites
 	const filteredManga = allManga.filter(manga => manga.favourites);
 
-	if (filteredManga.length < 1)
+	//* sort manga by name
+	const sortedManga = filteredManga.sort(function (a, b) {
+		const nameA = a.title.toLowerCase(),
+			nameB = b.title.toLowerCase();
+		if (nameA < nameB)
+			//sort string ascending
+			return -1;
+		if (nameA > nameB) return 1;
+		return 0; //default return value (no sorting)
+	});
+
+	if (sortedManga.length < 1)
 		return (
 			<CardComponent title='All Manga'>
 				<h4 className='text-center'>No Favourite Manga</h4>
@@ -19,7 +30,7 @@ const FavouriteManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 	return (
 		<FavouriteMedia cardTitle='Favourite Manga'>
 			{user &&
-				filteredManga.map(manga => (
+				sortedManga.map(manga => (
 					<SingleMangaCard
 						deleteManga={deleteManga}
 						getMangaDatabase={getMangaDatabase}

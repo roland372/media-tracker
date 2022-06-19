@@ -9,7 +9,18 @@ const FavouriteGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 	//* show only favourites
 	const filteredGames = allGames.filter(game => game.favourites);
 
-	if (filteredGames.length < 1)
+	//* sort games by name
+	const sortedGames = filteredGames.sort(function (a, b) {
+		const nameA = a.title.toLowerCase(),
+			nameB = b.title.toLowerCase();
+		if (nameA < nameB)
+			//sort string ascending
+			return -1;
+		if (nameA > nameB) return 1;
+		return 0; //default return value (no sorting)
+	});
+
+	if (sortedGames.length < 1)
 		return (
 			<CardComponent title='All Games'>
 				<h4 className='text-center'>No Favourite Games</h4>
@@ -19,7 +30,7 @@ const FavouriteGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 	return (
 		<FavouriteMedia cardTitle='Favourite Games'>
 			{user &&
-				filteredGames.map(game => (
+				sortedGames.map(game => (
 					<SingleGameCard
 						deleteGame={deleteGame}
 						getGamesDatabase={getGamesDatabase}
