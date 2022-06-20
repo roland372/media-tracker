@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 //? <----- Components ----->
+import CardComponent from '../../Layout/CardComponent';
+import Anime from '../components/Anime';
+import Games from '../components/Games';
+import Manga from '../components/Manga';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../../Media/Anime/services/anime.services';
@@ -12,10 +16,6 @@ import { useUserAuth } from '../../../context/UserAuthContext';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../hooks/useDocumentTitle';
-import CardComponent from '../../Layout/CardComponent';
-import Anime from '../components/Anime';
-import Games from '../components/Games';
-import Manga from '../components/Manga';
 
 const Charts = () => {
 	useDocumentTitle('Charts');
