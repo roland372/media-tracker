@@ -4,7 +4,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 
-const NavigationBar = () => {
+const NavigationBar = ({ userData }) => {
 	return (
 		<div className='bg-primary-dark border-bottom'>
 			<Navbar sticky='top' variant='dark'>
@@ -15,7 +15,7 @@ const NavigationBar = () => {
 						</Link>
 					</Navbar.Brand>
 					<Navbar.Collapse>
-						<Nav className='me-auto'>
+						<Nav className='me-auto' variant='pills'>
 							<li className='nav-item'>
 								<NavLink
 									to='media/anime'
@@ -70,6 +70,18 @@ const NavigationBar = () => {
 									Profile
 								</NavLink>
 							</li>
+							{userData ? (
+								<li className='px-2 d-flex align-items-center'>
+									<NavLink to={'/profile'}>
+										<img
+											src={userData?.photoURL}
+											width='40px'
+											className='rounded-circle'
+											alt=''
+										/>
+									</NavLink>
+								</li>
+							) : null}
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
