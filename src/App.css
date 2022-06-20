@@ -96,6 +96,31 @@
 	text-decoration: underline;
 }
 
+/** <----- new line from JSON -----> */
+.new-line {
+	white-space: pre-line;
+	vertical-align: bottom;
+}
+
+/**<----- Navbar active class ----->*/
+.active-navbar {
+	/* color: black; */
+	/* border: 1px solid green; */
+	/* text-decoration-color: #0b4dda; */
+	/* background-color: #0b4dda; */
+	background-color: var(--bg-primary-light);
+	border-radius: 5px;
+}
+.nav-link {
+	color: white;
+}
+
+.nav-link:hover {
+	color: white;
+	background-color: var(--bg-primary-light);
+	border-radius: 5px;
+}
+
 /**<----- Modal ----->*/
 .modal-content {
 	border: none;

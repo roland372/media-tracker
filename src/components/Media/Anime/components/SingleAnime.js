@@ -170,7 +170,7 @@ const SingleAnime = () => {
 					{synopsis ? (
 						<div className='col'>
 							<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
-							<p className='px-3 text-start mx-3'>{synopsis}</p>
+							<p className='px-3 text-start mx-3 new-line'>{synopsis}</p>
 						</div>
 					) : null}
 				</section>
