@@ -1,7 +1,6 @@
 import React from 'react';
 
 //? <----- Components ----->
-import CardComponent from '../../../Layout/CardComponent';
 import { ProgressBar } from 'react-bootstrap';
 import { BsFillCircleFill } from 'react-icons/bs';
 
