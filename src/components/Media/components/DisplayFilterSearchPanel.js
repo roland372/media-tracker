@@ -18,7 +18,7 @@ const DisplayFilterSearchPanel = ({
 				className='btn btn-light mx-2 mt-xl-0 mt-2'
 				onClick={() => setMediaDisplay(!mediaDisplay)}
 			>
-				{mediaDisplay ? <IoGrid size={20} /> : <FaThList size={20} />}
+				{mediaDisplay ? <FaThList size={20} /> : <IoGrid size={20} />}
 			</button>
 			<section className='ps-2'>
 				{status.map((category, index) => {
