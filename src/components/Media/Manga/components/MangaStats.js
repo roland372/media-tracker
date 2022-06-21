@@ -82,8 +82,8 @@ const MangaStats = ({ mangaDatabase }) => {
 	// console.log((filteredLightNovelVolumes * 6) / 24);
 
 	const watchedDays =
-		(filteredMangaVolumes * 2) / 24 +
-		(filteredWebtoonChapters * (1 / 3)) / 24 +
+		(filteredMangaVolumes * 1) / 24 +
+		(filteredWebtoonChapters * (1 / 12)) / 24 +
 		(filteredLightNovelVolumes * 6) / 24;
 	// console.log(watchedDays);
 

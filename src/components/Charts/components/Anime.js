@@ -126,10 +126,16 @@ const Anime = ({ animeMeanScore, animeDatabase }) => {
 			typeBackgroundColors.push('#1266F1');
 		}
 		if (Object.keys(animeTypeCount)[i] === 'Movie') {
+			typeBackgroundColors.push('#B23CFD');
+		}
+		if (Object.keys(animeTypeCount)[i] === 'ONA') {
 			typeBackgroundColors.push('#00B74A');
 		}
 		if (Object.keys(animeTypeCount)[i] === 'OVA') {
-			typeBackgroundColors.push('#39C0ED');
+			typeBackgroundColors.push('#F93154');
+		}
+		if (Object.keys(animeTypeCount)[i] === 'Special') {
+			typeBackgroundColors.push('#FFA900');
 		}
 	}
 

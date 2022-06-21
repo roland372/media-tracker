@@ -100,10 +100,22 @@ const Manga = ({ mangaMeanScore, mangaDatabase }) => {
 			typeBackgroundColors.push('#1266F1');
 		}
 		if (Object.keys(mangaTypeCount)[i] === 'Light Novel') {
-			typeBackgroundColors.push('#00B74A');
+			typeBackgroundColors.push('#B23CFD');
 		}
 		if (Object.keys(mangaTypeCount)[i] === 'Webtoon') {
+			typeBackgroundColors.push('#00B74A');
+		}
+		if (Object.keys(mangaTypeCount)[i] === 'Manhua') {
 			typeBackgroundColors.push('#39C0ED');
+		}
+		if (Object.keys(mangaTypeCount)[i] === 'Doujinshi') {
+			typeBackgroundColors.push('#F93154');
+		}
+		if (Object.keys(mangaTypeCount)[i] === 'One-shot') {
+			typeBackgroundColors.push('#FFA900');
+		}
+		if (Object.keys(mangaTypeCount)[i] === 'Novel') {
+			typeBackgroundColors.push('#FBFBFB');
 		}
 	}
 
