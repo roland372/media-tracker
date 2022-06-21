@@ -79,7 +79,7 @@ const Anime = () => {
 
 		//? v4
 		const temp = await fetch(
-			`https://api.jikan.moe/v4/anime?q=${query}&order_by=favorites&sort=desc`
+			`https://api.jikan.moe/v4/anime?q=${query}&order_by=scored`
 		).then(res => res.json());
 
 		setAnimeList(temp.data);

@@ -72,12 +72,13 @@ const Manga = () => {
 
 	const fetchManga = async query => {
 		const temp = await fetch(
-			`https://api.jikan.moe/v4/manga?q=${query}&order_by=favorites&sort=desc`
+			`https://api.jikan.moe/v4/manga?q=${query}&order_by=scored`
 		).then(res => res.json());
 
 		setMangaList(temp.data);
+		console.log(temp.data);
 	};
-
+	// &sort=asc
 	return (
 		<>
 			<CardComponent title='Manga'>
