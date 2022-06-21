@@ -16,8 +16,12 @@ import FavouriteAnime from '../components/FavouriteAnime';
 import AnimeStats from '../components/AnimeStats';
 import Loader from '../../../Layout/Loader';
 
+//? <----- Icons ----->
+import { AiOutlineSearch } from 'react-icons/ai';
+
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
+import FetchedAnime from '../components/FetchedAnime';
 
 const Anime = () => {
 	useDocumentTitle('Anime');
@@ -57,6 +61,33 @@ const Anime = () => {
 		getAnimeDatabase(user.uid);
 	}, [user.uid]);
 
+	const [animeList, setAnimeList] = useState([]);
+	const [search, setSearch] = useState('');
+
+	const handleSearch = e => {
+		e.preventDefault();
+
+		fetchAnime(search);
+	};
+
+	const fetchAnime = async query => {
+		//? v3
+		// const temp = await fetch(
+		// 	`https://api.jikan.moe/v3/search/anime?q=${query}&order_by=title&sort=asc&limit=20`
+		// ).then(res => res.json());
+
+		//? v4
+		const temp = await fetch(
+			`https://api.jikan.moe/v4/anime?q=${query}&order_by=favorites&sort=desc`
+		).then(res => res.json());
+
+		setAnimeList(temp.data);
+	};
+
+	// console.log(animeList);
+	// console.log(animeList);
+	// animeList.map(anime => console.log(anime));
+
 	return (
 		<>
 			<CardComponent title='Anime'>
@@ -82,12 +113,38 @@ const Anime = () => {
 						<button className='btn btn-primary' onClick={() => handleShow()}>
 							Add Anime
 						</button>
+						<div className='mx-2'>or</div>
+						<form onSubmit={handleSearch}>
+							<div className='d-flex'>
+								<input
+									className='form-control'
+									type='search'
+									placeholder='Search for an Anime'
+									required
+									value={search}
+									onChange={e => setSearch(e.target.value)}
+									onSubmit={e => setSearch(e.target.value)}
+								/>
+								<button className='btn btn-primary'>
+									<AiOutlineSearch size={20} />
+								</button>
+							</div>
+						</form>
 					</div>
 					<div className='mx-2'>
 						<hr />
 					</div>
 				</section>
 			</CardComponent>
+
+			{search ? (
+				<FetchedAnime
+					AnimeDataService={AnimeDataService}
+					fetchedAnime={animeList}
+					getAnimeDatabase={getAnimeDatabase}
+					user={user}
+				/>
+			) : null}
 
 			{loading ? (
 				<Loader />
