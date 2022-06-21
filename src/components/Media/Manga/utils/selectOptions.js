@@ -1,6 +1,10 @@
 export const mangaType = [
+	{ value: 'Doujinshi', label: 'Doujinshi' },
 	{ value: 'Light Novel', label: 'Light Novel' },
 	{ value: 'Manga', label: 'Manga' },
+	{ value: 'Manhua', label: 'Manhua' },
+	{ value: 'Novel', label: 'Novel' },
+	{ value: 'One-shot', label: 'One-shot' },
 	{ value: 'Webtoon', label: 'Webtoon' },
 ];
 

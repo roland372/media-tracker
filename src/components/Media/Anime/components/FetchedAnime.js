@@ -44,15 +44,6 @@ const FetchedAnime = ({
 		if (type === 'TV') {
 			type = 'TV-Show';
 		}
-		if (type === 'ONA') {
-			type = 'OVA';
-		}
-		if (type === 'Special') {
-			type = 'OVA';
-		}
-		if (type === 'Movie') {
-			type = 'Movie';
-		}
 		return type;
 	};
 
@@ -77,6 +68,8 @@ const FetchedAnime = ({
 			</FetchedMedia>
 		);
 
+	fetchedAnime.map(anime => anime.type);
+
 	return (
 		<FetchedMedia cardTitle='Searched Anime'>
 			<section className='d-flex align-items-center justify-content-start flex-wrap'>
@@ -93,7 +86,12 @@ const FetchedAnime = ({
 										<section>
 											<div>Episodes: {anime.episodes}</div>
 											<div>Type: {anime.type}</div>
-											<div>Synopsis: {anime.synopsis}</div>
+											<div>
+												Synopsis:{' '}
+												{typeof anime.synopsis === 'string'
+													? anime.synopsis.slice(0, 100) + '...'
+													: anime.synopsis}
+											</div>
 										</section>
 										<hr />
 										<div className='d-flex justify-content-start'>
@@ -104,15 +102,15 @@ const FetchedAnime = ({
 														// console.log(anime);
 														const addAnime = {
 															...singleAnime,
-															title: anime.title,
-															synopsis: anime.synopsis,
+															title: anime.title ? anime.title : 'anime',
+															synopsis: anime.synopsis ? anime.synopsis : '',
 															type: setAnimeType(anime.type),
 															link1: anime.url,
 															//? v3
 															// imageURL: anime.image_url,
 															//? v4
 															imageURL: anime.images.jpg.image_url,
-															episodesMax: anime.episodes,
+															episodesMax: anime.episodes ? anime.episodes : 0,
 															owner: user?.uid,
 														};
 														setSingleAnime(addAnime);

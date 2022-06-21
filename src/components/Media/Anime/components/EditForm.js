@@ -117,10 +117,8 @@ const EditForm = ({
 	const onSubmit = async e => {
 		e.preventDefault();
 
-		setFormErrors(
-			validation(anime.episodesMax, anime.episodesMin, anime.title)
-		);
-		if (anime.title.length !== 0 && anime.episodesMax >= anime.episodesMin) {
+		setFormErrors(validation(anime.title));
+		if (anime.title.length !== 0) {
 			try {
 				await AnimeDataService.updateAnime(id, anime);
 				await getSingleAnimeDatabase(id);
@@ -281,9 +279,9 @@ const EditForm = ({
 					/>
 				</div>
 			</div>
-			{formErrors ? (
+			{/* {formErrors ? (
 				<small className='text-danger d-flex mb-1'>{formErrors.episodes}</small>
-			) : null}
+			) : null} */}
 			<div className='mb-3 form-check'>
 				<input
 					type='checkbox'

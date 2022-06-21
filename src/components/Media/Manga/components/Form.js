@@ -99,20 +99,8 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 	const onSubmit = async e => {
 		e.preventDefault();
 
-		setFormErrors(
-			validation(
-				manga.chaptersMax,
-				manga.chaptersMin,
-				manga.volumesMax,
-				manga.volumesMin,
-				manga.title
-			)
-		);
-		if (
-			manga.title.length !== 0 &&
-			manga.chaptersMax >= manga.chaptersMin &&
-			manga.volumesMax >= manga.volumesMin
-		) {
+		setFormErrors(validation(manga.title));
+		if (manga.title.length !== 0) {
 			try {
 				await MangaDataService.addManga(manga);
 				await getMangaDatabase(user.uid);
@@ -252,9 +240,9 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 					/>
 				</div>
 			</div>
-			{formErrors ? (
+			{/* {formErrors ? (
 				<small className='text-danger d-flex mb-1'>{formErrors.chapters}</small>
-			) : null}
+			) : null} */}
 			<div className='mt-3 mb-2'>
 				<div className='d-flex align-items-center'>
 					<h5 className='pe-2'>Volumes</h5>
@@ -285,9 +273,9 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 					/>
 				</div>
 			</div>
-			{formErrors ? (
+			{/* {formErrors ? (
 				<small className='text-danger d-flex mb-1'>{formErrors.volumes}</small>
-			) : null}
+			) : null} */}
 			<div className='mb-3 form-check'>
 				<input
 					type='checkbox'

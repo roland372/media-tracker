@@ -1,7 +1,9 @@
 export const animeType = [
-	{ value: 'TV-Show', label: 'TV-Show' },
 	{ value: 'Movie', label: 'Movie' },
+	{ value: 'ONA', label: 'ONA' },
 	{ value: 'OVA', label: 'OVA' },
+	{ value: 'Special', label: 'Special' },
+	{ value: 'TV-Show', label: 'TV-Show' },
 ];
 
 export const ratingOptions = [

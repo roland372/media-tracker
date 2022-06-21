@@ -15,13 +15,13 @@ import RecentAnime from '../components/RecentAnime';
 import FavouriteAnime from '../components/FavouriteAnime';
 import AnimeStats from '../components/AnimeStats';
 import Loader from '../../../Layout/Loader';
+import FetchedAnime from '../components/FetchedAnime';
 
 //? <----- Icons ----->
 import { AiOutlineSearch } from 'react-icons/ai';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
-import FetchedAnime from '../components/FetchedAnime';
 
 const Anime = () => {
 	useDocumentTitle('Anime');
@@ -61,6 +61,7 @@ const Anime = () => {
 		getAnimeDatabase(user.uid);
 	}, [user.uid]);
 
+	//* fetch anime from API
 	const [animeList, setAnimeList] = useState([]);
 	const [search, setSearch] = useState('');
 

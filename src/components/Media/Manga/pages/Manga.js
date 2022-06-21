@@ -15,6 +15,10 @@ import RecentManga from '../components/RecentManga';
 import FavouriteManga from '../components/FavouriteManga';
 import MangaStats from '../components/MangaStats';
 import Loader from '../../../Layout/Loader';
+import FetchedManga from '../components/FetchedManga';
+
+//? <----- Icons ----->
+import { AiOutlineSearch } from 'react-icons/ai';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
@@ -56,6 +60,24 @@ const Manga = () => {
 		getMangaDatabase(user.uid);
 	}, [user.uid]);
 
+	//* fetch manga from API
+	const [mangaList, setMangaList] = useState([]);
+	const [search, setSearch] = useState('');
+
+	const handleSearch = e => {
+		e.preventDefault();
+
+		fetchManga(search);
+	};
+
+	const fetchManga = async query => {
+		const temp = await fetch(
+			`https://api.jikan.moe/v4/manga?q=${query}&order_by=favorites&sort=desc`
+		).then(res => res.json());
+
+		setMangaList(temp.data);
+	};
+
 	return (
 		<>
 			<CardComponent title='Manga'>
@@ -80,12 +102,38 @@ const Manga = () => {
 						<button className='btn btn-primary' onClick={() => handleShow()}>
 							Add Manga
 						</button>
+						<div className='mx-2'>or</div>
+						<form onSubmit={handleSearch}>
+							<div className='d-flex'>
+								<input
+									className='form-control'
+									type='search'
+									placeholder='Search for Manga'
+									required
+									value={search}
+									onChange={e => setSearch(e.target.value)}
+									onSubmit={e => setSearch(e.target.value)}
+								/>
+								<button className='btn btn-primary'>
+									<AiOutlineSearch size={20} />
+								</button>
+							</div>
+						</form>
 					</div>
 					<div className='mx-2'>
 						<hr />
 					</div>
 				</section>
 			</CardComponent>
+
+			{search ? (
+				<FetchedManga
+					MangaDataService={MangaDataService}
+					fetchedManga={mangaList}
+					getMangaDatabase={getMangaDatabase}
+					user={user}
+				/>
+			) : null}
 
 			{loading ? (
 				<Loader />
