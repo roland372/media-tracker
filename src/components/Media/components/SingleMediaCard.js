@@ -17,6 +17,7 @@ const SingleMediaCard = ({
 	handleClose,
 	mediaType,
 	title,
+	favourites,
 	singleMedia,
 	id,
 	handleShow,
@@ -92,7 +93,7 @@ const SingleMediaCard = ({
 					<Popover>
 						<Popover.Header>
 							{title}{' '}
-							{singleMedia?.favourites ? (
+							{favourites ? (
 								<AiFillStar size={18} className='text-warning' />
 							) : null}
 						</Popover.Header>

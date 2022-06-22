@@ -16,6 +16,8 @@ const RecentManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 			</CardComponent>
 		);
 
+	// console.log(allManga);
+
 	return (
 		<RecentMedia cardTitle='Recent Manga'>
 			{user &&

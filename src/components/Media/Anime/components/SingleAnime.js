@@ -49,42 +49,52 @@ const SingleAnime = () => {
 		});
 
 	const [singleAnimeDatabase, setSingleAnimeDatabase] = useState({});
-	useDocumentTitle(singleAnimeDatabase?.title);
 
-	const getSingleAnimeDatabase = async id => {
-		const data = await AnimeDataService.getAnime(id);
+	const getSingleAnimeDatabase = async () => {
+		const data = await AnimeDataService.getAnime('LL6XdGl6QKbjnCv67gon');
 		setSingleAnimeDatabase(data.data());
 	};
 
+	useEffect(() => {
+		getSingleAnimeDatabase();
+	}, []);
+
+	const filteredAnime = singleAnimeDatabase?.anime?.filter(
+		anime => anime.id === id
+	);
+
+	useDocumentTitle(filteredAnime?.[0]?.title);
+
 	const getAnimeDatabase = userId => {};
 
+	// const deleteAnime = async id => {
+	// 	const filteredArray = animeDatabase[0].anime.filter(
+	// 		anime => anime.id !== id
+	// 	);
+	// 	animeDatabase[0].anime = filteredArray;
+	// 	await AnimeDataService.updateAnime(
+	// 		'LL6XdGl6QKbjnCv67gon',
+	// 		animeDatabase[0]
+	// 	);
+	// };
+
+	// console.log(singleAnimeDatabase);
+
 	const deleteAnime = async id => {
-		await AnimeDataService.deleteAnime(id);
+		const filteredArray = singleAnimeDatabase?.anime?.filter(
+			anime => anime.id !== id
+		);
+		singleAnimeDatabase.anime = filteredArray;
+		await AnimeDataService.updateAnime(
+			'LL6XdGl6QKbjnCv67gon',
+			singleAnimeDatabase
+		);
 		animeDeletedNotification();
 		navigate('/media/anime');
 	};
 
-	useEffect(() => {
-		getSingleAnimeDatabase(id);
-	}, [id]);
-
-	const {
-		title,
-		imageURL,
-		synopsis,
-		type,
-		link1,
-		link1Name,
-		link2,
-		link2Name,
-		episodesMin,
-		episodesMax,
-		status,
-		rating,
-	} = singleAnimeDatabase;
-
 	return (
-		<CardComponent title={title}>
+		<CardComponent title={filteredAnime?.[0]?.title}>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header
 					closeButton
@@ -161,16 +171,18 @@ const SingleAnime = () => {
 						className='img img-fluid text-start'
 						width='200px'
 						src={
-							imageURL
-								? imageURL
+							filteredAnime?.[0]?.imageURL
+								? filteredAnime?.[0]?.imageURL
 								: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
 						}
-						alt={title}
+						alt={filteredAnime?.[0]?.title}
 					/>
-					{synopsis ? (
+					{filteredAnime?.[0]?.synopsis ? (
 						<div className='col'>
 							<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
-							<p className='px-3 text-start mx-3 new-line'>{synopsis}</p>
+							<p className='px-3 text-start mx-3 new-line'>
+								{filteredAnime?.[0]?.synopsis}
+							</p>
 						</div>
 					) : null}
 				</section>
@@ -178,37 +190,46 @@ const SingleAnime = () => {
 					<section>
 						<div>
 							<h5>Type</h5>
-							<p>{type}</p>
+							<p>{filteredAnime?.[0]?.type}</p>
 						</div>
 						<div>
 							<h5>Status</h5>
-							<p>{status}</p>
+							<p>{filteredAnime?.[0]?.status}</p>
 						</div>
 					</section>
 					<section>
 						<div>
 							<h5>Episodes</h5>
 							<p>
-								{episodesMin}/{episodesMax}
+								{filteredAnime?.[0]?.episodesMin}/
+								{filteredAnime?.[0]?.episodesMax}
 							</p>
 						</div>
 					</section>
 					<section>
 						<div>
 							<h5>Rating</h5>
-							<p>⭐{rating}</p>
+							<p>⭐{filteredAnime?.[0]?.rating}</p>
 						</div>
-						{link1 || link2 ? (
+						{filteredAnime?.[0]?.link1 || filteredAnime?.[0]?.link2 ? (
 							<div>
 								<h5>Links</h5>
-								{link1 ? (
-									<a href={link1} target='_blank' rel='noreferrer'>
-										<div>{link1Name}</div>
+								{filteredAnime?.[0]?.link1 ? (
+									<a
+										href={filteredAnime?.[0]?.link1}
+										target='_blank'
+										rel='noreferrer'
+									>
+										<div>{filteredAnime?.[0]?.link1Name}</div>
 									</a>
 								) : null}
-								{link2 ? (
-									<a href={link2} target='_blank' rel='noreferrer'>
-										<div>{link2Name}</div>
+								{filteredAnime?.[0]?.link2 ? (
+									<a
+										href={filteredAnime?.[0]?.link2}
+										target='_blank'
+										rel='noreferrer'
+									>
+										<div>{filteredAnime?.[0]?.link2Name}</div>
 									</a>
 								) : null}
 							</div>

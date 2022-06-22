@@ -38,7 +38,7 @@ const Anime = () => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const [animeDatabase, setAnimeDatabase] = useState([]);
+	let [animeDatabase, setAnimeDatabase] = useState([]);
 
 	//* fetch data from database
 	const getAnimeDatabase = async userId => {
@@ -51,8 +51,14 @@ const Anime = () => {
 
 	const deleteAnime = async id => {
 		setLoading(true);
-		await AnimeDataService.deleteAnime(id);
-		// animeDeletedNotification();
+		const filteredArray = animeDatabase[0].anime.filter(
+			anime => anime.id !== id
+		);
+		animeDatabase[0].anime = filteredArray;
+		await AnimeDataService.updateAnime(
+			'LL6XdGl6QKbjnCv67gon',
+			animeDatabase[0]
+		);
 		getAnimeDatabase(user.uid);
 		setLoading(false);
 	};
@@ -85,10 +91,6 @@ const Anime = () => {
 		setAnimeList(temp.data);
 	};
 
-	// console.log(animeList);
-	// console.log(animeList);
-	// animeList.map(anime => console.log(anime));
-
 	return (
 		<>
 			<CardComponent title='Anime'>
@@ -102,9 +104,10 @@ const Anime = () => {
 					</Modal.Header>
 					<Modal.Body className='bg-primary-dark text-color'>
 						<Form
+							animeDatabase={animeDatabase}
+							getAnimeDatabase={getAnimeDatabase}
 							handleClose={handleClose}
 							user={user}
-							getAnimeDatabase={getAnimeDatabase}
 						/>
 					</Modal.Body>
 					{/* <Modal.Footer className='bg-primary-dark text-color'>test</Modal.Footer> */}
@@ -137,26 +140,25 @@ const Anime = () => {
 					</div>
 				</section>
 			</CardComponent>
-
 			{search ? (
 				<FetchedAnime
+					animeDatabase={animeDatabase}
 					AnimeDataService={AnimeDataService}
 					fetchedAnime={animeList}
 					getAnimeDatabase={getAnimeDatabase}
 					user={user}
 				/>
 			) : null}
-
 			{loading ? (
 				<Loader />
 			) : (
 				<>
 					<CardComponent title='Anime Stats'>
-						<AnimeStats animeDatabase={animeDatabase} />
+						<AnimeStats animeDatabase={animeDatabase?.[0]?.anime} />
 					</CardComponent>
 
 					<AllAnime
-						allAnime={animeDatabase}
+						allAnime={animeDatabase?.[0]?.anime}
 						deleteAnime={deleteAnime}
 						getAnimeDatabase={getAnimeDatabase}
 						user={user}
@@ -164,7 +166,7 @@ const Anime = () => {
 					<hr />
 
 					<RecentAnime
-						allAnime={animeDatabase}
+						allAnime={animeDatabase?.[0]?.anime}
 						deleteAnime={deleteAnime}
 						getAnimeDatabase={getAnimeDatabase}
 						user={user}
@@ -172,7 +174,7 @@ const Anime = () => {
 					<hr />
 
 					<FavouriteAnime
-						allAnime={animeDatabase}
+						allAnime={animeDatabase?.[0]?.anime}
 						deleteAnime={deleteAnime}
 						getAnimeDatabase={getAnimeDatabase}
 						user={user}

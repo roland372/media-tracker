@@ -10,6 +10,7 @@ import SingleMediaCard from '../../components/SingleMediaCard';
 const SingleAnimeCard = ({
 	deleteAnime,
 	id,
+	favourites,
 	imageURL,
 	getAnimeDatabase,
 	title,
@@ -24,22 +25,25 @@ const SingleAnimeCard = ({
 
 	const [singleAnime, setSingleAnime] = useState({});
 
-	const getSingleAnimeDatabase = async id => {
-		const data = await AnimeDataService.getAnime(id);
+	const getSingleAnimeDatabase = async () => {
+		const data = await AnimeDataService.getAnime('LL6XdGl6QKbjnCv67gon');
 		setSingleAnime(data.data());
 	};
 
+	// console.log(singleAnime);
+
 	useEffect(() => {
-		getSingleAnimeDatabase(id);
-	}, [id]);
+		getSingleAnimeDatabase();
+	}, []);
 
 	return (
 		<SingleMediaCard
 			show={show}
 			handleClose={handleClose}
+			favourites={favourites}
 			mediaType='Anime'
 			title={title}
-			singleMedia={singleAnime}
+			singleMedia={singleAnime?.anime}
 			id={id}
 			handleShow={handleShow}
 			getSingleMediaDatabase={getSingleAnimeDatabase}

@@ -21,6 +21,8 @@ const EditForm = ({
 	getAnimeDatabase,
 	user,
 }) => {
+	const filteredAnime = singleAnime?.anime.filter(anime => anime.id === id);
+
 	const {
 		title,
 		imageURL,
@@ -35,10 +37,11 @@ const EditForm = ({
 		status,
 		rating,
 		favourites,
-	} = singleAnime;
+	} = filteredAnime[0];
 
 	//* initialize anime object
 	const [anime, setAnime] = useState({
+		id: id,
 		title: title,
 		synopsis: synopsis,
 		type: type,
@@ -120,12 +123,18 @@ const EditForm = ({
 		setFormErrors(validation(anime.title));
 		if (anime.title.length !== 0) {
 			try {
-				await AnimeDataService.updateAnime(id, anime);
-				await getSingleAnimeDatabase(id);
+				const newAnimeArray = singleAnime?.anime.filter(
+					anime => anime.id !== id
+				);
+				await newAnimeArray.push({
+					...anime,
+				});
+				singleAnime.anime = newAnimeArray;
+				await AnimeDataService.updateAnime('LL6XdGl6QKbjnCv67gon', singleAnime);
 				console.log('anime edited');
+				await getAnimeDatabase(user?.uid);
 				handleClose();
 				animeUpdatedNotification();
-				getAnimeDatabase(user?.uid);
 				// console.log(anime);
 			} catch (error) {
 				console.log(error);

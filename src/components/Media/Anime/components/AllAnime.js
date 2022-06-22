@@ -13,7 +13,7 @@ import AnimeTable from './AnimeTable';
 
 const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 	//* sort anime by name
-	const sortedAnime = allAnime.sort(function (a, b) {
+	const sortedAnime = allAnime?.sort(function (a, b) {
 		const nameA = a.title.toLowerCase(),
 			nameB = b.title.toLowerCase();
 		if (nameA < nameB)
@@ -62,12 +62,12 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 			setStatus(status);
 			return;
 		}
-		const newData = sortedAnime.filter(type => type.status === animeStatus);
+		const newData = sortedAnime?.filter(type => type.status === animeStatus);
 		// console.log(newData);
 		setMenuItems(newData);
 	};
 
-	if (sortedAnime.length < 1)
+	if (sortedAnime?.length < 1)
 		return (
 			<CardComponent title='All Anime'>
 				<h4 className='text-center'>No Anime</h4>
@@ -106,6 +106,7 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 							.map(anime => (
 								<SingleAnimeCard
 									deleteAnime={deleteAnime}
+									favourites={anime.favourites}
 									getAnimeDatabase={getAnimeDatabase}
 									id={anime.id}
 									imageURL={anime.imageURL}

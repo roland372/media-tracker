@@ -9,13 +9,15 @@ import {
 } from '../utils/selectOptions';
 import validation from './FormValidation';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
 
-const Form = ({ handleClose, user, getAnimeDatabase }) => {
+const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 	//* initialize anime object
 	const [anime, setAnime] = useState({
+		id: uuidv4(),
 		title: '',
 		synopsis: '',
 		type: 'TV-Show',
@@ -94,17 +96,24 @@ const Form = ({ handleClose, user, getAnimeDatabase }) => {
 		setFormErrors(validation(anime.title));
 		if (anime.title.length !== 0) {
 			try {
-				await AnimeDataService.addAnime(anime);
-				await getAnimeDatabase(user.uid);
+				// await getAnimeDatabase(user.uid);
+				animeDatabase[0].anime.push({
+					...anime,
+				});
+				await AnimeDataService.updateAnime(
+					'LL6XdGl6QKbjnCv67gon',
+					animeDatabase[0]
+				);
 				console.log('anime added to database');
 				animeAddedNotification();
 				handleClose();
-				// console.log(anime);
+				console.log(animeDatabase[0].anime);
 			} catch (error) {
 				console.log(error);
 			}
 		}
 	};
+	// console.log(animeDatabase[0].anime);
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>

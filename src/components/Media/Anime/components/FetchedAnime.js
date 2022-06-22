@@ -4,14 +4,17 @@ import React, { useState } from 'react';
 import FetchedMedia from '../../components/FetchedMedia';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 const FetchedAnime = ({
+	animeDatabase,
 	AnimeDataService,
 	fetchedAnime,
 	getAnimeDatabase,
 	user,
 }) => {
 	const [singleAnime, setSingleAnime] = useState({
+		id: uuidv4(),
 		title: '',
 		synopsis: '',
 		type: 'TV-Show',
@@ -51,9 +54,16 @@ const FetchedAnime = ({
 		e.preventDefault();
 
 		try {
-			await AnimeDataService.addAnime(singleAnime);
+			animeDatabase[0].anime.push({
+				...singleAnime,
+			});
+			await AnimeDataService.updateAnime(
+				'LL6XdGl6QKbjnCv67gon',
+				animeDatabase[0]
+			);
 			await getAnimeDatabase(user.uid);
 			console.log('anime added to database');
+			singleAnime.id = uuidv4();
 			animeAddedNotification();
 			// console.log(singleAnime);
 		} catch (error) {
@@ -67,8 +77,6 @@ const FetchedAnime = ({
 				<h5 className='mx-2 text-center'>No Anime Found</h5>
 			</FetchedMedia>
 		);
-
-	fetchedAnime.map(anime => anime.type);
 
 	return (
 		<FetchedMedia cardTitle='Searched Anime'>

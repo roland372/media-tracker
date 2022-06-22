@@ -83,7 +83,14 @@ const Homepage = () => {
 	//* handle delete
 	const deleteAnime = async id => {
 		setLoading(true);
-		await AnimeDataService.deleteAnime(id);
+		const filteredArray = animeDatabase[0].anime.filter(
+			anime => anime.id !== id
+		);
+		animeDatabase[0].anime = filteredArray;
+		await AnimeDataService.updateAnime(
+			'LL6XdGl6QKbjnCv67gon',
+			animeDatabase[0]
+		);
 		getAnimeDatabase(user.uid);
 		setLoading(false);
 	};
@@ -128,6 +135,7 @@ const Homepage = () => {
 
 					{selectMediaValue === 'Anime' ? (
 						<AnimeForm
+							animeDatabase={animeDatabase}
 							getAnimeDatabase={getAnimeDatabase}
 							handleClose={handleClose}
 							user={user}
@@ -170,7 +178,7 @@ const Homepage = () => {
 			) : (
 				<>
 					<RecentAnime
-						allAnime={animeDatabase}
+						allAnime={animeDatabase?.[0]?.anime}
 						deleteAnime={deleteAnime}
 						getAnimeDatabase={getAnimeDatabase}
 						user={user}

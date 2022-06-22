@@ -23,6 +23,7 @@ const SingleMangaCard = ({
 	const handleShow = () => setShow(true);
 
 	const [singleManga, setSingleManga] = useState({});
+	// console.log(singleManga.title);
 
 	const getSingleMangaDatabase = async id => {
 		const data = await MangaDataService.getManga(id);
