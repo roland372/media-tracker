@@ -21,12 +21,13 @@ const EditForm = ({
 	getAnimeDatabase,
 	user,
 }) => {
-	const filteredAnime = singleAnime?.anime.filter(anime => anime.id === id);
+	const filteredAnime = singleAnime?.anime?.filter(anime => anime.id === id);
 
 	const {
 		title,
 		imageURL,
-		synopsis,
+		mal_id,
+		// synopsis,
 		type,
 		link1,
 		link1Name,
@@ -42,8 +43,9 @@ const EditForm = ({
 	//* initialize anime object
 	const [anime, setAnime] = useState({
 		id: id,
+		mal_id: mal_id,
 		title: title,
-		synopsis: synopsis,
+		// synopsis: synopsis,
 		type: type,
 		link1: link1,
 		link1Name: link1Name,
@@ -55,7 +57,7 @@ const EditForm = ({
 		episodesMin: Number(episodesMin),
 		episodesMax: Number(episodesMax),
 		favourites: favourites,
-		owner: user.uid,
+		owner: user?.uid,
 		lastModified: Date.now(),
 	});
 
@@ -77,9 +79,9 @@ const EditForm = ({
 	const handleSetTitle = e => {
 		setAnime({ ...anime, title: e.target.value });
 	};
-	const handleSetSynopsis = e => {
-		setAnime({ ...anime, synopsis: e.target.value });
-	};
+	// const handleSetSynopsis = e => {
+	// 	setAnime({ ...anime, synopsis: e.target.value });
+	// };
 	const handleSetType = e => {
 		setAnime({ ...anime, type: e.value });
 	};
@@ -120,10 +122,10 @@ const EditForm = ({
 	const onSubmit = async e => {
 		e.preventDefault();
 
-		setFormErrors(validation(anime.title));
-		if (anime.title.length !== 0) {
+		setFormErrors(validation(anime?.title));
+		if (anime?.title?.length !== 0) {
 			try {
-				const newAnimeArray = singleAnime?.anime.filter(
+				const newAnimeArray = singleAnime?.anime?.filter(
 					anime => anime.id !== id
 				);
 				await newAnimeArray.push({
@@ -145,7 +147,7 @@ const EditForm = ({
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>
-			<div className='mt-3 mb-2'>
+			<div className='mt-3 mb-0'>
 				<input
 					type='text'
 					className='form-control'
@@ -158,7 +160,7 @@ const EditForm = ({
 			{formErrors ? (
 				<small className='text-danger d-flex mx-2'>{formErrors.title}</small>
 			) : null}
-			<div className='mt-2 mb-2'>
+			{/* <div className='mt-2 mb-2'>
 				<textarea
 					type='text'
 					className='form-control'
@@ -168,7 +170,7 @@ const EditForm = ({
 					defaultValue={synopsis}
 					onChange={e => handleSetSynopsis(e)}
 				/>
-			</div>
+			</div> */}
 			<div className='mt-3 mb-2'>
 				<Select
 					defaultValue={{ label: type, value: type }}

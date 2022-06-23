@@ -15,8 +15,9 @@ const FetchedAnime = ({
 }) => {
 	const [singleAnime, setSingleAnime] = useState({
 		id: uuidv4(),
+		mal_id: '',
 		title: '',
-		synopsis: '',
+		// synopsis: '',
 		type: 'TV-Show',
 		link1: '',
 		link1Name: 'MAL',
@@ -54,7 +55,7 @@ const FetchedAnime = ({
 		e.preventDefault();
 
 		try {
-			animeDatabase[0].anime.push({
+			animeDatabase?.[0]?.anime.push({
 				...singleAnime,
 			});
 			await AnimeDataService.updateAnime(
@@ -82,7 +83,7 @@ const FetchedAnime = ({
 	return (
 		<FetchedMedia cardTitle='Searched Anime'>
 			<section className='d-flex align-items-center justify-content-start flex-wrap'>
-				{fetchedAnime.map(anime => (
+				{fetchedAnime?.map(anime => (
 					<section className='p-2' key={anime.mal_id}>
 						<OverlayTrigger
 							trigger='click'
@@ -111,8 +112,9 @@ const FetchedAnime = ({
 														// console.log(anime);
 														const addAnime = {
 															...singleAnime,
+															mal_id: anime.mal_id,
 															title: anime.title ? anime.title : 'anime',
-															synopsis: anime.synopsis ? anime.synopsis : '',
+															// synopsis: anime.synopsis ? anime.synopsis : '',
 															type: setAnimeType(anime.type),
 															link1: anime.url,
 															//? v3

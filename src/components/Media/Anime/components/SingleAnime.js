@@ -13,6 +13,7 @@ import { useUserAuth } from '../../../../context/UserAuthContext';
 import CardComponent from '../../../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import Loader from '../../../Layout/Loader';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
@@ -22,6 +23,9 @@ const SingleAnime = () => {
 	const { id } = useParams();
 	const { user } = useUserAuth();
 	const navigate = useNavigate();
+
+	//* <----- Loading state ----->
+	const [loading, setLoading] = useState(<Loader />);
 
 	//* <----- Modal state ----->
 	const [show, setShow] = useState(false);
@@ -53,34 +57,34 @@ const SingleAnime = () => {
 	const [animeDetails, setAnimeDetails] = useState([]);
 
 	const fetchAnime = async query => {
-		const temp = await fetch(
-			`https://api.jikan.moe/v4/anime/${query}/full`
-		).then(res => res.json());
-
+		setLoading(true);
+		const temp = await fetch(`https://api.jikan.moe/v4/anime/${query}/full`)
+			.then(res => res.json())
+			.catch(err => console.log(err));
 		setAnimeDetails(temp.data);
-		// 31933
+		setLoading(false);
 	};
 
 	const filteredAnime = singleAnimeDatabase?.anime?.filter(
 		anime => anime.id === id
 	);
+	const fetchedAnimeID = filteredAnime?.[0]?.mal_id;
 
 	useDocumentTitle(filteredAnime?.[0]?.title);
 
 	useEffect(() => {
 		const getSingleAnimeDatabase = async () => {
-			// const data = await AnimeDataService.getAnime('LL6XdGl6QKbjnCv67gon');
-			const data = await AnimeDataService.getAnime(user?.uid);
+			setLoading(true);
+			const data = await AnimeDataService?.getAnime(user?.uid);
 			setSingleAnimeDatabase(data.data());
 		};
 		getSingleAnimeDatabase();
+		setLoading(false);
 	}, [user?.uid]);
 
 	useEffect(() => {
-		fetchAnime('31933');
-	}, []);
-
-	console.log(animeDetails);
+		if (fetchedAnimeID !== undefined) fetchAnime(fetchedAnimeID);
+	}, [fetchedAnimeID]);
 
 	const getAnimeDatabase = userId => {};
 
@@ -170,78 +174,83 @@ const SingleAnime = () => {
 					<hr />
 				</div>
 			</section>
-			<section className='mx-2 mt-2'>
-				<section className='d-lg-flex align-items-start'>
-					<img
-						className='img img-fluid text-start'
-						width='200px'
-						src={
-							filteredAnime?.[0]?.imageURL
-								? filteredAnime?.[0]?.imageURL
-								: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
-						}
-						alt={filteredAnime?.[0]?.title}
-					/>
-					{filteredAnime?.[0]?.synopsis ? (
-						<div className='col'>
-							<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
-							<p className='px-3 text-start mx-3 new-line'>
-								{filteredAnime?.[0]?.synopsis}
-							</p>
-						</div>
-					) : null}
-				</section>
-				<section className='d-flex justify-content-around mt-3'>
-					<section>
-						<div>
-							<h5>Type</h5>
-							<p>{filteredAnime?.[0]?.type}</p>
-						</div>
-						<div>
-							<h5>Status</h5>
-							<p>{filteredAnime?.[0]?.status}</p>
-						</div>
-					</section>
-					<section>
-						<div>
-							<h5>Episodes</h5>
-							<p>
-								{filteredAnime?.[0]?.episodesMin}/
-								{filteredAnime?.[0]?.episodesMax}
-							</p>
-						</div>
-					</section>
-					<section>
-						<div>
-							<h5>Rating</h5>
-							<p>⭐{filteredAnime?.[0]?.rating}</p>
-						</div>
-						{filteredAnime?.[0]?.link1 || filteredAnime?.[0]?.link2 ? (
-							<div>
-								<h5>Links</h5>
-								{filteredAnime?.[0]?.link1 ? (
-									<a
-										href={filteredAnime?.[0]?.link1}
-										target='_blank'
-										rel='noreferrer'
-									>
-										<div>{filteredAnime?.[0]?.link1Name}</div>
-									</a>
-								) : null}
-								{filteredAnime?.[0]?.link2 ? (
-									<a
-										href={filteredAnime?.[0]?.link2}
-										target='_blank'
-										rel='noreferrer'
-									>
-										<div>{filteredAnime?.[0]?.link2Name}</div>
-									</a>
-								) : null}
+
+			{loading ? (
+				<Loader />
+			) : (
+				<section className='mx-2 mt-2'>
+					<section className='d-lg-flex align-items-start'>
+						<img
+							className='img img-fluid text-start'
+							width='200px'
+							src={
+								filteredAnime?.[0]?.imageURL
+									? filteredAnime?.[0]?.imageURL
+									: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
+							}
+							alt={filteredAnime?.[0]?.title}
+						/>
+						{animeDetails?.synopsis ? (
+							<div className='col'>
+								<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
+								<p className='px-3 text-start mx-3 new-line'>
+									{animeDetails?.synopsis}
+								</p>
 							</div>
 						) : null}
 					</section>
+					<section className='d-flex justify-content-around mt-3'>
+						<section>
+							<div>
+								<h5>Type</h5>
+								<p>{filteredAnime?.[0]?.type}</p>
+							</div>
+							<div>
+								<h5>Status</h5>
+								<p>{filteredAnime?.[0]?.status}</p>
+							</div>
+						</section>
+						<section>
+							<div>
+								<h5>Episodes</h5>
+								<p>
+									{filteredAnime?.[0]?.episodesMin}/
+									{filteredAnime?.[0]?.episodesMax}
+								</p>
+							</div>
+						</section>
+						<section>
+							<div>
+								<h5>Rating</h5>
+								<p>⭐{filteredAnime?.[0]?.rating}</p>
+							</div>
+							{filteredAnime?.[0]?.link1 || filteredAnime?.[0]?.link2 ? (
+								<div>
+									<h5>Links</h5>
+									{filteredAnime?.[0]?.link1 ? (
+										<a
+											href={filteredAnime?.[0]?.link1}
+											target='_blank'
+											rel='noreferrer'
+										>
+											<div>{filteredAnime?.[0]?.link1Name}</div>
+										</a>
+									) : null}
+									{filteredAnime?.[0]?.link2 ? (
+										<a
+											href={filteredAnime?.[0]?.link2}
+											target='_blank'
+											rel='noreferrer'
+										>
+											<div>{filteredAnime?.[0]?.link2Name}</div>
+										</a>
+									) : null}
+								</div>
+							) : null}
+						</section>
+					</section>
 				</section>
-			</section>
+			)}
 		</CardComponent>
 	);
 };

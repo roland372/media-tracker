@@ -459,11 +459,7 @@ const Profile = () => {
 																	</Link>
 																</h6>
 																<p className='text-color'>
-																	{
-																		animeDatabase.filter(
-																			owner => owner.owner === user.uid
-																		).length
-																	}
+																	{animeDatabase?.[0]?.anime?.length}
 																	{''} Anime
 																</p>
 															</div>

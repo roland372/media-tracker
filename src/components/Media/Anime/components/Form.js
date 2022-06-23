@@ -18,8 +18,9 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 	//* initialize anime object
 	const [anime, setAnime] = useState({
 		id: uuidv4(),
+		mal_id: '',
 		title: '',
-		synopsis: '',
+		// synopsis: '',
 		type: 'TV-Show',
 		link1: '',
 		link1Name: 'Link',
@@ -31,7 +32,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 		episodesMin: 0,
 		episodesMax: 0,
 		favourites: false,
-		owner: user.uid,
+		owner: user?.uid,
 		lastModified: Date.now(),
 	});
 
@@ -53,9 +54,9 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 	const handleSetTitle = e => {
 		setAnime({ ...anime, title: e.target.value });
 	};
-	const handleSetSynopsis = e => {
-		setAnime({ ...anime, synopsis: e.target.value });
-	};
+	// const handleSetSynopsis = e => {
+	// 	setAnime({ ...anime, synopsis: e.target.value });
+	// };
 	const handleSetType = e => {
 		setAnime({ ...anime, type: e.value });
 	};
@@ -94,10 +95,10 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 		e.preventDefault();
 
 		setFormErrors(validation(anime.title));
-		if (anime.title.length !== 0) {
+		if (anime?.title?.length !== 0) {
 			try {
 				// await getAnimeDatabase(user.uid);
-				animeDatabase[0].anime.push({
+				animeDatabase?.[0]?.anime.push({
 					...anime,
 				});
 				await AnimeDataService.updateAnime(
@@ -118,7 +119,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>
-			<div className='mt-3 mb-2'>
+			<div className='mt-3 mb-0'>
 				<input
 					type='text'
 					className='form-control'
@@ -131,7 +132,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 			{formErrors ? (
 				<small className='text-danger d-flex ms-1'>{formErrors.title}</small>
 			) : null}
-			<div className='mt-2 mb-2'>
+			{/* <div className='mt-2 mb-2'>
 				<textarea
 					type='text'
 					className='form-control'
@@ -140,7 +141,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 					rows='3'
 					onChange={e => handleSetSynopsis(e)}
 				/>
-			</div>
+			</div> */}
 			<div className='mt-3 mb-2'>
 				<Select
 					defaultValue={{ label: 'Select Type', value: '' }}

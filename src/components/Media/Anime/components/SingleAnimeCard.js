@@ -35,6 +35,7 @@ const SingleAnimeCard = ({
 
 	useEffect(() => {
 		getSingleAnimeDatabase();
+		//eslint-disable-next-line
 	}, []);
 
 	return (

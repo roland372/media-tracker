@@ -90,7 +90,7 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 					<section className='d-flex align-items-center justify-content-start flex-wrap'>
 						{menuItems
 							//? display first 20 elements
-							.filter(value => {
+							?.filter(value => {
 								if (searchTerm === '') {
 									return value;
 								} else if (
@@ -119,7 +119,7 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 						{displayMore
 							? //? display the rest
 							  menuItems
-									.filter(value => {
+									?.filter(value => {
 										if (searchTerm === '') {
 											return value;
 										} else if (
@@ -164,7 +164,7 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 					>
 						{menuItems
 							//? display first 20 elements
-							.filter(value => {
+							?.filter(value => {
 								if (searchTerm === '') {
 									return value;
 								} else if (
@@ -196,7 +196,7 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 						{displayMore
 							? //? display the rest
 							  menuItems
-									.filter(value => {
+									?.filter(value => {
 										if (searchTerm === '') {
 											return value;
 										} else if (
