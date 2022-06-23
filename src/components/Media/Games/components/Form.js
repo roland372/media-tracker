@@ -14,8 +14,8 @@ const Form = ({ gamesDatabase, handleClose, user, getGamesDatabase }) => {
 	//* initialize game object
 	const [game, setGame] = useState({
 		favourites: false,
-		imageURL: '',
 		id: uuidv4(),
+		imageURL: '',
 		lastModified: Date.now(),
 		link1: '',
 		link1Name: 'Link',

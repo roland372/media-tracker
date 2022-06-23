@@ -15,6 +15,8 @@ import RecentGames from '../components/RecentGames';
 import FavouriteGames from '../components/FavouriteGames';
 import GamesStats from '../components/GamesStats';
 import Loader from '../../../Layout/Loader';
+import FetchedGames from '../components/FetchedGames';
+import axios from 'axios';
 
 //? <----- Icons ----->
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -66,6 +68,46 @@ const Games = () => {
 		getGamesDatabase(user?.uid);
 	}, [user?.uid]);
 
+	//* fetch games from API
+	const [gamesList, setGamesList] = useState([]);
+	const [search, setSearch] = useState('');
+
+	const handleSearch = e => {
+		e.preventDefault();
+
+		fetchGames(search);
+	};
+
+	const fetchGames = async query => {
+		axios({
+			url:
+				'https://circumvent-cors.herokuapp.com/https://api.igdb.com/v4/games?search=' +
+				query +
+				'&fields=name,url, id, cover.*, screenshots.*, websites.*, genres.*, total_rating, total_rating_count, summary, storyline, slug, similar_games.*, release_dates.*, platforms.*, first_release_date, artworks.*',
+			method: 'POST',
+			headers: {
+				'Client-ID': process.env.REACT_APP_igdbClientID,
+				Authorization: 'Bearer ' + process.env.REACT_APP_igdbAuthorization,
+			},
+		})
+			.then(response => {
+				// console.log(response.data);
+				setGamesList(response.data);
+			})
+			.catch(err => {
+				console.error(err);
+			});
+	};
+
+	// useEffect(() => {
+	// 	fetchGames('fate/stay night');
+	// }, []);
+
+	// console.log(gamesList?.[0]?.cover);
+	// console.log(gamesList?.[0]?.cover?.image_id);
+	// 97934
+	// https://images.igdb.com/igdb/image/upload/t_cover_big/co23ke.jpg
+
 	return (
 		<>
 			<CardComponent title='Games'>
@@ -86,17 +128,52 @@ const Games = () => {
 						/>
 					</Modal.Body>
 				</Modal>
+
+				{/* <img
+					src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${gamesList?.[0]?.cover?.image_id}.jpg`}
+					alt=''
+				/> */}
+				{/* <img
+					src={`https://images.igdb.com/igdb/image/upload/t_1080p/${gamesList?.[0]?.cover?.image_id}.jpg`}
+					alt=''
+				/> */}
 				<section className='text-color'>
 					<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
 						<button className='btn btn-primary' onClick={() => handleShow()}>
 							Add Game
 						</button>
+						<div className='mx-2'>or</div>
+						<form onSubmit={handleSearch}>
+							<div className='d-flex'>
+								<input
+									className='form-control'
+									type='search'
+									placeholder='Search for an Anime'
+									required
+									value={search}
+									onChange={e => setSearch(e.target.value)}
+									onSubmit={e => setSearch(e.target.value)}
+								/>
+								<button className='btn btn-primary'>
+									<AiOutlineSearch size={20} />
+								</button>
+							</div>
+						</form>
 					</div>
 					<div className='mx-2'>
 						<hr />
 					</div>
 				</section>
 			</CardComponent>
+			{search ? (
+				<FetchedGames
+					gamesDatabase={gamesDatabase}
+					GamesDataService={GamesDataService}
+					fetchedGames={gamesList}
+					getGamesDatabase={getGamesDatabase}
+					user={user}
+				/>
+			) : null}
 
 			{loading ? (
 				<Loader />

@@ -14,6 +14,7 @@ import CardComponent from '../../../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import Loader from '../../../Layout/Loader';
+import axios from 'axios';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
@@ -53,6 +54,33 @@ const SingleGame = () => {
 		});
 
 	const [singleGameDatabase, setSingleGameDatabase] = useState({});
+
+	// const [gameDetails, setGameDetails] = useState([]);
+
+	// const fetchGame = async query => {
+	// 	axios({
+	// 		url:
+	// 			'https://circumvent-cors.herokuapp.com/https://api.igdb.com/v4/games?search=' +
+	// 			query +
+	// 			'&fields=name,url, id, cover.*, screenshots.*, websites.*, genres.*, total_rating, total_rating_count, summary, storyline, slug, similar_games.*, release_dates.*, platforms.*, first_release_date, artworks.*',
+	// 		method: 'POST',
+	// 		headers: {
+	// 			'Client-ID': process.env.REACT_APP_igdbClientID,
+	// 			Authorization: 'Bearer ' + process.env.REACT_APP_igdbAuthorization,
+	// 		},
+	// 	})
+	// 		.then(response => {
+	// 			// console.log(response.data);
+	// 			setGameDetails(response.data);
+	// 		})
+	// 		.catch(err => {
+	// 			console.error(err);
+	// 		});
+	// };
+
+	// useEffect(() => {
+	// 	fetchGame('dark souls');
+	// }, []);
 
 	const filteredGame = singleGameDatabase?.games?.filter(
 		game => game.id === id
