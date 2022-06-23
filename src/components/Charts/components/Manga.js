@@ -5,7 +5,7 @@ import 'chart.js/auto';
 import { Chart } from 'react-chartjs-2';
 import MangaStats from '../../Media/Manga/components/MangaStats';
 
-const Manga = ({ mangaMeanScore, mangaDatabase }) => {
+const Manga = ({ mangaDatabase }) => {
 	//* <----- Mean Score ----->
 	const meanScoreCount = {
 		1: 0,
@@ -20,13 +20,18 @@ const Manga = ({ mangaMeanScore, mangaDatabase }) => {
 		10: 0,
 	};
 
-	for (const element of mangaMeanScore) {
-		if (meanScoreCount[element.rating]) {
-			meanScoreCount[element.rating] += 1;
-		} else {
-			meanScoreCount[element.rating] = 1;
+	const mangaMeanScore = mangaDatabase?.[0]?.manga?.filter(
+		manga => manga.rating !== 0
+	);
+
+	if (mangaMeanScore !== undefined)
+		for (const element of mangaMeanScore) {
+			if (meanScoreCount[element.rating]) {
+				meanScoreCount[element.rating] += 1;
+			} else {
+				meanScoreCount[element.rating] = 1;
+			}
 		}
-	}
 
 	const chartDataRating = {
 		labels: Object.keys(meanScoreCount),
@@ -43,13 +48,14 @@ const Manga = ({ mangaMeanScore, mangaDatabase }) => {
 	//* <----- Status count ----->
 	const mangaStatusCount = {};
 
-	for (const element of mangaDatabase) {
-		if (mangaStatusCount[element.status]) {
-			mangaStatusCount[element.status] += 1;
-		} else {
-			mangaStatusCount[element.status] = 1;
+	if (mangaDatabase?.[0]?.manga !== undefined)
+		for (const element of mangaDatabase?.[0]?.manga) {
+			if (mangaStatusCount[element.status]) {
+				mangaStatusCount[element.status] += 1;
+			} else {
+				mangaStatusCount[element.status] = 1;
+			}
 		}
-	}
 	const statusBackgroundColors = [];
 
 	for (let i = 0; i < Object.keys(mangaStatusCount).length; i++) {
@@ -85,13 +91,14 @@ const Manga = ({ mangaMeanScore, mangaDatabase }) => {
 	//* <----- Type count ----->
 	const mangaTypeCount = {};
 
-	for (const element of mangaDatabase) {
-		if (mangaTypeCount[element.type]) {
-			mangaTypeCount[element.type] += 1;
-		} else {
-			mangaTypeCount[element.type] = 1;
+	if (mangaDatabase?.[0]?.manga !== undefined)
+		for (const element of mangaDatabase?.[0]?.manga) {
+			if (mangaTypeCount[element.type]) {
+				mangaTypeCount[element.type] += 1;
+			} else {
+				mangaTypeCount[element.type] = 1;
+			}
 		}
-	}
 
 	const typeBackgroundColors = [];
 
@@ -135,7 +142,7 @@ const Manga = ({ mangaMeanScore, mangaDatabase }) => {
 		<section>
 			<div>
 				<h2 className='pb-3'>Manga Stats</h2>
-				<MangaStats mangaDatabase={mangaDatabase} />
+				<MangaStats mangaDatabase={mangaDatabase?.[0]?.manga} />
 			</div>
 			<section className='mx-lg-5 p-lg-5'>
 				<div>

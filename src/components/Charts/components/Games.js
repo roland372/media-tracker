@@ -5,7 +5,7 @@ import 'chart.js/auto';
 import { Chart } from 'react-chartjs-2';
 import GamesStats from '../../Media/Games/components/GamesStats';
 
-const Games = ({ gamesMeanScore, gamesDatabase }) => {
+const Games = ({ gamesDatabase }) => {
 	//* <----- Mean Score ----->
 	const meanScoreCount = {
 		1: 0,
@@ -20,13 +20,18 @@ const Games = ({ gamesMeanScore, gamesDatabase }) => {
 		10: 0,
 	};
 
-	for (const element of gamesMeanScore) {
-		if (meanScoreCount[element.rating]) {
-			meanScoreCount[element.rating] += 1;
-		} else {
-			meanScoreCount[element.rating] = 1;
+	const gamesMeanScore = gamesDatabase?.[0]?.games?.filter(
+		game => game.rating !== 0
+	);
+
+	if (gamesMeanScore !== undefined)
+		for (const element of gamesMeanScore) {
+			if (meanScoreCount[element.rating]) {
+				meanScoreCount[element.rating] += 1;
+			} else {
+				meanScoreCount[element.rating] = 1;
+			}
 		}
-	}
 
 	const chartDataRating = {
 		labels: Object.keys(meanScoreCount),
@@ -43,13 +48,14 @@ const Games = ({ gamesMeanScore, gamesDatabase }) => {
 	//* <----- Status count ----->
 	const gameStatusCount = {};
 
-	for (const element of gamesDatabase) {
-		if (gameStatusCount[element.status]) {
-			gameStatusCount[element.status] += 1;
-		} else {
-			gameStatusCount[element.status] = 1;
+	if (gamesDatabase?.[0]?.games !== undefined)
+		for (const element of gamesDatabase?.[0]?.games) {
+			if (gameStatusCount[element.status]) {
+				gameStatusCount[element.status] += 1;
+			} else {
+				gameStatusCount[element.status] = 1;
+			}
 		}
-	}
 
 	const statusBackgroundColors = [];
 
@@ -86,13 +92,14 @@ const Games = ({ gamesMeanScore, gamesDatabase }) => {
 	//* <----- Type count ----->
 	const gameTypeCount = {};
 
-	for (const element of gamesDatabase) {
-		if (gameTypeCount[element.type]) {
-			gameTypeCount[element.type] += 1;
-		} else {
-			gameTypeCount[element.type] = 1;
+	if (gamesDatabase?.[0]?.games !== undefined)
+		for (const element of gamesDatabase?.[0]?.games) {
+			if (gameTypeCount[element.type]) {
+				gameTypeCount[element.type] += 1;
+			} else {
+				gameTypeCount[element.type] = 1;
+			}
 		}
-	}
 
 	const typeBackgroundColors = [];
 
@@ -121,7 +128,7 @@ const Games = ({ gamesMeanScore, gamesDatabase }) => {
 		<section>
 			<div>
 				<h2 className='pb-3'>Games Stats</h2>
-				<GamesStats gamesDatabase={gamesDatabase} />
+				<GamesStats gamesDatabase={gamesDatabase?.[0].games} />
 			</div>
 			<section className='mx-lg-5 p-lg-5'>
 				<div>

@@ -54,27 +54,18 @@ const Charts = () => {
 	// 	return Math.round(value * multiplier) / multiplier;
 	// }
 
-	//* <----- filter anime score ----->
-	const animeMeanScore = animeDatabase.filter(anime => anime.rating !== 0);
-
-	//* <----- filter games score ----->
-	const gamesMeanScore = gamesDatabase.filter(game => game.rating !== 0);
-
-	//* <----- filter manga score ----->
-	const mangaMeanScore = mangaDatabase.filter(manga => manga.rating !== 0);
-
 	return (
 		<CardComponent title='Charts'>
 			<section>
-				<Anime animeMeanScore={animeMeanScore} animeDatabase={animeDatabase} />
+				<Anime animeDatabase={animeDatabase} />
 				<div className='my-5 mx-2'>
 					<hr />
 				</div>
-				<Games gamesMeanScore={gamesMeanScore} gamesDatabase={gamesDatabase} />
+				<Games gamesDatabase={gamesDatabase} />
 				<div className='my-5 mx-2'>
 					<hr />
 				</div>
-				<Manga mangaMeanScore={mangaMeanScore} mangaDatabase={mangaDatabase} />
+				<Manga mangaDatabase={mangaDatabase} />
 			</section>
 		</CardComponent>
 	);

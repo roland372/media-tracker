@@ -5,7 +5,7 @@ import 'chart.js/auto';
 import { Chart } from 'react-chartjs-2';
 import AnimeStats from '../../Media/Anime/components/AnimeStats';
 
-const Anime = ({ animeMeanScore, animeDatabase }) => {
+const Anime = ({ animeDatabase }) => {
 	//* <----- Mean Score ----->
 	const meanScoreCount = {
 		1: 0,
@@ -20,13 +20,18 @@ const Anime = ({ animeMeanScore, animeDatabase }) => {
 		10: 0,
 	};
 
-	for (const element of animeMeanScore) {
-		if (meanScoreCount[element.rating]) {
-			meanScoreCount[element.rating] += 1;
-		} else {
-			meanScoreCount[element.rating] = 1;
+	const animeMeanScore = animeDatabase?.[0]?.anime?.filter(
+		anime => anime.rating !== 0
+	);
+
+	if (animeMeanScore !== undefined)
+		for (const element of animeMeanScore) {
+			if (meanScoreCount[element.rating]) {
+				meanScoreCount[element.rating] += 1;
+			} else {
+				meanScoreCount[element.rating] = 1;
+			}
 		}
-	}
 
 	const chartDataRating = {
 		labels: Object.keys(meanScoreCount),
@@ -43,13 +48,14 @@ const Anime = ({ animeMeanScore, animeDatabase }) => {
 	//* <----- Episodes count ----->
 	const totalEpisodesCount = {};
 
-	for (const element of animeDatabase) {
-		if (totalEpisodesCount[element.episodesMax]) {
-			totalEpisodesCount[element.episodesMax] += 1;
-		} else {
-			totalEpisodesCount[element.episodesMax] = 1;
+	if (animeDatabase?.[0]?.anime !== undefined)
+		for (const element of animeDatabase?.[0]?.anime) {
+			if (totalEpisodesCount[element.episodesMax]) {
+				totalEpisodesCount[element.episodesMax] += 1;
+			} else {
+				totalEpisodesCount[element.episodesMax] = 1;
+			}
 		}
-	}
 
 	const chartDataTotalEpisodes = {
 		labels: Object.keys(totalEpisodesCount),
@@ -66,13 +72,14 @@ const Anime = ({ animeMeanScore, animeDatabase }) => {
 	//* <----- Status count ----->
 	const animeStatusCount = {};
 
-	for (const element of animeDatabase) {
-		if (animeStatusCount[element.status]) {
-			animeStatusCount[element.status] += 1;
-		} else {
-			animeStatusCount[element.status] = 1;
+	if (animeDatabase?.[0]?.anime !== undefined)
+		for (const element of animeDatabase?.[0]?.anime) {
+			if (animeStatusCount[element.status]) {
+				animeStatusCount[element.status] += 1;
+			} else {
+				animeStatusCount[element.status] = 1;
+			}
 		}
-	}
 	// const keysSorted = Object.keys(animeStatusCount).sort(function (a, b) {
 	// 	return animeStatusCount[a] - animeStatusCount[b];
 	// });
@@ -111,13 +118,14 @@ const Anime = ({ animeMeanScore, animeDatabase }) => {
 	//* <----- Type count ----->
 	const animeTypeCount = {};
 
-	for (const element of animeDatabase) {
-		if (animeTypeCount[element.type]) {
-			animeTypeCount[element.type] += 1;
-		} else {
-			animeTypeCount[element.type] = 1;
+	if (animeDatabase?.[0]?.anime !== undefined)
+		for (const element of animeDatabase?.[0]?.anime) {
+			if (animeTypeCount[element.type]) {
+				animeTypeCount[element.type] += 1;
+			} else {
+				animeTypeCount[element.type] = 1;
+			}
 		}
-	}
 
 	const typeBackgroundColors = [];
 
@@ -155,7 +163,7 @@ const Anime = ({ animeMeanScore, animeDatabase }) => {
 		<section>
 			<div>
 				<h2 className='pb-2'>Anime Stats</h2>
-				<AnimeStats animeDatabase={animeDatabase} />
+				<AnimeStats animeDatabase={animeDatabase?.[0]?.anime} />
 			</div>
 			<section
 				className='m-2 d-flex flex-wrap col-12 
