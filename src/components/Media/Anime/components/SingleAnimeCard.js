@@ -26,7 +26,8 @@ const SingleAnimeCard = ({
 	const [singleAnime, setSingleAnime] = useState({});
 
 	const getSingleAnimeDatabase = async () => {
-		const data = await AnimeDataService.getAnime('LL6XdGl6QKbjnCv67gon');
+		// const data = await AnimeDataService.getAnime('LL6XdGl6QKbjnCv67gon');
+		const data = await AnimeDataService.getAnime(user?.uid);
 		setSingleAnime(data.data());
 	};
 

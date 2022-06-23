@@ -50,14 +50,16 @@ const SingleAnime = () => {
 
 	const [singleAnimeDatabase, setSingleAnimeDatabase] = useState({});
 
-	const getSingleAnimeDatabase = async () => {
-		const data = await AnimeDataService.getAnime('LL6XdGl6QKbjnCv67gon');
-		setSingleAnimeDatabase(data.data());
-	};
+	const [animeDetails, setAnimeDetails] = useState([]);
 
-	useEffect(() => {
-		getSingleAnimeDatabase();
-	}, []);
+	const fetchAnime = async query => {
+		const temp = await fetch(
+			`https://api.jikan.moe/v4/anime/${query}/full`
+		).then(res => res.json());
+
+		setAnimeDetails(temp.data);
+		// 31933
+	};
 
 	const filteredAnime = singleAnimeDatabase?.anime?.filter(
 		anime => anime.id === id
@@ -65,20 +67,22 @@ const SingleAnime = () => {
 
 	useDocumentTitle(filteredAnime?.[0]?.title);
 
+	useEffect(() => {
+		const getSingleAnimeDatabase = async () => {
+			// const data = await AnimeDataService.getAnime('LL6XdGl6QKbjnCv67gon');
+			const data = await AnimeDataService.getAnime(user?.uid);
+			setSingleAnimeDatabase(data.data());
+		};
+		getSingleAnimeDatabase();
+	}, [user?.uid]);
+
+	useEffect(() => {
+		fetchAnime('31933');
+	}, []);
+
+	console.log(animeDetails);
+
 	const getAnimeDatabase = userId => {};
-
-	// const deleteAnime = async id => {
-	// 	const filteredArray = animeDatabase[0].anime.filter(
-	// 		anime => anime.id !== id
-	// 	);
-	// 	animeDatabase[0].anime = filteredArray;
-	// 	await AnimeDataService.updateAnime(
-	// 		'LL6XdGl6QKbjnCv67gon',
-	// 		animeDatabase[0]
-	// 	);
-	// };
-
-	// console.log(singleAnimeDatabase);
 
 	const deleteAnime = async id => {
 		const filteredArray = singleAnimeDatabase?.anime?.filter(
@@ -86,7 +90,8 @@ const SingleAnime = () => {
 		);
 		singleAnimeDatabase.anime = filteredArray;
 		await AnimeDataService.updateAnime(
-			'LL6XdGl6QKbjnCv67gon',
+			// 'LL6XdGl6QKbjnCv67gon',
+			user?.uid,
 			singleAnimeDatabase
 		);
 		animeDeletedNotification();
@@ -108,7 +113,7 @@ const SingleAnime = () => {
 						handleClose={handleClose}
 						singleAnime={singleAnimeDatabase}
 						id={id}
-						getSingleAnimeDatabase={getSingleAnimeDatabase}
+						// getSingleAnimeDatabase={getSingleAnimeDatabase}
 						getAnimeDatabase={getAnimeDatabase}
 						user={user}
 					/>

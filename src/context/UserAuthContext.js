@@ -10,7 +10,7 @@ import {
 	getAdditionalUserInfo,
 } from 'firebase/auth';
 
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
 
 import { auth, db } from '../utils/firebaseConfig';
 
@@ -53,6 +53,12 @@ export const UserAuthContextProvider = ({ children }) => {
 				color: '#0d6efd',
 				description: '',
 			});
+
+			await setDoc(doc(db, 'anime', user.uid), {
+				id: user.uid,
+				owner: user.uid,
+				anime: [],
+			});
 		} catch (err) {
 			console.error(err);
 		}
@@ -67,7 +73,7 @@ export const UserAuthContextProvider = ({ children }) => {
 		const { isNewUser, profile } = getAdditionalUserInfo(result);
 
 		if (isNewUser) {
-			addDoc(collection(db, 'users'), {
+			await addDoc(collection(db, 'users'), {
 				uid: auth.currentUser.uid,
 				// eslint-disable-next-line no-restricted-globals
 				name: profile.name,
@@ -75,6 +81,12 @@ export const UserAuthContextProvider = ({ children }) => {
 				email: profile.email,
 				color: '#0d6efd',
 				description: '',
+			});
+
+			await setDoc(doc(db, 'anime', auth.currentUser.uid), {
+				id: auth.currentUser.uid,
+				owner: auth.currentUser.uid,
+				anime: [],
 			});
 		}
 	};

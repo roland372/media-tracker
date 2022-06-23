@@ -56,7 +56,8 @@ const Anime = () => {
 		);
 		animeDatabase[0].anime = filteredArray;
 		await AnimeDataService.updateAnime(
-			'LL6XdGl6QKbjnCv67gon',
+			// 'LL6XdGl6QKbjnCv67gon',
+			user?.uid,
 			animeDatabase[0]
 		);
 		getAnimeDatabase(user.uid);

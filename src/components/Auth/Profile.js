@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import { updateProfile } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../utils/firebaseConfig';
+
 import UserDataService from './services/user.services';
 import AnimeDataService from '../../components/Media/Anime/services/anime.services';
 import GamesDataService from '../../components/Media/Games/services/games.services';

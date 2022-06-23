@@ -22,7 +22,7 @@ const FavouriteAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 
 	if (sortedAnime?.length < 1)
 		return (
-			<CardComponent title='All Anime'>
+			<CardComponent title='Favourite Anime'>
 				<h4 className='text-center'>No Favourite Anime</h4>
 			</CardComponent>
 		);
@@ -35,9 +35,9 @@ const FavouriteAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 						deleteAnime={deleteAnime}
 						favourites={anime.favourites}
 						getAnimeDatabase={getAnimeDatabase}
-						id={anime.title}
+						id={anime.id}
 						imageURL={anime.imageURL}
-						key={anime.title}
+						key={anime.id}
 						title={anime.title}
 						user={user}
 					/>

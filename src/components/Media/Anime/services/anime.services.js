@@ -31,7 +31,7 @@ class AnimeDataService {
 		return deleteDoc(animeDoc);
 	};
 
-	getAllAnimes = () => {
+	getAllAnimeDocs = () => {
 		return getDocs(animeCollectionRef);
 	};
 

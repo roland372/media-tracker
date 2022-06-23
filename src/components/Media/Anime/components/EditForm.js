@@ -17,7 +17,7 @@ const EditForm = ({
 	handleClose,
 	singleAnime,
 	id,
-	getSingleAnimeDatabase,
+	// getSingleAnimeDatabase,
 	getAnimeDatabase,
 	user,
 }) => {
@@ -130,7 +130,8 @@ const EditForm = ({
 					...anime,
 				});
 				singleAnime.anime = newAnimeArray;
-				await AnimeDataService.updateAnime('LL6XdGl6QKbjnCv67gon', singleAnime);
+				// await AnimeDataService.updateAnime('LL6XdGl6QKbjnCv67gon', singleAnime);
+				await AnimeDataService.updateAnime(user?.uid, singleAnime);
 				console.log('anime edited');
 				await getAnimeDatabase(user?.uid);
 				handleClose();
