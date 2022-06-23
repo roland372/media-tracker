@@ -7,10 +7,10 @@ import CardComponent from '../../../Layout/CardComponent';
 
 const FavouriteManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 	//* show only favourites
-	const filteredManga = allManga.filter(manga => manga.favourites);
+	const filteredManga = allManga?.filter(manga => manga.favourites);
 
 	//* sort manga by name
-	const sortedManga = filteredManga.sort(function (a, b) {
+	const sortedManga = filteredManga?.sort(function (a, b) {
 		const nameA = a.title.toLowerCase(),
 			nameB = b.title.toLowerCase();
 		if (nameA < nameB)
@@ -20,9 +20,9 @@ const FavouriteManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 		return 0; //default return value (no sorting)
 	});
 
-	if (sortedManga.length < 1)
+	if (sortedManga?.length < 1)
 		return (
-			<CardComponent title='All Manga'>
+			<CardComponent title='Favourite Manga'>
 				<h4 className='text-center'>No Favourite Manga</h4>
 			</CardComponent>
 		);
@@ -30,9 +30,10 @@ const FavouriteManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 	return (
 		<FavouriteMedia cardTitle='Favourite Manga'>
 			{user &&
-				sortedManga.map(manga => (
+				sortedManga?.map(manga => (
 					<SingleMangaCard
 						deleteManga={deleteManga}
+						favourites={manga.favourites}
 						getMangaDatabase={getMangaDatabase}
 						id={manga.id}
 						imageURL={manga.imageURL}

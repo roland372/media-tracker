@@ -9,13 +9,16 @@ import {
 } from '../utils/selectOptions';
 import validation from './FormValidation';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 //? <----- Firebase ----->
 import MangaDataService from '../services/manga.services';
 
-const Form = ({ handleClose, user, getMangaDatabase }) => {
+const Form = ({ mangaDatabase, handleClose, user, getMangaDatabase }) => {
 	//* initialize manga object
 	const [manga, setManga] = useState({
+		id: uuidv4(),
+		mal_id: '',
 		chaptersMax: 0,
 		chaptersMin: 0,
 		favourites: false,
@@ -28,7 +31,7 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 		owner: user.uid,
 		rating: 0,
 		status: 'Plan to Read',
-		synopsis: '',
+		// synopsis: '',
 		title: '',
 		type: 'Manga',
 		volumesMax: 0,
@@ -53,9 +56,9 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 	const handleSetTitle = e => {
 		setManga({ ...manga, title: e.target.value });
 	};
-	const handleSetSynopsis = e => {
-		setManga({ ...manga, synopsis: e.target.value });
-	};
+	// const handleSetSynopsis = e => {
+	// 	setManga({ ...manga, synopsis: e.target.value });
+	// };
 	const handleSetType = e => {
 		setManga({ ...manga, type: e.value });
 	};
@@ -100,10 +103,14 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 		e.preventDefault();
 
 		setFormErrors(validation(manga.title));
-		if (manga.title.length !== 0) {
+		if (manga?.title?.length !== 0) {
 			try {
-				await MangaDataService.addManga(manga);
-				await getMangaDatabase(user.uid);
+				mangaDatabase?.[0]?.manga.push({
+					...manga,
+				});
+
+				console.log(mangaDatabase[0]);
+				await MangaDataService.updateManga(user?.uid, mangaDatabase[0]);
 				console.log('manga added to database');
 				mangaAddedNotification();
 				handleClose();
@@ -116,7 +123,7 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>
-			<div className='mt-3 mb-2'>
+			<div className='mt-3 mb-0'>
 				<input
 					type='text'
 					className='form-control'
@@ -128,7 +135,7 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 			{formErrors ? (
 				<small className='text-danger d-flex ms-1'>{formErrors.title}</small>
 			) : null}
-			<div className='mt-2 mb-2'>
+			{/* <div className='mt-2 mb-2'>
 				<textarea
 					type='text'
 					className='form-control'
@@ -137,7 +144,7 @@ const Form = ({ handleClose, user, getMangaDatabase }) => {
 					rows='3'
 					onChange={e => handleSetSynopsis(e)}
 				/>
-			</div>
+			</div> */}
 			<div className='mt-3 mb-2'>
 				<Select
 					defaultValue={{ label: 'Select Type', value: '' }}

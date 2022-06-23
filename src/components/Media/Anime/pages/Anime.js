@@ -51,22 +51,24 @@ const Anime = () => {
 
 	const deleteAnime = async id => {
 		setLoading(true);
-		const filteredArray = animeDatabase[0].anime.filter(
+
+		const filteredArray = animeDatabase?.[0]?.anime?.filter(
 			anime => anime.id !== id
 		);
+
 		animeDatabase[0].anime = filteredArray;
+
 		await AnimeDataService.updateAnime(
-			// 'LL6XdGl6QKbjnCv67gon',
 			user?.uid,
 			animeDatabase[0]
 		);
-		getAnimeDatabase(user.uid);
+		getAnimeDatabase(user?.uid);
 		setLoading(false);
 	};
 
 	useEffect(() => {
-		getAnimeDatabase(user.uid);
-	}, [user.uid]);
+		getAnimeDatabase(user?.uid);
+	}, [user?.uid]);
 
 	//* fetch anime from API
 	const [animeList, setAnimeList] = useState([]);

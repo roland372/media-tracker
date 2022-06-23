@@ -128,13 +128,16 @@ const EditForm = ({
 				const newAnimeArray = singleAnime?.anime?.filter(
 					anime => anime.id !== id
 				);
+
 				await newAnimeArray.push({
 					...anime,
 				});
+
 				singleAnime.anime = newAnimeArray;
-				// await AnimeDataService.updateAnime('LL6XdGl6QKbjnCv67gon', singleAnime);
+
 				await AnimeDataService.updateAnime(user?.uid, singleAnime);
 				console.log('anime edited');
+				
 				await getAnimeDatabase(user?.uid);
 				handleClose();
 				animeUpdatedNotification();

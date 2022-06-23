@@ -17,10 +17,12 @@ const EditForm = ({
 	handleClose,
 	singleManga,
 	id,
-	getSingleMangaDatabase,
+	// getSingleMangaDatabase,
 	getMangaDatabase,
 	user,
 }) => {
+	const filteredManga = singleManga?.manga?.filter(manga => manga.id === id);
+
 	const {
 		chaptersMax,
 		chaptersMin,
@@ -30,14 +32,15 @@ const EditForm = ({
 		link1Name,
 		link2,
 		link2Name,
+		mal_id,
 		rating,
 		status,
-		synopsis,
+		// synopsis,
 		title,
 		type,
 		volumesMax,
 		volumesMin,
-	} = singleManga;
+	} = filteredManga[0];
 
 	//* initialize manga object
 	const [manga, setManga] = useState({
@@ -45,15 +48,17 @@ const EditForm = ({
 		chaptersMin: Number(chaptersMin),
 		favourites: favourites,
 		imageURL: imageURL,
+		id: id,
 		lastModified: Date.now(),
 		link1: link1,
 		link1Name: link1Name,
 		link2: link2,
 		link2Name: link2Name,
-		owner: user.uid,
+		mal_id: mal_id,
+		owner: user?.uid,
 		rating: rating,
 		status: status,
-		synopsis: synopsis,
+		// synopsis: synopsis,
 		title: title,
 		type: type,
 		volumesMax: Number(volumesMax),
@@ -78,9 +83,9 @@ const EditForm = ({
 	const handleSetTitle = e => {
 		setManga({ ...manga, title: e.target.value });
 	};
-	const handleSetSynopsis = e => {
-		setManga({ ...manga, synopsis: e.target.value });
-	};
+	// const handleSetSynopsis = e => {
+	// 	setManga({ ...manga, synopsis: e.target.value });
+	// };
 	const handleSetType = e => {
 		setManga({ ...manga, type: e.value });
 	};
@@ -124,23 +129,23 @@ const EditForm = ({
 	const onSubmit = async e => {
 		e.preventDefault();
 
-		setFormErrors(
-			validation(
-				manga.chaptersMax,
-				manga.chaptersMin,
-				manga.volumesMax,
-				manga.volumesMin,
-				manga.title
-			)
-		);
-		if (manga.title.length !== 0) {
+		setFormErrors(validation(manga?.title));
+		if (manga?.title?.length !== 0) {
 			try {
-				await MangaDataService.updateManga(id, manga);
-				await getSingleMangaDatabase(id);
+				const newMangaArray = singleManga?.manga?.filter(
+					manga => manga.id !== id
+				);
+
+				await newMangaArray.push({ ...manga });
+
+				singleManga.manga = newMangaArray;
+
+				await MangaDataService.updateManga(user?.uid, singleManga);
 				console.log('manga edited');
+
+				await getMangaDatabase(user?.uid);
 				handleClose();
 				mangaUpdatedNotification();
-				getMangaDatabase(user?.uid);
 				// console.log(manga);
 			} catch (error) {
 				console.log(error);
@@ -150,7 +155,7 @@ const EditForm = ({
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>
-			<div className='mt-3 mb-2'>
+			<div className='mt-3 mb-0'>
 				<input
 					type='text'
 					className='form-control'
@@ -163,7 +168,7 @@ const EditForm = ({
 			{formErrors ? (
 				<small className='text-danger d-flex mx-2'>{formErrors.title}</small>
 			) : null}
-			<div className='mt-2 mb-2'>
+			{/* <div className='mt-2 mb-2'>
 				<textarea
 					type='text'
 					className='form-control'
@@ -173,7 +178,7 @@ const EditForm = ({
 					defaultValue={synopsis}
 					onChange={e => handleSetSynopsis(e)}
 				/>
-			</div>
+			</div> */}
 			<div className='mt-3 mb-2'>
 				<Select
 					defaultValue={{ label: type, value: type }}

@@ -97,15 +97,11 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 		setFormErrors(validation(anime.title));
 		if (anime?.title?.length !== 0) {
 			try {
-				// await getAnimeDatabase(user.uid);
 				animeDatabase?.[0]?.anime.push({
 					...anime,
 				});
-				await AnimeDataService.updateAnime(
-					// 'LL6XdGl6QKbjnCv67gon',
-					user?.uid,
-					animeDatabase[0]
-				);
+
+				await AnimeDataService.updateAnime(user?.uid, animeDatabase[0]);
 				console.log('anime added to database');
 				animeAddedNotification();
 				handleClose();

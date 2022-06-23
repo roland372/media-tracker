@@ -31,9 +31,9 @@ class AnimeDataService {
 		return deleteDoc(animeDoc);
 	};
 
-	getAllAnimeDocs = () => {
-		return getDocs(animeCollectionRef);
-	};
+	// getAllAnimeDocs = () => {
+	// 	return getDocs(animeCollectionRef);
+	// };
 
 	getAllAnime = userId => {
 		const q = query(animeCollectionRef, where('owner', '==', userId || null));

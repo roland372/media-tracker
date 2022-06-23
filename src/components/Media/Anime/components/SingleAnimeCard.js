@@ -9,10 +9,10 @@ import SingleMediaCard from '../../components/SingleMediaCard';
 
 const SingleAnimeCard = ({
 	deleteAnime,
-	id,
 	favourites,
-	imageURL,
 	getAnimeDatabase,
+	id,
+	imageURL,
 	title,
 	user,
 }) => {

@@ -51,14 +51,21 @@ const Manga = () => {
 
 	const deleteManga = async id => {
 		setLoading(true);
-		await MangaDataService.deleteManga(id);
-		getMangaDatabase(user.uid);
+
+		const filteredArray = mangaDatabase?.[0]?.manga?.filter(
+			manga => manga.id !== id
+		);
+
+		mangaDatabase[0].manga = filteredArray;
+
+		await MangaDataService.updateManga(user?.uid, mangaDatabase[0]);
+		getMangaDatabase(user?.uid);
 		setLoading(false);
 	};
 
 	useEffect(() => {
-		getMangaDatabase(user.uid);
-	}, [user.uid]);
+		getMangaDatabase(user?.uid);
+	}, [user?.uid]);
 
 	//* fetch manga from API
 	const [mangaList, setMangaList] = useState([]);
@@ -74,11 +81,11 @@ const Manga = () => {
 		const temp = await fetch(
 			`https://api.jikan.moe/v4/manga?q=${query}&order_by=scored`
 		).then(res => res.json());
+		// &sort=asc
 
 		setMangaList(temp.data);
-		console.log(temp.data);
+		// console.log(temp.data);
 	};
-	// &sort=asc
 	return (
 		<>
 			<CardComponent title='Manga'>
@@ -92,6 +99,7 @@ const Manga = () => {
 					</Modal.Header>
 					<Modal.Body className='bg-primary-dark text-color'>
 						<Form
+							mangaDatabase={mangaDatabase}
 							handleClose={handleClose}
 							user={user}
 							getMangaDatabase={getMangaDatabase}
@@ -129,9 +137,10 @@ const Manga = () => {
 
 			{search ? (
 				<FetchedManga
-					MangaDataService={MangaDataService}
 					fetchedManga={mangaList}
 					getMangaDatabase={getMangaDatabase}
+					mangaDatabase={mangaDatabase}
+					MangaDataService={MangaDataService}
 					user={user}
 				/>
 			) : null}
@@ -141,11 +150,11 @@ const Manga = () => {
 			) : (
 				<>
 					<CardComponent title='Manga Stats'>
-						<MangaStats mangaDatabase={mangaDatabase} />
+						<MangaStats mangaDatabase={mangaDatabase?.[0]?.manga} />
 					</CardComponent>
 
 					<AllManga
-						allManga={mangaDatabase}
+						allManga={mangaDatabase?.[0]?.manga}
 						deleteManga={deleteManga}
 						getMangaDatabase={getMangaDatabase}
 						user={user}
@@ -153,7 +162,7 @@ const Manga = () => {
 					<hr />
 
 					<RecentManga
-						allManga={mangaDatabase}
+						allManga={mangaDatabase?.[0]?.manga}
 						deleteManga={deleteManga}
 						getMangaDatabase={getMangaDatabase}
 						user={user}
@@ -161,7 +170,7 @@ const Manga = () => {
 					<hr />
 
 					<FavouriteManga
-						allManga={mangaDatabase}
+						allManga={mangaDatabase?.[0]?.manga}
 						deleteManga={deleteManga}
 						getMangaDatabase={getMangaDatabase}
 						user={user}

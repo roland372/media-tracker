@@ -92,9 +92,10 @@ const SingleAnime = () => {
 		const filteredArray = singleAnimeDatabase?.anime?.filter(
 			anime => anime.id !== id
 		);
+
 		singleAnimeDatabase.anime = filteredArray;
+
 		await AnimeDataService.updateAnime(
-			// 'LL6XdGl6QKbjnCv67gon',
 			user?.uid,
 			singleAnimeDatabase
 		);

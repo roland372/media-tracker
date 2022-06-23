@@ -58,12 +58,13 @@ const FetchedAnime = ({
 			animeDatabase?.[0]?.anime.push({
 				...singleAnime,
 			});
+
 			await AnimeDataService.updateAnime(
-				// 'LL6XdGl6QKbjnCv67gon',
 				user?.uid,
 				animeDatabase[0]
 			);
-			await getAnimeDatabase(user.uid);
+			
+			await getAnimeDatabase(user?.uid);
 			console.log('anime added to database');
 			singleAnime.id = uuidv4();
 			animeAddedNotification();
@@ -73,7 +74,7 @@ const FetchedAnime = ({
 		}
 	};
 
-	if (fetchedAnime.length === 0)
+	if (fetchedAnime?.length === 0)
 		return (
 			<FetchedMedia cardTitle='Searched Anime'>
 				<h5 className='mx-2 text-center'>No Anime Found</h5>

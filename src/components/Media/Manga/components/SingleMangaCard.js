@@ -9,9 +9,10 @@ import SingleMediaCard from '../../components/SingleMediaCard';
 
 const SingleMangaCard = ({
 	deleteManga,
+	favourites,
+	getMangaDatabase,
 	id,
 	imageURL,
-	getMangaDatabase,
 	title,
 	user,
 }) => {
@@ -25,22 +26,24 @@ const SingleMangaCard = ({
 	const [singleManga, setSingleManga] = useState({});
 	// console.log(singleManga.title);
 
-	const getSingleMangaDatabase = async id => {
-		const data = await MangaDataService.getManga(id);
+	const getSingleMangaDatabase = async () => {
+		const data = await MangaDataService.getManga(user?.uid);
 		setSingleManga(data.data());
 	};
 
 	useEffect(() => {
-		getSingleMangaDatabase(id);
-	}, [id]);
+		getSingleMangaDatabase();
+		//eslint-disable-next-line
+	}, []);
 
 	return (
 		<SingleMediaCard
 			show={show}
 			handleClose={handleClose}
+			favourites={favourites}
 			mediaType='Manga'
 			title={title}
-			singleMedia={singleManga}
+			singleMedia={singleManga?.anime}
 			id={id}
 			handleShow={handleShow}
 			getSingleMediaDatabase={getSingleMangaDatabase}

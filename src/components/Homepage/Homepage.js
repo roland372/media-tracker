@@ -83,16 +83,15 @@ const Homepage = () => {
 	//* handle delete
 	const deleteAnime = async id => {
 		setLoading(true);
-		const filteredArray = animeDatabase[0].anime.filter(
+
+		const filteredArray = animeDatabase?.[0]?.anime?.filter(
 			anime => anime.id !== id
 		);
+
 		animeDatabase[0].anime = filteredArray;
-		await AnimeDataService.updateAnime(
-			// 'LL6XdGl6QKbjnCv67gon',
-			user?.uid,
-			animeDatabase[0]
-		);
-		getAnimeDatabase(user.uid);
+
+		await AnimeDataService.updateAnime(user?.uid, animeDatabase[0]);
+		getAnimeDatabase(user?.uid);
 		setLoading(false);
 	};
 
@@ -105,8 +104,15 @@ const Homepage = () => {
 
 	const deleteManga = async id => {
 		setLoading(true);
-		await MangaDataService.deleteManga(id);
-		getMangaDatabase(user.uid);
+
+		const filteredArray = mangaDatabase?.[0]?.manga?.filter(
+			manga => manga.id !== id
+		);
+
+		mangaDatabase[0].manga = filteredArray;
+
+		await MangaDataService.updateManga(user?.uid, mangaDatabase[0]);
+		getMangaDatabase(user?.uid);
 		setLoading(false);
 	};
 
@@ -151,6 +157,7 @@ const Homepage = () => {
 					) : null}
 					{selectMediaValue === 'Manga' ? (
 						<MangaForm
+							mangaDatabase={mangaDatabase}
 							getMangaDatabase={getMangaDatabase}
 							handleClose={handleClose}
 							user={user}
@@ -184,7 +191,7 @@ const Homepage = () => {
 						getAnimeDatabase={getAnimeDatabase}
 						user={user}
 					/>
-					{animeDatabase.length < 1 ? null : (
+					{animeDatabase?.length < 1 ? null : (
 						<Link to='/media/anime' className='btn btn-light'>
 							All Anime
 						</Link>
@@ -196,19 +203,19 @@ const Homepage = () => {
 						getGamesDatabase={getGamesDatabase}
 						user={user}
 					/>
-					{gamesDatabase.length < 1 ? null : (
+					{gamesDatabase?.length < 1 ? null : (
 						<Link to='/media/games' className='btn btn-light'>
 							All Games
 						</Link>
 					)}
 
 					<RecentManga
-						allManga={mangaDatabase}
+						allManga={mangaDatabase?.[0]?.manga}
 						deleteManga={deleteManga}
 						getMangaDatabase={getMangaDatabase}
 						user={user}
 					/>
-					{mangaDatabase.length < 1 ? null : (
+					{mangaDatabase?.length < 1 ? null : (
 						<Link to='/media/manga' className='btn btn-light mb-3'>
 							All Manga
 						</Link>

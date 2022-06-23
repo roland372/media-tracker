@@ -13,7 +13,7 @@ import MangaTable from './MangaTable';
 
 const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 	//* sort manga by name
-	const sortedManga = allManga.sort(function (a, b) {
+	const sortedManga = allManga?.sort(function (a, b) {
 		const nameA = a.title.toLowerCase(),
 			nameB = b.title.toLowerCase();
 		if (nameA < nameB)
@@ -60,12 +60,12 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 			setStatus(status);
 			return;
 		}
-		const newData = sortedManga.filter(type => type.status === mangaStatus);
+		const newData = sortedManga?.filter(type => type.status === mangaStatus);
 		// console.log(newData);
 		setMenuItems(newData);
 	};
 
-	if (sortedManga.length < 1)
+	if (sortedManga?.length < 1)
 		return (
 			<CardComponent title='All Manga'>
 				<h4 className='text-center'>No Manga</h4>
@@ -88,7 +88,7 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 					<section className='d-flex align-items-center justify-content-start flex-wrap'>
 						{menuItems
 							//? display first 20 elements
-							.filter(value => {
+							?.filter(value => {
 								if (searchTerm === '') {
 									return value;
 								} else if (
@@ -104,6 +104,7 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 							.map(manga => (
 								<SingleMangaCard
 									deleteManga={deleteManga}
+									favourites={manga.favourites}
 									getMangaDatabase={getMangaDatabase}
 									id={manga.id}
 									imageURL={manga.imageURL}
@@ -116,7 +117,7 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 						{displayMore
 							? //? display the rest
 							  menuItems
-									.filter(value => {
+									?.filter(value => {
 										if (searchTerm === '') {
 											return value;
 										} else if (
@@ -161,7 +162,7 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 					>
 						{menuItems
 							//? display first 20 elements
-							.filter(value => {
+							?.filter(value => {
 								if (searchTerm === '') {
 									return value;
 								} else if (
@@ -195,7 +196,7 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 						{displayMore
 							? //? display the rest
 							  menuItems
-									.filter(value => {
+									?.filter(value => {
 										if (searchTerm === '') {
 											return value;
 										} else if (

@@ -13,6 +13,7 @@ import { useUserAuth } from '../../../../context/UserAuthContext';
 import CardComponent from '../../../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import Loader from '../../../Layout/Loader';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
@@ -22,6 +23,9 @@ const SingleManga = () => {
 	const { id } = useParams();
 	const { user } = useUserAuth();
 	const navigate = useNavigate();
+
+	//* <----- Loading state ----->
+	const [loading, setLoading] = useState(<Loader />);
 
 	//* <----- Modal state ----->
 	const [show, setShow] = useState(false);
@@ -49,44 +53,56 @@ const SingleManga = () => {
 		});
 
 	const [singleMangaDatabase, setSingleMangaDatabase] = useState({});
-	useDocumentTitle(singleMangaDatabase?.title);
 
-	const getSingleMangaDatabase = async id => {
-		const data = await MangaDataService.getManga(id);
-		setSingleMangaDatabase(data.data());
+	const [mangaDetails, setMangaDetails] = useState([]);
+
+	const fetchManga = async query => {
+		setLoading(true);
+		const temp = await fetch(`https://api.jikan.moe/v4/manga/${query}/full`)
+			.then(res => res.json())
+			.catch(err => console.log(err));
+		setMangaDetails(temp.data);
+		setLoading(false);
 	};
+
+	const filteredManga = singleMangaDatabase?.manga?.filter(
+		manga => manga.id === id
+	);
+
+	const fetchedMangaID = filteredManga?.[0]?.mal_id;
+
+	useDocumentTitle(filteredManga?.[0]?.title);
+
+	useEffect(() => {
+		const getSingleMangaDatabase = async () => {
+			setLoading(true);
+			const data = await MangaDataService?.getManga(user?.uid);
+			setSingleMangaDatabase(data.data());
+		};
+		getSingleMangaDatabase();
+		setLoading(false);
+	}, [user?.uid]);
+
+	useEffect(() => {
+		if (fetchedMangaID !== undefined) fetchManga(fetchedMangaID);
+	}, [fetchedMangaID]);
 
 	const getMangaDatabase = userId => {};
 
 	const deleteManga = async id => {
-		await MangaDataService.deleteManga(id);
+		const filteredArray = singleMangaDatabase?.manga?.filter(
+			manga => manga.id !== id
+		);
+
+		singleMangaDatabase.manga = filteredArray;
+
+		await MangaDataService.updateManga(user?.uid, singleMangaDatabase);
 		mangaDeletedNotification();
 		navigate('/media/manga');
 	};
 
-	useEffect(() => {
-		getSingleMangaDatabase(id);
-	}, [id]);
-
-	const {
-		title,
-		imageURL,
-		synopsis,
-		type,
-		link1,
-		link1Name,
-		link2,
-		link2Name,
-		chaptersMin,
-		chaptersMax,
-		status,
-		rating,
-		volumesMin,
-		volumesMax,
-	} = singleMangaDatabase;
-
 	return (
-		<CardComponent title={title}>
+		<CardComponent title={filteredManga?.[0]?.title}>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header
 					closeButton
@@ -100,7 +116,6 @@ const SingleManga = () => {
 						handleClose={handleClose}
 						singleManga={singleMangaDatabase}
 						id={id}
-						getSingleMangaDatabase={getSingleMangaDatabase}
 						getMangaDatabase={getMangaDatabase}
 						user={user}
 					/>
@@ -132,6 +147,7 @@ const SingleManga = () => {
 					</button>
 				</Modal.Footer>
 			</Modal>
+
 			<section className='text-color'>
 				<div className='d-flex align-items-center justify-content-between mx-2 pt-1'>
 					<Link className='btn btn-primary' to='/media/manga'>
@@ -155,73 +171,90 @@ const SingleManga = () => {
 					<hr />
 				</div>
 			</section>
-			<section className='mx-2 mt-2'>
-				<section className='d-lg-flex align-items-start'>
-					<img
-						className='img img-fluid'
-						width='200px'
-						src={
-							imageURL
-								? imageURL
-								: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
-						}
-						alt={title}
-					/>
-					{synopsis ? (
-						<div className='col'>
-							<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
-							<p className='px-3 text-start mx-3 new-line'>{synopsis}</p>
-						</div>
-					) : null}
-				</section>
-				<section className='d-flex justify-content-around mt-3'>
-					<section>
-						<div>
-							<h5>Type</h5>
-							<p>{type}</p>
-						</div>
-						<div>
-							<h5>Status</h5>
-							<p>{status}</p>
-						</div>
-					</section>
-					<section>
-						<div>
-							<h5>Chapters</h5>
-							<p>
-								{chaptersMin}/{chaptersMax}
-							</p>
-						</div>
-						<div>
-							<h5>Volumes</h5>
-							<p>
-								{volumesMin}/{volumesMax}
-							</p>
-						</div>
-					</section>
-					<section>
-						<div>
-							<h5>Rating</h5>
-							<p>⭐{rating}</p>
-						</div>
-						{link1 || link2 ? (
-							<div>
-								<h5>Links</h5>
-								{link1 ? (
-									<a href={link1} target='_blank' rel='noreferrer'>
-										<div>{link1Name}</div>
-									</a>
-								) : null}
-								{link2 ? (
-									<a href={link2} target='_blank' rel='noreferrer'>
-										<div>{link2Name}</div>
-									</a>
-								) : null}
+
+			{loading ? (
+				<Loader />
+			) : (
+				<section className='mx-2 mt-2'>
+					<section className='d-lg-flex align-items-start'>
+						<img
+							className='img img-fluid'
+							width='200px'
+							src={
+								filteredManga?.[0]?.imageURL
+									? filteredManga?.[0]?.imageURL
+									: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
+							}
+							alt={filteredManga?.[0]?.title}
+						/>
+						{mangaDetails?.synopsis ? (
+							<div className='col'>
+								<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
+								<p className='px-3 text-start mx-3 new-line'>
+									{mangaDetails?.synopsis}
+								</p>
 							</div>
 						) : null}
 					</section>
+					<section className='d-flex justify-content-around mt-3'>
+						<section>
+							<div>
+								<h5>Type</h5>
+								<p>{filteredManga?.[0]?.type}</p>
+							</div>
+							<div>
+								<h5>Status</h5>
+								<p>{filteredManga?.[0]?.status}</p>
+							</div>
+						</section>
+						<section>
+							<div>
+								<h5>Chapters</h5>
+								<p>
+									{filteredManga?.[0]?.chaptersMin}/
+									{filteredManga?.[0]?.chaptersMax}
+								</p>
+							</div>
+							<div>
+								<h5>Volumes</h5>
+								<p>
+									{filteredManga?.[0]?.volumesMin}/
+									{filteredManga?.[0]?.volumesMax}
+								</p>
+							</div>
+						</section>
+						<section>
+							<div>
+								<h5>Rating</h5>
+								<p>⭐{filteredManga?.[0]?.rating}</p>
+							</div>
+							{filteredManga?.[0]?.link1 || filteredManga?.[0]?.link2 ? (
+								<div>
+									<h5>Links</h5>
+									{filteredManga?.[0]?.link1 ? (
+										<a
+											href={filteredManga?.[0]?.link1}
+											target='_blank'
+											rel='noreferrer'
+										>
+											<div>{filteredManga?.[0]?.link1Name}</div>
+										</a>
+									) : null}
+									{filteredManga?.[0]?.link2 ? (
+										<a
+											href={filteredManga?.[0]?.link2}
+											target='_blank'
+											rel='noreferrer'
+										>
+											<div>{filteredManga?.[0]?.link2Name}</div>
+										</a>
+									) : null}
+								</div>
+							) : null}
+						</section>
+					</section>
 				</section>
-			</section>
+			)}
 		</CardComponent>
 	);
 };

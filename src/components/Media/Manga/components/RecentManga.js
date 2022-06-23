@@ -7,9 +7,9 @@ import CardComponent from '../../../Layout/CardComponent';
 
 const RecentManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 	//* sort manga by date
-	const sortByDate = allManga.sort((a, b) => b.lastModified - a.lastModified);
+	const sortByDate = allManga?.sort((a, b) => b.lastModified - a.lastModified);
 
-	if (sortByDate.length < 1)
+	if (sortByDate?.length < 1)
 		return (
 			<CardComponent title='Recent Manga'>
 				<h4 className='text-center'>No Manga</h4>
@@ -22,11 +22,11 @@ const RecentManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 		<RecentMedia cardTitle='Recent Manga'>
 			{user &&
 				sortByDate
-					.filter(owner => owner.owner === user.uid)
-					.slice(0, 20)
-					.map(manga => (
+					?.slice(0, 20)
+					?.map(manga => (
 						<SingleMangaCard
 							deleteManga={deleteManga}
+							favourites={manga.favourites}
 							getMangaDatabase={getMangaDatabase}
 							id={manga.id}
 							imageURL={manga.imageURL}

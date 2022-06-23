@@ -59,6 +59,12 @@ export const UserAuthContextProvider = ({ children }) => {
 				owner: user.uid,
 				anime: [],
 			});
+
+			await setDoc(doc(db, 'manga', user.uid), {
+				id: user.uid,
+				owner: user.uid,
+				manga: [],
+			});
 		} catch (err) {
 			console.error(err);
 		}
@@ -87,6 +93,12 @@ export const UserAuthContextProvider = ({ children }) => {
 				id: auth.currentUser.uid,
 				owner: auth.currentUser.uid,
 				anime: [],
+			});
+
+			await setDoc(doc(db, 'manga', auth.currentUser.uid), {
+				id: auth.currentUser.uid,
+				owner: auth.currentUser.uid,
+				manga: [],
 			});
 		}
 	};

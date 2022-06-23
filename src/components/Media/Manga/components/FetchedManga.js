@@ -4,16 +4,20 @@ import React, { useState } from 'react';
 import FetchedMedia from '../../components/FetchedMedia';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 const FetchedManga = ({
+	mangaDatabase,
 	MangaDataService,
 	fetchedManga,
 	getMangaDatabase,
 	user,
 }) => {
 	const [singleManga, setSingleManga] = useState({
+		id: uuidv4(),
+		mal_id: '',
 		title: '',
-		synopsis: '',
+		// synopsis: '',
 		type: 'Manga',
 		link1: '',
 		link1Name: 'MAL',
@@ -53,9 +57,15 @@ const FetchedManga = ({
 		e.preventDefault();
 
 		try {
-			await MangaDataService.addManga(singleManga);
-			await getMangaDatabase(user.uid);
+			mangaDatabase?.[0]?.manga.push({
+				...singleManga,
+			});
+
+			await MangaDataService.updateManga(user?.uid, mangaDatabase[0]);
+
+			await getMangaDatabase(user?.uid);
 			console.log('manga added to database');
+			singleManga.id = uuidv4();
 			mangaAddedNotification();
 			// console.log(singleManga);
 		} catch (error) {
@@ -63,7 +73,7 @@ const FetchedManga = ({
 		}
 	};
 
-	if (fetchedManga.length === 0)
+	if (fetchedManga?.length === 0)
 		return (
 			<FetchedMedia cardTitle='Searched Manga'>
 				<h5 className='mx-2 text-center'>No Manga Found</h5>
@@ -73,7 +83,7 @@ const FetchedManga = ({
 	return (
 		<FetchedMedia cardTitle='Searched Manga'>
 			<section className='d-flex align-items-center justify-content-start flex-wrap'>
-				{fetchedManga.map(manga => (
+				{fetchedManga?.map(manga => (
 					<section className='p-2' key={manga.mal_id}>
 						<OverlayTrigger
 							trigger='click'
@@ -103,8 +113,9 @@ const FetchedManga = ({
 														// console.log(manga);
 														const addManga = {
 															...singleManga,
+															mal_id: manga.mal_id,
 															title: manga.title ? manga.title : 'manga',
-															synopsis: manga.synopsis ? manga.synopsis : '',
+															// synopsis: manga.synopsis ? manga.synopsis : '',
 															type: setMangaType(manga.type),
 															link1: manga.url,
 															imageURL: manga.images.jpg.image_url,

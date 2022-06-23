@@ -11,64 +11,64 @@ const MangaStats = ({ mangaDatabase }) => {
 	}
 
 	//* filter out manga that have score 0
-	const meanScore = mangaDatabase.filter(manga => manga.rating !== 0).length;
+	const meanScore = mangaDatabase?.filter(manga => manga.rating !== 0).length;
 
-	const totalChaptersSum = mangaDatabase.reduce((accumulator, object) => {
+	const totalChaptersSum = mangaDatabase?.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.chaptersMax);
 	}, 0);
 
-	const totalVolumesSum = mangaDatabase.reduce((accumulator, object) => {
+	const totalVolumesSum = mangaDatabase?.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.volumesMax);
 	}, 0);
 
-	const readChaptersSum = mangaDatabase.reduce((accumulator, object) => {
+	const readChaptersSum = mangaDatabase?.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.chaptersMin);
 	}, 0);
 
-	const readVolumesSum = mangaDatabase.reduce((accumulator, object) => {
+	const readVolumesSum = mangaDatabase?.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.volumesMin);
 	}, 0);
 
-	const readingManga = mangaDatabase.filter(
+	const readingManga = mangaDatabase?.filter(
 		manga => manga.status === 'Reading'
 	);
 
-	const completedManga = mangaDatabase.filter(
+	const completedManga = mangaDatabase?.filter(
 		manga => manga.status === 'Completed'
 	);
 
-	const onHoldManga = mangaDatabase.filter(manga => manga.status === 'On-Hold');
+	const onHoldManga = mangaDatabase?.filter(manga => manga.status === 'On-Hold');
 
-	const droppedManga = mangaDatabase.filter(
+	const droppedManga = mangaDatabase?.filter(
 		manga => manga.status === 'Dropped'
 	);
 
-	const planToReadManga = mangaDatabase.filter(
+	const planToReadManga = mangaDatabase?.filter(
 		manga => manga.status === 'Plan to Read'
 	);
 
-	const totalRating = mangaDatabase.reduce((accumulator, object) => {
+	const totalRating = mangaDatabase?.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.rating);
 	}, 0);
 
-	const favourites = mangaDatabase.filter(manga => manga.favourites);
+	const favourites = mangaDatabase?.filter(manga => manga.favourites);
 
 	//* calculate total days
 	const filteredMangaVolumes = mangaDatabase
-		.filter(manga => manga.type === 'Manga')
-		.reduce((accumulator, object) => {
+		?.filter(manga => manga.type === 'Manga')
+		?.reduce((accumulator, object) => {
 			return accumulator + parseInt(object.volumesMin);
 		}, 0);
 
 	const filteredWebtoonChapters = mangaDatabase
-		.filter(manga => manga.type === 'Webtoon')
-		.reduce((accumulator, object) => {
+		?.filter(manga => manga.type === 'Webtoon')
+		?.reduce((accumulator, object) => {
 			return accumulator + parseInt(object.chaptersMin);
 		}, 0);
 
 	const filteredLightNovelVolumes = mangaDatabase
-		.filter(manga => manga.type === 'Light Novel')
-		.reduce((accumulator, object) => {
+		?.filter(manga => manga.type === 'Light Novel')
+		?.reduce((accumulator, object) => {
 			return accumulator + parseInt(object.volumesMin);
 		}, 0);
 
@@ -92,19 +92,19 @@ const MangaStats = ({ mangaDatabase }) => {
 			<ProgressBar style={{ height: '30px' }}>
 				<ProgressBar
 					variant='success'
-					now={readingManga.length * 100}
+					now={readingManga?.length * 100}
 					key={1}
 				/>
 				<ProgressBar
 					variant='primary'
-					now={completedManga.length * 100}
+					now={completedManga?.length * 100}
 					key={2}
 				/>
-				<ProgressBar variant='warning' now={onHoldManga.length * 100} key={3} />
-				<ProgressBar variant='danger' now={droppedManga.length * 100} key={4} />
+				<ProgressBar variant='warning' now={onHoldManga?.length * 100} key={3} />
+				<ProgressBar variant='danger' now={droppedManga?.length * 100} key={4} />
 				<ProgressBar
 					variant='light'
-					now={planToReadManga.length * 100}
+					now={planToReadManga?.length * 100}
 					key={5}
 				/>
 			</ProgressBar>
@@ -123,46 +123,46 @@ const MangaStats = ({ mangaDatabase }) => {
 							<BsFillCircleFill className='text-success' />
 							<div className='ms-2'>Reading</div>
 						</div>
-						<span className='ms-4'>{readingManga.length}</span>
+						<span className='ms-4'>{readingManga?.length}</span>
 					</div>
 					<div className='d-flex align-items-center justify-content-between'>
 						<div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-primary' />
 							<div className='ms-2'>Completed</div>
 						</div>
-						<span className='ms-4'>{completedManga.length}</span>
+						<span className='ms-4'>{completedManga?.length}</span>
 					</div>
 					<div className='d-flex align-items-center justify-content-between'>
 						<div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-warning' />
 							<div className='ms-2'>On-Hold</div>
 						</div>
-						<span className='ms-4'>{onHoldManga.length}</span>
+						<span className='ms-4'>{onHoldManga?.length}</span>
 					</div>
 					<div className='d-flex align-items-center justify-content-between'>
 						<div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-danger' />
 							<div className='ms-2'>Dropped</div>
 						</div>
-						<span className='ms-4'>{droppedManga.length}</span>
+						<span className='ms-4'>{droppedManga?.length}</span>
 					</div>
 					<div className='d-flex align-items-center justify-content-between'>
 						<div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-light' />
 							<div className='ms-2'>Plan to Read</div>
 						</div>
-						<span className='ms-4'>{planToReadManga.length}</span>
+						<span className='ms-4'>{planToReadManga?.length}</span>
 					</div>
 				</section>
 
 				<section className='d-flex flex-column'>
 					<div className='d-flex justify-content-between'>
 						<div>Total Manga</div>
-						<div className='ms-4'>{mangaDatabase.length}</div>
+						<div className='ms-4'>{mangaDatabase?.length}</div>
 					</div>
 					<div className='d-flex justify-content-between'>
 						<div>Favourites</div>
-						<div className='ms-4'>{favourites.length}</div>
+						<div className='ms-4'>{favourites?.length}</div>
 					</div>
 					<div className='d-flex justify-content-between'>
 						<div>Total Chapters</div>
