@@ -60,6 +60,12 @@ export const UserAuthContextProvider = ({ children }) => {
 				anime: [],
 			});
 
+			await setDoc(doc(db, 'games', user.uid), {
+				id: user.uid,
+				owner: user.uid,
+				games: [],
+			});
+
 			await setDoc(doc(db, 'manga', user.uid), {
 				id: user.uid,
 				owner: user.uid,
@@ -93,6 +99,12 @@ export const UserAuthContextProvider = ({ children }) => {
 				id: auth.currentUser.uid,
 				owner: auth.currentUser.uid,
 				anime: [],
+			});
+
+			await setDoc(doc(db, 'games', auth.currentUser.uid), {
+				id: auth.currentUser.uid,
+				owner: auth.currentUser.uid,
+				games: [],
 			});
 
 			await setDoc(doc(db, 'manga', auth.currentUser.uid), {

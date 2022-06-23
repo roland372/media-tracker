@@ -11,29 +11,29 @@ const GamesStats = ({ gamesDatabase }) => {
 	}
 
 	//* filter out games that have score 0
-	const meanScore = gamesDatabase.filter(game => game.rating !== 0).length;
+	const meanScore = gamesDatabase?.filter(game => game.rating !== 0)?.length;
 
-	const playingGames = gamesDatabase.filter(game => game.status === 'Playing');
+	const playingGames = gamesDatabase?.filter(game => game.status === 'Playing');
 
-	const completedGames = gamesDatabase.filter(
+	const completedGames = gamesDatabase?.filter(
 		game => game.status === 'Completed'
 	);
 
-	const onHoldGames = gamesDatabase.filter(game => game.status === 'On-Hold');
+	const onHoldGames = gamesDatabase?.filter(game => game.status === 'On-Hold');
 
-	const droppedGames = gamesDatabase.filter(game => game.status === 'Dropped');
+	const droppedGames = gamesDatabase?.filter(game => game.status === 'Dropped');
 
-	const planToPlayGames = gamesDatabase.filter(
+	const planToPlayGames = gamesDatabase?.filter(
 		game => game.status === 'Plan to Play'
 	);
 
-	const totalRating = gamesDatabase.reduce((accumulator, object) => {
+	const totalRating = gamesDatabase?.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.rating);
 	}, 0);
 
-	const favourites = gamesDatabase.filter(game => game.favourites);
+	const favourites = gamesDatabase?.filter(game => game.favourites);
 
-	const totalPlaytime = gamesDatabase.reduce((accumulator, object) => {
+	const totalPlaytime = gamesDatabase?.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.playtime);
 	}, 0);
 
@@ -44,19 +44,19 @@ const GamesStats = ({ gamesDatabase }) => {
 			<ProgressBar style={{ height: '30px' }}>
 				<ProgressBar
 					variant='success'
-					now={playingGames.length * 100}
+					now={playingGames?.length * 100}
 					key={1}
 				/>
 				<ProgressBar
 					variant='primary'
-					now={completedGames.length * 100}
+					now={completedGames?.length * 100}
 					key={2}
 				/>
-				<ProgressBar variant='warning' now={onHoldGames.length * 100} key={3} />
-				<ProgressBar variant='danger' now={droppedGames.length * 100} key={4} />
+				<ProgressBar variant='warning' now={onHoldGames?.length * 100} key={3} />
+				<ProgressBar variant='danger' now={droppedGames?.length * 100} key={4} />
 				<ProgressBar
 					variant='light'
-					now={planToPlayGames.length * 100}
+					now={planToPlayGames?.length * 100}
 					key={5}
 				/>
 			</ProgressBar>
@@ -75,45 +75,45 @@ const GamesStats = ({ gamesDatabase }) => {
 							<BsFillCircleFill className='text-success' />
 							<div className='ms-2'>Playing</div>
 						</div>
-						<span className='ms-4'>{playingGames.length}</span>
+						<span className='ms-4'>{playingGames?.length}</span>
 					</div>
 					<div className='d-flex align-items-center justify-content-between'>
 						<div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-primary' />
 							<div className='ms-2'>Completed</div>
 						</div>
-						<span className='ms-4'>{completedGames.length}</span>
+						<span className='ms-4'>{completedGames?.length}</span>
 					</div>
 					<div className='d-flex align-items-center justify-content-between'>
 						<div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-warning' />
 							<div className='ms-2'>On-Hold</div>
 						</div>
-						<span className='ms-4'>{onHoldGames.length}</span>
+						<span className='ms-4'>{onHoldGames?.length}</span>
 					</div>
 					<div className='d-flex align-items-center justify-content-between'>
 						<div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-danger' />
 							<div className='ms-2'>Dropped</div>
 						</div>
-						<span className='ms-4'>{droppedGames.length}</span>
+						<span className='ms-4'>{droppedGames?.length}</span>
 					</div>
 					<div className='d-flex align-items-center justify-content-between'>
 						<div className='d-flex align-items-center'>
 							<BsFillCircleFill className='text-light' />
 							<div className='ms-2'>Plan to Play</div>
 						</div>
-						<span className='ms-4'>{planToPlayGames.length}</span>
+						<span className='ms-4'>{planToPlayGames?.length}</span>
 					</div>
 				</section>
 				<section className='d-flex flex-column'>
 					<div className='d-flex justify-content-between'>
 						<div>Total Games</div>
-						<div className='ms-4'>{gamesDatabase.length}</div>
+						<div className='ms-4'>{gamesDatabase?.length}</div>
 					</div>
 					<div className='d-flex justify-content-between'>
 						<div>Favourites</div>
-						<div className='ms-4'>{favourites.length}</div>
+						<div className='ms-4'>{favourites?.length}</div>
 					</div>
 					<div className='d-flex justify-content-between'>
 						<div>Playtime</div>

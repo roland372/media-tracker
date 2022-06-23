@@ -13,10 +13,12 @@ const EditForm = ({
 	handleClose,
 	singleGame,
 	id,
-	getSingleGameDatabase,
+	// getSingleGameDatabase,
 	getGamesDatabase,
 	user,
 }) => {
+	const filteredGame = singleGame?.games?.filter(game => game.id === id);
+
 	const {
 		favourites,
 		imageURL,
@@ -27,15 +29,16 @@ const EditForm = ({
 		playtime,
 		rating,
 		status,
-		synopsis,
+		// synopsis,
 		title,
 		type,
-	} = singleGame;
+	} = filteredGame[0];
 
 	//* initialize game object
 	const [game, setGame] = useState({
 		favourites: favourites,
 		imageURL: imageURL,
+		id: id,
 		lastModified: Date.now(),
 		link1: link1,
 		link1Name: link1Name,
@@ -45,7 +48,7 @@ const EditForm = ({
 		playtime: playtime,
 		rating: rating,
 		status: status,
-		synopsis: synopsis,
+		// synopsis: synopsis,
 		title: title,
 		type: type,
 	});
@@ -68,9 +71,9 @@ const EditForm = ({
 	const handleSetTitle = e => {
 		setGame({ ...game, title: e.target.value });
 	};
-	const handleSetSynopsis = e => {
-		setGame({ ...game, synopsis: e.target.value });
-	};
+	// const handleSetSynopsis = e => {
+	// 	setGame({ ...game, synopsis: e.target.value });
+	// };
 	const handleSetType = e => {
 		setGame({ ...game, type: e.value });
 	};
@@ -105,15 +108,23 @@ const EditForm = ({
 	const onSubmit = async e => {
 		e.preventDefault();
 
-		setFormErrors(validation(game.title));
-		if (game.title.length !== 0) {
+		setFormErrors(validation(game?.title));
+		if (game?.title?.length !== 0) {
 			try {
-				await GamesDataService.updateGame(id, game);
-				await getSingleGameDatabase(id);
+				const newGamesArray = singleGame?.games?.filter(game => game.id !== id);
+
+				await newGamesArray.push({
+					...game,
+				});
+
+				singleGame.games = newGamesArray;
+
+				await GamesDataService.updateGame(user?.uid, singleGame);
 				console.log('game edited');
+
+				await getGamesDatabase(user?.uid);
 				handleClose();
 				gameUpdatedNotification();
-				getGamesDatabase(user?.uid);
 				// console.log(game);
 			} catch (error) {
 				console.log(error);
@@ -123,7 +134,7 @@ const EditForm = ({
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>
-			<div className='mt-3 mb-2'>
+			<div className='mt-3 mb-0'>
 				<input
 					type='text'
 					className='form-control'
@@ -136,7 +147,7 @@ const EditForm = ({
 			{formErrors ? (
 				<small className='text-danger d-flex mx-2'>{formErrors.title}</small>
 			) : null}
-			<div className='mt-2 mb-2'>
+			{/* <div className='mt-2 mb-2'>
 				<textarea
 					type='text'
 					className='form-control'
@@ -146,7 +157,7 @@ const EditForm = ({
 					defaultValue={synopsis}
 					onChange={e => handleSetSynopsis(e)}
 				/>
-			</div>
+			</div> */}
 			<div className='mt-3 mb-2'>
 				<Select
 					defaultValue={{ label: type, value: type }}

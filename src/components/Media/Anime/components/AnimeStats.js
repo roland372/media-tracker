@@ -13,7 +13,7 @@ const AnimeStats = ({ animeDatabase }) => {
 	// console.log(animeDatabase);
 
 	//* filter out anime that have score 0
-	const meanScore = animeDatabase?.filter(anime => anime.rating !== 0).length;
+	const meanScore = animeDatabase?.filter(anime => anime.rating !== 0)?.length;
 
 	const totalEpisodesSum = animeDatabase?.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.episodesMax);
@@ -31,7 +31,9 @@ const AnimeStats = ({ animeDatabase }) => {
 		anime => anime.status === 'Completed'
 	);
 
-	const onHoldAnime = animeDatabase?.filter(anime => anime.status === 'On-Hold');
+	const onHoldAnime = animeDatabase?.filter(
+		anime => anime.status === 'On-Hold'
+	);
 
 	const droppedAnime = animeDatabase?.filter(
 		anime => anime.status === 'Dropped'
@@ -81,8 +83,16 @@ const AnimeStats = ({ animeDatabase }) => {
 					now={completedAnime?.length * 100}
 					key={2}
 				/>
-				<ProgressBar variant='warning' now={onHoldAnime?.length * 100} key={3} />
-				<ProgressBar variant='danger' now={droppedAnime?.length * 100} key={4} />
+				<ProgressBar
+					variant='warning'
+					now={onHoldAnime?.length * 100}
+					key={3}
+				/>
+				<ProgressBar
+					variant='danger'
+					now={droppedAnime?.length * 100}
+					key={4}
+				/>
 				<ProgressBar
 					variant='light'
 					now={planToWatchAnime?.length * 100}

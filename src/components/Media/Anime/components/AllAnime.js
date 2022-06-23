@@ -102,8 +102,8 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 								}
 								return 0;
 							})
-							.slice(0, 20)
-							.map(anime => (
+							?.slice(0, 20)
+							?.map(anime => (
 								<SingleAnimeCard
 									deleteAnime={deleteAnime}
 									favourites={anime.favourites}
@@ -131,8 +131,8 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 										}
 										return 0;
 									})
-									.slice(20)
-									.map(anime => (
+									?.slice(20)
+									?.map(anime => (
 										<SingleAnimeCard
 											deleteAnime={deleteAnime}
 											getAnimeDatabase={getAnimeDatabase}
@@ -208,8 +208,8 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 										}
 										return 0;
 									})
-									.slice(20)
-									.map((anime, index) => (
+									?.slice(20)
+									?.map((anime, index) => (
 										<SingleAnimeTableRow
 											episodesMax={anime.episodesMax}
 											episodesMin={anime.episodesMin}

@@ -16,6 +16,9 @@ import FavouriteGames from '../components/FavouriteGames';
 import GamesStats from '../components/GamesStats';
 import Loader from '../../../Layout/Loader';
 
+//? <----- Icons ----->
+import { AiOutlineSearch } from 'react-icons/ai';
+
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
 
@@ -47,14 +50,21 @@ const Games = () => {
 
 	const deleteGame = async id => {
 		setLoading(true);
-		await GamesDataService.deleteGame(id);
-		getGamesDatabase(user.uid);
+
+		const filteredArray = gamesDatabase?.[0]?.games?.filter(
+			game => game.id !== id
+		);
+
+		gamesDatabase[0].games = filteredArray;
+
+		await GamesDataService.updateGame(user?.uid, gamesDatabase[0]);
+		getGamesDatabase(user?.uid);
 		setLoading(false);
 	};
 
 	useEffect(() => {
-		getGamesDatabase(user.uid);
-	}, [user.uid]);
+		getGamesDatabase(user?.uid);
+	}, [user?.uid]);
 
 	return (
 		<>
@@ -69,9 +79,10 @@ const Games = () => {
 					</Modal.Header>
 					<Modal.Body className='bg-primary-dark text-color'>
 						<Form
+							gamesDatabase={gamesDatabase}
+							getGamesDatabase={getGamesDatabase}
 							handleClose={handleClose}
 							user={user}
-							getGamesDatabase={getGamesDatabase}
 						/>
 					</Modal.Body>
 				</Modal>
@@ -92,11 +103,11 @@ const Games = () => {
 			) : (
 				<>
 					<CardComponent title='Games Stats'>
-						<GamesStats gamesDatabase={gamesDatabase} />
+						<GamesStats gamesDatabase={gamesDatabase?.[0]?.games} />
 					</CardComponent>
 
 					<AllGames
-						allGames={gamesDatabase}
+						allGames={gamesDatabase?.[0]?.games}
 						deleteGame={deleteGame}
 						getGamesDatabase={getGamesDatabase}
 						user={user}
@@ -104,7 +115,7 @@ const Games = () => {
 					<hr />
 
 					<RecentGames
-						allGames={gamesDatabase}
+						allGames={gamesDatabase?.[0]?.games}
 						deleteGame={deleteGame}
 						getGamesDatabase={getGamesDatabase}
 						user={user}
@@ -112,7 +123,7 @@ const Games = () => {
 					<hr />
 
 					<FavouriteGames
-						allGames={gamesDatabase}
+						allGames={gamesDatabase?.[0]?.games}
 						deleteGame={deleteGame}
 						getGamesDatabase={getGamesDatabase}
 						user={user}

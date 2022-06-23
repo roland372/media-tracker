@@ -7,10 +7,10 @@ import CardComponent from '../../../Layout/CardComponent';
 
 const FavouriteGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 	//* show only favourites
-	const filteredGames = allGames.filter(game => game.favourites);
+	const filteredGames = allGames?.filter(game => game.favourites);
 
 	//* sort games by name
-	const sortedGames = filteredGames.sort(function (a, b) {
+	const sortedGames = filteredGames?.sort(function (a, b) {
 		const nameA = a.title.toLowerCase(),
 			nameB = b.title.toLowerCase();
 		if (nameA < nameB)
@@ -20,9 +20,9 @@ const FavouriteGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 		return 0; //default return value (no sorting)
 	});
 
-	if (sortedGames.length < 1)
+	if (sortedGames?.length < 1)
 		return (
-			<CardComponent title='All Games'>
+			<CardComponent title='Favourite Games'>
 				<h4 className='text-center'>No Favourite Games</h4>
 			</CardComponent>
 		);
@@ -30,9 +30,10 @@ const FavouriteGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 	return (
 		<FavouriteMedia cardTitle='Favourite Games'>
 			{user &&
-				sortedGames.map(game => (
+				sortedGames?.map(game => (
 					<SingleGameCard
 						deleteGame={deleteGame}
+						favourites={game.favourites}
 						getGamesDatabase={getGamesDatabase}
 						id={game.id}
 						imageURL={game.imageURL}

@@ -97,8 +97,15 @@ const Homepage = () => {
 
 	const deleteGame = async id => {
 		setLoading(true);
-		await GamesDataService.deleteGame(id);
-		getGamesDatabase(user.uid);
+
+		const filteredArray = gamesDatabase?.[0]?.games?.filter(
+			game => game.id !== id
+		);
+
+		gamesDatabase[0].games = filteredArray;
+
+		await GamesDataService.updateGame(user?.uid, gamesDatabase[0]);
+		getGamesDatabase(user?.uid);
 		setLoading(false);
 	};
 
@@ -150,6 +157,7 @@ const Homepage = () => {
 					) : null}
 					{selectMediaValue === 'Game' ? (
 						<GameForm
+							gamesDatabase={gamesDatabase}
 							getGamesDatabase={getGamesDatabase}
 							handleClose={handleClose}
 							user={user}
@@ -198,7 +206,7 @@ const Homepage = () => {
 					)}
 
 					<RecentGames
-						allGames={gamesDatabase}
+						allGames={gamesDatabase?.[0]?.games}
 						deleteGame={deleteGame}
 						getGamesDatabase={getGamesDatabase}
 						user={user}

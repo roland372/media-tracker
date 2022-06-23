@@ -100,8 +100,8 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 								}
 								return 0;
 							})
-							.slice(0, 20)
-							.map(manga => (
+							?.slice(0, 20)
+							?.map(manga => (
 								<SingleMangaCard
 									deleteManga={deleteManga}
 									favourites={manga.favourites}
@@ -129,8 +129,8 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 										}
 										return 0;
 									})
-									.slice(20)
-									.map(manga => (
+									?.slice(20)
+									?.map(manga => (
 										<SingleMangaCard
 											deleteManga={deleteManga}
 											getMangaDatabase={getMangaDatabase}
@@ -174,8 +174,8 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 								}
 								return 0;
 							})
-							.slice(0, 20)
-							.map((manga, index) => (
+							?.slice(0, 20)
+							?.map((manga, index) => (
 								<SingleMangaTableRow
 									chaptersMax={manga.chaptersMax}
 									chaptersMin={manga.chaptersMin}
@@ -208,8 +208,8 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 										}
 										return 0;
 									})
-									.slice(20)
-									.map((manga, index) => (
+									?.slice(20)
+									?.map((manga, index) => (
 										<SingleMangaTableRow
 											chaptersMax={manga.chaptersMax}
 											chaptersMin={manga.chaptersMin}

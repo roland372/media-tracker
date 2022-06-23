@@ -7,9 +7,9 @@ import CardComponent from '../../../Layout/CardComponent';
 
 const RecentGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 	//* sort games by date
-	const sortByDate = allGames.sort((a, b) => b.lastModified - a.lastModified);
+	const sortByDate = allGames?.sort((a, b) => b.lastModified - a.lastModified);
 
-	if (sortByDate.length < 1)
+	if (sortByDate?.length < 1)
 		return (
 			<CardComponent title='Recent Games'>
 				<h4 className='text-center'>No Games</h4>
@@ -20,11 +20,11 @@ const RecentGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 		<RecentMedia cardTitle='Recent Games'>
 			{user &&
 				sortByDate
-					.filter(owner => owner.owner === user.uid)
-					.slice(0, 20)
-					.map(game => (
+					?.slice(0, 20)
+					?.map(game => (
 						<SingleGameCard
 							deleteGame={deleteGame}
+							favourites={game.favourites}
 							getGamesDatabase={getGamesDatabase}
 							id={game.id}
 							imageURL={game.imageURL}

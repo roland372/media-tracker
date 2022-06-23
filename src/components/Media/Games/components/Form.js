@@ -5,15 +5,17 @@ import Select from 'react-select';
 import { gameType, ratingOptions, statusOptions } from '../utils/selectOptions';
 import validation from './FormValidation';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 //? <----- Firebase ----->
 import GamesDataService from '../services/games.services';
 
-const Form = ({ handleClose, user, getGamesDatabase }) => {
+const Form = ({ gamesDatabase, handleClose, user, getGamesDatabase }) => {
 	//* initialize game object
 	const [game, setGame] = useState({
 		favourites: false,
 		imageURL: '',
+		id: uuidv4(),
 		lastModified: Date.now(),
 		link1: '',
 		link1Name: 'Link',
@@ -23,7 +25,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 		playtime: 0,
 		rating: 0,
 		status: 'Plan to Play',
-		synopsis: '',
+		// synopsis: '',
 		title: '',
 		type: 'Game',
 	});
@@ -46,9 +48,9 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 	const handleSetTitle = e => {
 		setGame({ ...game, title: e.target.value });
 	};
-	const handleSetSynopsis = e => {
-		setGame({ ...game, synopsis: e.target.value });
-	};
+	// const handleSetSynopsis = e => {
+	// 	setGame({ ...game, synopsis: e.target.value });
+	// };
 	const handleSetType = e => {
 		setGame({ ...game, type: e.value });
 	};
@@ -84,11 +86,15 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 		e.preventDefault();
 
 		setFormErrors(validation(game.title));
-		if (game.title.length !== 0) {
+		if (game?.title?.length !== 0) {
 			try {
-				await GamesDataService.addGame(game);
-				await getGamesDatabase(user.uid);
+				gamesDatabase?.[0]?.games.push({
+					...game,
+				});
+
+				await GamesDataService.updateGame(user?.uid, gamesDatabase[0]);
 				console.log('game added to database');
+
 				gameAddedNotification();
 				handleClose();
 				// console.log(game);
@@ -100,7 +106,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>
-			<div className='mt-3 mb-2'>
+			<div className='mt-3 mb-0'>
 				<input
 					type='text'
 					className='form-control'
@@ -112,7 +118,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 			{formErrors ? (
 				<small className='text-danger d-flex ms-1'>{formErrors.title}</small>
 			) : null}
-			<div className='mt-2 mb-2'>
+			{/* <div className='mt-2 mb-2'>
 				<textarea
 					type='text'
 					className='form-control'
@@ -121,7 +127,7 @@ const Form = ({ handleClose, user, getGamesDatabase }) => {
 					rows='3'
 					onChange={e => handleSetSynopsis(e)}
 				/>
-			</div>
+			</div> */}
 			<div className='mt-3 mb-2'>
 				<Select
 					defaultValue={{ label: 'Select Type', value: '' }}

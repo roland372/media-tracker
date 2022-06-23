@@ -473,11 +473,7 @@ const Profile = () => {
 																	</Link>
 																</h6>
 																<p className='text-color'>
-																	{
-																		gamesDatabase.filter(
-																			owner => owner.owner === user.uid
-																		).length
-																	}
+																	{gamesDatabase?.[0]?.games?.length}
 																	{''} Games
 																</p>
 															</div>
@@ -491,11 +487,7 @@ const Profile = () => {
 																	</Link>
 																</h6>
 																<p className='text-color'>
-																	{
-																		mangaDatabase.filter(
-																			owner => owner.owner === user.uid
-																		).length
-																	}
+																	{mangaDatabase?.[0]?.manga?.length}
 																	{''} Manga
 																</p>
 															</div>

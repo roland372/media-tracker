@@ -103,6 +103,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 
 				await AnimeDataService.updateAnime(user?.uid, animeDatabase[0]);
 				console.log('anime added to database');
+				
 				animeAddedNotification();
 				handleClose();
 				// console.log(animeDatabase[0].anime);

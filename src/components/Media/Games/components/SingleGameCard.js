@@ -9,6 +9,7 @@ import SingleMediaCard from '../../components/SingleMediaCard';
 
 const SingleGameCard = ({
 	deleteGame,
+	favourites,
 	id,
 	imageURL,
 	getGamesDatabase,
@@ -24,22 +25,24 @@ const SingleGameCard = ({
 
 	const [singleGame, setSingleGame] = useState({});
 
-	const getSingleGameDatabase = async id => {
-		const data = await GamesDataService.getGame(id);
+	const getSingleGameDatabase = async () => {
+		const data = await GamesDataService.getGame(user?.uid);
 		setSingleGame(data.data());
 	};
 
 	useEffect(() => {
-		getSingleGameDatabase(id);
-	}, [id]);
+		getSingleGameDatabase();
+		//eslint-disable-next-line
+	}, []);
 
 	return (
 		<SingleMediaCard
 			show={show}
 			handleClose={handleClose}
+			favourites={favourites}
 			mediaType='Games'
 			title={title}
-			singleMedia={singleGame}
+			singleMedia={singleGame?.games}
 			id={id}
 			handleShow={handleShow}
 			getSingleMediaDatabase={getSingleGameDatabase}

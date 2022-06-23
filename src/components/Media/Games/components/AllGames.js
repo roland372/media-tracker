@@ -13,7 +13,7 @@ import GamesTable from './GamesTable';
 
 const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 	//* sort games by name
-	const sortedGames = allGames.sort(function (a, b) {
+	const sortedGames = allGames?.sort(function (a, b) {
 		const nameA = a.title.toLowerCase(),
 			nameB = b.title.toLowerCase();
 		if (nameA < nameB)
@@ -60,12 +60,12 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 			setStatus(status);
 			return;
 		}
-		const newData = sortedGames.filter(type => type.status === gameStatus);
+		const newData = sortedGames?.filter(type => type.status === gameStatus);
 		// console.log(newData);
 		setMenuItems(newData);
 	};
 
-	if (sortedGames.length < 1)
+	if (sortedGames?.length < 1)
 		return (
 			<CardComponent title='All Games'>
 				<h4 className='text-center'>No Games</h4>
@@ -88,7 +88,7 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 					<section className='d-flex align-items-center justify-content-start flex-wrap'>
 						{menuItems
 							//? display first 20 elements
-							.filter(value => {
+							?.filter(value => {
 								if (searchTerm === '') {
 									return value;
 								} else if (
@@ -100,8 +100,8 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 								}
 								return 0;
 							})
-							.slice(0, 20)
-							.map(game => (
+							?.slice(0, 20)
+							?.map(game => (
 								<SingleGameCard
 									deleteGame={deleteGame}
 									getGamesDatabase={getGamesDatabase}
@@ -116,7 +116,7 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 						{displayMore
 							? //? display the rest
 							  menuItems
-									.filter(value => {
+									?.filter(value => {
 										if (searchTerm === '') {
 											return value;
 										} else if (
@@ -128,8 +128,8 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 										}
 										return 0;
 									})
-									.slice(20)
-									.map(game => (
+									?.slice(20)
+									?.map(game => (
 										<SingleGameCard
 											deleteGame={deleteGame}
 											getGamesDatabase={getGamesDatabase}
@@ -161,7 +161,7 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 					>
 						{menuItems
 							//? display first 20 elements
-							.filter(value => {
+							?.filter(value => {
 								if (searchTerm === '') {
 									return value;
 								} else if (
@@ -173,8 +173,8 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 								}
 								return 0;
 							})
-							.slice(0, 20)
-							.map((game, index) => (
+							?.slice(0, 20)
+							?.map((game, index) => (
 								<SingleGameTableRow
 									id={game.id}
 									image={game.imageURL}
@@ -192,7 +192,7 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 						{displayMore
 							? //? display the rest
 							  menuItems
-									.filter(value => {
+									?.filter(value => {
 										if (searchTerm === '') {
 											return value;
 										} else if (
@@ -204,8 +204,8 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 										}
 										return 0;
 									})
-									.slice(20)
-									.map((game, index) => (
+									?.slice(20)
+									?.map((game, index) => (
 										<SingleGameTableRow
 											id={game.id}
 											image={game.imageURL}

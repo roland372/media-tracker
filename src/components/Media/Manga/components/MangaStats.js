@@ -11,7 +11,7 @@ const MangaStats = ({ mangaDatabase }) => {
 	}
 
 	//* filter out manga that have score 0
-	const meanScore = mangaDatabase?.filter(manga => manga.rating !== 0).length;
+	const meanScore = mangaDatabase?.filter(manga => manga.rating !== 0)?.length;
 
 	const totalChaptersSum = mangaDatabase?.reduce((accumulator, object) => {
 		return accumulator + parseInt(object.chaptersMax);

@@ -13,6 +13,7 @@ import { useUserAuth } from '../../../../context/UserAuthContext';
 import CardComponent from '../../../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import Loader from '../../../Layout/Loader';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
@@ -22,6 +23,9 @@ const SingleGame = () => {
 	const { id } = useParams();
 	const { user } = useUserAuth();
 	const navigate = useNavigate();
+
+	//* <----- Loading state ----->
+	const [loading, setLoading] = useState(<Loader />);
 
 	//* <----- Modal state ----->
 	const [show, setShow] = useState(false);
@@ -49,41 +53,39 @@ const SingleGame = () => {
 		});
 
 	const [singleGameDatabase, setSingleGameDatabase] = useState({});
-	useDocumentTitle(singleGameDatabase?.title);
 
-	const getSingleGameDatabase = async id => {
-		const data = await GamesDataService.getGame(id);
-		setSingleGameDatabase(data.data());
-	};
+	const filteredGame = singleGameDatabase?.games?.filter(
+		game => game.id === id
+	);
+
+	useDocumentTitle(filteredGame?.[0]?.title);
+
+	useEffect(() => {
+		const getSingleGameDatabase = async () => {
+			setLoading(true);
+			const data = await GamesDataService?.getGame(user?.uid);
+			setSingleGameDatabase(data.data());
+		};
+		getSingleGameDatabase();
+		setLoading(false);
+	}, [user?.uid]);
 
 	const getGamesDatabase = userId => {};
 
 	const deleteGame = async id => {
-		await GamesDataService.deleteGame(id);
+		const filteredArray = singleGameDatabase?.games?.filter(
+			game => game.id !== id
+		);
+
+		singleGameDatabase.games = filteredArray;
+
+		await GamesDataService.updateGame(user?.uid, singleGameDatabase);
 		gameDeletedNotification();
 		navigate('/media/games');
 	};
 
-	useEffect(() => {
-		getSingleGameDatabase(id);
-	}, [id]);
-
-	const {
-		title,
-		imageURL,
-		synopsis,
-		playtime,
-		type,
-		link1,
-		link1Name,
-		link2,
-		link2Name,
-		status,
-		rating,
-	} = singleGameDatabase;
-
 	return (
-		<CardComponent title={title}>
+		<CardComponent title={filteredGame?.[0]?.title}>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header
 					closeButton
@@ -97,7 +99,6 @@ const SingleGame = () => {
 						handleClose={handleClose}
 						singleGame={singleGameDatabase}
 						id={id}
-						getSingleGameDatabase={getSingleGameDatabase}
 						getGamesDatabase={getGamesDatabase}
 						user={user}
 					/>
@@ -152,65 +153,80 @@ const SingleGame = () => {
 					<hr />
 				</div>
 			</section>
-			<section className='mx-2 mt-2'>
-				<section className='d-lg-flex align-items-start'>
-					<img
-						className='img img-fluid'
-						width='200px'
-						src={
-							imageURL
-								? imageURL
-								: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
-						}
-						alt={title}
-					/>
-					{synopsis ? (
-						<div className='col'>
-							<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
-							<p className='px-3 text-start mx-3 new-line'>{synopsis}</p>
-						</div>
-					) : null}
-				</section>
-				<section className='d-flex justify-content-around mt-3'>
-					<section>
-						<div>
-							<h5>Type</h5>
-							<p>{type}</p>
-						</div>
-						<div>
-							<h5>Status</h5>
-							<p>{status}</p>
-						</div>
-					</section>
-					<section>
-						<div>
-							<h5>Playtime</h5>
-							<p>{playtime} Hours</p>
-						</div>
-					</section>
-					<section>
-						<div>
-							<h5>Rating</h5>
-							<p>⭐{rating}</p>
-						</div>
-						{link1 || link2 ? (
-							<div>
-								<h5>Links</h5>
-								{link1 ? (
-									<a href={link1} target='_blank' rel='noreferrer'>
-										<div>{link1Name}</div>
-									</a>
-								) : null}
-								{link2 ? (
-									<a href={link2} target='_blank' rel='noreferrer'>
-										<div>{link2Name}</div>
-									</a>
-								) : null}
+
+			{loading ? (
+				<Loader />
+			) : (
+				<section className='mx-2 mt-2'>
+					<section className='d-lg-flex align-items-start'>
+						<img
+							className='img img-fluid'
+							width='200px'
+							src={
+								filteredGame?.[0]?.imageURL
+									? filteredGame?.[0]?.imageURL
+									: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
+							}
+							alt={filteredGame?.[0]?.title}
+						/>
+						{filteredGame?.[0]?.synopsis ? (
+							<div className='col'>
+								<h5 className='mt-lg-0 mt-3'>Synopsis</h5>
+								<p className='px-3 text-start mx-3 new-line'>
+									{filteredGame?.[0]?.synopsis}
+								</p>
 							</div>
 						) : null}
 					</section>
+					<section className='d-flex justify-content-around mt-3'>
+						<section>
+							<div>
+								<h5>Type</h5>
+								<p>{filteredGame?.[0]?.type}</p>
+							</div>
+							<div>
+								<h5>Status</h5>
+								<p>{filteredGame?.[0]?.status}</p>
+							</div>
+						</section>
+						<section>
+							<div>
+								<h5>Playtime</h5>
+								<p>{filteredGame?.[0]?.playtime} Hours</p>
+							</div>
+						</section>
+						<section>
+							<div>
+								<h5>Rating</h5>
+								<p>⭐{filteredGame?.[0]?.rating}</p>
+							</div>
+							{filteredGame?.[0]?.link1 || filteredGame?.[0]?.link2 ? (
+								<div>
+									<h5>Links</h5>
+									{filteredGame?.[0]?.link1 ? (
+										<a
+											href={filteredGame?.[0]?.link1}
+											target='_blank'
+											rel='noreferrer'
+										>
+											<div>{filteredGame?.[0]?.link1Name}</div>
+										</a>
+									) : null}
+									{filteredGame?.[0]?.link2 ? (
+										<a
+											href={filteredGame?.[0]?.link2}
+											target='_blank'
+											rel='noreferrer'
+										>
+											<div>{filteredGame?.[0]?.link2Name}</div>
+										</a>
+									) : null}
+								</div>
+							) : null}
+						</section>
+					</section>
 				</section>
-			</section>
+			)}
 		</CardComponent>
 	);
 };
