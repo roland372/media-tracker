@@ -59,11 +59,8 @@ const FetchedAnime = ({
 				...singleAnime,
 			});
 
-			await AnimeDataService.updateAnime(
-				user?.uid,
-				animeDatabase[0]
-			);
-			
+			await AnimeDataService.updateAnime(user?.uid, animeDatabase[0]);
+
 			await getAnimeDatabase(user?.uid);
 			console.log('anime added to database');
 			singleAnime.id = uuidv4();
@@ -124,6 +121,7 @@ const FetchedAnime = ({
 															imageURL: anime.images.jpg.image_url,
 															episodesMax: anime.episodes ? anime.episodes : 0,
 															owner: user?.uid,
+															lastModified: Date.now(),
 														};
 														setSingleAnime(addAnime);
 													}}

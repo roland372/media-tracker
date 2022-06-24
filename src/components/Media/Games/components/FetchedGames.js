@@ -119,6 +119,7 @@ const FetchedGames = ({
 															link1: game.url,
 															imageURL: `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`,
 															owner: user?.uid,
+															lastModified: Date.now(),
 														};
 														setSingleGame(addGame);
 													}}

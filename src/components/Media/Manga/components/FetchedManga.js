@@ -122,6 +122,7 @@ const FetchedManga = ({
 															chaptersMax: manga.chapters ? manga.chapters : 0,
 															volumesMax: manga.volumes ? manga.volumes : 0,
 															owner: user?.uid,
+															lastModified: Date.now(),
 														};
 														setSingleManga(addManga);
 													}}
