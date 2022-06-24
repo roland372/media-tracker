@@ -148,7 +148,7 @@ const Games = () => {
 								<input
 									className='form-control'
 									type='search'
-									placeholder='Search for an Anime'
+									placeholder='Search for a Game'
 									required
 									value={search}
 									onChange={e => setSearch(e.target.value)}
