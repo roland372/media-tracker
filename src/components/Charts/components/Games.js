@@ -128,7 +128,7 @@ const Games = ({ gamesDatabase }) => {
 		<section>
 			<div>
 				<h2 className='pb-3'>Games Stats</h2>
-				<GamesStats gamesDatabase={gamesDatabase?.[0].games} />
+				<GamesStats gamesDatabase={gamesDatabase?.[0]?.games} />
 			</div>
 			<section className='mx-lg-5 p-lg-5'>
 				<div>
