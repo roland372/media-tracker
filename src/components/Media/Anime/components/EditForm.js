@@ -106,6 +106,9 @@ const EditForm = ({
 	const handleSetStatus = e => {
 		setAnime({ ...anime, status: e.value });
 	};
+	const handleCompletedStatus = e => {
+		setAnime({ ...anime, status: e.value, episodesMin: episodesMax });
+	};
 	const handleSetEpisodesMin = e => {
 		setAnime({ ...anime, episodesMin: e });
 	};
@@ -137,7 +140,7 @@ const EditForm = ({
 
 				await AnimeDataService.updateAnime(user?.uid, singleAnime);
 				console.log('anime edited');
-				
+
 				await getAnimeDatabase(user?.uid);
 				handleClose();
 				animeUpdatedNotification();
@@ -147,6 +150,9 @@ const EditForm = ({
 			}
 		}
 	};
+
+	// console.log(anime?.status);
+	// console.log(anime?.episodesMin);
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>
@@ -249,7 +255,14 @@ const EditForm = ({
 					}}
 					options={statusOptions}
 					className='text-dark'
-					onChange={e => handleSetStatus(e)}
+					onChange={e => {
+						if (e.value === 'Completed') {
+							handleCompletedStatus(e);
+						} else {
+							handleSetStatus(e);
+						}
+					}}
+					// onChange={e => handleSetStatus(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -260,7 +273,8 @@ const EditForm = ({
 						className='form-control'
 						maxLength='4'
 						placeholder='1'
-						defaultValue={status === 'Completed' ? episodesMax : episodesMin}
+						// value={anime?.status === 'Completed' ? episodesMax : episodesMin}
+						defaultValue={episodesMin}
 						onKeyPress={event => {
 							if (!/[0-9]/.test(event.key)) {
 								event.preventDefault();

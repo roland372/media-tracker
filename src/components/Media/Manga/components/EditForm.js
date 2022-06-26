@@ -110,6 +110,14 @@ const EditForm = ({
 	const handleSetStatus = e => {
 		setManga({ ...manga, status: e.value });
 	};
+	const handleCompletedStatus = e => {
+		setManga({
+			...manga,
+			status: e.value,
+			chaptersMin: chaptersMax,
+			volumesMin: volumesMax,
+		});
+	};
 	const handleSetChaptersMin = e => {
 		setManga({ ...manga, chaptersMin: e });
 	};
@@ -253,7 +261,14 @@ const EditForm = ({
 					}}
 					options={statusOptions}
 					className='text-dark'
-					onChange={e => handleSetStatus(e)}
+					onChange={e => {
+						if (e.value === 'Completed') {
+							handleCompletedStatus(e);
+						} else {
+							handleSetStatus(e);
+						}
+					}}
+					// onChange={e => handleSetStatus(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
