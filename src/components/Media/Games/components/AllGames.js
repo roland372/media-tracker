@@ -104,6 +104,7 @@ const AllGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 							?.map(game => (
 								<SingleGameCard
 									deleteGame={deleteGame}
+									favourites={game.favourites}
 									getGamesDatabase={getGamesDatabase}
 									id={game.id}
 									imageURL={game.imageURL}
