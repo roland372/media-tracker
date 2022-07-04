@@ -143,6 +143,25 @@ const SingleMediaCard = ({
 									<hr />
 								</section>
 							) : null}
+							{mediaType === 'Games' ? (
+								<section>
+									<div>Type: {singleMedia?.type}</div>
+									<div>
+										Link:{' '}
+										<a
+											href={singleMedia?.link1}
+											target='_blank'
+											rel='noreferrer'
+										>
+											{singleMedia?.link1Name}
+										</a>
+									</div>
+									<div>Playtime: {singleMedia?.playtime} hours</div>
+									<div>Rating: ⭐{singleMedia?.rating}</div>
+									<div>Status: {singleMedia?.status}</div>
+									<hr />
+								</section>
+							) : null}
 							<section className='d-flex justify-content-start'>
 								<Link
 									to={`/media/${mediaType.toLowerCase()}/${id}`}

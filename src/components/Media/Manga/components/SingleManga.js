@@ -101,7 +101,7 @@ const SingleManga = () => {
 		navigate('/media/manga');
 	};
 
-	console.log(mangaDetails);
+	// console.log(mangaDetails);
 
 	return (
 		<CardComponent title={filteredManga?.[0]?.title}>
