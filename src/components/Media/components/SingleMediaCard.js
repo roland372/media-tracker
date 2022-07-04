@@ -117,6 +117,32 @@ const SingleMediaCard = ({
 									<hr />
 								</section>
 							) : null}
+							{mediaType === 'Manga' ? (
+								<section>
+									<div>Type: {singleMedia?.type}</div>
+									<div>
+										Link:{' '}
+										<a
+											href={singleMedia?.link1}
+											target='_blank'
+											rel='noreferrer'
+										>
+											{singleMedia?.link1Name}
+										</a>
+									</div>
+									<div>
+										Chapters: {singleMedia?.chaptersMin} /{' '}
+										{singleMedia?.chaptersMax}
+									</div>
+									<div>
+										Volumes: {singleMedia?.volumesMin} /{' '}
+										{singleMedia?.volumesMax}
+									</div>
+									<div>Rating: ⭐{singleMedia?.rating}</div>
+									<div>Status: {singleMedia?.status}</div>
+									<hr />
+								</section>
+							) : null}
 							<section className='d-flex justify-content-start'>
 								<Link
 									to={`/media/${mediaType.toLowerCase()}/${id}`}
