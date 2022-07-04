@@ -24,12 +24,9 @@ const RecentGames = ({ allGames, deleteGame, getGamesDatabase, user }) => {
 					?.map(game => (
 						<SingleGameCard
 							deleteGame={deleteGame}
-							favourites={game.favourites}
 							getGamesDatabase={getGamesDatabase}
-							id={game.id}
-							imageURL={game.imageURL}
 							key={game.id}
-							title={game.title}
+							singleGameDatabase={game}
 							user={user}
 						/>
 					))}

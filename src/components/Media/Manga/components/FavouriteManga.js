@@ -33,12 +33,9 @@ const FavouriteManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 				sortedManga?.map(manga => (
 					<SingleMangaCard
 						deleteManga={deleteManga}
-						favourites={manga.favourites}
 						getMangaDatabase={getMangaDatabase}
-						id={manga.id}
-						imageURL={manga.imageURL}
 						key={manga.id}
-						title={manga.title}
+						singleMangaDatabase={manga}
 						user={user}
 					/>
 				))}

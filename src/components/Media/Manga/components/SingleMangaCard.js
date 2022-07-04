@@ -9,11 +9,8 @@ import SingleMediaCard from '../../components/SingleMediaCard';
 
 const SingleMangaCard = ({
 	deleteManga,
-	favourites,
 	getMangaDatabase,
-	id,
-	imageURL,
-	title,
+	singleMangaDatabase,
 	user,
 }) => {
 	//* <----- Modal state ----->
@@ -40,20 +37,17 @@ const SingleMangaCard = ({
 		<SingleMediaCard
 			show={show}
 			handleClose={handleClose}
-			favourites={favourites}
 			mediaType='Manga'
-			title={title}
-			singleMedia={singleManga?.anime}
-			id={id}
+			singleMedia={singleMangaDatabase}
+			id={singleMangaDatabase?.id}
 			handleShow={handleShow}
 			getSingleMediaDatabase={getSingleMangaDatabase}
 			deleteMedia={deleteManga}
-			imageURL={imageURL}
 		>
 			<EditForm
 				handleClose={handleClose}
 				singleManga={singleManga}
-				id={id}
+				id={singleMangaDatabase?.id}
 				getSingleMangaDatabase={getSingleMangaDatabase}
 				getMangaDatabase={getMangaDatabase}
 				user={user}

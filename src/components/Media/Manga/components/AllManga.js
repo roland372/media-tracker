@@ -104,12 +104,9 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 							?.map(manga => (
 								<SingleMangaCard
 									deleteManga={deleteManga}
-									favourites={manga.favourites}
 									getMangaDatabase={getMangaDatabase}
-									id={manga.id}
-									imageURL={manga.imageURL}
 									key={manga.id}
-									title={manga.title}
+									singleMangaDatabase={manga}
 									user={user}
 								/>
 							))}
@@ -134,10 +131,8 @@ const AllManga = ({ allManga, deleteManga, getMangaDatabase, user }) => {
 										<SingleMangaCard
 											deleteManga={deleteManga}
 											getMangaDatabase={getMangaDatabase}
-											id={manga.id}
-											imageURL={manga.imageURL}
 											key={manga.id}
-											title={manga.title}
+											singleMangaDatabase={manga}
 											user={user}
 										/>
 									))

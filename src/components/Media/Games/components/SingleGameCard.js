@@ -9,11 +9,8 @@ import SingleMediaCard from '../../components/SingleMediaCard';
 
 const SingleGameCard = ({
 	deleteGame,
-	favourites,
-	id,
-	imageURL,
 	getGamesDatabase,
-	title,
+	singleGameDatabase,
 	user,
 }) => {
 	//* <----- Modal state ----->
@@ -39,20 +36,17 @@ const SingleGameCard = ({
 		<SingleMediaCard
 			show={show}
 			handleClose={handleClose}
-			favourites={favourites}
 			mediaType='Games'
-			title={title}
-			singleMedia={singleGame?.games}
-			id={id}
+			singleMedia={singleGameDatabase}
+			id={singleGameDatabase?.id}
 			handleShow={handleShow}
 			getSingleMediaDatabase={getSingleGameDatabase}
 			deleteMedia={deleteGame}
-			imageURL={imageURL}
 		>
 			<EditForm
 				handleClose={handleClose}
 				singleGame={singleGame}
-				id={id}
+				id={singleGameDatabase?.id}
 				getSingleGameDatabase={getSingleGameDatabase}
 				getGamesDatabase={getGamesDatabase}
 				user={user}
