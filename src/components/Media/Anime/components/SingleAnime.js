@@ -95,13 +95,12 @@ const SingleAnime = () => {
 
 		singleAnimeDatabase.anime = filteredArray;
 
-		await AnimeDataService.updateAnime(
-			user?.uid,
-			singleAnimeDatabase
-		);
+		await AnimeDataService.updateAnime(user?.uid, singleAnimeDatabase);
 		animeDeletedNotification();
 		navigate('/media/anime');
 	};
+
+	// console.log(animeDetails);
 
 	return (
 		<CardComponent title={filteredAnime?.[0]?.title}>
@@ -250,6 +249,77 @@ const SingleAnime = () => {
 							) : null}
 						</section>
 					</section>
+					{animeDetails?.mal_id ? (
+						<div>
+							<hr />
+							<section className='d-flex justify-content-around mt-3'>
+								<section>
+									{animeDetails?.year ? (
+										<div>
+											<h5>Year</h5>
+											<p>{animeDetails?.year}</p>
+										</div>
+									) : null}
+									<div>
+										<h5>Status</h5>
+										<p>{animeDetails?.status}</p>
+									</div>
+								</section>
+								<section>
+									<div>
+										<h5>Genres</h5>
+										{animeDetails?.genres?.map((genre, index) => (
+											<div key={index}>{genre.name}</div>
+										))}
+									</div>
+								</section>
+								<section>
+									<div>
+										<h5>Source</h5>
+										<p>{animeDetails?.source}</p>
+									</div>
+								</section>
+							</section>
+							{animeDetails?.relations?.length !== 0 ? (
+								<div>
+									<hr />
+									<section className='pb-3'>
+										<h5>Relations</h5>
+										{animeDetails?.relations?.map((relation, index) => (
+											<div key={index} className='text-start mx-3'>
+												{relation?.entry?.map((entry, index) => (
+													<div key={index}>
+														{relation?.relation}:{' '}
+														<a
+															href={entry?.url}
+															target='_blank'
+															rel='noreferrer'
+														>
+															{entry?.name}
+														</a>
+													</div>
+												))}
+											</div>
+										))}
+									</section>
+								</div>
+							) : null}
+							<hr />
+							{animeDetails?.trailer?.embed_url ? (
+								<section>
+									<h5>Trailer</h5>
+									<div className='iframe-container'>
+										<iframe
+											className='responsive-iframe pt-2'
+											allowFullScreen={true}
+											src={animeDetails?.trailer?.embed_url}
+											title={animeDetails?.title}
+										/>
+									</div>
+								</section>
+							) : null}
+						</div>
+					) : null}
 				</section>
 			)}
 		</CardComponent>

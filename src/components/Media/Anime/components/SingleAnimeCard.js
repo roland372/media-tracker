@@ -9,11 +9,12 @@ import SingleMediaCard from '../../components/SingleMediaCard';
 
 const SingleAnimeCard = ({
 	deleteAnime,
-	favourites,
+	// favourites,
 	getAnimeDatabase,
-	id,
-	imageURL,
-	title,
+	// id,
+	// imageURL,
+	// title,
+	singleAnimeDatabase,
 	user,
 }) => {
 	//* <----- Modal state ----->
@@ -26,12 +27,9 @@ const SingleAnimeCard = ({
 	const [singleAnime, setSingleAnime] = useState({});
 
 	const getSingleAnimeDatabase = async () => {
-		// const data = await AnimeDataService.getAnime('LL6XdGl6QKbjnCv67gon');
 		const data = await AnimeDataService.getAnime(user?.uid);
 		setSingleAnime(data.data());
 	};
-
-	// console.log(singleAnime);
 
 	useEffect(() => {
 		getSingleAnimeDatabase();
@@ -42,20 +40,17 @@ const SingleAnimeCard = ({
 		<SingleMediaCard
 			show={show}
 			handleClose={handleClose}
-			favourites={favourites}
 			mediaType='Anime'
-			title={title}
-			singleMedia={singleAnime?.anime}
-			id={id}
+			singleMedia={singleAnimeDatabase}
+			id={singleAnimeDatabase?.id}
 			handleShow={handleShow}
 			getSingleMediaDatabase={getSingleAnimeDatabase}
 			deleteMedia={deleteAnime}
-			imageURL={imageURL}
 		>
 			<EditForm
 				handleClose={handleClose}
 				singleAnime={singleAnime}
-				id={id}
+				id={singleAnimeDatabase?.id}
 				getSingleAnimeDatabase={getSingleAnimeDatabase}
 				getAnimeDatabase={getAnimeDatabase}
 				user={user}

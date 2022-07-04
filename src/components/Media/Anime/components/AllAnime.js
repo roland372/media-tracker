@@ -106,12 +106,9 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 							?.map(anime => (
 								<SingleAnimeCard
 									deleteAnime={deleteAnime}
-									favourites={anime.favourites}
 									getAnimeDatabase={getAnimeDatabase}
-									id={anime.id}
-									imageURL={anime.imageURL}
 									key={anime.id}
-									title={anime.title}
+									singleAnimeDatabase={anime}
 									user={user}
 								/>
 							))}
@@ -136,10 +133,8 @@ const AllAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 										<SingleAnimeCard
 											deleteAnime={deleteAnime}
 											getAnimeDatabase={getAnimeDatabase}
-											id={anime.id}
-											imageURL={anime.imageURL}
 											key={anime.id}
-											title={anime.title}
+											singleAnimeDatabase={anime}
 											user={user}
 										/>
 									))

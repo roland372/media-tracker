@@ -16,14 +16,11 @@ const SingleMediaCard = ({
 	show,
 	handleClose,
 	mediaType,
-	title,
-	favourites,
 	singleMedia,
 	id,
 	handleShow,
 	getSingleMediaDatabase,
 	deleteMedia,
-	imageURL,
 }) => {
 	const mediaDeletedNotification = () =>
 		toast.success(`${mediaType} Deleted`, {
@@ -92,13 +89,14 @@ const SingleMediaCard = ({
 				overlay={
 					<Popover>
 						<Popover.Header>
-							{title}{' '}
-							{favourites ? (
+							{singleMedia?.title}{' '}
+							{singleMedia?.favourites ? (
 								<AiFillStar size={18} className='text-warning' />
 							) : null}
 						</Popover.Header>
 						<Popover.Body onClick={() => document.body.click()}>
-							<div className='d-flex justify-content-start'>
+							<section></section>
+							<section className='d-flex justify-content-start'>
 								<Link
 									to={`/media/${mediaType.toLowerCase()}/${id}`}
 									className='btn btn-sm btn-primary'
@@ -123,15 +121,15 @@ const SingleMediaCard = ({
 								>
 									Delete
 								</button>
-							</div>
+							</section>
 						</Popover.Body>
 					</Popover>
 				}
 			>
 				<img
 					src={
-						imageURL
-							? imageURL
+						singleMedia?.imageURL
+							? singleMedia?.imageURL
 							: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
 					}
 					alt=''
