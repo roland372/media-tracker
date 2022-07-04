@@ -95,7 +95,28 @@ const SingleMediaCard = ({
 							) : null}
 						</Popover.Header>
 						<Popover.Body onClick={() => document.body.click()}>
-							<section></section>
+							{mediaType === 'Anime' ? (
+								<section>
+									<div>Type: {singleMedia?.type}</div>
+									<div>
+										Link:{' '}
+										<a
+											href={singleMedia?.link1}
+											target='_blank'
+											rel='noreferrer'
+										>
+											{singleMedia?.link1Name}
+										</a>
+									</div>
+									<div>
+										Episodes: {singleMedia?.episodesMin} /{' '}
+										{singleMedia?.episodesMax}
+									</div>
+									<div>Rating: ⭐{singleMedia?.rating}</div>
+									<div>Status: {singleMedia?.status}</div>
+									<hr />
+								</section>
+							) : null}
 							<section className='d-flex justify-content-start'>
 								<Link
 									to={`/media/${mediaType.toLowerCase()}/${id}`}
