@@ -101,6 +101,8 @@ const SingleManga = () => {
 		navigate('/media/manga');
 	};
 
+	console.log(mangaDetails);
+
 	return (
 		<CardComponent title={filteredManga?.[0]?.title}>
 			<Modal show={show} onHide={handleClose}>
@@ -253,6 +255,67 @@ const SingleManga = () => {
 							) : null}
 						</section>
 					</section>
+					{mangaDetails?.mal_id ? (
+						<div>
+							<hr />
+							<section className='d-flex justify-content-around mt-3'>
+								<section>
+									<div>
+										<h5>Year</h5>
+										<p>
+											{mangaDetails?.published?.prop?.from?.year}
+											{''} -{' '}
+											{mangaDetails?.published?.prop?.to?.year
+												? mangaDetails?.published?.prop?.to?.year
+												: mangaDetails?.status}
+										</p>
+									</div>
+									<div>
+										<h5>Status</h5>
+										<p>{mangaDetails?.status}</p>
+									</div>
+								</section>
+								<section>
+									<div>
+										<h5>Genres</h5>
+										{mangaDetails?.genres?.map((genre, index) => (
+											<div key={index}>{genre.name}</div>
+										))}
+									</div>
+								</section>
+								<section>
+									<div>
+										<h5>Source</h5>
+										<p>Original</p>
+									</div>
+								</section>
+							</section>
+							{mangaDetails?.relations?.length !== 0 ? (
+								<div>
+									<hr />
+									<section className='pb-3'>
+										<h5>Relations</h5>
+										{mangaDetails?.relations?.map((relation, index) => (
+											<div key={index} className='text-start mx-3'>
+												{relation?.entry?.map((entry, index) => (
+													<div key={index}>
+														{relation?.relation}:{' '}
+														<a
+															href={entry?.url}
+															target='_blank'
+															rel='noreferrer'
+														>
+															{entry?.name}
+														</a>
+													</div>
+												))}
+											</div>
+										))}
+									</section>
+								</div>
+							) : null}
+						</div>
+					) : null}
 				</section>
 			)}
 		</CardComponent>
