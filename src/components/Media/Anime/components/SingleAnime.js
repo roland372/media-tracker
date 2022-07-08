@@ -312,7 +312,10 @@ const SingleAnime = () => {
 										<iframe
 											className='responsive-iframe pt-2'
 											allowFullScreen={true}
-											src={animeDetails?.trailer?.embed_url}
+											src={animeDetails?.trailer?.embed_url?.replace(
+												'autoplay=1',
+												'autoplay=0'
+											)}
 											title={animeDetails?.title}
 										/>
 									</div>
