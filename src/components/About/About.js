@@ -26,7 +26,14 @@ const About = () => {
 					<br />
 					After signing in you can start adding your media straight away, just
 					select the type of media that interests you and fill out the form
-					(only title is required, you can fill the rest later).
+					(only title is required, you can fill the rest later) or you can use
+					search function to get media from external API and it will
+					automatically fill out everything for you.
+					<br />
+					<br />
+					And after that you can easily access your media, change the status,
+					keep track of progress, sort, filter or even view various statistics
+					and charts.
 				</h5>
 			</section>
 			<section className='text-start mx-3 pt-4'>
