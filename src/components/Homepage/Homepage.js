@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../Media/Anime/services/anime.services';
+import CharactersDataService from '../Media/Characters/services/characters.services';
 import GamesDataService from '../Media/Games/services/games.services';
 import MangaDataService from '../Media/Manga/services/manga.services';
 
@@ -18,9 +19,11 @@ import Select from 'react-select';
 import AnimeForm from '../Media/Anime/components/Form';
 import GameForm from '../Media/Games/components/Form';
 import MangaForm from '../Media/Manga/components/Form';
+import CharacterForm from '../Media/Characters/components/Form';
 import RecentAnime from '../Media/Anime/components/RecentAnime';
 import RecentGames from '../Media/Games/components/RecentGames';
 import RecentManga from '../Media/Manga/components/RecentManga';
+import RecentCharacters from '../Media/Characters/components/RecentCharacters';
 import Loader from '../Layout/Loader';
 
 //? <----- Custom Hooks ----->
@@ -36,10 +39,11 @@ const Homepage = () => {
 
 	const mediaOptions = [
 		{ value: 'Anime', label: 'Anime' },
-		{ value: 'Book', label: 'Book' },
+		// { value: 'Book', label: 'Book' },
+		{ value: 'Character', label: 'Character' },
 		{ value: 'Game', label: 'Game' },
 		{ value: 'Manga', label: 'Manga' },
-		{ value: 'Movie', label: 'Movie' },
+		// { value: 'Movie', label: 'Movie' },
 	];
 
 	let [selectMediaValue, setSelectMediaValue] = useState('');
@@ -52,6 +56,7 @@ const Homepage = () => {
 	const handleShow = () => setShow(true);
 
 	const [animeDatabase, setAnimeDatabase] = useState([]);
+	const [charactersDatabase, setCharactersDatabase] = useState([]);
 	const [gamesDatabase, setGamesDatabase] = useState([]);
 	const [mangaDatabase, setMangaDatabase] = useState([]);
 
@@ -64,10 +69,18 @@ const Homepage = () => {
 		setLoading(false);
 	};
 
+	const getCharactersDatabase = async userId => {
+		setLoading(true);
+		const data = await CharactersDataService.getAllCharacters(userId);
+		setCharactersDatabase(
+			data.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+		);
+		setLoading(false);
+	};
+
 	const getGamesDatabase = async userId => {
 		setLoading(true);
 		const data = await GamesDataService.getAllGames(userId);
-		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setGamesDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setLoading(false);
 	};
@@ -75,7 +88,6 @@ const Homepage = () => {
 	const getMangaDatabase = async userId => {
 		setLoading(true);
 		const data = await MangaDataService.getAllManga(userId);
-		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setMangaDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setLoading(false);
 	};
@@ -92,6 +104,23 @@ const Homepage = () => {
 
 		await AnimeDataService.updateAnime(user?.uid, animeDatabase[0]);
 		getAnimeDatabase(user?.uid);
+		setLoading(false);
+	};
+
+	const deleteCharacter = async id => {
+		setLoading(true);
+
+		const filteredArray = charactersDatabase?.[0]?.characters?.filter(
+			character => character.id !== id
+		);
+
+		charactersDatabase[0].characters = filteredArray;
+
+		await CharactersDataService.updateCharacter(
+			user?.uid,
+			charactersDatabase[0]
+		);
+		getCharactersDatabase(user?.uid);
 		setLoading(false);
 	};
 
@@ -125,6 +154,7 @@ const Homepage = () => {
 
 	useEffect(() => {
 		getAnimeDatabase(user.uid);
+		getCharactersDatabase(user.uid);
 		getGamesDatabase(user.uid);
 		getMangaDatabase(user.uid);
 	}, [user.uid]);
@@ -151,6 +181,14 @@ const Homepage = () => {
 						<AnimeForm
 							animeDatabase={animeDatabase}
 							getAnimeDatabase={getAnimeDatabase}
+							handleClose={handleClose}
+							user={user}
+						/>
+					) : null}
+					{selectMediaValue === 'Character' ? (
+						<CharacterForm
+							charactersDatabase={charactersDatabase}
+							getCharactersDatabase={getCharactersDatabase}
 							handleClose={handleClose}
 							user={user}
 						/>
@@ -202,6 +240,18 @@ const Homepage = () => {
 					{animeDatabase?.length < 1 ? null : (
 						<Link to='/media/anime' className='btn btn-light'>
 							All Anime
+						</Link>
+					)}
+
+					<RecentCharacters
+						allCharacters={charactersDatabase?.[0]?.characters}
+						deleteCharacter={deleteCharacter}
+						getCharactersDatabase={getCharactersDatabase}
+						user={user}
+					/>
+					{charactersDatabase?.length < 1 ? null : (
+						<Link to='/media/characters' className='btn btn-light'>
+							All Characters
 						</Link>
 					)}
 

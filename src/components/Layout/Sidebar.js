@@ -113,6 +113,19 @@ const Sidebar = ({ userData }) => {
 								<NavLink
 									className='nav-link text-color text-capitalize'
 									activeclassname='active-navbar'
+									to='media/characters'
+								>
+									Characters
+								</NavLink>
+							</li>
+							<li
+								className='list-group-item bg-secondary-medium'
+								key={5}
+								onClick={handleClose}
+							>
+								<NavLink
+									className='nav-link text-color text-capitalize'
+									activeclassname='active-navbar'
 									to='charts'
 								>
 									Charts
@@ -120,7 +133,7 @@ const Sidebar = ({ userData }) => {
 							</li>
 							<li
 								className='list-group-item bg-secondary-medium'
-								key={5}
+								key={6}
 								onClick={handleClose}
 							>
 								<NavLink
@@ -133,7 +146,7 @@ const Sidebar = ({ userData }) => {
 							</li>
 							<li
 								className='list-group-item bg-secondary-medium'
-								key={6}
+								key={7}
 								onClick={handleClose}
 							>
 								<NavLink

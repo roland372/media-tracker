@@ -21,10 +21,12 @@ import Charts from './pages/Charts';
 import Home from './pages/Home';
 import Games from './components/Media/Games/pages/Games';
 import Manga from './components/Media/Manga/pages/Manga';
+import Characters from './components/Media/Characters/pages/Characters';
 import NotFound from './pages/NotFound';
 import SingleAnime from './components/Media/Anime/components/SingleAnime';
 import SingleGame from './components/Media/Games/components/SingleGame';
 import SingleManga from './components/Media/Manga/components/SingleManga';
+import SingleCharacter from './components/Media/Characters/components/SingleCharacter';
 
 //? <----- Styles ----->
 import Layout from './components/Layout/Layout';
@@ -107,6 +109,22 @@ function App() {
 								element={
 									<ProtectedRoute>
 										<SingleManga />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='media/characters'
+								element={
+									<ProtectedRoute>
+										<Characters />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='media/characters/:id'
+								element={
+									<ProtectedRoute>
+										<SingleCharacter />
 									</ProtectedRoute>
 								}
 							/>

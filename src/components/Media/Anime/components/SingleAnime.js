@@ -54,7 +54,7 @@ const SingleAnime = () => {
 
 	const [singleAnimeDatabase, setSingleAnimeDatabase] = useState({});
 
-	const [animeDetails, setAnimeDetails] = useState([]);
+	const [animeDetails, setAnimeDetails] = useState({});
 
 	const fetchAnime = async query => {
 		setLoading(true);
@@ -100,7 +100,7 @@ const SingleAnime = () => {
 		navigate('/media/anime');
 	};
 
-	// console.log(animeDetails);
+	console.log(animeDetails);
 
 	return (
 		<CardComponent title={filteredAnime?.[0]?.title}>

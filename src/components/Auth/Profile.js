@@ -22,6 +22,7 @@ import { storage } from '../../utils/firebaseConfig';
 
 import UserDataService from './services/user.services';
 import AnimeDataService from '../../components/Media/Anime/services/anime.services';
+import CharactersDataService from '../../components/Media/Characters/services/characters.services';
 import GamesDataService from '../../components/Media/Games/services/games.services';
 import MangaDataService from '../../components/Media/Manga/services/manga.services';
 
@@ -40,6 +41,7 @@ const Profile = () => {
 
 	//* <----- Database State ----->
 	const [animeDatabase, setAnimeDatabase] = useState([]);
+	const [charactersDatabase, setCharactersDatabase] = useState([]);
 	const [gamesDatabase, setGamesDatabase] = useState([]);
 	const [mangaDatabase, setMangaDatabase] = useState([]);
 
@@ -124,6 +126,7 @@ const Profile = () => {
 	//* <----- Fetch user data from database ----->
 	useEffect(() => {
 		user && getAnimeDatabase(user?.uid);
+		user && getCharactersDatabase(user?.uid);
 		user && getGamesDatabase(user?.uid);
 		user && getMangaDatabase(user?.uid);
 		user && getUsersDatabase();
@@ -159,6 +162,13 @@ const Profile = () => {
 	const getAnimeDatabase = async userId => {
 		const data = await AnimeDataService.getAllAnime(userId);
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+	};
+
+	const getCharactersDatabase = async userId => {
+		const data = await CharactersDataService.getAllCharacters(userId);
+		setCharactersDatabase(
+			data.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+		);
 	};
 
 	const getGamesDatabase = async userId => {
@@ -461,6 +471,20 @@ const Profile = () => {
 																<p className='text-color'>
 																	{animeDatabase?.[0]?.anime?.length}
 																	{''} Anime
+																</p>
+															</div>
+															<div className='col-6 mb-3'>
+																<h6>
+																	<Link
+																		to='/media/characters'
+																		className='text-color'
+																	>
+																		Characters
+																	</Link>
+																</h6>
+																<p className='text-color'>
+																	{charactersDatabase?.[0]?.characters?.length}
+																	{''} Characters
 																</p>
 															</div>
 															<div className='col-6 mb-3'>

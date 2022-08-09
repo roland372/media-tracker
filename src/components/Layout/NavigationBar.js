@@ -45,6 +45,15 @@ const NavigationBar = ({ userData }) => {
 							</li>
 							<li className='nav-item'>
 								<NavLink
+									to='media/characters'
+									className='nav-link'
+									activeclassname='active-navbar'
+								>
+									Characters
+								</NavLink>
+							</li>
+							<li className='nav-item'>
+								<NavLink
 									to='charts'
 									className='nav-link'
 									activeclassname='active-navbar'

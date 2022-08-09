@@ -162,6 +162,21 @@ const SingleMediaCard = ({
 									<hr />
 								</section>
 							) : null}
+							{mediaType === 'Characters' ? (
+								<section>
+									<div>
+										Link:{' '}
+										<a
+											href={singleMedia?.link1}
+											target='_blank'
+											rel='noreferrer'
+										>
+											{singleMedia?.link1Name}
+										</a>
+									</div>
+									<hr />
+								</section>
+							) : null}
 							<section className='d-flex justify-content-start'>
 								<Link
 									to={`/media/${mediaType.toLowerCase()}/${id}`}
