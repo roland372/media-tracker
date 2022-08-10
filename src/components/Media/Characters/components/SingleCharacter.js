@@ -122,8 +122,8 @@ const SingleCharacter = () => {
 		navigate('/media/characters');
 	};
 
-	// console.log(characterDetails);
-	console.log(characterImages);
+	console.log(characterDetails);
+	// console.log(characterImages);
 
 	return (
 		<CardComponent title={filteredCharacter?.[0]?.title}>
@@ -210,8 +210,15 @@ const SingleCharacter = () => {
 							}
 							alt={filteredCharacter?.[0]?.title}
 						/>
+						{characterDetails?.about ? (
+							<div className='col'>
+								<h5 className='mt-lg-0 mt-3'>About</h5>
+								<p className='px-3 text-start mx-3 new-line'>
+									{characterDetails?.about}
+								</p>
+							</div>
+						) : null}
 					</section>
-
 					{characterDetails?.mal_id ? (
 						<div>
 							<hr />
@@ -295,6 +302,33 @@ const SingleCharacter = () => {
 														</a>
 													</div>
 												</OverlayTrigger>
+											))}
+										</div>
+									</div>
+								) : null}
+							</section>
+							<hr />
+							<section>
+								{characterImages.length !== 0 ? (
+									<div>
+										<h4 className='pb-2'>Images</h4>
+										<div className='row'>
+											{characterImages.map((character, index) => (
+												<div
+													className='col-lg-2 col-sm-4 col-6 mb-2'
+													key={index}
+												>
+													<img
+														src={character?.jpg?.image_url}
+														alt=''
+														className='w-100 shadow-1-strong rounded mb-2'
+														style={{
+															width: '20vh',
+															height: '30vh',
+															objectFit: 'cover',
+														}}
+													/>
+												</div>
 											))}
 										</div>
 									</div>
