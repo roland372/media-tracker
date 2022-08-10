@@ -122,7 +122,7 @@ const SingleCharacter = () => {
 		navigate('/media/characters');
 	};
 
-	console.log(characterDetails);
+	// console.log(characterDetails);
 	// console.log(characterImages);
 
 	return (

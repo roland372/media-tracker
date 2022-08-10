@@ -57,15 +57,30 @@ const Charts = () => {
 	return (
 		<CardComponent title='Charts'>
 			<section>
-				<Anime animeDatabase={animeDatabase} />
-				<div className='my-5 mx-2'>
-					<hr />
-				</div>
-				<Games gamesDatabase={gamesDatabase} />
-				<div className='my-5 mx-2'>
-					<hr />
-				</div>
-				<Manga mangaDatabase={mangaDatabase} />
+				{animeDatabase?.[0]?.anime?.length !== 0 ? (
+					<div>
+						<Anime animeDatabase={animeDatabase} />
+						<div className='my-5 mx-2'>
+							<hr />
+						</div>
+					</div>
+				) : null}
+				{gamesDatabase?.[0]?.games?.length !== 0 ? (
+					<div>
+						<Games gamesDatabase={gamesDatabase} />
+						<div className='my-5 mx-2'>
+							<hr />
+						</div>
+					</div>
+				) : null}
+				{mangaDatabase?.[0]?.manga?.length !== 0 ? (
+					<div>
+						<Manga mangaDatabase={mangaDatabase} />
+						<div className='my-5 mx-2'>
+							<hr />
+						</div>
+					</div>
+				) : null}
 			</section>
 		</CardComponent>
 	);
