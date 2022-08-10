@@ -65,6 +65,17 @@ const SingleManga = () => {
 		setLoading(false);
 	};
 
+	const [mangaImages, setMangaImages] = useState({});
+
+	const fetchImages = async id => {
+		setLoading(true);
+		const temp = await fetch(`https://api.jikan.moe/v4/manga/${id}/pictures`)
+			.then(res => res.json())
+			.catch(err => console.log(err));
+		setMangaImages(temp.data);
+		setLoading(false);
+	};
+
 	const filteredManga = singleMangaDatabase?.manga?.filter(
 		manga => manga.id === id
 	);
@@ -84,7 +95,10 @@ const SingleManga = () => {
 	}, [user?.uid]);
 
 	useEffect(() => {
-		if (fetchedMangaID !== undefined) fetchManga(fetchedMangaID);
+		if (fetchedMangaID !== undefined) {
+			fetchManga(fetchedMangaID);
+			fetchImages(fetchedMangaID);
+		}
 	}, [fetchedMangaID]);
 
 	const getMangaDatabase = userId => {};
@@ -312,6 +326,28 @@ const SingleManga = () => {
 											</div>
 										))}
 									</section>
+								</div>
+							) : null}
+							<hr />
+							{mangaImages?.lenght !== 0 ? (
+								<div>
+									<h4 className='pb-2'>Images</h4>
+									<div className='row'>
+										{mangaImages.map((image, index) => (
+											<div className='col-lg-2 col-sm-4 col-6 mb-2' key={index}>
+												<img
+													src={image?.jpg?.image_url}
+													alt=''
+													className='w-100 shadow-1-strong rounded mb-2'
+													style={{
+														width: '20vh',
+														height: '30vh',
+														objectFit: 'cover',
+													}}
+												/>
+											</div>
+										))}
+									</div>
 								</div>
 							) : null}
 						</div>

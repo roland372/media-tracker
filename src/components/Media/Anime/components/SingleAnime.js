@@ -65,6 +65,18 @@ const SingleAnime = () => {
 		setLoading(false);
 	};
 
+	const [animeImages, setAnimeImages] = useState({});
+
+	const fetchImages = async id => {
+		setLoading(true);
+		const temp = await fetch(`https://api.jikan.moe/v4/anime/${id}/pictures`)
+			.then(res => res.json())
+			.catch(err => console.log(err));
+		setAnimeImages(temp.data);
+
+		setLoading(false);
+	};
+
 	const filteredAnime = singleAnimeDatabase?.anime?.filter(
 		anime => anime.id === id
 	);
@@ -83,7 +95,10 @@ const SingleAnime = () => {
 	}, [user?.uid]);
 
 	useEffect(() => {
-		if (fetchedAnimeID !== undefined) fetchAnime(fetchedAnimeID);
+		if (fetchedAnimeID !== undefined) {
+			fetchAnime(fetchedAnimeID);
+			fetchImages(fetchedAnimeID);
+		}
 	}, [fetchedAnimeID]);
 
 	const getAnimeDatabase = userId => {};
@@ -100,7 +115,8 @@ const SingleAnime = () => {
 		navigate('/media/anime');
 	};
 
-	console.log(animeDetails);
+	// console.log(animeDetails);
+	// console.log(animeImages);
 
 	return (
 		<CardComponent title={filteredAnime?.[0]?.title}>
@@ -320,6 +336,28 @@ const SingleAnime = () => {
 										/>
 									</div>
 								</section>
+							) : null}
+							<hr />
+							{animeImages?.lenght !== 0 ? (
+								<div>
+									<h4 className='pb-2'>Images</h4>
+									<div className='row'>
+										{animeImages.map((image, index) => (
+											<div className='col-lg-2 col-sm-4 col-6 mb-2' key={index}>
+												<img
+													src={image?.jpg?.image_url}
+													alt=''
+													className='w-100 shadow-1-strong rounded mb-2'
+													style={{
+														width: '20vh',
+														height: '30vh',
+														objectFit: 'cover',
+													}}
+												/>
+											</div>
+										))}
+									</div>
+								</div>
 							) : null}
 						</div>
 					) : null}
