@@ -2,84 +2,38 @@ import React from 'react';
 
 //? <----- Router ----->
 import { Link, NavLink } from 'react-router-dom';
+
+//? <----- Components ----->
+import { navLinks } from './Links';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 
 const NavigationBar = ({ userData }) => {
 	return (
-		<div className='bg-primary-dark border-bottom'>
-			<Navbar sticky='top' variant='dark'>
+		<div className='bg-primary-dark'>
+			<Navbar
+				// expand='lg'
+				sticky='top'
+				variant='dark'
+			>
 				<Container>
 					<Navbar.Brand>
 						<Link className='navbar-brand' to='/'>
-							Media-Tracker
+							<span className='text-color'>Media-Tracker</span>
 						</Link>
 					</Navbar.Brand>
 					<Navbar.Collapse>
-						<Nav className='me-auto' variant='pills'>
-							<li className='nav-item'>
-								<NavLink
-									to='media/anime'
-									className='nav-link'
-									activeclassname='active-navbar'
-								>
-									Anime
-								</NavLink>
-							</li>
-							<li className='nav-item'>
-								<NavLink
-									to='media/games'
-									className='nav-link'
-									activeclassname='active-navbar'
-								>
-									Games
-								</NavLink>
-							</li>
-							<li className='nav-item'>
-								<NavLink
-									to='media/manga'
-									className='nav-link'
-									activeclassname='active-navbar'
-								>
-									Manga
-								</NavLink>
-							</li>
-							<li className='nav-item'>
-								<NavLink
-									to='media/characters'
-									className='nav-link'
-									activeclassname='active-navbar'
-								>
-									Characters
-								</NavLink>
-							</li>
-							<li className='nav-item'>
-								<NavLink
-									to='charts'
-									className='nav-link'
-									activeclassname='active-navbar'
-								>
-									Charts
-								</NavLink>
-							</li>
-							<li className='nav-item'>
-								<NavLink
-									to='about'
-									className='nav-link'
-									activeclassname='active-navbar'
-								>
-									About
-								</NavLink>
-							</li>
-							<li className='nav-item'>
-								<NavLink
-									to='profile'
-									className='nav-link'
-									activeclassname='active-navbar'
-								>
-									Profile
-								</NavLink>
-							</li>
-							{userData ? (
+						<Nav className='me-auto'>
+							{navLinks.slice(1).map(link => {
+								const { id, url, text } = link;
+								return (
+									<li className='nav-item' key={id}>
+										<NavLink to={url} className='nav-link'>
+											<span className='text-capitalize text-color'>{text}</span>
+										</NavLink>
+									</li>
+								);
+							})}
+							{userData?.photoURL ? (
 								<li className='px-2 d-flex align-items-center'>
 									<NavLink to={'/profile'}>
 										<img
@@ -90,7 +44,18 @@ const NavigationBar = ({ userData }) => {
 										/>
 									</NavLink>
 								</li>
-							) : null}
+							) : (
+								<li className='px-2 d-flex align-items-center'>
+									<NavLink to={'/profile'}>
+										<img
+											src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
+											width='40px'
+											className='rounded-circle'
+											alt=''
+										/>
+									</NavLink>
+								</li>
+							)}
 						</Nav>
 					</Navbar.Collapse>
 				</Container>

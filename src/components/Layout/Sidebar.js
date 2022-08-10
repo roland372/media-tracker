@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 //? <----- Components ----->
 import { Button, CloseButton } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import { navLinks } from './Links';
 
 const Sidebar = ({ userData }) => {
 	const [show, setShow] = useState(false);
@@ -20,7 +21,7 @@ const Sidebar = ({ userData }) => {
 					<span className='text-color'>Media-Tracker</span>
 				</NavLink>
 				<div className='d-flex align-items-center'>
-					{userData ? (
+					{userData?.photoURL ? (
 						<li className='px-2 list-unstyled'>
 							<NavLink to={'/profile'}>
 								<img
@@ -31,7 +32,18 @@ const Sidebar = ({ userData }) => {
 								/>
 							</NavLink>
 						</li>
-					) : null}
+					) : (
+						<li className='px-2 list-unstyled'>
+							<NavLink to={'/profile'}>
+								<img
+									src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
+									width='40px'
+									className='rounded-circle'
+									alt=''
+								/>
+							</NavLink>
+						</li>
+					)}
 					<Button
 						className='navbar-toggler bg-primary-dark'
 						variant=''
@@ -66,7 +78,25 @@ const Sidebar = ({ userData }) => {
 					</Offcanvas.Header>
 					<Offcanvas.Body>
 						<ul className='list-group text-start'>
-							<li
+							{navLinks.slice(1).map(link => {
+								const { id, url, text } = link;
+								return (
+									<li
+										className='list-group-item bg-secondary-medium'
+										key={id}
+										onClick={handleClose}
+									>
+										<NavLink
+											className='nav-link text-color text-capitalize'
+											to={url}
+										>
+											{text}
+										</NavLink>
+									</li>
+								);
+							})}
+
+							{/* <li
 								className='list-group-item bg-secondary-medium'
 								key={1}
 								onClick={handleClose}
@@ -126,6 +156,19 @@ const Sidebar = ({ userData }) => {
 								<NavLink
 									className='nav-link text-color text-capitalize'
 									activeclassname='active-navbar'
+									to='news'
+								>
+									News
+								</NavLink>
+							</li>
+							<li
+								className='list-group-item bg-secondary-medium'
+								key={6}
+								onClick={handleClose}
+							>
+								<NavLink
+									className='nav-link text-color text-capitalize'
+									activeclassname='active-navbar'
 									to='charts'
 								>
 									Charts
@@ -133,7 +176,7 @@ const Sidebar = ({ userData }) => {
 							</li>
 							<li
 								className='list-group-item bg-secondary-medium'
-								key={6}
+								key={7}
 								onClick={handleClose}
 							>
 								<NavLink
@@ -146,7 +189,7 @@ const Sidebar = ({ userData }) => {
 							</li>
 							<li
 								className='list-group-item bg-secondary-medium'
-								key={7}
+								key={8}
 								onClick={handleClose}
 							>
 								<NavLink
@@ -156,7 +199,7 @@ const Sidebar = ({ userData }) => {
 								>
 									Profile
 								</NavLink>
-							</li>
+							</li> */}
 						</ul>
 					</Offcanvas.Body>
 				</Offcanvas>

@@ -115,6 +115,16 @@
 	color: white;
 }
 
+Nav li:not(:last-of-type) a.active {
+	background-color: var(--bg-primary-light);
+	border-radius: 5px;
+}
+
+ul li a.active {
+	background-color: var(--bg-primary-light);
+	border-radius: 5px;
+}
+
 .nav-link:hover {
 	color: white;
 	background-color: var(--bg-primary-light);

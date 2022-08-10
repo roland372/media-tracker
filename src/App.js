@@ -21,6 +21,7 @@ import Charts from './pages/Charts';
 import Home from './pages/Home';
 import Games from './components/Media/Games/pages/Games';
 import Manga from './components/Media/Manga/pages/Manga';
+import News from './components/Media/News/pages/News';
 import Characters from './components/Media/Characters/pages/Characters';
 import NotFound from './pages/NotFound';
 import SingleAnime from './components/Media/Anime/components/SingleAnime';
@@ -128,6 +129,7 @@ function App() {
 									</ProtectedRoute>
 								}
 							/>
+							<Route path='news' element={<News />} />
 							<Route
 								path='charts'
 								element={

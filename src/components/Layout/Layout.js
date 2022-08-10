@@ -32,7 +32,7 @@ const Layout = ({ children }) => {
 			<ScrollToTop />
 			<Theme />
 			<section className='sticky-top' ref={observe}>
-				{width < 600 ? (
+				{width < 770 ? (
 					<Sidebar userData={userData} />
 				) : (
 					<Navbar userData={userData} />
