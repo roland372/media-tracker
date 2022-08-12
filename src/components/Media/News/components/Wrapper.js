@@ -5,8 +5,10 @@ import CardComponent from '../../../Layout/CardComponent';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Pagination from './Pagination';
+import Loader from '../../../Layout/Loader';
 
 const Wrapper = ({
+	loading,
 	title,
 	media,
 	setCurrentPage,
@@ -14,6 +16,13 @@ const Wrapper = ({
 	mediaPerPage,
 	type,
 }) => {
+	if (loading)
+		return (
+			<CardComponent title={title}>
+				<Loader />
+			</CardComponent>
+		);
+
 	return (
 		<CardComponent title={title}>
 			<div className='row px-2'>
@@ -49,6 +58,28 @@ const Wrapper = ({
 										<div>Rank: {media?.rank}</div>
 										<div>Score: {media?.score}</div>
 										<div>Scored by: {media?.scored_by}</div>
+									</div>
+								)}
+								{type === 'Top Characters' && (
+									<div className='text-start'>
+										<div>{media?.name}</div>
+										<br />
+										<div>Favorites: {media?.favorites}</div>
+									</div>
+								)}
+								{type === 'Seasonal Anime' && (
+									<div className='text-start'>
+										<div>{media?.title}</div>
+										<br />
+										<div>Aired: {media?.aired?.string}</div>
+										<div>Episodes: {media?.episodes}</div>
+										<div>Favorites: {media?.favorites}</div>
+										<div>Popularity: {media?.popularity}</div>
+										<div>Rank: {media?.rank}</div>
+										<div>Score: {media?.score}</div>
+										<div>Scored by: {media?.scored_by}</div>
+										<div>Season: {media?.season}</div>
+										<div>Year: {media?.year}</div>
 									</div>
 								)}
 							</Tooltip>

@@ -23,7 +23,11 @@ const TopAnime = () => {
 	};
 
 	useEffect(() => {
-		fetchTopAnime();
+		const timer = setTimeout(() => {
+			fetchTopAnime();
+		}, 1000);
+
+		return () => clearTimeout(timer);
 	}, []);
 
 	//* Get current page
@@ -33,12 +37,9 @@ const TopAnime = () => {
 		?.slice(0, -1)
 		.slice(indexOfFirstAnime, indexOfLastAnime);
 
-	if (loading) {
-		return <h2>Loading...</h2>;
-	}
-
 	return (
 		<Wrapper
+			loading={loading}
 			title='Top Anime'
 			media={currentAnime}
 			setCurrentPage={setCurrentPage}

@@ -25,7 +25,7 @@ const TopManga = () => {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			fetchTopManga();
-		}, 1000);
+		}, 2000);
 
 		return () => clearTimeout(timer);
 	}, []);
@@ -37,12 +37,10 @@ const TopManga = () => {
 		?.slice(0, -1)
 		.slice(indexOfFirstManga, indexOfLastManga);
 
-	if (loading) {
-		return <h2>Loading...</h2>;
-	}
 
 	return (
 		<Wrapper
+			loading={loading}
 			title='Top Manga'
 			media={currentManga}
 			setCurrentPage={setCurrentPage}
