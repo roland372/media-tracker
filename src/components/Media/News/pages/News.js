@@ -1,7 +1,16 @@
 import React from 'react';
 
+//? <----- Components ----->
+import TopAnime from '../components/TopAnime';
+import TopManga from '../components/TopManga';
+
 const News = () => {
-	return <div>News</div>;
+	return (
+		<>
+			<TopAnime />
+			<TopManga />
+		</>
+	);
 };
 
 export default News;
