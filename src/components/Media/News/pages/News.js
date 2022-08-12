@@ -16,10 +16,10 @@ const News = () => {
 	return (
 		<>
 			<SeasonalAnime />
+			<Links />
 			<TopAnime />
 			<TopManga />
 			<TopCharacters />
-			<Links />
 		</>
 	);
 };

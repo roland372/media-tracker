@@ -50,3 +50,39 @@ export const navLinks = [
 	// 	text: '',
 	// }
 ];
+
+export const usefulLinks = [
+	{
+		url: 'https://myanimelist.net/',
+		text: 'MyAnimeList',
+		// icon: <RiRoadMapFill size={25} />,
+	},
+	{
+		url: 'https://9anime.id/',
+		text: '9anime',
+	},
+	{
+		url: 'https://subsplease.org/',
+		text: 'SubsPlease',
+	},
+	{
+		url: 'https://www.bookdepository.com/',
+		text: 'Book Depository',
+	},
+	{
+		url: 'https://manga4life.com/',
+		text: 'MangaLife',
+	},
+	{
+		url: 'https://mangasee123.com/',
+		text: 'MangaSee',
+	},
+	{
+		url: 'https://store.steampowered.com/',
+		text: 'Steam',
+	},
+	{
+		url: 'https://howlongtobeat.com/',
+		text: 'HowLongToBeat',
+	},
+];
