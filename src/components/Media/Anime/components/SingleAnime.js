@@ -338,11 +338,11 @@ const SingleAnime = () => {
 								</section>
 							) : null}
 							<hr />
-							{animeImages?.lenght !== 0 ? (
+							{animeImages?.length !== 0 ? (
 								<div>
 									<h4 className='pb-2'>Images</h4>
 									<div className='row'>
-										{animeImages.map((image, index) => (
+										{animeImages?.map((image, index) => (
 											<div className='col-lg-2 col-sm-4 col-6 mb-2' key={index}>
 												<img
 													src={image?.jpg?.image_url}

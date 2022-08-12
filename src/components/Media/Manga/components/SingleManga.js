@@ -329,11 +329,11 @@ const SingleManga = () => {
 								</div>
 							) : null}
 							<hr />
-							{mangaImages?.lenght !== 0 ? (
+							{mangaImages?.length !== 0 ? (
 								<div>
 									<h4 className='pb-2'>Images</h4>
 									<div className='row'>
-										{mangaImages.map((image, index) => (
+										{mangaImages?.map((image, index) => (
 											<div className='col-lg-2 col-sm-4 col-6 mb-2' key={index}>
 												<img
 													src={image?.jpg?.image_url}
