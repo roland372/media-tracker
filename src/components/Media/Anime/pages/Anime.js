@@ -58,10 +58,7 @@ const Anime = () => {
 
 		animeDatabase[0].anime = filteredArray;
 
-		await AnimeDataService.updateAnime(
-			user?.uid,
-			animeDatabase[0]
-		);
+		await AnimeDataService.updateAnime(user?.uid, animeDatabase[0]);
 		getAnimeDatabase(user?.uid);
 		setLoading(false);
 	};
@@ -126,7 +123,7 @@ const Anime = () => {
 								<input
 									className='form-control'
 									type='search'
-									placeholder='Search for an Anime'
+									placeholder='Search for Anime'
 									required
 									value={search}
 									onChange={e => setSearch(e.target.value)}
