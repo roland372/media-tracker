@@ -34,6 +34,9 @@ import Layout from './components/Layout/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import ScrollToTopRouter from './components/Layout/ScrollToTopRouter';
+import NotesList from './features/notes/NotesList';
+import AddNote from './features/notes/AddNote';
+import EditNote from './features/notes/EditNote';
 
 function App() {
 	return (
@@ -135,6 +138,30 @@ function App() {
 								element={
 									<ProtectedRoute>
 										<Charts />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='notes'
+								element={
+									<ProtectedRoute>
+										<NotesList />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='notes/add-note'
+								element={
+									<ProtectedRoute>
+										<AddNote />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path='notes/edit-note/:id'
+								element={
+									<ProtectedRoute>
+										<EditNote />
 									</ProtectedRoute>
 								}
 							/>
