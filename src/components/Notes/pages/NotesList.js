@@ -34,8 +34,6 @@ const NotesList = () => {
 		dispatch(deleteNote({ id }));
 	};
 
-	console.log(notes);
-
 	const renderNotes = () =>
 		notes.map(note => (
 			<div className='col-lg-4 col-sm-6 col-12 my-2 text-wrap' key={note.id}>

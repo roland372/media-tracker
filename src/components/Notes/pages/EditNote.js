@@ -2,12 +2,14 @@
 import { useState } from 'react';
 
 //? <----- Router ----->
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 //? <----- Redux ----->
 import { useDispatch, useSelector } from 'react-redux';
 import { editNote } from '../../../features/notes/noteSlice';
 import CardComponent from '../../../components/Layout/CardComponent';
+import BackButton from '../components/BackButton';
+import EditForm from '../components/EditForm';
 
 const EditNote = () => {
 	const params = useParams();
@@ -36,38 +38,12 @@ const EditNote = () => {
 
 	return (
 		<CardComponent title='Edit Note'>
-			<section className='text-color'>
-				<div className='d-flex align-items-center justify-content-lg-start ms-2 pt-1'>
-					<Link className='btn btn-primary' to='/notes'>
-						Back to Notes
-					</Link>
-				</div>
-				<div className='mx-2'>
-					<hr />
-				</div>
-			</section>
-			<section className='form-group mx-2 mb-2'>
-				<input
-					className='form-control mb-3'
-					onChange={e => setNewNote({ ...newNote, title: e.target.value })}
-					placeholder='Enter Title'
-					type='text'
-					value={newNote.title}
-				/>
-				<textarea
-					className='form-control'
-					onChange={e => setNewNote({ ...newNote, note: e.target.value })}
-					placeholder='Enter Note'
-					name='note'
-					rows='4'
-					value={newNote.note}
-				/>
-				<div className='d-flex align-items-center justify-content-lg-start mt-3'>
-					<button className='btn btn-warning' onClick={handleEditNote}>
-						Update Note
-					</button>
-				</div>
-			</section>
+			<BackButton />
+			<EditForm
+				setNewNote={setNewNote}
+				newNote={newNote}
+				handleEditNote={handleEditNote}
+			/>
 		</CardComponent>
 	);
 };

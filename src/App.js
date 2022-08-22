@@ -1,12 +1,7 @@
 import React from 'react';
 
 //? <----- Router ----->
-import {
-	BrowserRouter as Router,
-	Outlet,
-	Route,
-	Routes,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 //? <----- User Auth ----->
 import { UserAuthContextProvider } from './context/UserAuthContext';
@@ -33,10 +28,6 @@ import SingleAnime from './components/Media/Anime/components/SingleAnime';
 import SingleGame from './components/Media/Games/components/SingleGame';
 import SingleManga from './components/Media/Manga/components/SingleManga';
 import SingleCharacter from './components/Media/Characters/components/SingleCharacter';
-// import NotesList from './components/Notes/pages/NotesList';
-// import AddNote from './components/Notes/pages/AddNote';
-// import EditNote from './components/Notes/pages/EditNote';
-// import ViewNote from './components/Notes/pages/ViewNote';
 
 //? <----- Styles ----->
 import Layout from './components/Layout/Layout';
