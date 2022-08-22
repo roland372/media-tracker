@@ -16,7 +16,6 @@ import FavouriteCharacters from '../components/FavouriteCharacters';
 import CharactersStats from '../components/CharactersStats';
 import Loader from '../../../Layout/Loader';
 import FetchedCharacters from '../components/FetchedCharacters';
-import axios from 'axios';
 
 //? <----- Icons ----->
 import { AiOutlineSearch } from 'react-icons/ai';

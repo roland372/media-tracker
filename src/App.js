@@ -1,7 +1,12 @@
 import React from 'react';
 
 //? <----- Router ----->
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Outlet,
+	Route,
+	Routes,
+} from 'react-router-dom';
 
 //? <----- User Auth ----->
 import { UserAuthContextProvider } from './context/UserAuthContext';
@@ -28,15 +33,17 @@ import SingleAnime from './components/Media/Anime/components/SingleAnime';
 import SingleGame from './components/Media/Games/components/SingleGame';
 import SingleManga from './components/Media/Manga/components/SingleManga';
 import SingleCharacter from './components/Media/Characters/components/SingleCharacter';
+// import NotesList from './components/Notes/pages/NotesList';
+// import AddNote from './components/Notes/pages/AddNote';
+// import EditNote from './components/Notes/pages/EditNote';
+// import ViewNote from './components/Notes/pages/ViewNote';
 
 //? <----- Styles ----->
 import Layout from './components/Layout/Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import ScrollToTopRouter from './components/Layout/ScrollToTopRouter';
-import NotesList from './features/notes/NotesList';
-import AddNote from './features/notes/AddNote';
-import EditNote from './features/notes/EditNote';
+import Notes from './components/Notes/pages/Notes';
 
 function App() {
 	return (
@@ -142,26 +149,10 @@ function App() {
 								}
 							/>
 							<Route
-								path='notes'
+								path='notes/*'
 								element={
 									<ProtectedRoute>
-										<NotesList />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path='notes/add-note'
-								element={
-									<ProtectedRoute>
-										<AddNote />
-									</ProtectedRoute>
-								}
-							/>
-							<Route
-								path='notes/edit-note/:id'
-								element={
-									<ProtectedRoute>
-										<EditNote />
+										<Notes />
 									</ProtectedRoute>
 								}
 							/>

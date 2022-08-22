@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 //? <----- Components ----->
 import Wrapper from './Wrapper';
-import Loader from '../../../Layout/Loader';
 
 //? <----- Styles ----->
 import '../styles/Styles.css';

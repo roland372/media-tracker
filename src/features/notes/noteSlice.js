@@ -1,3 +1,4 @@
+//? <----- Redux ----->
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [];
@@ -9,14 +10,17 @@ const noteSlice = createSlice({
 		addNote: (state, action) => {
 			state.push(action.payload);
 		},
+
 		editNote: (state, action) => {
-			const { id, title, note } = action.payload;
+			const { id, title, note, lastModified } = action.payload;
 			const existingNote = state.find(note => note.id === id);
 			if (existingNote) {
 				existingNote.title = title;
 				existingNote.note = note;
+				existingNote.lastModified = lastModified;
 			}
 		},
+
 		deleteNote: (state, action) => {
 			const { id } = action.payload;
 			const existingNote = state.find(note => note.id === id);

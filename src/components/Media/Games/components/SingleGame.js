@@ -14,7 +14,6 @@ import CardComponent from '../../../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import Loader from '../../../Layout/Loader';
-import axios from 'axios';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
