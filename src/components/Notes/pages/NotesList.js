@@ -30,16 +30,19 @@ const NotesList = () => {
 		dispatch(fetchNotes());
 	}, [dispatch]);
 
-	const handleDeleteNote = id => {
+	const handleDeleteNote = async id => {
 		dispatch(deleteNote({ id }));
 		// axios.delete(`http://localhost:5000/notes/delete/${id}`).then(() => {
-		axios
+		await axios
 			.delete(`https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
 			.then(() => {
 				getNotes();
 				// console.log(notes);
 			});
+		// getNotes();
 	};
+
+	// console.log(notes?.notes);
 
 	const renderNotes = () =>
 		notes.notes.map(note => (

@@ -26,7 +26,7 @@ const EditNote = () => {
 		lastModified: Date.now(),
 	});
 
-	const handleEditNote = () => {
+	const handleEditNote = async () => {
 		setNewNote({ title: '', note: '', lastModified: '' });
 		dispatch(
 			editNote({
@@ -38,10 +38,13 @@ const EditNote = () => {
 			})
 		);
 		// axios.put('http://localhost:5000/notes/edit-note', {
-		axios.put('https://media-tracker-notes.herokuapp.com/notes/edit-note', {
-			...newNote,
-			// id: currentNote[0]?.id,
-		});
+		await axios.put(
+			'https://media-tracker-notes.herokuapp.com/notes/edit-note',
+			{
+				...newNote,
+				// id: currentNote[0]?.id,
+			}
+		);
 		navigate('/notes');
 	};
 

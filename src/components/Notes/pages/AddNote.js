@@ -28,7 +28,7 @@ const AddNote = () => {
 		lastModified: Date.now(),
 	});
 
-	const handleAddNote = () => {
+	const handleAddNote = async () => {
 		setNote({ name: '', note: '' });
 		dispatch(
 			addNote({
@@ -39,7 +39,7 @@ const AddNote = () => {
 			})
 		);
 		// console.log(note);
-		axios
+		await axios
 			// .post('http://localhost:5000/notes/add-note', {
 			.post('https://media-tracker-notes.herokuapp.com/notes/add-note', {
 				// title: note.title,
