@@ -1,5 +1,5 @@
 //? <----- React ----->
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 //? <----- Router ----->
 import { Link } from 'react-router-dom';
@@ -15,65 +15,28 @@ import { BiLinkExternal } from 'react-icons/bi';
 
 //? <----- Components ----->
 import CardComponent from '../../../components/Layout/CardComponent';
-// import axios from 'axios';
+import axios from 'axios';
 
 const NotesList = () => {
 	const dispatch = useDispatch();
 	const notes = useSelector(store => store.notes);
-	// const notess = useSelector(state => state.notes);
-
-	// 5c044814-6bdf-4a59-b843-42501a6e32ac
-	const currentNote = notes.notes.filter(
-		note => note.noteID === '5c044814-6bdf-4a59-b843-42501a6e32ac'
-	);
-
-	console.log(currentNote);
+	// const notes = useSelector(state => state.notes);
 
 	const getNotes = () => {
 		dispatch(fetchNotes());
 	};
 
-	// useEffect(() => {
-	// 	// dispatch(fetchNotes());
-	// 	getNotes();
-	// }, [dispatch]);
-
 	useEffect(() => {
 		dispatch(fetchNotes());
 	}, [dispatch]);
 
-	console.log(notes);
-
-	// const notes = [
-	// 	{ id: 1, title: 'title1', note: 'note1', lastModified: '01.01.2022' },
-	// 	{
-	// 		id: 2,
-	// 		title: 'title2title2title2tit',
-	// 		note: 'note2',
-	// 		lastModified: '01.01.2022',
-	// 	},
-	// 	{ id: 3, title: 'title2', note: 'note2', lastModified: '01.01.2022' },
-	// 	{ id: 4, title: 'title2', note: 'note2', lastModified: '01.01.2022' },
-	// 	{ id: 5, title: 'title2', note: 'note2', lastModified: '01.01.2022' },
-	// 	{ id: 6, title: 'title2', note: 'note2', lastModified: '01.01.2022' },
-	// ];
-
-	// const [notesDatabase, setNotesDatabase] = useState([]);
-
-	// const getNotes = () => {
-	// 	axios.get('http://localhost:5000/notes').then(res => {
-	// 		// console.log(res.data);
-	// 		setNotesDatabase(res.data);
-	// 	});
-	// };
-
 	const handleDeleteNote = id => {
 		dispatch(deleteNote({ id }));
+		axios.delete(`http://localhost:5000/notes/delete/${id}`).then(() => {
+			getNotes();
+			// console.log(notes);
+		});
 	};
-
-	// useEffect(() => {
-	// 	getNotes();
-	// }, []);
 
 	const renderNotes = () =>
 		notes.notes.map(note => (
@@ -117,7 +80,9 @@ const NotesList = () => {
 						<button className='btn btn-primary'>Add Note</button>
 					</Link>
 				</div>
-				<button onClick={getNotes}>Get Notes</button>
+				{/* <button className='btn btn-primary' onClick={getNotes}>
+					Fetch Notes
+				</button> */}
 				<div className='mx-2'>
 					<hr />
 				</div>

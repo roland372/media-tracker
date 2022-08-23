@@ -8,11 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addNote } from '../../../features/notes/noteSlice';
 
-//? <----- Other ----->
-import { v4 as uuidv4 } from 'uuid';
+//? <----- Components ----->
 import CardComponent from '../../Layout/CardComponent';
 import BackButton from '../components/BackButton';
 import Form from '../components/Form';
+
+//? <----- Other ----->
+import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 const AddNote = () => {
@@ -36,7 +38,7 @@ const AddNote = () => {
 				lastModified: Date.now(),
 			})
 		);
-		console.log(note);
+		// console.log(note);
 		axios
 			.post('http://localhost:5000/notes/add-note', {
 				// title: note.title,

@@ -10,29 +10,37 @@ import { editNote } from '../../../features/notes/noteSlice';
 import CardComponent from '../../../components/Layout/CardComponent';
 import BackButton from '../components/BackButton';
 import EditForm from '../components/EditForm';
+import axios from 'axios';
 
 const EditNote = () => {
 	const params = useParams();
 	const dispatch = useDispatch();
 	const notes = useSelector(store => store.notes);
 	const navigate = useNavigate();
-	const currentNote = notes.filter(note => note.id === params.id);
-	const { title, note } = currentNote[0];
+	const currentNote = notes?.notes?.filter(note => note?.noteID === params?.id);
 	const [newNote, setNewNote] = useState({
-		title,
-		note,
+		id: currentNote[0]?.id,
+		noteID: params.id,
+		title: currentNote[0]?.title,
+		note: currentNote[0]?.note,
+		lastModified: Date.now(),
 	});
 
 	const handleEditNote = () => {
 		setNewNote({ title: '', note: '', lastModified: '' });
 		dispatch(
 			editNote({
-				id: params.id,
+				id: newNote.id,
+				noteID: params.id,
 				title: newNote.title,
 				note: newNote.note,
 				lastModified: Date.now(),
 			})
 		);
+		axios.put('http://localhost:5000/notes/edit-note', {
+			...newNote,
+			// id: currentNote[0]?.id,
+		});
 		navigate('/notes');
 	};
 
