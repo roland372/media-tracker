@@ -37,7 +37,8 @@ const EditNote = () => {
 				lastModified: Date.now(),
 			})
 		);
-		axios.put('http://localhost:5000/notes/edit-note', {
+		// axios.put('http://localhost:5000/notes/edit-note', {
+		axios.put('https://media-tracker-notes.herokuapp.com/notes/edit-note', {
 			...newNote,
 			// id: currentNote[0]?.id,
 		});

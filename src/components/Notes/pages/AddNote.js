@@ -40,7 +40,8 @@ const AddNote = () => {
 		);
 		// console.log(note);
 		axios
-			.post('http://localhost:5000/notes/add-note', {
+			// .post('http://localhost:5000/notes/add-note', {
+			.post('https://media-tracker-notes.herokuapp.com/notes/add-note', {
 				// title: note.title,
 				// note: note.note,
 				// lastModified: note.lastModified,
