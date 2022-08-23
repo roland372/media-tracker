@@ -13,12 +13,14 @@ import { v4 as uuidv4 } from 'uuid';
 import CardComponent from '../../Layout/CardComponent';
 import BackButton from '../components/BackButton';
 import Form from '../components/Form';
+import axios from 'axios';
 
 const AddNote = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const [note, setNote] = useState({
+		id: uuidv4(),
 		title: '',
 		note: '',
 		lastModified: Date.now(),
@@ -31,10 +33,23 @@ const AddNote = () => {
 				id: uuidv4(),
 				title: note.title,
 				note: note.note,
-				lastModified: note.lastModified,
+				lastModified: Date.now(),
 			})
 		);
+		console.log(note);
+		axios
+			.post('http://localhost:5000/notes/add-note', {
+				// title: note.title,
+				// note: note.note,
+				// lastModified: note.lastModified,
+				// noteID: uuidv4(),
+				note: { ...note, noteID: note.id },
+			})
+			.then(() => {
+				console.log('success');
+			});
 		navigate('/notes');
+		// console.log(note);
 	};
 
 	return (

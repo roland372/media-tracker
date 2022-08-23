@@ -1,9 +1,12 @@
+//? <----- React ----->
+import { useState, useEffect } from 'react';
+
 //? <----- Router ----->
 import { Link } from 'react-router-dom';
 
 //? <----- Redux ----->
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteNote } from '../../../features/notes/noteSlice';
+import { deleteNote, fetchNotes } from '../../../features/notes/noteSlice';
 
 //? <----- Icons ----->
 import { AiOutlineEdit } from 'react-icons/ai';
@@ -12,10 +15,35 @@ import { BiLinkExternal } from 'react-icons/bi';
 
 //? <----- Components ----->
 import CardComponent from '../../../components/Layout/CardComponent';
+// import axios from 'axios';
 
 const NotesList = () => {
 	const dispatch = useDispatch();
 	const notes = useSelector(store => store.notes);
+	// const notess = useSelector(state => state.notes);
+
+	// 5c044814-6bdf-4a59-b843-42501a6e32ac
+	const currentNote = notes.notes.filter(
+		note => note.noteID === '5c044814-6bdf-4a59-b843-42501a6e32ac'
+	);
+
+	console.log(currentNote);
+
+	const getNotes = () => {
+		dispatch(fetchNotes());
+	};
+
+	// useEffect(() => {
+	// 	// dispatch(fetchNotes());
+	// 	getNotes();
+	// }, [dispatch]);
+
+	useEffect(() => {
+		dispatch(fetchNotes());
+	}, [dispatch]);
+
+	console.log(notes);
+
 	// const notes = [
 	// 	{ id: 1, title: 'title1', note: 'note1', lastModified: '01.01.2022' },
 	// 	{
@@ -30,12 +58,25 @@ const NotesList = () => {
 	// 	{ id: 6, title: 'title2', note: 'note2', lastModified: '01.01.2022' },
 	// ];
 
+	// const [notesDatabase, setNotesDatabase] = useState([]);
+
+	// const getNotes = () => {
+	// 	axios.get('http://localhost:5000/notes').then(res => {
+	// 		// console.log(res.data);
+	// 		setNotesDatabase(res.data);
+	// 	});
+	// };
+
 	const handleDeleteNote = id => {
 		dispatch(deleteNote({ id }));
 	};
 
+	// useEffect(() => {
+	// 	getNotes();
+	// }, []);
+
 	const renderNotes = () =>
-		notes.map(note => (
+		notes.notes.map(note => (
 			<div className='col-lg-4 col-sm-6 col-12 my-2 text-wrap' key={note.id}>
 				<div className='border rounded shadow p-2 text-wrap'>
 					<div className='text-start'>
@@ -47,18 +88,18 @@ const NotesList = () => {
 						<div className='text-muted'>{note.lastModified}</div>
 						<div className=''>
 							<button className='btn btn-sm shadow-none'>
-								<Link to={`${note.id}`}>
+								<Link to={`${note.noteID}`}>
 									<BiLinkExternal size={20} className='text-primary' />
 								</Link>
 							</button>
 							<button className='btn btn-sm shadow-none'>
-								<Link to={`edit-note/${note.id}`}>
+								<Link to={`edit-note/${note.noteID}`}>
 									<AiOutlineEdit size={20} className='text-success' />
 								</Link>
 							</button>
 							<button
 								className='btn btn-sm shadow-none'
-								onClick={() => handleDeleteNote(note.id)}
+								onClick={() => handleDeleteNote(note.noteID)}
 							>
 								<BsTrash size={20} className='text-danger' />
 							</button>
@@ -76,12 +117,13 @@ const NotesList = () => {
 						<button className='btn btn-primary'>Add Note</button>
 					</Link>
 				</div>
+				<button onClick={getNotes}>Get Notes</button>
 				<div className='mx-2'>
 					<hr />
 				</div>
 			</section>
 			<div className='row px-2'>
-				{notes.length ? renderNotes() : <p>No Notes</p>}
+				{notes.notes.length ? renderNotes() : <p>No Notes</p>}
 			</div>
 		</CardComponent>
 	);

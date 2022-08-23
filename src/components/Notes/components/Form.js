@@ -10,14 +10,14 @@ const Form = props => {
 				onChange={e => setNote({ ...note, title: e.target.value })}
 				placeholder='Enter Title'
 				type='text'
-				value={note.title}
+				// value={note.title}
 			/>
 			<textarea
 				className='form-control'
 				onChange={e => setNote({ ...note, note: e.target.value })}
 				placeholder='Enter Note'
-				value={note.note}
-				name='note'
+				// value={note.note}
+				type='text'
 				rows='4'
 			/>
 			<SubmitButton color='success' text='Add Note' onClick={handleAddNote} />
