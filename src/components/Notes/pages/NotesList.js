@@ -33,10 +33,12 @@ const NotesList = () => {
 	const handleDeleteNote = id => {
 		dispatch(deleteNote({ id }));
 		// axios.delete(`http://localhost:5000/notes/delete/${id}`).then(() => {
-		axios.delete(`https://media-tracker-notes.herokuapp.com/delete/${id}`).then(() => {
-			getNotes();
-			// console.log(notes);
-		});
+		axios
+			.delete(`https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
+			.then(() => {
+				getNotes();
+				// console.log(notes);
+			});
 	};
 
 	const renderNotes = () =>

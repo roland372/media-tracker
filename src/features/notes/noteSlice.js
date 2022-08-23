@@ -13,7 +13,7 @@ const initialState = {
 
 export const fetchNotes = createAsyncThunk('/notes', async () => {
 	return await axios
-		// .get('http://localhost:5000/notes')
+		// .get('http://localhost:3001/notes')
 		.get('https://media-tracker-notes.herokuapp.com/notes')
 		.then(response => response.data);
 });
