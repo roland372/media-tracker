@@ -48,7 +48,12 @@ const NotesList = () => {
 						<p>{note.note}</p>
 					</div>
 					<section className='d-flex justify-content-between align-items-center'>
-						<div className='text-muted'>{note.lastModified}</div>
+						<div className='text-muted'>
+							{new Date(note.lastModified).toLocaleDateString('en-GB', {
+								hour: '2-digit',
+								minute: '2-digit',
+							})}
+						</div>
 						<div className=''>
 							<button className='btn btn-sm shadow-none'>
 								<Link to={`${note.noteID}`}>

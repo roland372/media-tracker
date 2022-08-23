@@ -23,13 +23,16 @@ const ViewNote = () => {
 		dispatch(fetchNotes());
 	}, [dispatch]);
 
-
 	return (
 		<CardComponent title={currentNote[0]?.title}>
 			<BackButton />
 			<section className='text-start mx-2'>
 				<div className='text-muted'>
-					Last Modified {currentNote[0]?.lastModified}
+					Last Modified:{' '}
+					{new Date(currentNote[0]?.lastModified).toLocaleDateString('en-GB', {
+						hour: '2-digit',
+						minute: '2-digit',
+					})}
 				</div>
 				<div>{currentNote[0]?.note}</div>
 			</section>
