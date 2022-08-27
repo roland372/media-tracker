@@ -1,10 +1,14 @@
-import React from 'react';
+//? <----- Redux ----->
+import { useSelector } from 'react-redux';
 
 //? <----- Components ----->
 import { ProgressBar } from 'react-bootstrap';
 import { BsFillCircleFill } from 'react-icons/bs';
 
-const CharactersStats = ({ charactersDatabase }) => {
+const CharactersStats = () => {
+	const charactersStore = useSelector(store => store.characters);
+	const charactersDatabase = charactersStore?.characters;
+
 	const sourceAnime = charactersDatabase?.filter(
 		character => character.source === 'Anime'
 	);

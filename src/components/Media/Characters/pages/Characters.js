@@ -33,7 +33,7 @@ const Characters = () => {
 	const dispatch = useDispatch();
 	const characters = useSelector(store => store.characters);
 	const charactersStore = [...characters?.characters];
-	console.log(charactersStore?.[0]?.characters);
+	// console.log(charactersStore?.[0]?.characters);
 
 	// console.log(characters?.characters?.[0]?.characters);
 
@@ -85,7 +85,7 @@ const Characters = () => {
 	// };
 
 	useEffect(() => {
-		setLoading(true);
+		// setLoading(true);
 		dispatch(fetchCharactersDatabase(user?.uid));
 		setLoading(false);
 	}, [dispatch, user?.uid]);
@@ -124,13 +124,13 @@ const Characters = () => {
 						<Modal.Title>Add Character</Modal.Title>
 					</Modal.Header>
 					<Modal.Body className='bg-primary-dark text-color'>
-						{/* <Form
+						<Form
 							// charactersDatabase={charactersDatabase}
 							charactersDatabase={characters?.characters}
-							getCharactersDatabase={getCharactersDatabase}
+							// getCharactersDatabase={getCharactersDatabase}
 							handleClose={handleClose}
 							user={user}
-						/> */}
+						/>
 					</Modal.Body>
 				</Modal>
 
@@ -184,7 +184,7 @@ const Characters = () => {
 					</CardComponent>
 
 					<AllCharacters
-						allCharacters={characters?.characters?.[0]?.characters}
+						// allCharacters={characters?.characters?.[0]?.characters}
 						// allCharacters={characters?.characters?.[0]?.characters}
 						// deleteCharacter={deleteCharacter}
 						// getCharactersDatabase={getCharactersDatabase}

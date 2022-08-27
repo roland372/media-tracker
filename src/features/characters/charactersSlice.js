@@ -14,6 +14,7 @@ const initialState = {
 
 export const fetchCharactersDatabase = createAsyncThunk('', async userId => {
 	const data = await CharactersDataService.getAllCharacters(userId);
+	// return data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 	return data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 });
 
@@ -34,8 +35,13 @@ const characterSlice = createSlice({
 			state.loading = true;
 		});
 		builder.addCase(fetchCharactersDatabase.fulfilled, (state, action) => {
+			// const charactersDB = action.payload;
+			// console.log(action.payload[0]);
+			const { characters } = action.payload?.[0];
+			// console.log(characters);
+
 			state.loading = false;
-			state.characters = action.payload;
+			state.characters = characters;
 			state.error = '';
 		});
 		builder.addCase(fetchCharactersDatabase.rejected, (state, action) => {
