@@ -42,7 +42,7 @@ const NotesList = () => {
 		// getNotes();
 	};
 
-	// console.log(notes?.notes);
+	console.log(notes?.notes);
 
 	const renderNotes = () =>
 		notes.notes.map(note => (

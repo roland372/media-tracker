@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
+//? <----- Redux ----->
+import { useDispatch, useSelector } from 'react-redux';
 
 //? <----- Components ----->
 import CardComponent from '../../../Layout/CardComponent';
@@ -18,9 +21,9 @@ const AllCharacters = ({
 	user,
 }) => {
 	//* sort characters by name
-	const sortedCharacters = allCharacters?.sort(function (a, b) {
-		const nameA = a.title.toLowerCase(),
-			nameB = b.title.toLowerCase();
+	const sortedCharacters = allCharacters?.slice()?.sort(function (a, b) {
+		const nameA = a?.title?.toLowerCase(),
+			nameB = b?.title?.toLowerCase();
 		if (nameA < nameB)
 			//sort string ascending
 			return -1;
@@ -38,7 +41,7 @@ const AllCharacters = ({
 	const [displayMore, setDisplayMore] = useState(false);
 
 	useEffect(() => {
-		setMenuItems(sortedCharacters);
+		// setMenuItems(sortedCharacters);
 	}, [sortedCharacters]);
 
 	const charactersSource = ['All Characters', 'Anime', 'Game', 'Manga'];

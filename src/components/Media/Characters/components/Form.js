@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+//? <----- React ----->
+import { useState } from 'react';
+
+//? <----- Redux ----->
+import { useDispatch, useSelector } from 'react-redux';
+import { addCharacter } from '../../../../features/characters/charactersSlice';
 
 //? <----- Components ----->
 import Select from 'react-select';
@@ -16,6 +21,8 @@ const Form = ({
 	user,
 	getCharactersDatabase,
 }) => {
+	const dispatch = useDispatch();
+
 	//* initialize character object
 	const [character, setCharacter] = useState({
 		favourites: false,
@@ -71,14 +78,27 @@ const Form = ({
 		setFormErrors(validation(character.title));
 		if (character?.title?.length !== 0) {
 			try {
-				charactersDatabase?.[0]?.characters.push({
+				// charactersDatabase?.[0]?.characters.push({
+				// 	...character,
+				// });
+
+				// await CharactersDataService.updateCharacter(
+				// 	user?.uid,
+				// 	charactersDatabase[0]
+				// );
+
+				// console.log(charactersDatabase[0]?.characters);
+
+				dispatch(
+					addCharacter({
+						...character,
+					})
+				);
+
+				charactersDatabase?.[0]?.characters?.push({
 					...character,
 				});
 
-				await CharactersDataService.updateCharacter(
-					user?.uid,
-					charactersDatabase[0]
-				);
 				console.log('character added to database');
 
 				characterAddedNotification();
@@ -89,6 +109,8 @@ const Form = ({
 			}
 		}
 	};
+
+	console.log(character);
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>

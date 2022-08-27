@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
+//? <----- Redux ----->
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCharactersDatabase } from '../../../../features/characters/charactersSlice';
 
 //? <----- Firebase ----->
 import CharactersDataService from '../services/characters.services';
@@ -26,6 +30,13 @@ import useDocumentTitle from '../../../../hooks/useDocumentTitle';
 const Characters = () => {
 	useDocumentTitle('Characters');
 
+	const dispatch = useDispatch();
+	const characters = useSelector(store => store.characters);
+	const charactersStore = [...characters?.characters];
+	console.log(charactersStore?.[0]?.characters);
+
+	// console.log(characters?.characters?.[0]?.characters);
+
 	const { user } = useUserAuth();
 
 	//* <----- Loading state ----->
@@ -41,36 +52,47 @@ const Characters = () => {
 	const [charactersDatabase, setCharactersDatabase] = useState([]);
 
 	//* fetch data from database
-	const getCharactersDatabase = async userId => {
-		setLoading(true);
-		const data = await CharactersDataService.getAllCharacters(userId);
-		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-		setCharactersDatabase(
-			data.docs.map(doc => ({ ...doc.data(), id: doc.id }))
-		);
-		setLoading(false);
-	};
+	// const getCharactersDatabase = async userId => {
+	// 	setLoading(true);
+	// 	const data = await CharactersDataService.getAllCharacters(userId);
+	// 	// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+	// 	setCharactersDatabase(
+	// 		data.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+	// 	);
+	// 	setLoading(false);
+	// };
+	// console.log(charactersDatabase);
 
-	const deleteCharacter = async id => {
-		setLoading(true);
+	// const deleteCharacter = async id => {
+	// 	setLoading(true);
 
-		const filteredArray = charactersDatabase?.[0]?.characters?.filter(
-			character => character.id !== id
-		);
+	// 	const filteredArray = charactersDatabase?.[0]?.characters?.filter(
+	// 		character => character.id !== id
+	// 	);
 
-		charactersDatabase[0].characters = filteredArray;
+	// 	charactersDatabase[0].characters = filteredArray;
 
-		await CharactersDataService.updateCharacter(
-			user?.uid,
-			charactersDatabase[0]
-		);
-		getCharactersDatabase(user?.uid);
-		setLoading(false);
-	};
+	// 	await CharactersDataService.updateCharacter(
+	// 		user?.uid,
+	// 		charactersDatabase[0]
+	// 	);
+	// 	getCharactersDatabase(user?.uid);
+	// 	setLoading(false);
+	// };
+
+	// const getCharacters = () => {
+	// 	dispatch(fetchCharactersDatabase());
+	// };
 
 	useEffect(() => {
-		getCharactersDatabase(user?.uid);
-	}, [user?.uid]);
+		setLoading(true);
+		dispatch(fetchCharactersDatabase(user?.uid));
+		setLoading(false);
+	}, [dispatch, user?.uid]);
+
+	// useEffect(() => {
+	// 	getCharactersDatabase(user?.uid);
+	// }, [user?.uid]);
 
 	//* fetch characters from API
 	const [charactersList, setCharactersList] = useState([]);
@@ -102,12 +124,13 @@ const Characters = () => {
 						<Modal.Title>Add Character</Modal.Title>
 					</Modal.Header>
 					<Modal.Body className='bg-primary-dark text-color'>
-						<Form
-							charactersDatabase={charactersDatabase}
+						{/* <Form
+							// charactersDatabase={charactersDatabase}
+							charactersDatabase={characters?.characters}
 							getCharactersDatabase={getCharactersDatabase}
 							handleClose={handleClose}
 							user={user}
-						/>
+						/> */}
 					</Modal.Body>
 				</Modal>
 
@@ -139,7 +162,7 @@ const Characters = () => {
 					</div>
 				</section>
 			</CardComponent>
-			{search ? (
+			{/* {search ? (
 				<FetchedCharacters
 					charactersDatabase={charactersDatabase}
 					CharactersDataService={CharactersDataService}
@@ -147,7 +170,7 @@ const Characters = () => {
 					getCharactersDatabase={getCharactersDatabase}
 					user={user}
 				/>
-			) : null}
+			) : null} */}
 
 			{loading ? (
 				<Loader />
@@ -155,32 +178,34 @@ const Characters = () => {
 				<>
 					<CardComponent title='Character Stats'>
 						<CharactersStats
-							charactersDatabase={charactersDatabase?.[0]?.characters}
+							// charactersDatabase={charactersDatabase?.[0]?.characters}
+							charactersDatabase={characters?.characters?.[0]?.characters}
 						/>
 					</CardComponent>
 
 					<AllCharacters
-						allCharacters={charactersDatabase?.[0]?.characters}
-						deleteCharacter={deleteCharacter}
-						getCharactersDatabase={getCharactersDatabase}
+						allCharacters={characters?.characters?.[0]?.characters}
+						// allCharacters={characters?.characters?.[0]?.characters}
+						// deleteCharacter={deleteCharacter}
+						// getCharactersDatabase={getCharactersDatabase}
 						user={user}
 					/>
 					<hr />
 
-					<RecentCharacters
+					{/* <RecentCharacters
 						allCharacters={charactersDatabase?.[0]?.characters}
 						deleteCharacter={deleteCharacter}
 						getCharactersDatabase={getCharactersDatabase}
 						user={user}
 					/>
-					<hr />
+					<hr /> */}
 
-					<FavouriteCharacters
+					{/* <FavouriteCharacters
 						allCharacters={charactersDatabase?.[0]?.characters}
 						deleteCharacter={deleteCharacter}
 						getCharactersDatabase={getCharactersDatabase}
 						user={user}
-					/>
+					/> */}
 				</>
 			)}
 		</>
