@@ -1,12 +1,4 @@
-//? <----- React ----->
-import { useState, useEffect } from 'react';
-
-//? <----- Redux ----->
-import { useDispatch, useSelector } from 'react-redux';
-import {
-	addCharacter,
-	fetchCharactersDatabase,
-} from '../../../../features/characters/charactersSlice';
+import React, { useState } from 'react';
 
 //? <----- Components ----->
 import Select from 'react-select';
@@ -22,11 +14,8 @@ const Form = ({
 	charactersDatabase,
 	handleClose,
 	user,
-	// getCharactersDatabase,
+	getCharactersDatabase,
 }) => {
-	const dispatch = useDispatch();
-	const characters = useSelector(store => store.characters);
-
 	//* initialize character object
 	const [character, setCharacter] = useState({
 		favourites: false,
@@ -82,28 +71,14 @@ const Form = ({
 		setFormErrors(validation(character.title));
 		if (character?.title?.length !== 0) {
 			try {
-				// charactersDatabase?.[0]?.characters.push({
-				// 	...character,
-				// });
+				charactersDatabase?.[0]?.characters.push({
+					...character,
+				});
 
-				// await CharactersDataService.updateCharacter(
-				// 	user?.uid,
-				// 	charactersDatabase[0]
-				// );
-
-				// console.log(charactersDatabase[0]?.characters);
-
-				dispatch(addCharacter({ ...character }));
-
-				// charactersStore?.push();
-				// charactersStore?.push({
-				// 	character,
-				// });
-
-				// charactersDatabase?.[0]?.characters?.push({
-				// 	...character,
-				// });
-
+				await CharactersDataService.updateCharacter(
+					user?.uid,
+					charactersDatabase[0]
+				);
 				console.log('character added to database');
 
 				characterAddedNotification();
@@ -114,8 +89,6 @@ const Form = ({
 			}
 		}
 	};
-
-	console.log(characters);
 
 	return (
 		<form onSubmit={e => onSubmit(e)}>

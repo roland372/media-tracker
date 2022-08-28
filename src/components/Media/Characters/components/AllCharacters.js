@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';
-
-//? <----- Redux ----->
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 
 //? <----- Components ----->
 import CardComponent from '../../../Layout/CardComponent';
@@ -15,28 +12,21 @@ import DisplayFilterSearchPanel from '../../components/DisplayFilterSearchPanel'
 import CharactersTable from './CharactersTable';
 
 const AllCharacters = ({
-	// allCharacters,
+	allCharacters,
 	deleteCharacter,
 	getCharactersDatabase,
 	user,
 }) => {
-	const charactersStore = useSelector(store => store?.characters);
-	const charactersDatabase = charactersStore?.characters?.[0]?.characters;
-
-	console.log(charactersStore?.characters);
-
 	//* sort characters by name
-	const sortedCharacters = charactersStore?.characters
-		?.slice()
-		?.sort(function (a, b) {
-			const nameA = a?.title?.toLowerCase(),
-				nameB = b?.title?.toLowerCase();
-			if (nameA < nameB)
-				//sort string ascending
-				return -1;
-			if (nameA > nameB) return 1;
-			return 0; //default return value (no sorting)
-		});
+	const sortedCharacters = allCharacters?.sort(function (a, b) {
+		const nameA = a.title.toLowerCase(),
+			nameB = b.title.toLowerCase();
+		if (nameA < nameB)
+			//sort string ascending
+			return -1;
+		if (nameA > nameB) return 1;
+		return 0; //default return value (no sorting)
+	});
 
 	//* display as list or grid state
 	const [charactersDisplay, setCharactersDisplay] = useState(true);
@@ -48,7 +38,7 @@ const AllCharacters = ({
 	const [displayMore, setDisplayMore] = useState(false);
 
 	useEffect(() => {
-		// setMenuItems(sortedCharacters);
+		setMenuItems(sortedCharacters);
 	}, [sortedCharacters]);
 
 	const charactersSource = ['All Characters', 'Anime', 'Game', 'Manga'];

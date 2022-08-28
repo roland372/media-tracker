@@ -27,7 +27,15 @@ const characterSlice = createSlice({
 		},
 
 		editCharacter: (state, action) => {},
-		deleteCharacter: (state, action) => {},
+		deleteCharacter: (state, action) => {
+			// const { id } = action.payload?.[0]?.characters;
+			// const existingCharacter = state.characters.find(
+			// 	character => character.id === id
+			// );
+			// if (existingCharacter) {
+			// 	return state.filter(character => character.id !== id);
+			// }
+		},
 	},
 
 	extraReducers: builder => {
@@ -39,6 +47,10 @@ const characterSlice = createSlice({
 			// console.log(action.payload[0]);
 			const { characters } = action.payload?.[0];
 			// console.log(characters);
+			// const { id } = action.payload?.[0]?.characters;
+			// console.log(id);
+
+			console.log(action.payload?.[0]?.characters);
 
 			state.loading = false;
 			state.characters = characters;
