@@ -43,7 +43,7 @@ const Games = () => {
 
 	//* fetch data from database
 	const getGamesDatabase = async userId => {
-		setLoading(true);
+		// setLoading(true);
 		const data = await GamesDataService.getAllGames(userId);
 		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setGamesDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
@@ -51,7 +51,7 @@ const Games = () => {
 	};
 
 	const deleteGame = async id => {
-		setLoading(true);
+		// setLoading(true);
 
 		const filteredArray = gamesDatabase?.[0]?.games?.filter(
 			game => game.id !== id

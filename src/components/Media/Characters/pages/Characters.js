@@ -42,7 +42,7 @@ const Characters = () => {
 
 	//* fetch data from database
 	const getCharactersDatabase = async userId => {
-		setLoading(true);
+		// setLoading(true);
 		const data = await CharactersDataService.getAllCharacters(userId);
 		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setCharactersDatabase(
@@ -52,7 +52,7 @@ const Characters = () => {
 	};
 
 	const deleteCharacter = async id => {
-		setLoading(true);
+		// setLoading(true);
 
 		const filteredArray = charactersDatabase?.[0]?.characters?.filter(
 			character => character.id !== id

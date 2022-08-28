@@ -42,7 +42,7 @@ const Anime = () => {
 
 	//* fetch data from database
 	const getAnimeDatabase = async userId => {
-		setLoading(true);
+		// setLoading(true);
 		const data = await AnimeDataService.getAllAnime(userId);
 		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));

@@ -42,7 +42,7 @@ const Manga = () => {
 
 	//* fetch data from database
 	const getMangaDatabase = async userId => {
-		setLoading(true);
+		// setLoading(true);
 		const data = await MangaDataService.getAllManga(userId);
 		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setMangaDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
@@ -50,7 +50,7 @@ const Manga = () => {
 	};
 
 	const deleteManga = async id => {
-		setLoading(true);
+		// setLoading(true);
 
 		const filteredArray = mangaDatabase?.[0]?.manga?.filter(
 			manga => manga.id !== id
