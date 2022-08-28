@@ -293,7 +293,7 @@ const SingleManga = () => {
 									<div>
 										<h5>Genres</h5>
 										{mangaDetails?.genres?.map((genre, index) => (
-											<div key={index}>{genre.name}</div>
+											<div key={index}>{genre?.name}</div>
 										))}
 									</div>
 								</section>

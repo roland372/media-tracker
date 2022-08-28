@@ -21,7 +21,7 @@ const EditForm = ({
 		character => character.id === id
 	);
 
-	const { favourites, imageURL, link1, link1Name, source, title } =
+	const { favourites, imageURL, link1, link1Name, mal_id, source, title } =
 		filteredCharacter[0];
 
 	//* initialize character object
@@ -32,6 +32,7 @@ const EditForm = ({
 		lastModified: Date.now(),
 		link1: link1,
 		link1Name: link1Name,
+		mal_id: mal_id,
 		owner: user.uid,
 		source: source,
 		title: title,

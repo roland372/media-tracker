@@ -114,7 +114,7 @@ const SingleCharacter = () => {
 
 		singleCharacterDatabase.characters = filteredArray;
 
-		await CharactersDataService.updateCharacters(
+		await CharactersDataService.updateCharacter(
 			user?.uid,
 			singleCharacterDatabase
 		);
@@ -227,7 +227,7 @@ const SingleCharacter = () => {
 									<div>
 										<h4 className='pb-2'>Anime</h4>
 										<div className='row'>
-											{characterDetails?.anime.map((character, index) => (
+											{characterDetails?.anime?.map((character, index) => (
 												<OverlayTrigger
 													key={index}
 													placement='top'
@@ -270,7 +270,7 @@ const SingleCharacter = () => {
 									<div>
 										<h4 className='pb-2'>Manga</h4>
 										<div className='row'>
-											{characterDetails?.manga.map((character, index) => (
+											{characterDetails?.manga?.map((character, index) => (
 												<OverlayTrigger
 													key={index}
 													placement='top'
@@ -309,11 +309,11 @@ const SingleCharacter = () => {
 							</section>
 							<hr />
 							<section>
-								{characterImages.length !== 0 ? (
+								{characterImages?.length !== 0 ? (
 									<div>
 										<h4 className='pb-2'>Images</h4>
 										<div className='row'>
-											{characterImages.map((character, index) => (
+											{characterImages?.map((character, index) => (
 												<div
 													className='col-lg-2 col-sm-4 col-6 mb-2'
 													key={index}

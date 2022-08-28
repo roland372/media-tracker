@@ -285,7 +285,7 @@ const SingleAnime = () => {
 									<div>
 										<h5>Genres</h5>
 										{animeDetails?.genres?.map((genre, index) => (
-											<div key={index}>{genre.name}</div>
+											<div key={index}>{genre?.name}</div>
 										))}
 									</div>
 								</section>
