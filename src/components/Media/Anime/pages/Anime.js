@@ -42,7 +42,6 @@ const Anime = () => {
 
 	//* fetch data from database
 	const getAnimeDatabase = async userId => {
-		// setLoading(true);
 		const data = await AnimeDataService.getAllAnime(userId);
 		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
@@ -50,8 +49,6 @@ const Anime = () => {
 	};
 
 	const deleteAnime = async id => {
-		setLoading(true);
-
 		const filteredArray = animeDatabase?.[0]?.anime?.filter(
 			anime => anime.id !== id
 		);

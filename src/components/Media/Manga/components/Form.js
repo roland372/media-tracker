@@ -109,7 +109,6 @@ const Form = ({ mangaDatabase, handleClose, user, getMangaDatabase }) => {
 					...manga,
 				});
 
-				console.log(mangaDatabase[0]);
 				await MangaDataService.updateManga(user?.uid, mangaDatabase[0]);
 				console.log('manga added to database');
 				mangaAddedNotification();

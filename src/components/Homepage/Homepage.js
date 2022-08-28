@@ -62,7 +62,6 @@ const Homepage = () => {
 
 	//* fetch data from database
 	const getAnimeDatabase = async userId => {
-		setLoading(true);
 		const data = await AnimeDataService.getAllAnime(userId);
 		// console.log(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setAnimeDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
@@ -70,7 +69,6 @@ const Homepage = () => {
 	};
 
 	const getCharactersDatabase = async userId => {
-		setLoading(true);
 		const data = await CharactersDataService.getAllCharacters(userId);
 		setCharactersDatabase(
 			data.docs.map(doc => ({ ...doc.data(), id: doc.id }))
@@ -79,14 +77,12 @@ const Homepage = () => {
 	};
 
 	const getGamesDatabase = async userId => {
-		setLoading(true);
 		const data = await GamesDataService.getAllGames(userId);
 		setGamesDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setLoading(false);
 	};
 
 	const getMangaDatabase = async userId => {
-		setLoading(true);
 		const data = await MangaDataService.getAllManga(userId);
 		setMangaDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 		setLoading(false);
@@ -94,8 +90,6 @@ const Homepage = () => {
 
 	//* handle delete
 	const deleteAnime = async id => {
-		setLoading(true);
-
 		const filteredArray = animeDatabase?.[0]?.anime?.filter(
 			anime => anime.id !== id
 		);
@@ -108,8 +102,6 @@ const Homepage = () => {
 	};
 
 	const deleteCharacter = async id => {
-		setLoading(true);
-
 		const filteredArray = charactersDatabase?.[0]?.characters?.filter(
 			character => character.id !== id
 		);
@@ -125,8 +117,6 @@ const Homepage = () => {
 	};
 
 	const deleteGame = async id => {
-		setLoading(true);
-
 		const filteredArray = gamesDatabase?.[0]?.games?.filter(
 			game => game.id !== id
 		);
@@ -139,8 +129,6 @@ const Homepage = () => {
 	};
 
 	const deleteManga = async id => {
-		setLoading(true);
-
 		const filteredArray = mangaDatabase?.[0]?.manga?.filter(
 			manga => manga.id !== id
 		);
