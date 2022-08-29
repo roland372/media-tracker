@@ -207,16 +207,32 @@ const SingleMediaCard = ({
 					</Popover>
 				}
 			>
-				<img
-					src={
-						singleMedia?.imageURL
-							? singleMedia?.imageURL
-							: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
-					}
-					alt=''
-					className='rounded media-img-card'
-					role='button'
-				/>
+				<div className='position-relative'>
+					<img
+						src={
+							singleMedia?.imageURL
+								? singleMedia?.imageURL
+								: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
+						}
+						alt=''
+						className='rounded media-img-card'
+						role='button'
+					/>
+					{/* <div className='bottom-0 start-0 p-2 m-2'>
+						{singleMedia?.title}
+					</div> */}
+					<div className='position-absolute top-0 end-0'>
+						{singleMedia?.favourites ? (
+							<AiFillStar size={25} className='text-warning rounded m-1' />
+						) : null}
+					</div>
+					<div className='position-absolute top-0 start-0 badge bg-dark m-1'>
+						{singleMedia?.episodesMin} / {singleMedia?.episodesMax}
+					</div>
+					<div className='position-absolute bottom-0 start-0 badge bg-dark m-1'>
+						<div className='text-wrap'>{singleMedia?.title}</div>
+					</div>
+				</div>
 			</OverlayTrigger>
 		</section>
 	);
