@@ -81,13 +81,15 @@ const Games = () => {
 	const fetchGames = async query => {
 		axios({
 			url:
-				'https://circumvent-cors.herokuapp.com/https://api.igdb.com/v4/games?search=' +
+				'https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/games?search=' +
+				// 'https://circumvent-cors.herokuapp.com/https://api.igdb.com/v4/games?search=' +
 				query +
 				'&fields=name,url, id, cover.*, screenshots.*, websites.*, genres.*, total_rating, total_rating_count, summary, storyline, slug, similar_games.*, release_dates.*, platforms.*, first_release_date, artworks.*',
 			method: 'POST',
 			headers: {
 				'Client-ID': process.env.REACT_APP_igdbClientID,
 				Authorization: 'Bearer ' + process.env.REACT_APP_igdbAuthorization,
+				'Access-Control-Allow-Origin': '*',
 			},
 		})
 			.then(response => {

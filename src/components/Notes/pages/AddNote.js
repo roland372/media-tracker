@@ -41,13 +41,17 @@ const AddNote = () => {
 		// console.log(note);
 		await axios
 			// .post('http://localhost:5000/notes/add-note', {
-			.post('https://media-tracker-notes.herokuapp.com/notes/add-note', {
-				// title: note.title,
-				// note: note.note,
-				// lastModified: note.lastModified,
-				// noteID: uuidv4(),
-				note: { ...note, noteID: note.id },
-			})
+			// .post('https://media-tracker-notes.herokuapp.com/notes/add-note', {
+			.post(
+				'https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/add-note',
+				{
+					// title: note.title,
+					// note: note.note,
+					// lastModified: note.lastModified,
+					// noteID: uuidv4(),
+					note: { ...note, noteID: note.id },
+				}
+			)
 			.then(() => {
 				console.log('success');
 			});
