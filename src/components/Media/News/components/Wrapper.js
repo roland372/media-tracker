@@ -85,12 +85,12 @@ const Wrapper = ({
 							</Tooltip>
 						}
 					>
-						<div className='col-xl-2 col-md-2 col-sm-4 col-4 mb-2'>
+						<div className='col-xl-2 col-md-2 col-sm-4 col-4'>
 							<a href={media?.url} target='_blank' rel='noreferrer'>
 								<img
 									src={media?.images?.jpg?.image_url}
 									alt=''
-									className='w-100 shadow-1-strong rounded mb-2'
+									className='w-100 shadow-1-strong rounded my-2'
 									style={{
 										width: '20vw',
 										height: '90%',
