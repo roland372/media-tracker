@@ -61,7 +61,7 @@ const SingleAnime = () => {
 		const temp = await fetch(`https://api.jikan.moe/v4/anime/${query}/full`)
 			.then(res => res.json())
 			.catch(err => console.log(err));
-		setAnimeDetails(temp.data);
+		setAnimeDetails(temp?.data);
 		setLoading(false);
 	};
 
@@ -72,13 +72,13 @@ const SingleAnime = () => {
 		const temp = await fetch(`https://api.jikan.moe/v4/anime/${id}/pictures`)
 			.then(res => res.json())
 			.catch(err => console.log(err));
-		setAnimeImages(temp.data);
+		setAnimeImages(temp?.data);
 
 		setLoading(false);
 	};
 
 	const filteredAnime = singleAnimeDatabase?.anime?.filter(
-		anime => anime.id === id
+		anime => anime?.id === id
 	);
 	const fetchedAnimeID = filteredAnime?.[0]?.mal_id;
 
@@ -88,7 +88,7 @@ const SingleAnime = () => {
 		const getSingleAnimeDatabase = async () => {
 			setLoading(true);
 			const data = await AnimeDataService?.getAnime(user?.uid);
-			setSingleAnimeDatabase(data.data());
+			setSingleAnimeDatabase(data?.data());
 		};
 		getSingleAnimeDatabase();
 		setLoading(false);
@@ -105,7 +105,7 @@ const SingleAnime = () => {
 
 	const deleteAnime = async id => {
 		const filteredArray = singleAnimeDatabase?.anime?.filter(
-			anime => anime.id !== id
+			anime => anime?.id !== id
 		);
 
 		singleAnimeDatabase.anime = filteredArray;

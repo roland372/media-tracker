@@ -82,7 +82,7 @@ const SingleGame = () => {
 	// }, []);
 
 	const filteredGame = singleGameDatabase?.games?.filter(
-		game => game.id === id
+		game => game?.id === id
 	);
 
 	useDocumentTitle(filteredGame?.[0]?.title);
@@ -91,7 +91,7 @@ const SingleGame = () => {
 		const getSingleGameDatabase = async () => {
 			setLoading(true);
 			const data = await GamesDataService?.getGame(user?.uid);
-			setSingleGameDatabase(data.data());
+			setSingleGameDatabase(data?.data());
 		};
 		getSingleGameDatabase();
 		setLoading(false);
@@ -101,7 +101,7 @@ const SingleGame = () => {
 
 	const deleteGame = async id => {
 		const filteredArray = singleGameDatabase?.games?.filter(
-			game => game.id !== id
+			game => game?.id !== id
 		);
 
 		singleGameDatabase.games = filteredArray;

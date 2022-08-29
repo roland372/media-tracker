@@ -221,17 +221,68 @@ const SingleMediaCard = ({
 					{/* <div className='bottom-0 start-0 p-2 m-2'>
 						{singleMedia?.title}
 					</div> */}
-					<div className='position-absolute top-0 end-0'>
-						{singleMedia?.favourites ? (
-							<AiFillStar size={25} className='text-warning rounded m-1' />
-						) : null}
-					</div>
-					<div className='position-absolute top-0 start-0 badge bg-dark m-1'>
-						{singleMedia?.episodesMin} / {singleMedia?.episodesMax}
-					</div>
-					<div className='position-absolute bottom-0 start-0 badge bg-dark m-1'>
-						<div className='text-wrap'>{singleMedia?.title}</div>
-					</div>
+					{mediaType === 'Anime' ? (
+						<div>
+							<div className='position-absolute top-0 end-0'>
+								{singleMedia?.favourites ? (
+									<AiFillStar size={25} className='text-warning rounded m-1' />
+								) : null}
+							</div>
+							<div className='position-absolute top-0 start-0 badge bg-dark m-1'>
+								Ep {singleMedia?.episodesMin} / {singleMedia?.episodesMax}
+							</div>
+							<div className='position-absolute bottom-0 start-0 badge bg-dark m-1'>
+								<div className='text-wrap'>{singleMedia?.title}</div>
+							</div>
+						</div>
+					) : null}
+					{mediaType === 'Games' ? (
+						<div>
+							<div className='position-absolute top-0 end-0'>
+								{singleMedia?.favourites ? (
+									<AiFillStar size={25} className='text-warning rounded m-1' />
+								) : null}
+							</div>
+							<div className='position-absolute top-0 start-0 badge bg-dark m-1'>
+								{singleMedia?.playtime} hours
+							</div>
+							<div className='position-absolute bottom-0 start-0 badge bg-dark m-1'>
+								<div className='text-wrap'>{singleMedia?.title}</div>
+							</div>
+						</div>
+					) : null}
+					{mediaType === 'Manga' ? (
+						<div>
+							<div className='position-absolute top-0 end-0'>
+								{singleMedia?.favourites ? (
+									<AiFillStar size={25} className='text-warning rounded m-1' />
+								) : null}
+							</div>
+							<div className='position-absolute top-0 start-0 badge bg-dark m-1 text-start'>
+								<div>
+									Ch {singleMedia?.chaptersMin} / {singleMedia?.chaptersMax}
+								</div>
+								<div>
+									Vol {singleMedia?.volumesMin} / {singleMedia?.volumesMax}
+								</div>
+							</div>
+							<div className='position-absolute bottom-0 start-0 badge bg-dark m-1'>
+								<div className='text-wrap'>{singleMedia?.title}</div>
+							</div>
+						</div>
+					) : null}
+					{mediaType === 'Characters' ? (
+						<div>
+							<div className='position-absolute top-0 end-0'>
+								{singleMedia?.favourites ? (
+									<AiFillStar size={25} className='text-warning rounded m-1' />
+								) : null}
+							</div>
+							<div className='position-absolute bottom-0 start-0 badge bg-dark m-1'>
+								<div className='text-wrap'>{singleMedia?.title}</div>
+							</div>
+						</div>
+					) : null}
 				</div>
 			</OverlayTrigger>
 		</section>

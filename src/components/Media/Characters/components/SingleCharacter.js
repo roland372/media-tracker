@@ -63,7 +63,7 @@ const SingleCharacter = () => {
 		const temp = await fetch(`https://api.jikan.moe/v4/characters/${id}/full`)
 			.then(res => res.json())
 			.catch(err => console.log(err));
-		setCharacterDetails(temp.data);
+		setCharacterDetails(temp?.data);
 		setLoading(false);
 	};
 
@@ -76,12 +76,12 @@ const SingleCharacter = () => {
 		)
 			.then(res => res.json())
 			.catch(err => console.log(err));
-		setCharacterImages(temp.data);
+		setCharacterImages(temp?.data);
 		setLoading(false);
 	};
 
 	const filteredCharacter = singleCharacterDatabase?.characters?.filter(
-		character => character.id === id
+		character => character?.id === id
 	);
 
 	const fetchedCharacterID = filteredCharacter?.[0]?.mal_id;
@@ -92,7 +92,7 @@ const SingleCharacter = () => {
 		const getSingleCharacterDatabase = async () => {
 			setLoading(true);
 			const data = await CharactersDataService?.getCharacter(user?.uid);
-			setSingleCharacterDatabase(data.data());
+			setSingleCharacterDatabase(data?.data());
 		};
 		getSingleCharacterDatabase();
 		setLoading(false);
@@ -109,7 +109,7 @@ const SingleCharacter = () => {
 
 	const deleteCharacter = async id => {
 		const filteredArray = singleCharacterDatabase?.characters?.filter(
-			character => character.id !== id
+			character => character?.id !== id
 		);
 
 		singleCharacterDatabase.characters = filteredArray;

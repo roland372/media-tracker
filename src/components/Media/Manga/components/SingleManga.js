@@ -61,7 +61,7 @@ const SingleManga = () => {
 		const temp = await fetch(`https://api.jikan.moe/v4/manga/${query}/full`)
 			.then(res => res.json())
 			.catch(err => console.log(err));
-		setMangaDetails(temp.data);
+		setMangaDetails(temp?.data);
 		setLoading(false);
 	};
 
@@ -72,12 +72,12 @@ const SingleManga = () => {
 		const temp = await fetch(`https://api.jikan.moe/v4/manga/${id}/pictures`)
 			.then(res => res.json())
 			.catch(err => console.log(err));
-		setMangaImages(temp.data);
+		setMangaImages(temp?.data);
 		setLoading(false);
 	};
 
 	const filteredManga = singleMangaDatabase?.manga?.filter(
-		manga => manga.id === id
+		manga => manga?.id === id
 	);
 
 	const fetchedMangaID = filteredManga?.[0]?.mal_id;
@@ -88,7 +88,7 @@ const SingleManga = () => {
 		const getSingleMangaDatabase = async () => {
 			setLoading(true);
 			const data = await MangaDataService?.getManga(user?.uid);
-			setSingleMangaDatabase(data.data());
+			setSingleMangaDatabase(data?.data());
 		};
 		getSingleMangaDatabase();
 		setLoading(false);
@@ -105,7 +105,7 @@ const SingleManga = () => {
 
 	const deleteManga = async id => {
 		const filteredArray = singleMangaDatabase?.manga?.filter(
-			manga => manga.id !== id
+			manga => manga?.id !== id
 		);
 
 		singleMangaDatabase.manga = filteredArray;
