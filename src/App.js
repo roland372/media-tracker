@@ -12,7 +12,7 @@ import Signup from './components/Auth/Signup';
 
 //? <----- Components ----->
 import { Flip, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 //? <----- Pages ----->
 import Anime from './components/Media/Anime/pages/Anime';
