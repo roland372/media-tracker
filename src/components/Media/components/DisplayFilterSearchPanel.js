@@ -41,13 +41,13 @@ const DisplayFilterSearchPanel = ({
 	return (
 		<div className='d-xl-flex align-items-center justify-content-between mx-2 mb-2 bg-primary-dark rounded p-2'>
 			<motion.button
-				className='btn btn-light mx-2 mt-xl-0 mt-2 shadow-none'
+				className='btn btn-light mx-2 mt-xl-0 mt-2 shadow-none mb-2 mb-xl-0'
 				onClick={() => setMediaDisplay(!mediaDisplay)}
 				whileHover={{ scale: 1.1 }}
 			>
 				{mediaDisplay ? <FaThList size={20} /> : <IoGrid size={20} />}
 			</motion.button>
-			<section className='ps-2'>
+			<section className='mb-2 mb-xl-0'>
 				{status.map((category, index) => {
 					return (
 						<motion.button
