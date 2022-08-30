@@ -35,6 +35,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import ScrollToTopRouter from './components/Layout/ScrollToTopRouter';
 import Notes from './components/Notes/pages/Notes';
+import Emotes from './components/Emotes/pages/Emotes';
 
 function App() {
 	return (
@@ -147,6 +148,7 @@ function App() {
 									</ProtectedRoute>
 								}
 							/>
+							<Route path='emotes/*' element={<Emotes />} />
 							<Route path='about' element={<About />} />
 							<Route path='login' element={<Login />} />
 							<Route path='signup' element={<Signup />} />
