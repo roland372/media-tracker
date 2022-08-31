@@ -7,10 +7,17 @@ import EmotesDataService from '../services/emotes.services';
 //? <----- User Auth ----->
 import { useUserAuth } from '../../../context/UserAuthContext';
 
+//? <----- Router ----->
+import { Link } from 'react-router-dom';
+
 //? <----- Components ----->
 import CardComponent from '../../Layout/CardComponent';
+import Form from '../components/Form';
 import Loader from '../../Layout/Loader';
+import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../hooks/useDocumentTitle';
@@ -19,13 +26,16 @@ const EmotesList = () => {
 	useDocumentTitle('Emotes');
 	const { user } = useUserAuth();
 
-	//* Initialize emote object
-	const [emote, setEmote] = useState({
-		name: '',
-		url: '',
-	});
-
+	//* <----- Loading state ----->
 	const [loading, setLoading] = useState(<Loader />);
+
+	//* <----- Modal state ----->
+	const [show, setShow] = useState(false);
+
+	//* <----- Modal functions ----->
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
 	const [emotesDatabase, setEmotesDatabase] = useState([]);
 
 	//* Notifications
@@ -46,17 +56,6 @@ const EmotesList = () => {
 			}
 		);
 
-	const emoteAddedNotfication = () =>
-		toast.success('Emote Added', {
-			position: 'top-center',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: false,
-			draggable: true,
-			progress: '',
-		});
-
 	//* fetch emotes from database
 	const getEmotesDatabase = async userId => {
 		const data = await EmotesDataService.getAllEmotes(userId);
@@ -65,34 +64,9 @@ const EmotesList = () => {
 		setLoading(false);
 	};
 
-	//* Input handlers
-	const handleSetName = e => {
-		setEmote({ ...emote, name: e.target.value });
-	};
-
-	const handleSetURL = e => {
-		setEmote({ ...emote, url: e.target.value });
-	};
-
 	const handleClick = url => {
 		navigator.clipboard.writeText(url);
 		copiedToClipboardNotification(url);
-	};
-
-	const onSubmit = async e => {
-		e.preventDefault();
-		try {
-			emotesDatabase?.[0]?.emotes.push({ ...emote });
-
-			await EmotesDataService.updateEmote(user?.uid, emotesDatabase[0]);
-			console.log('emote added to database');
-			// console.log(emotesDatabase?.[0]?.emotes);
-
-			emoteAddedNotfication();
-			getEmotesDatabase(user?.uid);
-		} catch (err) {
-			console.log(err);
-		}
 	};
 
 	useEffect(() => {
@@ -101,36 +75,62 @@ const EmotesList = () => {
 
 	return (
 		<CardComponent title='Discord Emotes'>
-			<form onSubmit={e => onSubmit(e)}>
-				<div className='mx-2'>
-					<h4>Add Emote</h4>
-					<input
-						type='text'
-						className='form-control mb-2'
-						placeholder='Name'
-						onChange={e => handleSetName(e)}
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header
+					closeButton
+					closeVariant='white'
+					className='bg-primary-light text-color'
+				>
+					<Modal.Title>Add Emote</Modal.Title>
+				</Modal.Header>
+				<Modal.Body className='bg-primary-dark text-color'>
+					<Form
+						emotesDatabase={emotesDatabase}
+						handleClose={handleClose}
+						user={user}
 					/>
-					<input
-						type='text'
-						className='form-control mb-2'
-						placeholder='URL'
-						onChange={e => handleSetURL(e)}
-					/>
-					<button className='btn btn-success'>Add Emote</button>
-				</div>
-			</form>
-			<section className='d-flex align-items-center justify-content-start flex-wrap'>
-				{emotesDatabase?.[0]?.emotes?.map((emote, index) => (
-					<div key={index} className='mx-2'>
-						<img
-							src={emote.url}
-							alt=''
-							width='56px'
-							onClick={() => handleClick(emote.url)}
-						/>
+				</Modal.Body>
+			</Modal>
+			{user?.uid === process.env.REACT_APP_adminID ? (
+				<section>
+					<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
+						<button
+							className='btn btn-primary me-2 shadow-none'
+							onClick={() => handleShow()}
+						>
+							Add Emote
+						</button>
+						<Link className='btn btn-warning' to='edit'>
+							Edit Emotes
+						</Link>
 					</div>
-				))}
-			</section>
+					<div className='mx-2'>
+						<hr />
+					</div>
+				</section>
+			) : null}
+			{loading ? (
+				<Loader />
+			) : (
+				<section className='d-flex align-items-center justify-content-start flex-wrap'>
+					{emotesDatabase?.[0]?.emotes?.map((emote, index) => (
+						<div key={index} className='mx-2'>
+							<OverlayTrigger
+								placement='top'
+								overlay={<Tooltip>{emote?.name}</Tooltip>}
+							>
+								<img
+									src={emote.url}
+									alt=''
+									width='56px'
+									onClick={() => handleClick(emote.url)}
+									role='button'
+								/>
+							</OverlayTrigger>
+						</div>
+					))}
+				</section>
+			)}
 		</CardComponent>
 	);
 };

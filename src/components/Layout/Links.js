@@ -41,11 +41,16 @@ export const navLinks = [
 	},
 	{
 		id: 9,
+		url: 'emotes',
+		text: 'Emotes',
+	},
+	{
+		id: 10,
 		url: 'about',
 		text: 'About',
 	},
 	{
-		id: 10,
+		id: 11,
 		url: 'profile',
 		text: 'Profile',
 	},
