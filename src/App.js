@@ -36,6 +36,7 @@ import './App.css';
 import ScrollToTopRouter from './components/Layout/ScrollToTopRouter';
 import Notes from './components/Notes/pages/Notes';
 import Emotes from './components/Emotes/pages/Emotes';
+import AdminRoute from './components/Auth/AdminRoute';
 
 function App() {
 	return (
@@ -143,9 +144,9 @@ function App() {
 							<Route
 								path='notes/*'
 								element={
-									<ProtectedRoute>
+									<AdminRoute>
 										<Notes />
-									</ProtectedRoute>
+									</AdminRoute>
 								}
 							/>
 							<Route path='emotes/*' element={<Emotes />} />

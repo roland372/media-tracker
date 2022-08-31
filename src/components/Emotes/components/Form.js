@@ -16,6 +16,8 @@ const Form = ({ emotesDatabase, handleClose, user }) => {
 		id: uuidv4(),
 		name: '',
 		url: '',
+		favourites: false,
+		lastModified: Date.now(),
 	});
 
 	//* form errors state
@@ -40,6 +42,10 @@ const Form = ({ emotesDatabase, handleClose, user }) => {
 
 	const handleSetURL = e => {
 		setEmote({ ...emote, url: e.target.value });
+	};
+
+	const handleSetFavourites = e => {
+		setEmote({ ...emote, favourites: e.target.checked });
 	};
 
 	const onSubmit = async e => {
@@ -84,6 +90,14 @@ const Form = ({ emotesDatabase, handleClose, user }) => {
 				{formErrors.url ? (
 					<small className='text-danger d-flex mb-2'>{formErrors.url}</small>
 				) : null}
+				<div className='mb-3 form-check'>
+					<input
+						type='checkbox'
+						className='form-check-input'
+						onChange={e => handleSetFavourites(e)}
+					/>
+					<label className='form-check-label'>Add to Favourites?</label>
+				</div>
 				<button className='btn btn-success shadow-none'>Add Emote</button>
 			</div>
 		</form>

@@ -19,6 +19,9 @@ import { toast } from 'react-toastify';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
+//? <----- Icons ----->
+import { AiFillStar } from 'react-icons/ai';
+
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
@@ -114,18 +117,28 @@ const EmotesList = () => {
 			) : (
 				<section className='d-flex align-items-center justify-content-start flex-wrap'>
 					{emotesDatabase?.[0]?.emotes?.map((emote, index) => (
-						<div key={index} className='mx-2'>
+						<div key={index} className='mx-2 position-relative mb-3'>
 							<OverlayTrigger
 								placement='top'
 								overlay={<Tooltip>{emote?.name}</Tooltip>}
 							>
-								<img
-									src={emote.url}
-									alt=''
-									width='56px'
-									onClick={() => handleClick(emote.url)}
-									role='button'
-								/>
+								<div className='position-relative mx-2 rounded bg-primary-dark p-2'>
+									<img
+										src={emote.url}
+										alt=''
+										width='56px'
+										onClick={() => handleClick(emote.url)}
+										role='button'
+									/>
+									<div className='position-absolute top-0 end-0'>
+										{emote?.favourites ? (
+											<AiFillStar
+												size={25}
+												className='text-warning rounded m-1'
+											/>
+										) : null}
+									</div>
+								</div>
 							</OverlayTrigger>
 						</div>
 					))}

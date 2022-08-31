@@ -14,6 +14,19 @@ const Sidebar = ({ userData }) => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	const normalRoute = navLinks.filter(link => link.route === 'normal');
+	const protectedRoute = navLinks.filter(link => link.route !== 'admin');
+
+	const routeType = () => {
+		if (userData?.uid === process.env.REACT_APP_adminID) {
+			return navLinks;
+		} else if (userData) {
+			return protectedRoute;
+		} else {
+			return normalRoute;
+		}
+	};
+
 	return (
 		<nav className='navbar navbar-dark sticky-top bg-primary-dark'>
 			<div className='container bg-primary-dark'>
@@ -78,12 +91,31 @@ const Sidebar = ({ userData }) => {
 					</Offcanvas.Header>
 					<Offcanvas.Body>
 						<ul className='list-group text-start'>
-							{navLinks.slice(1).map(link => {
-								const { id, url, text } = link;
+							{routeType()
+								.slice(1)
+								.map((link, index) => {
+									const { url, text } = link;
+									return (
+										<li
+											className='list-group-item bg-secondary-medium'
+											key={index}
+											onClick={handleClose}
+										>
+											<NavLink
+												className='nav-link text-color text-capitalize'
+												to={url}
+											>
+												{text}
+											</NavLink>
+										</li>
+									);
+								})}
+							{/* {navLinks.slice(1).map((link, index) => {
+								const { url, text } = link;
 								return (
 									<li
 										className='list-group-item bg-secondary-medium'
-										key={id}
+										key={index}
 										onClick={handleClose}
 									>
 										<NavLink
@@ -94,7 +126,7 @@ const Sidebar = ({ userData }) => {
 										</NavLink>
 									</li>
 								);
-							})}
+							})} */}
 
 							{/* <li
 								className='list-group-item bg-secondary-medium'

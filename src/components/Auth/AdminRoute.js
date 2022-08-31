@@ -8,7 +8,7 @@ const AdminRoute = ({ children }) => {
 
 	// user && console.log('User in Private Route: ', user.email, user.uid);
 	if (user?.uid !== process.env.REACT_APP_adminID) {
-		return <Navigate replace to='/emotes' />;
+		return <Navigate replace to='/' />;
 	}
 	return children;
 };

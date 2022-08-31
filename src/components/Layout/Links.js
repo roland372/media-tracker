@@ -1,61 +1,61 @@
 export const navLinks = [
 	{
-		id: 1,
+		route: 'normal',
 		url: '/',
 		text: 'Media-Tracker',
 	},
 	{
-		id: 2,
+		route: 'protected',
 		url: 'media/anime',
 		text: 'Anime',
 	},
 	{
-		id: 3,
+		route: 'protected',
 		url: 'media/games',
 		text: 'Games',
 	},
 	{
-		id: 4,
+		route: 'protected',
 		url: 'media/manga',
 		text: 'Manga',
 	},
 	{
-		id: 5,
+		route: 'protected',
 		url: 'media/characters',
 		text: 'Characters',
 	},
 	{
-		id: 6,
-		url: 'news',
-		text: 'News',
-	},
-	{
-		id: 7,
+		route: 'protected',
 		url: 'charts',
 		text: 'Charts',
 	},
 	{
-		id: 8,
+		route: 'normal',
+		url: 'news',
+		text: 'News',
+	},
+	{
+		route: 'admin',
 		url: 'notes',
 		text: 'Notes',
 	},
 	{
-		id: 9,
+		route: 'admin',
 		url: 'emotes',
 		text: 'Emotes',
 	},
 	{
-		id: 10,
+		route: 'normal',
 		url: 'about',
 		text: 'About',
 	},
 	{
-		id: 11,
+		route: 'protected',
 		url: 'profile',
 		text: 'Profile',
 	},
 	// {
-	// 	id: 11,
+	// 	route: 'normal',
 	// 	url: '',
 	// 	text: '',
 	// }

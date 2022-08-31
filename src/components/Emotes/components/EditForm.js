@@ -18,13 +18,15 @@ const EditForm = ({
 		emote => emote?.id === id
 	);
 
-	const { name, url } = filteredEmote[0];
+	const { name, url, favourites } = filteredEmote[0];
 
 	//* initialize emote object
 	const [emote, setEmote] = useState({
 		id: id,
 		name: name,
 		url: url,
+		favourites: favourites,
+		lastModified: Date.now(),
 	});
 
 	//* form errors state
@@ -49,6 +51,10 @@ const EditForm = ({
 
 	const handleSetURL = e => {
 		setEmote({ ...emote, url: e.target.value });
+	};
+
+	const handleSetFavourites = e => {
+		setEmote({ ...emote, favourites: e.target.checked });
 	};
 
 	const onSubmit = async e => {
@@ -104,6 +110,15 @@ const EditForm = ({
 				{formErrors.url ? (
 					<small className='text-danger d-flex mb-2'>{formErrors.url}</small>
 				) : null}
+				<div className='mb-3 form-check'>
+					<input
+						type='checkbox'
+						className='form-check-input'
+						defaultChecked={favourites}
+						onChange={e => handleSetFavourites(e)}
+					/>
+					<label className='form-check-label'>Add to Favourites?</label>
+				</div>
 				<button className='btn btn-warning shadow-none'>Edit Emote</button>
 			</div>
 		</form>

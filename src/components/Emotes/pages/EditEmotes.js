@@ -21,7 +21,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 //? <----- Icons ----->
-import { AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineEdit, AiFillStar } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
 
 //? <----- Custom Hooks ----->
@@ -162,13 +162,26 @@ const EditEmotes = () => {
 			) : (
 				<section className='d-flex align-items-center justify-content-start flex-wrap'>
 					{emotesDatabase?.[0]?.emotes?.map((emote, index) => (
-						<div key={index} className='mx-2 rounded bg-primary-dark p-2'>
+						<div
+							key={index}
+							className='mx-2 rounded bg-primary-dark p-2 mb-3 position-relative'
+						>
 							<div className='mt-1'>
 								<OverlayTrigger
 									placement='top'
 									overlay={<Tooltip>{emote?.name}</Tooltip>}
 								>
-									<img src={emote.url} alt='' width='56px' />
+									<div className='mx-2 rounded bg-primary-dark p-2'>
+										<img src={emote.url} alt='' width='56px' />
+										<div className='position-absolute top-0 end-0'>
+											{emote?.favourites ? (
+												<AiFillStar
+													size={25}
+													className='text-warning rounded m-1'
+												/>
+											) : null}
+										</div>
+									</div>
 								</OverlayTrigger>
 							</div>
 							<div>
