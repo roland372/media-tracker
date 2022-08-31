@@ -40,7 +40,7 @@ export const navLinks = [
 		text: 'Notes',
 	},
 	{
-		route: 'admin',
+		route: 'protected',
 		url: 'emotes',
 		text: 'Emotes',
 	},
