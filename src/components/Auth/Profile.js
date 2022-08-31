@@ -25,6 +25,7 @@ import AnimeDataService from '../../components/Media/Anime/services/anime.servic
 import CharactersDataService from '../../components/Media/Characters/services/characters.services';
 import GamesDataService from '../../components/Media/Games/services/games.services';
 import MangaDataService from '../../components/Media/Manga/services/manga.services';
+import EmotesDataService from '../../components/Emotes/services/emotes.services';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -44,6 +45,7 @@ const Profile = () => {
 	const [charactersDatabase, setCharactersDatabase] = useState([]);
 	const [gamesDatabase, setGamesDatabase] = useState([]);
 	const [mangaDatabase, setMangaDatabase] = useState([]);
+	const [emotesDatabase, setEmotesDatabase] = useState([]);
 
 	//* <----- User State ----->
 	const [name, setName] = useState('');
@@ -129,6 +131,7 @@ const Profile = () => {
 		user && getCharactersDatabase(user?.uid);
 		user && getGamesDatabase(user?.uid);
 		user && getMangaDatabase(user?.uid);
+		user && getEmotesDatabase(user?.uid);
 		user && getUsersDatabase();
 		// user && getCurrentUser();
 		// if (user && user.photoURL) {
@@ -179,6 +182,11 @@ const Profile = () => {
 	const getMangaDatabase = async userId => {
 		const data = await MangaDataService.getAllManga(userId);
 		setMangaDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+	};
+
+	const getEmotesDatabase = async userId => {
+		const data = await EmotesDataService.getAllEmotes(userId);
+		setEmotesDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 	};
 
 	//* <----- Handler functions ----->
@@ -314,6 +322,15 @@ const Profile = () => {
 		localStorage.setItem('themes', JSON.stringify(theme));
 		setColor(theme);
 	}, [theme]);
+
+	//* <----- Backup ----->
+	//* right click object in chrome console, select "set as global variable", it'll return "temp1"
+	//* after that type copy(temp1) and it'll copy it to clipboard
+	// console.log(animeDatabase?.[0]?.anime);
+	// console.log(mangaDatabase?.[0]?.manga);
+	// console.log(gamesDatabase?.[0]?.games);
+	// console.log(charactersDatabase?.[0]?.characters);
+	// console.log(emotesDatabase?.[0]?.emotes);
 
 	return (
 		<div>
@@ -513,6 +530,17 @@ const Profile = () => {
 																<p className='text-color'>
 																	{mangaDatabase?.[0]?.manga?.length}
 																	{''} Manga
+																</p>
+															</div>
+															<div className='col-6 mb-3'>
+																<h6>
+																	<Link to='/emotes' className='text-color'>
+																		Emotes
+																	</Link>
+																</h6>
+																<p className='text-color'>
+																	{emotesDatabase?.[0]?.emotes?.length}
+																	{''} Emotes
 																</p>
 															</div>
 														</div>
