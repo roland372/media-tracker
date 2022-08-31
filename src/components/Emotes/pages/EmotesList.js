@@ -119,11 +119,45 @@ const EmotesList = () => {
 				<Loader />
 			) : (
 				<section>
-					<div className='mx-2 pt-2'>
-						<h4>All Emotes</h4>
-						{/* <hr /> */}
+					<div className='mx-2 pb-1'>
+						<h4>Favourite Emotes</h4>
 					</div>
-					<section className='mb-2 mx-2'>
+					<section className='d-flex align-items-center justify-content-between flex-wrap'>
+						{emotesDatabase?.[0]?.emotes
+							.sort((a, b) => (a.name > b.name ? 1 : -1))
+							?.filter(emote => emote?.favourites)
+							.map((emote, index) => (
+								<div key={index} className='position-relative mb-3 flex-fill'>
+									<OverlayTrigger
+										placement='top'
+										overlay={<Tooltip>{emote?.name}</Tooltip>}
+									>
+										<div className='position-relative mx-2 rounded bg-primary-dark p-2'>
+											<img
+												src={emote.url}
+												alt=''
+												height='64px'
+												onClick={() => handleClick(emote.url)}
+												role='button'
+											/>
+											<div className='position-absolute top-0 end-0'>
+												{emote?.favourites ? (
+													<AiFillStar
+														size={25}
+														className='text-warning rounded m-1'
+													/>
+												) : null}
+											</div>
+										</div>
+									</OverlayTrigger>
+								</div>
+							))}
+					</section>
+					<div className='mx-2 pb-2'>
+						<hr />
+						<h4>All Emotes</h4>
+					</div>
+					<section className='mb-3 mx-2'>
 						<input
 							type='text'
 							className='form-control'
@@ -193,41 +227,6 @@ const EmotesList = () => {
 					</div>
 				</section>
 			)}
-			<div className='mx-2'>
-				<h4>Favourite Emotes</h4>
-				<hr />
-			</div>
-			<section className='d-flex align-items-center justify-content-between flex-wrap'>
-				{emotesDatabase?.[0]?.emotes
-					.sort((a, b) => (a.name > b.name ? 1 : -1))
-					?.filter(emote => emote?.favourites)
-					.map((emote, index) => (
-						<div key={index} className='position-relative mb-3 flex-fill'>
-							<OverlayTrigger
-								placement='top'
-								overlay={<Tooltip>{emote?.name}</Tooltip>}
-							>
-								<div className='position-relative mx-2 rounded bg-primary-dark p-2'>
-									<img
-										src={emote.url}
-										alt=''
-										height='64px'
-										onClick={() => handleClick(emote.url)}
-										role='button'
-									/>
-									<div className='position-absolute top-0 end-0'>
-										{emote?.favourites ? (
-											<AiFillStar
-												size={25}
-												className='text-warning rounded m-1'
-											/>
-										) : null}
-									</div>
-								</div>
-							</OverlayTrigger>
-						</div>
-					))}
-			</section>
 		</CardComponent>
 	);
 };
