@@ -132,14 +132,14 @@ const EmotesList = () => {
 							onChange={e => setSearchValue(e.target.value)}
 						/>
 					</section>
-					<div className='d-flex align-items-center justify-content-start flex-wrap'>
+					<div className='d-flex align-items-center justify-content-between flex-wrap'>
 						{emotesDatabase?.[0]?.emotes
 							.sort((a, b) => (a.name > b.name ? 1 : -1))
 							?.filter(emote =>
 								emote?.name?.match(new RegExp(searchValue, 'i'))
 							)
 							.map((emote, index) => (
-								<div key={index} className='position-relative mb-3'>
+								<div key={index} className='position-relative mb-3 flex-fill'>
 									<OverlayTrigger
 										placement='top'
 										overlay={<Tooltip>{emote?.name}</Tooltip>}
@@ -148,7 +148,7 @@ const EmotesList = () => {
 											<img
 												src={emote.url}
 												alt=''
-												width='56px'
+												height='64px'
 												onClick={() => handleClick(emote.url)}
 												role='button'
 											/>
@@ -197,12 +197,12 @@ const EmotesList = () => {
 				<h4>Favourite Emotes</h4>
 				<hr />
 			</div>
-			<section className='d-flex align-items-center justify-content-start flex-wrap'>
+			<section className='d-flex align-items-center justify-content-between flex-wrap'>
 				{emotesDatabase?.[0]?.emotes
 					.sort((a, b) => (a.name > b.name ? 1 : -1))
 					?.filter(emote => emote?.favourites)
 					.map((emote, index) => (
-						<div key={index} className='position-relative mb-3'>
+						<div key={index} className='position-relative mb-3 flex-fill'>
 							<OverlayTrigger
 								placement='top'
 								overlay={<Tooltip>{emote?.name}</Tooltip>}
@@ -211,7 +211,7 @@ const EmotesList = () => {
 									<img
 										src={emote.url}
 										alt=''
-										width='56px'
+										height='64px'
 										onClick={() => handleClick(emote.url)}
 										role='button'
 									/>

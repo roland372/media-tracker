@@ -172,22 +172,29 @@ const EditEmotes = () => {
 			{loading ? (
 				<Loader />
 			) : (
-				<section className='d-flex align-items-center justify-content-start flex-wrap'>
+				<section className='d-flex align-items-center justify-content-between flex-wrap'>
 					{emotesDatabase?.[0]?.emotes
 						.sort((a, b) => (a.name > b.name ? 1 : -1))
 						?.filter(emote => emote?.name?.match(new RegExp(searchValue, 'i')))
 						.map((emote, index) => (
 							<div
 								key={index}
-								className='mx-2 rounded bg-primary-dark p-2 mb-3 position-relative'
+								className='mx-2 rounded bg-primary-dark p-2 mb-3 position-relative flex-fill'
 							>
 								<div className='mt-1'>
 									<OverlayTrigger
 										placement='top'
-										overlay={<Tooltip>{emote?.name}</Tooltip>}
+										overlay={
+											<Tooltip>
+												<div>
+													<div>{emote?.name}</div>
+													{/* <div>{emote?.url}</div> */}
+												</div>
+											</Tooltip>
+										}
 									>
 										<div className='mx-2 rounded bg-primary-dark p-2'>
-											<img src={emote.url} alt='' width='56px' />
+											<img src={emote.url} alt='' height='64px' />
 											<div className='position-absolute top-0 end-0'>
 												{emote?.favourites ? (
 													<AiFillStar
