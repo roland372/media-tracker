@@ -115,23 +115,23 @@ const EmotesList = () => {
 					</div>
 				</section>
 			) : null}
-			<section className='mb-2 mx-2'>
-				<input
-					type='text'
-					className='form-control'
-					placeholder='Search for emote'
-					value={searchValue}
-					onChange={e => setSearchValue(e.target.value)}
-				/>
-			</section>
 			{loading ? (
 				<Loader />
 			) : (
 				<section>
 					<div className='mx-2 pt-2'>
 						<h4>All Emotes</h4>
-						<hr />
+						{/* <hr /> */}
 					</div>
+					<section className='mb-2 mx-2'>
+						<input
+							type='text'
+							className='form-control'
+							placeholder='Search for emote'
+							value={searchValue}
+							onChange={e => setSearchValue(e.target.value)}
+						/>
+					</section>
 					<div className='d-flex align-items-center justify-content-start flex-wrap'>
 						{emotesDatabase?.[0]?.emotes
 							.sort((a, b) => (a.name > b.name ? 1 : -1))
