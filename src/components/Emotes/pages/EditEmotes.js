@@ -58,6 +58,9 @@ const EditEmotes = () => {
 	};
 	const handleClose = () => setShow(false);
 
+	//* <----- Search state ----->
+	const [searchValue, setSearchValue] = useState('');
+
 	const [emotesDatabase, setEmotesDatabase] = useState([]);
 
 	//* Notifications
@@ -157,50 +160,62 @@ const EditEmotes = () => {
 					<hr />
 				</div>
 			</section>
+			<section className='mb-2 mx-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Search for emote'
+					value={searchValue}
+					onChange={e => setSearchValue(e.target.value)}
+				/>
+			</section>
 			{loading ? (
 				<Loader />
 			) : (
 				<section className='d-flex align-items-center justify-content-start flex-wrap'>
-					{emotesDatabase?.[0]?.emotes?.map((emote, index) => (
-						<div
-							key={index}
-							className='mx-2 rounded bg-primary-dark p-2 mb-3 position-relative'
-						>
-							<div className='mt-1'>
-								<OverlayTrigger
-									placement='top'
-									overlay={<Tooltip>{emote?.name}</Tooltip>}
-								>
-									<div className='mx-2 rounded bg-primary-dark p-2'>
-										<img src={emote.url} alt='' width='56px' />
-										<div className='position-absolute top-0 end-0'>
-											{emote?.favourites ? (
-												<AiFillStar
-													size={25}
-													className='text-warning rounded m-1'
-												/>
-											) : null}
+					{emotesDatabase?.[0]?.emotes
+						.sort((a, b) => (a.name > b.name ? 1 : -1))
+						?.filter(emote => emote?.name?.match(new RegExp(searchValue, 'i')))
+						.map((emote, index) => (
+							<div
+								key={index}
+								className='mx-2 rounded bg-primary-dark p-2 mb-3 position-relative'
+							>
+								<div className='mt-1'>
+									<OverlayTrigger
+										placement='top'
+										overlay={<Tooltip>{emote?.name}</Tooltip>}
+									>
+										<div className='mx-2 rounded bg-primary-dark p-2'>
+											<img src={emote.url} alt='' width='56px' />
+											<div className='position-absolute top-0 end-0'>
+												{emote?.favourites ? (
+													<AiFillStar
+														size={25}
+														className='text-warning rounded m-1'
+													/>
+												) : null}
+											</div>
 										</div>
-									</div>
-								</OverlayTrigger>
+									</OverlayTrigger>
+								</div>
+								<div>
+									<button
+										className='btn btn-sm shadow-none'
+										onClick={() => handleShow(emote?.id)}
+									>
+										<AiOutlineEdit size={20} className='text-success' />
+									</button>
+									<button
+										className='btn btn-sm shadow-none'
+										// onClick={() => handleDeleteEmote(emote?.id)}
+										onClick={() => handleShowDelete(emote?.id)}
+									>
+										<BsTrash size={20} className='text-danger' />
+									</button>
+								</div>
 							</div>
-							<div>
-								<button
-									className='btn btn-sm shadow-none'
-									onClick={() => handleShow(emote?.id)}
-								>
-									<AiOutlineEdit size={20} className='text-success' />
-								</button>
-								<button
-									className='btn btn-sm shadow-none'
-									// onClick={() => handleDeleteEmote(emote?.id)}
-									onClick={() => handleShowDelete(emote?.id)}
-								>
-									<BsTrash size={20} className='text-danger' />
-								</button>
-							</div>
-						</div>
-					))}
+						))}
 				</section>
 			)}
 		</CardComponent>

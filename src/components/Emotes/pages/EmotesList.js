@@ -39,6 +39,9 @@ const EmotesList = () => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	//* <----- Search state ----->
+	const [searchValue, setSearchValue] = useState('');
+
 	const [emotesDatabase, setEmotesDatabase] = useState([]);
 
 	//* Notifications
@@ -112,12 +115,94 @@ const EmotesList = () => {
 					</div>
 				</section>
 			) : null}
+			<section className='mb-2 mx-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Search for emote'
+					value={searchValue}
+					onChange={e => setSearchValue(e.target.value)}
+				/>
+			</section>
 			{loading ? (
 				<Loader />
 			) : (
-				<section className='d-flex align-items-center justify-content-start flex-wrap'>
-					{emotesDatabase?.[0]?.emotes?.map((emote, index) => (
-						<div key={index} className='mx-2 position-relative mb-3'>
+				<section>
+					<div className='mx-2 pt-2'>
+						<h4>All Emotes</h4>
+						<hr />
+					</div>
+					<div className='d-flex align-items-center justify-content-start flex-wrap'>
+						{emotesDatabase?.[0]?.emotes
+							.sort((a, b) => (a.name > b.name ? 1 : -1))
+							?.filter(emote =>
+								emote?.name?.match(new RegExp(searchValue, 'i'))
+							)
+							.map((emote, index) => (
+								<div key={index} className='position-relative mb-3'>
+									<OverlayTrigger
+										placement='top'
+										overlay={<Tooltip>{emote?.name}</Tooltip>}
+									>
+										<div className='position-relative mx-2 rounded bg-primary-dark p-2'>
+											<img
+												src={emote.url}
+												alt=''
+												width='56px'
+												onClick={() => handleClick(emote.url)}
+												role='button'
+											/>
+											<div className='position-absolute top-0 end-0'>
+												{emote?.favourites ? (
+													<AiFillStar
+														size={25}
+														className='text-warning rounded m-1'
+													/>
+												) : null}
+											</div>
+										</div>
+									</OverlayTrigger>
+								</div>
+							))}
+						{/* {emotesDatabase?.[0]?.emotes?.map((emote, index) => (
+						<div key={index} className='position-relative mb-3'>
+							<OverlayTrigger
+								placement='top'
+								overlay={<Tooltip>{emote?.name}</Tooltip>}
+							>
+								<div className='position-relative mx-2 rounded bg-primary-dark p-2'>
+									<img
+										src={emote.url}
+										alt=''
+										width='56px'
+										onClick={() => handleClick(emote.url)}
+										role='button'
+									/>
+									<div className='position-absolute top-0 end-0'>
+										{emote?.favourites ? (
+											<AiFillStar
+												size={25}
+												className='text-warning rounded m-1'
+											/>
+										) : null}
+									</div>
+								</div>
+							</OverlayTrigger>
+						</div>
+					))} */}
+					</div>
+				</section>
+			)}
+			<div className='mx-2'>
+				<h4>Favourite Emotes</h4>
+				<hr />
+			</div>
+			<section className='d-flex align-items-center justify-content-start flex-wrap'>
+				{emotesDatabase?.[0]?.emotes
+					.sort((a, b) => (a.name > b.name ? 1 : -1))
+					?.filter(emote => emote?.favourites)
+					.map((emote, index) => (
+						<div key={index} className='position-relative mb-3'>
 							<OverlayTrigger
 								placement='top'
 								overlay={<Tooltip>{emote?.name}</Tooltip>}
@@ -142,8 +227,7 @@ const EmotesList = () => {
 							</OverlayTrigger>
 						</div>
 					))}
-				</section>
-			)}
+			</section>
 		</CardComponent>
 	);
 };
