@@ -1,5 +1,5 @@
 //? <----- React ----->
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 //? <----- Router ----->
 import { Link } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { BiLinkExternal } from 'react-icons/bi';
 
 //? <----- Components ----->
 import CardComponent from '../../../components/Layout/CardComponent';
+import Loader from '../../Layout/Loader';
 import axios from 'axios';
 
 const NotesList = () => {
@@ -22,12 +23,16 @@ const NotesList = () => {
 	const notes = useSelector(store => store.notes);
 	// const notes = useSelector(state => state.notes);
 
+	//* <----- Loading state ----->
+	const [loading, setLoading] = useState(<Loader />);
+
 	const getNotes = () => {
 		dispatch(fetchNotes());
 	};
 
 	useEffect(() => {
 		dispatch(fetchNotes());
+		setLoading(false);
 	}, [dispatch]);
 
 	const handleDeleteNote = async id => {
@@ -100,9 +105,13 @@ const NotesList = () => {
 					<hr />
 				</div>
 			</section>
-			<div className='row px-2'>
-				{notes.notes.length ? renderNotes() : <p>No Notes</p>}
-			</div>
+			{loading ? (
+				<Loader />
+			) : (
+				<div className='row px-2'>
+					{notes.notes.length ? renderNotes() : <p>No Notes</p>}
+				</div>
+			)}
 		</CardComponent>
 	);
 };
