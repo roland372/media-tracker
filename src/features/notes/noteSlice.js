@@ -19,6 +19,9 @@ export const fetchNotes = createAsyncThunk('/notes', async () => {
 		.get('https://media-tracker-notes.herokuapp.com/notes', {
 			headers: {
 				'Content-Type': 'application/json',
+				'Access-Control-Allow-Headers': '*',
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Methods': '*',
 			},
 		})
 		.then(response => response.data);
