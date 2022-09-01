@@ -16,7 +16,11 @@ export const fetchNotes = createAsyncThunk('/notes', async () => {
 		// .get('http://localhost:3001/notes')
 		// .get('https://media-tracker-notes.herokuapp.com/notes')
 		// .get('https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes')
-		.get('https://media-tracker-notes.herokuapp.com/notes')
+		.get('https://media-tracker-notes.herokuapp.com/notes', {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
 		.then(response => response.data);
 });
 
