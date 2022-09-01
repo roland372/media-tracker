@@ -35,7 +35,8 @@ const NotesList = () => {
 		// axios.delete(`http://localhost:5000/notes/delete/${id}`).then(() => {
 		await axios
 			// .delete(`https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
-			.delete(`https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
+			.delete(`https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
+			// .delete(`https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
 			.then(() => {
 				getNotes();
 				// console.log(notes);

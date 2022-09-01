@@ -39,8 +39,8 @@ const EditNote = () => {
 		);
 		// axios.put('http://localhost:5000/notes/edit-note', {
 		await axios.put(
-			// 'https://media-tracker-notes.herokuapp.com/notes/edit-note',
-			'https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/edit-note',
+			'https://media-tracker-notes.herokuapp.com/notes/edit-note',
+			// 'https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/edit-note',
 			{
 				...newNote,
 				// id: currentNote[0]?.id,
