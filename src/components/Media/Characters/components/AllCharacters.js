@@ -19,8 +19,8 @@ const AllCharacters = ({
 }) => {
 	//* sort characters by name
 	const sortedCharacters = allCharacters?.sort(function (a, b) {
-		const nameA = a.title.toLowerCase(),
-			nameB = b.title.toLowerCase();
+		const nameA = a.name.toLowerCase(),
+			nameB = b.name.toLowerCase();
 		if (nameA < nameB)
 			//sort string ascending
 			return -1;
@@ -92,7 +92,7 @@ const AllCharacters = ({
 								if (searchTerm === '') {
 									return value;
 								} else if (
-									value.title
+									value.name
 										.toLowerCase()
 										.includes(searchTerm.toLocaleLowerCase())
 								) {
@@ -118,7 +118,7 @@ const AllCharacters = ({
 										if (searchTerm === '') {
 											return value;
 										} else if (
-											value.title
+											value.name
 												.toLowerCase()
 												.includes(searchTerm.toLocaleLowerCase())
 										) {
@@ -161,7 +161,7 @@ const AllCharacters = ({
 								if (searchTerm === '') {
 									return value;
 								} else if (
-									value.title
+									value.name
 										.toLowerCase()
 										.includes(searchTerm.toLocaleLowerCase())
 								) {
@@ -172,13 +172,16 @@ const AllCharacters = ({
 							?.slice(0, 20)
 							?.map((character, index) => (
 								<SingleCharacterTableRow
+									gender={character.gender}
+									hairColor={character.hairColor}
 									id={character.id}
 									image={character.imageURL}
 									index={index + 1}
 									key={character.id}
 									lastModified={character.lastModified}
+									name={character.name}
+									series={character.series}
 									source={character.source}
-									title={character.title}
 								/>
 							))}
 
@@ -189,7 +192,7 @@ const AllCharacters = ({
 										if (searchTerm === '') {
 											return value;
 										} else if (
-											value.title
+											value.name
 												.toLowerCase()
 												.includes(searchTerm.toLocaleLowerCase())
 										) {
@@ -200,16 +203,16 @@ const AllCharacters = ({
 									?.slice(20)
 									?.map((character, index) => (
 										<SingleCharacterTableRow
+											gender={character.gender}
+											hairColor={character.hairColor}
 											id={character.id}
 											image={character.imageURL}
 											index={index + 1}
 											key={character.id}
 											lastModified={character.lastModified}
-											playtime={character.playtime}
-											rating={character.rating}
-											status={character.status}
-											title={character.title}
-											type={character.type}
+											name={character.name}
+											series={character.series}
+											source={character.source}
 										/>
 									))
 							: null}

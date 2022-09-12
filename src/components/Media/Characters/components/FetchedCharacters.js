@@ -14,16 +14,21 @@ const FetchedCharacters = ({
 	user,
 }) => {
 	const [singleCharacter, setSingleCharacter] = useState({
+		favourites: false,
+		gender: 'Female',
+		hairColor: '',
 		id: uuidv4(),
-		mal_id: '',
-		title: '',
+		imageURL: '',
+		lastModified: Date.now(),
 		link1: '',
 		link1Name: 'MAL',
-		imageURL: '',
-		favourites: false,
+		link2: '',
+		link2Name: 'Wiki',
+		mal_id: '',
+		name: '',
 		owner: user?.uid,
+		series: '',
 		source: 'Anime',
-		lastModified: Date.now(),
 	});
 
 	const characterAddedNotification = () =>
@@ -110,7 +115,7 @@ const FetchedCharacters = ({
 														const addCharacter = {
 															...singleCharacter,
 															mal_id: character.mal_id,
-															title: character.name
+															name: character.name
 																? character.name
 																: 'character',
 															link1: character.url,

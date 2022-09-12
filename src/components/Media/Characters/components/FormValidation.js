@@ -1,7 +1,7 @@
-const validation = title => {
+const validation = name => {
 	const errors = {};
-	if (!title) {
-		errors.title = 'Name cannot be empty';
+	if (!name) {
+		errors.name = 'Name cannot be empty';
 	}
 
 	return errors;

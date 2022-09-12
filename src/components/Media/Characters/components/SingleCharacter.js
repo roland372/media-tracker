@@ -86,7 +86,7 @@ const SingleCharacter = () => {
 
 	const fetchedCharacterID = filteredCharacter?.[0]?.mal_id;
 
-	useDocumentTitle(filteredCharacter?.[0]?.title);
+	useDocumentTitle(filteredCharacter?.[0]?.name);
 
 	useEffect(() => {
 		const getSingleCharacterDatabase = async () => {
@@ -126,7 +126,7 @@ const SingleCharacter = () => {
 	// console.log(characterImages);
 
 	return (
-		<CardComponent title={filteredCharacter?.[0]?.title}>
+		<CardComponent title={filteredCharacter?.[0]?.name}>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header
 					closeButton
@@ -208,7 +208,7 @@ const SingleCharacter = () => {
 									? filteredCharacter?.[0]?.imageURL
 									: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
 							}
-							alt={filteredCharacter?.[0]?.title}
+							alt={filteredCharacter?.[0]?.name}
 						/>
 						{characterDetails?.about ? (
 							<div className='col'>

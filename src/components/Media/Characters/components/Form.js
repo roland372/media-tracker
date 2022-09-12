@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 //? <----- Components ----->
 import Select from 'react-select';
 import { sourceOptions } from '../utils/selectOptions';
+import { genderOptions } from '../utils/selectOptions';
 import validation from './FormValidation';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,16 +20,20 @@ const Form = ({
 	//* initialize character object
 	const [character, setCharacter] = useState({
 		favourites: false,
+		gender: 'Female',
+		hairColor: '',
 		id: uuidv4(),
 		imageURL: '',
 		lastModified: Date.now(),
 		link1: '',
 		link1Name: 'Link',
 		link2: '',
-		link2Name: 'Link',
+		link2Name: 'Wiki',
+		mal_id: '',
+		name: '',
 		owner: user.uid,
-		source: '',
-		title: '',
+		series: '',
+		source: 'Anime',
 	});
 
 	const characterAddedNotification = () =>
@@ -46,17 +51,29 @@ const Form = ({
 	const [formErrors, setFormErrors] = useState({});
 
 	//* input handlers
-	const handleSetTitle = e => {
-		setCharacter({ ...character, title: e.target.value });
+	const handleSetName = e => {
+		setCharacter({ ...character, name: e.target.value });
 	};
 	const handleSetSource = e => {
 		setCharacter({ ...character, source: e.value });
+	};
+	const handleSetGender = e => {
+		setCharacter({ ...character, gender: e.value });
+	};
+	const handleSetSeries = e => {
+		setCharacter({ ...character, series: e.target.value });
+	};
+	const handleSetHairColor = e => {
+		setCharacter({ ...character, hairColor: e.target.value });
 	};
 	const handleSetLink1 = e => {
 		setCharacter({ ...character, link1: e.target.value });
 	};
 	const handleSetLink1Name = e => {
 		setCharacter({ ...character, link1Name: e.target.value });
+	};
+	const handleSetLink2 = e => {
+		setCharacter({ ...character, link2: e.target.value });
 	};
 	const handleSetImageURL = e => {
 		setCharacter({ ...character, imageURL: e.target.value });
@@ -68,8 +85,8 @@ const Form = ({
 	const onSubmit = async e => {
 		e.preventDefault();
 
-		setFormErrors(validation(character.title));
-		if (character?.title?.length !== 0) {
+		setFormErrors(validation(character.name));
+		if (character?.name?.length !== 0) {
 			try {
 				charactersDatabase?.[0]?.characters.push({
 					...character,
@@ -98,18 +115,44 @@ const Form = ({
 					className='form-control'
 					placeholder='Enter Character Name'
 					maxLength='500'
-					onChange={e => handleSetTitle(e)}
+					onChange={e => handleSetName(e)}
 				/>
 			</div>
 			{formErrors ? (
-				<small className='text-danger d-flex ms-1'>{formErrors.title}</small>
+				<small className='text-danger d-flex ms-1'>{formErrors.name}</small>
 			) : null}
 			<div className='mt-3 mb-2'>
 				<Select
-					defaultValue={{ label: 'Select Type', value: '' }}
+					defaultValue={{ label: 'Select Source', value: '' }}
 					options={sourceOptions}
 					className='text-dark'
 					onChange={e => handleSetSource(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<Select
+					defaultValue={{ label: 'Select Gender', value: '' }}
+					options={genderOptions}
+					className='text-dark'
+					onChange={e => handleSetGender(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Series Name'
+					maxLength='100'
+					onChange={e => handleSetSeries(e)}
+				/>
+			</div>
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Hair Color'
+					maxLength='100'
+					onChange={e => handleSetHairColor(e)}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -130,7 +173,15 @@ const Form = ({
 					onChange={e => handleSetLink1(e)}
 				/>
 			</div>
-
+			<div className='mt-3 mb-2'>
+				<input
+					type='text'
+					className='form-control'
+					placeholder='Wiki URL'
+					maxLength='500'
+					onChange={e => handleSetLink2(e)}
+				/>
+			</div>
 			<div className='mt-3 mb-2'>
 				<input
 					type='text'

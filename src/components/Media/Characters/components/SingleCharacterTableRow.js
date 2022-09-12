@@ -4,13 +4,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SingleCharacterTableRow = ({
-	index,
-	image,
-	title,
-	source,
-	playtime,
-	lastModified,
+	gender,
+	hairColor,
 	id,
+	image,
+	index,
+	lastModified,
+	name,
+	series,
+	source,
 }) => {
 	return (
 		<tr className='text-color'>
@@ -28,10 +30,13 @@ const SingleCharacterTableRow = ({
 			</td>
 			<td>
 				<Link className='link-color' to={`${id}`}>
-					{title}
+					{name}
 				</Link>
 			</td>
 			<td>{source}</td>
+			<td>{gender}</td>
+			<td>{series}</td>
+			<td>{hairColor}</td>
 			<td>
 				{new Date(lastModified).toLocaleDateString('en-GB', {
 					hour: '2-digit',

@@ -89,7 +89,9 @@ const SingleMediaCard = ({
 				overlay={
 					<Popover>
 						<Popover.Header>
-							{singleMedia?.title}{' '}
+							{mediaType === 'Characters'
+								? singleMedia?.name
+								: singleMedia?.title}{' '}
 							{singleMedia?.favourites ? (
 								<AiFillStar size={18} className='text-warning' />
 							) : null}
@@ -165,7 +167,7 @@ const SingleMediaCard = ({
 							{mediaType === 'Characters' ? (
 								<section>
 									<div>
-										Link:{' '}
+										Links:{' '}
 										<a
 											href={singleMedia?.link1}
 											target='_blank'
@@ -173,7 +175,23 @@ const SingleMediaCard = ({
 										>
 											{singleMedia?.link1Name}
 										</a>
+										{singleMedia?.link2 ? (
+											<span>
+												,{' '}
+												<a
+													href={singleMedia?.link2}
+													target='_blank'
+													rel='noreferrer'
+												>
+													{singleMedia?.link2Name}
+												</a>
+											</span>
+										) : null}
 									</div>
+									<div>Source: {singleMedia?.source}</div>
+									<div>Gender: {singleMedia?.gender}</div>
+									<div>Series: {singleMedia?.series}</div>
+									<div>Hair Color: {singleMedia?.hairColor}</div>
 									<hr />
 								</section>
 							) : null}
@@ -279,7 +297,7 @@ const SingleMediaCard = ({
 								) : null}
 							</div>
 							<div className='position-absolute bottom-0 start-0 badge bg-dark m-1'>
-								<div className='text-wrap'>{singleMedia?.title}</div>
+								<div className='text-wrap'>{singleMedia?.name}</div>
 							</div>
 						</div>
 					) : null}

@@ -18,8 +18,8 @@ const FavouriteCharacters = ({
 
 	//* sort characters by name
 	const sortedCharacters = filteredCharacters?.sort(function (a, b) {
-		const nameA = a.title.toLowerCase(),
-			nameB = b.title.toLowerCase();
+		const nameA = a.name.toLowerCase(),
+			nameB = b.name.toLowerCase();
 		if (nameA < nameB)
 			//sort string ascending
 			return -1;

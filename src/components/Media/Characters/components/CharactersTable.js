@@ -29,7 +29,7 @@ const CharactersTable = ({
 							Character Name
 							<FaSort
 								onClick={() =>
-									sortString('title', order, menuItems, setMenuItems, setOrder)
+									sortString('name', order, menuItems, setMenuItems, setOrder)
 								}
 							/>
 						</th>
@@ -39,6 +39,36 @@ const CharactersTable = ({
 							<FaSort
 								onClick={() =>
 									sortString('source', order, menuItems, setMenuItems, setOrder)
+								}
+							/>
+						</th>
+						<th scope='col' style={{ minWidth: '80px' }}>
+							Gender
+							<FaSort
+								onClick={() =>
+									sortString('gender', order, menuItems, setMenuItems, setOrder)
+								}
+							/>
+						</th>
+						<th scope='col' style={{ minWidth: '80px' }}>
+							Series Name
+							<FaSort
+								onClick={() =>
+									sortString('series', order, menuItems, setMenuItems, setOrder)
+								}
+							/>
+						</th>
+						<th scope='col' style={{ minWidth: '80px' }}>
+							Hair Color
+							<FaSort
+								onClick={() =>
+									sortString(
+										'hairColor',
+										order,
+										menuItems,
+										setMenuItems,
+										setOrder
+									)
 								}
 							/>
 						</th>
