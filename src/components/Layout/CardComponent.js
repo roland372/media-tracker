@@ -2,8 +2,8 @@ import React from 'react';
 
 const CardComponent = props => {
 	return (
-		<section className='bg-primary-medium rounded-3 my-3 p-3'>
-			<h3 className='bg-primary-light rounded-2 px-3 py-2 mx-2 text-center'>
+		<section className='bg-primary-medium rounded-3 my-3 p-3 shadow'>
+			<h3 className='bg-primary-light rounded-2 px-3 py-2 mx-2 text-center shadow'>
 				{props.title}
 			</h3>
 			{props.children}

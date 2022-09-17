@@ -31,6 +31,7 @@ const ScrollToTop = () => {
 				left: 100000,
 				width: 0,
 				height: 0,
+				zIndex: 100,
 			}}
 		>
 			<FaArrowCircleUp
