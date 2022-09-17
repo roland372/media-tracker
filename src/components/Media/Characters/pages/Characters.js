@@ -22,6 +22,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
+import Button from '../../../Layout/Button';
 
 const Characters = () => {
 	useDocumentTitle('Characters');
@@ -113,9 +114,11 @@ const Characters = () => {
 
 				<section className='text-color'>
 					<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
-						<button className='btn btn-primary' onClick={() => handleShow()}>
-							Add Character
-						</button>
+						<Button
+							color='primary'
+							onClick={() => handleShow()}
+							text='Add Character'
+						/>
 						<div className='mx-2'>or</div>
 						<form onSubmit={handleSearch}>
 							<div className='d-flex'>
@@ -128,9 +131,7 @@ const Characters = () => {
 									onChange={e => setSearch(e.target.value)}
 									onSubmit={e => setSearch(e.target.value)}
 								/>
-								<button className='btn btn-primary'>
-									<AiOutlineSearch size={20} />
-								</button>
+								<Button color='primary' text={<AiOutlineSearch size={20} />} />
 							</div>
 						</form>
 					</div>

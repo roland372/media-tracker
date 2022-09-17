@@ -25,6 +25,7 @@ import RecentGames from '../Media/Games/components/RecentGames';
 import RecentManga from '../Media/Manga/components/RecentManga';
 import RecentCharacters from '../Media/Characters/components/RecentCharacters';
 import Loader from '../Layout/Loader';
+import Button from '../Layout/Button';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -201,14 +202,13 @@ const Homepage = () => {
 			</Modal>
 			<CardComponent title='Welcome to Media-Tracker'>
 				<div className='d-flex align-items-center justify-content-start ms-2 pt-1 mt-2'>
-					<button
-						className='btn btn-primary'
+					<Button
+						color='primary'
 						onClick={() => {
 							handleShow();
 						}}
-					>
-						Add Media
-					</button>
+						text='Add Media'
+					/>
 				</div>
 				<div className='mx-2'>
 					<hr />

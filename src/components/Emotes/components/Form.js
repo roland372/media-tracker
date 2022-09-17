@@ -6,6 +6,7 @@ import EmotesDataService from '../services/emotes.services';
 //? <----- Components ----->
 import { toast } from 'react-toastify';
 import validation from './FormValidation';
+import Button from '../../Layout/Button';
 
 //? <----- Other ----->
 import { v4 as uuidv4 } from 'uuid';
@@ -98,7 +99,7 @@ const Form = ({ emotesDatabase, handleClose, user }) => {
 					/>
 					<label className='form-check-label'>Add to Favourites?</label>
 				</div>
-				<button className='btn btn-success shadow-none'>Add Emote</button>
+				<Button color='success' text='Add Emote' />
 			</div>
 		</form>
 	);

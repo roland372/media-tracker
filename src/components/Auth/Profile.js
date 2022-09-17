@@ -14,6 +14,7 @@ import Loader from '../Layout/Loader';
 import { Modal } from 'react-bootstrap';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import Button from '../Layout/Button';
 
 //? <----- Firebase ----->
 import { updateProfile } from 'firebase/auth';
@@ -372,7 +373,7 @@ const Profile = () => {
 										/>
 										<button
 											disabled={loading || !photo}
-											className='btn btn-primary'
+											className='btn btn-primary shadow-none'
 											onClick={handleFileUpload}
 										>
 											upload
@@ -416,7 +417,11 @@ const Profile = () => {
 										onChange={e => setDescription(e.target.value)}
 									/>
 									<div className='d-flex justify-content-end pt-3'>
-										<button className='btn btn-warning'>Save changes</button>
+										<Button
+											color='warning'
+											onClick={() => {}}
+											text='Save changes'
+										/>
 									</div>
 								</div>
 							</form>
@@ -428,9 +433,7 @@ const Profile = () => {
 					>
 						Delete Account
 					</Link> */}
-							{/* <button className='btn btn-danger' onClick={handleDeleteAccount}>
-								Delete Account
-							</button> */}
+							{/* <Button color="danger" onClick={handleDeleteAccount} text="Delete Account" /> */}
 						</Modal.Body>
 					</Modal>
 					{usersDatabase.length === 0 ? (
@@ -549,7 +552,7 @@ const Profile = () => {
 														<div className='pt-1 d-flex justify-content-start'>
 															<div className='mb-3 mx-2'>
 																<button
-																	className='btn btn-sm text-light'
+																	className='btn btn-sm text-light shadow-none'
 																	style={{ backgroundColor: '#023e8a' }}
 																	onClick={() => setColor(blueTheme)}
 																>
@@ -558,7 +561,7 @@ const Profile = () => {
 															</div>
 															<div className='mb-3 mx-2'>
 																<button
-																	className='btn btn-sm text-light'
+																	className='btn btn-sm text-light shadow-none'
 																	style={{ backgroundColor: '#343434' }}
 																	onClick={() => setColor(grayTheme)}
 																>
@@ -567,7 +570,7 @@ const Profile = () => {
 															</div>
 															<div className='mb-3 mx-2'>
 																<button
-																	className='btn btn-sm text-light'
+																	className='btn btn-sm text-light shadow-none'
 																	style={{ backgroundColor: '#c19770' }}
 																	onClick={() => setColor(beigeTheme)}
 																>
@@ -576,7 +579,7 @@ const Profile = () => {
 															</div>
 															<div className='mb-3 mx-2'>
 																<button
-																	className='btn btn-sm text-dark bg-rainbow'
+																	className='btn btn-sm text-dark bg-rainbow shadow-none'
 																	onClick={() => setColor(randomTheme)}
 																>
 																	Random
@@ -588,7 +591,7 @@ const Profile = () => {
 														<div className='row pt-1'>
 															<div className='col-6 mb-3'>
 																<button
-																	className='btn btn-sm btn-warning'
+																	className='btn btn-sm btn-warning shadow-none'
 																	onClick={handleShowModal}
 																>
 																	Edit Profile
@@ -596,7 +599,7 @@ const Profile = () => {
 															</div>
 															<div className='col-6 mb-3'>
 																<button
-																	className='btn btn-sm btn-primary'
+																	className='btn btn-sm btn-primary shadow-none'
 																	onClick={handleLogout}
 																>
 																	Log Out

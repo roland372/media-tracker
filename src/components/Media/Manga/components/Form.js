@@ -10,6 +10,7 @@ import {
 import validation from './FormValidation';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import Button from '../../../Layout/Button';
 
 //? <----- Firebase ----->
 import MangaDataService from '../services/manga.services';
@@ -290,7 +291,7 @@ const Form = ({ mangaDatabase, handleClose, user, getMangaDatabase }) => {
 				/>
 				<label className='form-check-label'>Add to Favourites?</label>
 			</div>
-			<button className='btn btn-success'>Add</button>
+			<Button color='success' text='Add' />
 		</form>
 	);
 };

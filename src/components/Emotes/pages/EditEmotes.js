@@ -19,6 +19,7 @@ import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import Button from '../../Layout/Button';
 
 //? <----- Icons ----->
 import { AiOutlineEdit, AiFillStar } from 'react-icons/ai';
@@ -133,21 +134,15 @@ const EditEmotes = () => {
 					<EmoteImage id={emoteID} emotesDatabase={emotesDatabase} />
 				</Modal.Body>
 				<Modal.Footer className='bg-primary-dark text-color'>
-					<button
-						className='btn btn-warning shadow-none'
-						onClick={handleCloseDelete}
-					>
-						Cancel
-					</button>
-					<button
-						className='btn btn-danger shadow-none'
+					<Button color='warning' onClick={handleCloseDelete} text='Cancel' />
+					<Button
+						color='danger'
 						onClick={() => {
 							handleDeleteEmote(emoteID);
 							handleCloseDelete();
 						}}
-					>
-						Delete
-					</button>
+						text='Delete'
+					/>
 				</Modal.Footer>
 			</Modal>
 			<section>
@@ -207,19 +202,16 @@ const EditEmotes = () => {
 									</OverlayTrigger>
 								</div>
 								<div>
-									<button
-										className='btn btn-sm shadow-none'
+									<Button
 										onClick={() => handleShow(emote?.id)}
-									>
-										<AiOutlineEdit size={20} className='text-success' />
-									</button>
-									<button
-										className='btn btn-sm shadow-none'
-										// onClick={() => handleDeleteEmote(emote?.id)}
+										sm
+										text={<AiOutlineEdit size={20} className='text-success' />}
+									/>
+									<Button
 										onClick={() => handleShowDelete(emote?.id)}
-									>
-										<BsTrash size={20} className='text-danger' />
-									</button>
+										sm
+										text={<BsTrash size={20} className='text-danger' />}
+									/>
 								</div>
 							</div>
 						))}

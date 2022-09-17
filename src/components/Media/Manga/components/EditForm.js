@@ -9,6 +9,7 @@ import {
 } from '../utils/selectOptions';
 import validation from './FormValidation';
 import { toast } from 'react-toastify';
+import Button from '../../../Layout/Button';
 
 //? <----- Firebase ----->
 import MangaDataService from '../services/manga.services';
@@ -350,7 +351,7 @@ const EditForm = ({
 				/>
 				<label className='form-check-label'>Add to Favourites?</label>
 			</div>
-			<button className='btn btn-warning'>Update</button>
+			<Button color='warning' text='Update' />
 		</form>
 	);
 };

@@ -9,6 +9,7 @@ import { useUserAuth } from '../../context/UserAuthContext';
 //? <----- Components ----->
 import CardComponent from '../Layout/CardComponent';
 import { toast } from 'react-toastify';
+import Button from '../Layout/Button';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -77,9 +78,7 @@ const Signup = () => {
 					</div>
 
 					<div className='d-grid gap-2'>
-						<button className='btn btn-primary' type='Submit'>
-							Sign up
-						</button>
+						<Button color='primary' text='Sign up' />
 					</div>
 				</form>
 			</div>

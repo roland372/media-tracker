@@ -5,6 +5,7 @@ import FetchedMedia from '../../components/FetchedMedia';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import Button from '../../../Layout/Button';
 
 const FetchedAnime = ({
 	animeDatabase,
@@ -104,8 +105,8 @@ const FetchedAnime = ({
 										<hr />
 										<div className='d-flex justify-content-start'>
 											<form onSubmit={e => onSubmit(e)}>
-												<button
-													className='btn btn-sm btn-primary'
+												<Button
+													color='primary'
 													onClick={() => {
 														// console.log(anime);
 														const addAnime = {
@@ -125,14 +126,17 @@ const FetchedAnime = ({
 														};
 														setSingleAnime(addAnime);
 													}}
-												>
-													Add
-												</button>
+													sm
+													text='Add'
+												/>
 											</form>
-											<a href={anime.url} target='_blank' rel='noreferrer'>
-												<button className='btn btn-sm btn-success mx-1'>
-													View More
-												</button>
+											<a
+												href={anime.url}
+												target='_blank'
+												rel='noreferrer'
+												class='mx-1'
+											>
+												<Button color='success' sm text='View More' />
 											</a>
 										</div>
 									</Popover.Body>

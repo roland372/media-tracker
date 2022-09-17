@@ -6,6 +6,7 @@ import { gameType, ratingOptions, statusOptions } from '../utils/selectOptions';
 import validation from './FormValidation';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import Button from '../../../Layout/Button';
 
 //? <----- Firebase ----->
 import GamesDataService from '../services/games.services';
@@ -225,7 +226,7 @@ const Form = ({ gamesDatabase, handleClose, user, getGamesDatabase }) => {
 				/>
 				<label className='form-check-label'>Add to Favourites?</label>
 			</div>
-			<button className='btn btn-success'>Add</button>
+			<Button color='success' text='Add' />
 		</form>
 	);
 };

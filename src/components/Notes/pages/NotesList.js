@@ -17,6 +17,7 @@ import { BiLinkExternal } from 'react-icons/bi';
 import CardComponent from '../../../components/Layout/CardComponent';
 import Loader from '../../Layout/Loader';
 import axios from 'axios';
+import Button from '../../Layout/Button';
 
 const NotesList = () => {
 	const dispatch = useDispatch();
@@ -68,22 +69,27 @@ const NotesList = () => {
 							})}
 						</div>
 						<div className=''>
-							<button className='btn btn-sm shadow-none'>
-								<Link to={`${note.noteID}`}>
-									<BiLinkExternal size={20} className='text-primary' />
-								</Link>
-							</button>
-							<button className='btn btn-sm shadow-none'>
-								<Link to={`edit-note/${note.noteID}`}>
-									<AiOutlineEdit size={20} className='text-success' />
-								</Link>
-							</button>
-							<button
-								className='btn btn-sm shadow-none'
+							<Button
+								sm
+								text={
+									<Link to={`${note.noteID}`}>
+										<BiLinkExternal size={20} className='text-primary' />
+									</Link>
+								}
+							/>
+							<Button
+								sm
+								text={
+									<Link to={`edit-note/${note.noteID}`}>
+										<AiOutlineEdit size={20} className='text-success' />
+									</Link>
+								}
+							/>
+							<Button
 								onClick={() => handleDeleteNote(note.noteID)}
-							>
-								<BsTrash size={20} className='text-danger' />
-							</button>
+								sm
+								text={<BsTrash size={20} className='text-danger' />}
+							/>
 						</div>
 					</section>
 				</div>

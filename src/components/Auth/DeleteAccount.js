@@ -10,6 +10,7 @@ import { useUserAuth } from '../../context/UserAuthContext';
 import CardComponent from '../Layout/CardComponent';
 import GoogleButton from 'react-google-button';
 import { toast } from 'react-toastify';
+import Button from '../Layout/Button';
 
 //? <----- Firebase ----->
 import UserDataService from './services/user.services';
@@ -104,12 +105,11 @@ const DeleteAccount = props => {
 				with Google Account
 			</h2>
 			<div className='d-flex mx-2 my-1'>
-				<button
-					className='btn btn-warning'
+				<Button
+					color='warning'
 					onClick={() => navigate('/login')}
-				>
-					Cancel
-				</button>
+					text='Cancel'
+				/>
 			</div>
 			<div className='p-2'>
 				{error && <div className='alert alert-danger'>{error}</div>}
@@ -131,13 +131,11 @@ const DeleteAccount = props => {
 						/>
 					</div>
 					<div className='d-grid gap-2'>
-						<button
-							className='btn btn-danger'
-							type='Submit'
+						<Button
+							color='danger'
 							onClick={handleDeleteAccount}
-						>
-							Delete Account
-						</button>
+							text='Delete Account'
+						/>
 					</div>
 				</form>
 				<hr />

@@ -14,10 +14,11 @@ import CardComponent from '../../../Layout/CardComponent';
 import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import Loader from '../../../Layout/Loader';
+import EditForm from './EditForm';
+import Button from '../../../Layout/Button';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../../hooks/useDocumentTitle';
-import EditForm from './EditForm';
 
 const SingleAnime = () => {
 	const { id } = useParams();
@@ -152,18 +153,15 @@ const SingleAnime = () => {
 					Are you sure you want to delete this Anime?
 				</Modal.Body>
 				<Modal.Footer className='bg-primary-dark text-color'>
-					<button className='btn btn-warning' onClick={handleCloseDelete}>
-						Cancel
-					</button>
-					<button
-						className='btn btn-danger'
+					<Button color='warning' onClick={handleCloseDelete} text='Cancel' />
+					<Button
+						color='danger'
 						onClick={() => {
 							deleteAnime(id);
 							handleCloseDelete();
 						}}
-					>
-						Delete
-					</button>
+						text='Delete'
+					/>
 				</Modal.Footer>
 			</Modal>
 			<section className='text-color'>
@@ -172,18 +170,16 @@ const SingleAnime = () => {
 						Back to Anime
 					</Link>
 					<div>
-						<button
-							className='btn btn-danger mx-1'
-							// onClick={() => deleteAnime(id)}
-							onClick={() => {
-								handleShowDelete();
-							}}
-						>
-							Delete
-						</button>
-						<button className='btn btn-success' onClick={() => handleShow()}>
-							Edit
-						</button>
+						<span className='mx-1'>
+							<Button
+								color='danger'
+								onClick={() => {
+									handleShowDelete();
+								}}
+								text='Delete'
+							/>
+						</span>
+						<Button color='success' onClick={() => handleShow()} text='Edit' />
 					</div>
 				</div>
 				<div className='mx-2'>

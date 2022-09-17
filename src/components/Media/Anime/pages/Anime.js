@@ -16,6 +16,7 @@ import FavouriteAnime from '../components/FavouriteAnime';
 import AnimeStats from '../components/AnimeStats';
 import Loader from '../../../Layout/Loader';
 import FetchedAnime from '../components/FetchedAnime';
+import Button from '../../../Layout/Button';
 
 //? <----- Icons ----->
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -111,9 +112,11 @@ const Anime = () => {
 				</Modal>
 				<section className='text-color'>
 					<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
-						<button className='btn btn-primary' onClick={() => handleShow()}>
-							Add Anime
-						</button>
+						<Button
+							color='primary'
+							text='Add Anime'
+							onClick={() => handleShow()}
+						/>
 						<div className='mx-2'>or</div>
 						<form onSubmit={handleSearch}>
 							<div className='d-flex'>
@@ -126,9 +129,7 @@ const Anime = () => {
 									onChange={e => setSearch(e.target.value)}
 									onSubmit={e => setSearch(e.target.value)}
 								/>
-								<button className='btn btn-primary'>
-									<AiOutlineSearch size={20} />
-								</button>
+								<Button color='primary' text={<AiOutlineSearch size={20} />} />
 							</div>
 						</form>
 					</div>

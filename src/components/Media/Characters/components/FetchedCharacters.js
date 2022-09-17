@@ -5,6 +5,7 @@ import FetchedMedia from '../../components/FetchedMedia';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import Button from '../../../Layout/Button';
 
 const FetchedCharacters = ({
 	charactersDatabase,
@@ -109,8 +110,8 @@ const FetchedCharacters = ({
 										) : null}
 										<div className='d-flex justify-content-start'>
 											<form onSubmit={e => onSubmit(e)}>
-												<button
-													className='btn btn-sm btn-primary'
+												<Button
+													color='primary'
 													onClick={() => {
 														const addCharacter = {
 															...singleCharacter,
@@ -125,14 +126,17 @@ const FetchedCharacters = ({
 														};
 														setSingleCharacter(addCharacter);
 													}}
-												>
-													Add
-												</button>
+													sm
+													text='Add'
+												/>
 											</form>
-											<a href={character.url} target='_blank' rel='noreferrer'>
-												<button className='btn btn-sm btn-success mx-1'>
-													View More
-												</button>
+											<a
+												href={character.url}
+												target='_blank'
+												rel='noreferrer'
+												className='mx-1'
+											>
+												<Button color='success' sm text='View More' />
 											</a>
 										</div>
 									</Popover.Body>

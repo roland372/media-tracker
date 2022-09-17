@@ -9,14 +9,14 @@ const DisplayMoreButton = ({ displayMore, menuItems, setDisplayMore }) => {
 			{menuItems?.length > 20 ? (
 				displayMore ? (
 					<button
-						className='btn bg-light mt-3'
+						className='btn bg-light mt-3 shadow-none'
 						onClick={() => setDisplayMore(!displayMore)}
 					>
 						Display Less <AiOutlineUp />
 					</button>
 				) : (
 					<button
-						className='btn bg-light mt-3'
+						className='btn bg-light mt-3 shadow-none'
 						onClick={() => setDisplayMore(!displayMore)}
 					>
 						Display All <AiOutlineDown />

@@ -16,6 +16,7 @@ import FavouriteManga from '../components/FavouriteManga';
 import MangaStats from '../components/MangaStats';
 import Loader from '../../../Layout/Loader';
 import FetchedManga from '../components/FetchedManga';
+import Button from '../../../Layout/Button';
 
 //? <----- Icons ----->
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -108,9 +109,11 @@ const Manga = () => {
 				</Modal>
 				<section className='text-color'>
 					<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
-						<button className='btn btn-primary' onClick={() => handleShow()}>
-							Add Manga
-						</button>
+						<Button
+							color='primary'
+							onClick={() => handleShow()}
+							text='Add Manga'
+						/>
 						<div className='mx-2'>or</div>
 						<form onSubmit={handleSearch}>
 							<div className='d-flex'>
@@ -123,9 +126,7 @@ const Manga = () => {
 									onChange={e => setSearch(e.target.value)}
 									onSubmit={e => setSearch(e.target.value)}
 								/>
-								<button className='btn btn-primary'>
-									<AiOutlineSearch size={20} />
-								</button>
+								<Button color='primary' text={<AiOutlineSearch size={20} />} />
 							</div>
 						</form>
 					</div>

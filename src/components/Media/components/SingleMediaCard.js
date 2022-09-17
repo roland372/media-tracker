@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import Button from '../../Layout/Button';
 
 //? <----- Icons ----->
 import { AiFillStar } from 'react-icons/ai';
@@ -66,19 +67,16 @@ const SingleMediaCard = ({
 					Are you sure you want to delete this {mediaType}?
 				</Modal.Body>
 				<Modal.Footer className='bg-primary-dark text-color'>
-					<button className='btn btn-warning' onClick={handleCloseDelete}>
-						Cancel
-					</button>
-					<button
-						className='btn btn-danger'
+					<Button color='warning' onClick={handleCloseDelete} text='Cancel' />
+					<Button
+						color='danger'
 						onClick={() => {
 							deleteMedia(id);
 							handleCloseDelete();
 							mediaDeletedNotification();
 						}}
-					>
-						Delete
-					</button>
+						text='Delete'
+					/>
 				</Modal.Footer>
 			</Modal>
 			<OverlayTrigger
@@ -198,28 +196,30 @@ const SingleMediaCard = ({
 							<section className='d-flex justify-content-start'>
 								<Link
 									to={`/media/${mediaType.toLowerCase()}/${id}`}
-									className='btn btn-sm btn-primary'
+									className='btn btn-sm btn-primary shadow-none'
 								>
 									View
 								</Link>
-								<button
-									className='btn btn-sm btn-success mx-1'
-									onClick={() => {
-										handleShow();
-										getSingleMediaDatabase(id);
-									}}
-								>
-									Edit
-								</button>
-								<button
-									className='btn btn-sm btn-danger'
+								<span className='mx-1'>
+									<Button
+										color='success'
+										onClick={() => {
+											handleShow();
+											getSingleMediaDatabase(id);
+										}}
+										sm
+										text='Edit'
+									/>
+								</span>
+								<Button
+									color='danger'
 									onClick={() => {
 										//  deleteMedia(id);
 										handleShowDelete();
 									}}
-								>
-									Delete
-								</button>
+									sm
+									text='Delete'
+								/>
 							</section>
 						</Popover.Body>
 					</Popover>

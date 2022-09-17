@@ -7,6 +7,7 @@ import { genderOptions } from '../utils/selectOptions';
 import validation from './FormValidation';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import Button from '../../../Layout/Button';
 
 //? <----- Firebase ----->
 import CharactersDataService from '../services/characters.services';
@@ -199,7 +200,7 @@ const Form = ({
 				/>
 				<label className='form-check-label'>Add to Favourites?</label>
 			</div>
-			<button className='btn btn-success'>Add</button>
+			<Button color='success' text='Add' />
 		</form>
 	);
 };

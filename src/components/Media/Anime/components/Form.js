@@ -10,6 +10,7 @@ import {
 import validation from './FormValidation';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import Button from '../../../Layout/Button';
 
 //? <----- Firebase ----->
 import AnimeDataService from '../services/anime.services';
@@ -103,7 +104,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 
 				await AnimeDataService.updateAnime(user?.uid, animeDatabase[0]);
 				console.log('anime added to database');
-				
+
 				animeAddedNotification();
 				handleClose();
 				// console.log(animeDatabase[0].anime);
@@ -262,7 +263,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 				/>
 				<label className='form-check-label'>Add to Favourites?</label>
 			</div>
-			<button className='btn btn-success'>Add</button>
+			<Button color='success' text='Add' />
 		</form>
 	);
 };

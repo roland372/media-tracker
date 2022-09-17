@@ -10,6 +10,7 @@ import { useUserAuth } from '../../context/UserAuthContext';
 import CardComponent from '../Layout/CardComponent';
 import GoogleButton from 'react-google-button';
 import { toast } from 'react-toastify';
+import Button from '../Layout/Button';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -89,9 +90,7 @@ const Login = () => {
 					</div>
 
 					<div className='d-grid gap-2'>
-						<button className='btn btn-primary' type='Submit'>
-							Log In
-						</button>
+						<Button color='primary' text='Log In' />
 					</div>
 				</form>
 				<hr />

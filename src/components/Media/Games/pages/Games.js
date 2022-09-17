@@ -17,6 +17,7 @@ import GamesStats from '../components/GamesStats';
 import Loader from '../../../Layout/Loader';
 import FetchedGames from '../components/FetchedGames';
 import axios from 'axios';
+import Button from '../../../Layout/Button';
 
 //? <----- Icons ----->
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -141,9 +142,11 @@ const Games = () => {
 				/> */}
 				<section className='text-color'>
 					<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
-						<button className='btn btn-primary' onClick={() => handleShow()}>
-							Add Game
-						</button>
+						<Button
+							color='primary'
+							onClick={() => handleShow()}
+							text='Add Game'
+						/>
 						<div className='mx-2'>or</div>
 						<form onSubmit={handleSearch}>
 							<div className='d-flex'>
@@ -156,9 +159,8 @@ const Games = () => {
 									onChange={e => setSearch(e.target.value)}
 									onSubmit={e => setSearch(e.target.value)}
 								/>
-								<button className='btn btn-primary'>
-									<AiOutlineSearch size={20} />
-								</button>
+
+								<Button color='primary' text={<AiOutlineSearch size={20} />} />
 							</div>
 						</form>
 					</div>

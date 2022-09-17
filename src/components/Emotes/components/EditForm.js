@@ -6,6 +6,7 @@ import EmotesDataService from '../services/emotes.services';
 //? <----- Components ----->
 import { toast } from 'react-toastify';
 import validation from './FormValidation';
+import Button from '../../Layout/Button';
 
 const EditForm = ({
 	handleClose,
@@ -119,7 +120,7 @@ const EditForm = ({
 					/>
 					<label className='form-check-label'>Add to Favourites?</label>
 				</div>
-				<button className='btn btn-warning shadow-none'>Edit Emote</button>
+				<Button color='warning' text='Edit Emote' />
 			</div>
 		</form>
 	);
