@@ -1,8 +1,5 @@
 import React, { useRef } from 'react';
 
-//? <----- Styles ----->
-import '../styles/Styles.css';
-
 //? <----- Components ----->
 import SubmitButton from './SubmitButton';
 import { Editor } from '@tinymce/tinymce-react';
@@ -49,37 +46,37 @@ const Form = props => {
 					}
 					// onChange={() => console.log(editorRef.current.getContent())}
 					init={{
-						height: 500,
-						menubar: false,
-						// plugins: [
-						// 	// 'advlist autolink lists link image charmap print preview anchor',
-						// 	// 'searchreplace visualblocks code fullscreen',
-						// 	// 'insertdatetime media table paste code help wordcount',
-						// 	// 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
-						// 	'advlist',
-						// 	'lists',
-						// 	'autolink',
-						// 	'preview',
-						// 	'advcode',
-						// ],
-						// toolbar:
-						// 	'undo redo | formatselect | ' +
-						// 	'bold italic backcolor | alignleft aligncenter ' +
-						// 	'alignright alignjustify | bullist numlist outdent indent | ' +
-						// 	'removeformat | help',
-						// // 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
-						plugins: ['lists link image paste help wordcount code'],
-						toolbar:
-							'undo redo code | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | help',
+						autoresize_bottom_margin: 50,
+						browser_spellcheck: true,
 						content_style:
 							'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+						forced_root_block: '',
+						// force_br_newlines: true,
+						// force_p_newlines: false,
+						height: 500,
+						menubar: true,
+
+						// plugins: autoresize
+						plugins: [
+							'advlist anchor autolink autosave charmap checklist code codesample fullscreen help insertdatetime lists link image media nonbreaking pagebreak paste preview searchreplace save table template wordcount visualchars',
+						],
+						templates: [
+							{
+								title: 'Date modified example',
+								description:
+									'Adds a timestamp indicating the last time the document modified.',
+								content:
+									'<p>Last Modified: <time class="mdate">This will be replaced with the date modified.</time></p>',
+							},
+						],
+						// toolbar: formatselect fontselect fontsizeselect
+						toolbar:
+							'undo redo | bold italic underline strikethrough | bullist numlist checklist outdent indent | forecolor backcolor removeformat | link image media | alignleft aligncenter alignright alignjustify | superscript subscript codesample charmap | fullscreen code help',
+
 						toolbar_mode: 'floating',
-						tinycomments_mode: 'embedded',
-						tinycomments_author: 'Author name',
-						autoresize_bottom_margin: 50,
 					}}
 				/>
-				<button onClick={log}>Log editor content</button>
+				{/* <button onClick={log}>Log editor content</button> */}
 			</>
 
 			<SubmitButton color='success' text='Add Note' onClick={handleAddNote} />
