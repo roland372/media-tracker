@@ -10,7 +10,6 @@ import { useUserAuth } from '../../context/UserAuthContext';
 import CardComponent from '../Layout/CardComponent';
 import GoogleButton from 'react-google-button';
 import { toast } from 'react-toastify';
-import Button from '../Layout/Button';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -57,9 +56,8 @@ const Login = () => {
 			navigate('/profile');
 		} catch (error) {
 			console.log(error.message);
+			loggedInNotification();
 		}
-
-		loggedInNotification();
 	};
 
 	//* if user is already logged in
@@ -90,7 +88,7 @@ const Login = () => {
 					</div>
 
 					<div className='d-grid gap-2'>
-						<Button color='primary' text='Log In' />
+						<button className='btn btn-primary shadow-none'>Log In</button>
 					</div>
 				</form>
 				<hr />

@@ -9,7 +9,6 @@ import { useUserAuth } from '../../context/UserAuthContext';
 //? <----- Components ----->
 import CardComponent from '../Layout/CardComponent';
 import { toast } from 'react-toastify';
-import Button from '../Layout/Button';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -45,8 +44,8 @@ const Signup = () => {
 			// history.push('/');
 		} catch (err) {
 			setError(err.message);
+			signedUpNotification();
 		}
-		signedUpNotification();
 	};
 
 	//* if user is already logged in
@@ -78,7 +77,7 @@ const Signup = () => {
 					</div>
 
 					<div className='d-grid gap-2'>
-						<Button color='primary' text='Sign up' />
+						<button className='btn btn-primary shadow-none'>Sign up</button>
 					</div>
 				</form>
 			</div>
