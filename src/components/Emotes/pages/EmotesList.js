@@ -18,6 +18,7 @@ import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import Button from '../../Layout/Button';
 
 //? <----- Icons ----->
 import { AiFillStar } from 'react-icons/ai';
@@ -100,14 +101,15 @@ const EmotesList = () => {
 			{user?.uid === process.env.REACT_APP_adminID ? (
 				<section>
 					<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
-						<button
-							className='btn btn-primary me-2 shadow-none'
-							onClick={() => handleShow()}
-						>
-							Add Emote
-						</button>
-						<Link className='btn btn-warning' to='edit'>
-							Edit Emotes
+						<span className='me-2'>
+							<Button
+								color='primary'
+								onClick={() => handleShow()}
+								text='Add Emote'
+							/>
+						</span>
+						<Link className='' to='edit'>
+							<Button color='warning' text='Edit Emotes' />
 						</Link>
 					</div>
 					<div className='mx-2'>

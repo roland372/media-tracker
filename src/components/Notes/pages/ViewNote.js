@@ -28,7 +28,7 @@ const ViewNote = () => {
 	return (
 		<CardComponent title={currentNote[0]?.title}>
 			<BackButton />
-			<section className='text-start mx-2'>
+			<section className='text-start mx-2 '>
 				<div className='text-muted'>
 					Last Modified:{' '}
 					{new Date(currentNote[0]?.lastModified).toLocaleDateString('en-GB', {
@@ -36,6 +36,7 @@ const ViewNote = () => {
 						minute: '2-digit',
 					})}
 				</div>
+				<hr />
 				<div
 					dangerouslySetInnerHTML={{
 						__html: currentNote[0]?.note,

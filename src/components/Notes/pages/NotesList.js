@@ -18,6 +18,7 @@ import CardComponent from '../../../components/Layout/CardComponent';
 import Loader from '../../Layout/Loader';
 import axios from 'axios';
 import Button from '../../Layout/Button';
+import { motion } from 'framer-motion';
 
 const NotesList = () => {
 	const dispatch = useDispatch();
@@ -59,9 +60,9 @@ const NotesList = () => {
 				key={note.id}
 				style={{ wordWrap: 'break-word' }}
 			>
-				<div className='border rounded shadow p-2 text-wrap h-100 d-flex flex-column justify-content-between'>
+				<div className='border-none rounded bg-primary-dark p-3 text-wrap h-100 d-flex flex-column justify-content-between shadow-lg'>
 					<div className='text-start'>
-						<h3>{note.title}</h3>
+						<h3>{note.title.slice(0, 30)}</h3>
 						<hr />
 						{/* <p>{note.note.slice(0, 50)}</p> */}
 						{note.note.length > 50 ? (
@@ -119,7 +120,7 @@ const NotesList = () => {
 			<section className='text-color'>
 				<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
 					<Link to='/notes/add-note'>
-						<button className='btn btn-primary'>Add Note</button>
+						<Button color='primary' text='Add Note' />
 					</Link>
 				</div>
 				{/* <button className='btn btn-primary' onClick={getNotes}>

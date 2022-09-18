@@ -8,11 +8,11 @@ const Form = props => {
 	const { setNote, note, handleAddNote } = props;
 
 	const editorRef = useRef(null);
-	const log = () => {
-		if (editorRef.current) {
-			console.log(editorRef.current.getContent());
-		}
-	};
+	// const log = () => {
+	// 	if (editorRef.current) {
+	// 		console.log(editorRef.current.getContent());
+	// 	}
+	// };
 
 	// console.log(note);
 
@@ -52,7 +52,7 @@ const Form = props => {
 							'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
 						forced_root_block: '',
 						// force_br_newlines: true,
-						// force_p_newlines: false,
+						// force_p_newlines: true,
 						height: 500,
 						menubar: true,
 
