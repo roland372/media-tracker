@@ -25,8 +25,6 @@ import axios from 'axios';
 import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 const NotesList = () => {
-	// TODO sorting, searching, filtering, fix redirecting to homepage when refreshing notes, maybe some additional properties to notes
-
 	useDocumentTitle('Notes');
 
 	const dispatch = useDispatch();
