@@ -21,7 +21,12 @@ import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
+//? <----- Custom Hooks ----->
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
+
 const NotesList = () => {
+	useDocumentTitle('Notes');
+
 	const dispatch = useDispatch();
 	const notes = useSelector(store => store.notes);
 	// const notes = useSelector(state => state.notes);

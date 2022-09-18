@@ -18,7 +18,12 @@ import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
+//? <----- Custom Hooks ----->
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
+
 const AddNote = () => {
+	useDocumentTitle('Add Note');
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 

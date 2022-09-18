@@ -12,6 +12,9 @@ import { fetchNotes } from '../../../features/notes/noteSlice';
 import CardComponent from '../../Layout/CardComponent';
 import BackButton from '../components/BackButton';
 
+//? <----- Custom Hooks ----->
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
+
 const ViewNote = () => {
 	const params = useParams();
 	const dispatch = useDispatch();
@@ -24,6 +27,8 @@ const ViewNote = () => {
 	}, [dispatch]);
 
 	// console.log(currentNote?.[0]?.note);
+
+	useDocumentTitle(currentNote[0]?.title);
 
 	return (
 		<CardComponent title={currentNote[0]?.title}>
