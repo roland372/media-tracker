@@ -23,6 +23,8 @@ const ViewNote = () => {
 		dispatch(fetchNotes());
 	}, [dispatch]);
 
+	// console.log(currentNote?.[0]?.note);
+
 	return (
 		<CardComponent title={currentNote[0]?.title}>
 			<BackButton />
@@ -34,7 +36,12 @@ const ViewNote = () => {
 						minute: '2-digit',
 					})}
 				</div>
-				<div>{currentNote[0]?.note}</div>
+				<div
+					dangerouslySetInnerHTML={{
+						__html: currentNote[0]?.note,
+					}}
+				/>
+				{/* <div>{currentNote[0]?.note}</div> */}
 			</section>
 		</CardComponent>
 	);

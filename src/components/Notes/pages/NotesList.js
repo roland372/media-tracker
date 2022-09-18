@@ -50,16 +50,33 @@ const NotesList = () => {
 		// getNotes();
 	};
 
-	console.log(notes?.notes);
+	// console.log(notes?.notes?.[2]?.note?.slice(0, 30));
 
 	const renderNotes = () =>
 		notes.notes.map(note => (
-			<div className='col-lg-4 col-sm-6 col-12 my-2 text-wrap' key={note.id}>
-				<div className='border rounded shadow p-2 text-wrap'>
+			<div
+				className='col-lg-4 col-sm-6 col-12 my-2 text-wrap flex-fill'
+				key={note.id}
+				style={{ wordWrap: 'break-word' }}
+			>
+				<div className='border rounded shadow p-2 text-wrap h-100 d-flex flex-column justify-content-between'>
 					<div className='text-start'>
 						<h3>{note.title}</h3>
 						<hr />
-						<p>{note.note}</p>
+						{/* <p>{note.note.slice(0, 50)}</p> */}
+						{note.note.length > 50 ? (
+							<div
+								dangerouslySetInnerHTML={{
+									__html: note.note.slice(0, 50) + '...',
+								}}
+							/>
+						) : (
+							<div
+								dangerouslySetInnerHTML={{
+									__html: note.note,
+								}}
+							/>
+						)}
 					</div>
 					<section className='d-flex justify-content-between align-items-center'>
 						<div className='text-muted'>
@@ -98,6 +115,7 @@ const NotesList = () => {
 
 	return (
 		<CardComponent title='Notes'>
+			{/* <TextEditor /> */}
 			<section className='text-color'>
 				<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
 					<Link to='/notes/add-note'>

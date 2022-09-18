@@ -29,7 +29,6 @@ const AddNote = () => {
 	});
 
 	const handleAddNote = async () => {
-		setNote({ name: '', note: '' });
 		dispatch(
 			addNote({
 				id: uuidv4(),
@@ -39,6 +38,7 @@ const AddNote = () => {
 			})
 		);
 		// console.log(note);
+
 		await axios
 			// .post('http://localhost:5000/notes/add-note', {
 			.post('https://media-tracker-notes.herokuapp.com/notes/add-note', {
@@ -55,7 +55,7 @@ const AddNote = () => {
 				console.log('success');
 			});
 		navigate('/notes');
-		// console.log(note);
+		console.log(note);
 	};
 
 	return (
