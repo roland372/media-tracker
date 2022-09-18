@@ -12,6 +12,7 @@ import { addNote } from '../../../features/notes/noteSlice';
 import CardComponent from '../../Layout/CardComponent';
 import BackButton from '../components/BackButton';
 import Form from '../components/Form';
+import { toast } from 'react-toastify';
 
 //? <----- Other ----->
 import { v4 as uuidv4 } from 'uuid';
@@ -27,6 +28,18 @@ const AddNote = () => {
 		note: '',
 		lastModified: Date.now(),
 	});
+
+	//* Notifications
+	const NoteAddedNotification = () =>
+		toast.success('Note Added', {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: '',
+		});
 
 	const handleAddNote = async () => {
 		dispatch(
@@ -52,7 +65,8 @@ const AddNote = () => {
 				note: { ...note, noteID: note.id },
 			})
 			.then(() => {
-				console.log('success');
+				console.log('note added');
+				NoteAddedNotification();
 			});
 		navigate('/notes');
 		console.log(note);

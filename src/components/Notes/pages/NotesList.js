@@ -16,9 +16,10 @@ import { BiLinkExternal } from 'react-icons/bi';
 //? <----- Components ----->
 import CardComponent from '../../../components/Layout/CardComponent';
 import Loader from '../../Layout/Loader';
-import axios from 'axios';
 import Button from '../../Layout/Button';
-import { motion } from 'framer-motion';
+import { Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const NotesList = () => {
 	const dispatch = useDispatch();
@@ -27,6 +28,27 @@ const NotesList = () => {
 
 	//* <----- Loading state ----->
 	const [loading, setLoading] = useState(<Loader />);
+
+	//* <----- Modal state ----->
+	const [show, setShow] = useState(false);
+
+	//* <----- Modal functions ----->
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
+	//* Notifications
+	const NoteDeletedNotification = () =>
+		toast.success('Note Deleted', {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: '',
+		});
+
+	const [noteID, setNoteID] = useState('');
 
 	const getNotes = () => {
 		dispatch(fetchNotes());
@@ -46,6 +68,7 @@ const NotesList = () => {
 			// .delete(`https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
 			.then(() => {
 				getNotes();
+				NoteDeletedNotification();
 				// console.log(notes);
 			});
 		// getNotes();
@@ -103,8 +126,13 @@ const NotesList = () => {
 									</Link>
 								}
 							/>
+
 							<Button
-								onClick={() => handleDeleteNote(note.noteID)}
+								// onClick={() => handleDeleteNote(note.noteID)}
+								onClick={() => {
+									setNoteID(note.noteID);
+									handleShow();
+								}}
 								sm
 								text={<BsTrash size={20} className='text-danger' />}
 							/>
@@ -116,7 +144,29 @@ const NotesList = () => {
 
 	return (
 		<CardComponent title='Notes'>
-			{/* <TextEditor /> */}
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header
+					closeButton
+					closeVariant='white'
+					className='bg-primary-light text-color'
+				>
+					<Modal.Title>Deleting emote</Modal.Title>
+				</Modal.Header>
+				<Modal.Body className='bg-primary-dark text-color'>
+					Are you sure you want to delete this note?
+				</Modal.Body>
+				<Modal.Footer className='bg-primary-dark text-color'>
+					<Button color='warning' onClick={handleClose} text='Cancel' />
+					<Button
+						color='danger'
+						onClick={() => {
+							handleDeleteNote(noteID);
+							handleClose();
+						}}
+						text='Delete'
+					/>
+				</Modal.Footer>
+			</Modal>
 			<section className='text-color'>
 				<div className='d-flex align-items-center justify-content-start mx-2 pt-1'>
 					<Link to='/notes/add-note'>

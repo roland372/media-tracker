@@ -7,9 +7,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 //? <----- Redux ----->
 import { useDispatch, useSelector } from 'react-redux';
 import { editNote } from '../../../features/notes/noteSlice';
+
+//? <----- Components ----->
 import CardComponent from '../../../components/Layout/CardComponent';
 import BackButton from '../components/BackButton';
 import EditForm from '../components/EditForm';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const EditNote = () => {
@@ -26,6 +29,18 @@ const EditNote = () => {
 		lastModified: Date.now(),
 	});
 
+	//* Notifications
+	const NoteUpdatedNotification = () =>
+		toast.success('Note Updated', {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: '',
+		});
+
 	const handleEditNote = async () => {
 		setNewNote({ title: '', note: '', lastModified: '' });
 		dispatch(
@@ -41,14 +56,19 @@ const EditNote = () => {
 
 		// console.log(newNote);
 
-		await axios.put(
-			'https://media-tracker-notes.herokuapp.com/notes/edit-note',
-			// 'https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/edit-note',
-			{
-				...newNote,
-				// id: currentNote[0]?.id,
-			}
-		);
+		await axios
+			.put(
+				'https://media-tracker-notes.herokuapp.com/notes/edit-note',
+				// 'https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/edit-note',
+				{
+					...newNote,
+					// id: currentNote[0]?.id,
+				}
+			)
+			.then(() => {
+				console.log('note updated');
+				NoteUpdatedNotification();
+			});
 		navigate('/notes');
 	};
 
