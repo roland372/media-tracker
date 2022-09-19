@@ -26,7 +26,8 @@ export const fetchNotes = createAsyncThunk('/notes', async () => {
 				// .post(
 				// 	'http://localhost:3001/notes',
 				// 	{
-				role: 'admin',
+				// role: 'admin',
+				role: process.env.REACT_APP_adminID,
 			},
 			{
 				headers: {
