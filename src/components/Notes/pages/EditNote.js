@@ -59,9 +59,9 @@ const EditNote = () => {
 		await axios
 			.put(
 				'https://media-tracker-notes.herokuapp.com/notes/edit-note',
-				{ role: process.env.REACT_APP_adminID },
 				// 'https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/edit-note',
 				{
+					role: process.env.REACT_APP_adminID,
 					...newNote,
 					// id: currentNote[0]?.id,
 				}

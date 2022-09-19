@@ -61,7 +61,7 @@ const AddNote = () => {
 			// .post('http://localhost:5000/notes/add-note', {
 			.post(
 				'https://media-tracker-notes.herokuapp.com/notes/add-note',
-				{ role: process.env.REACT_APP_adminID },
+				// { role: process.env.REACT_APP_adminID },
 				{
 					// .post(
 					// 	'https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/add-note',
@@ -71,6 +71,7 @@ const AddNote = () => {
 					// lastModified: note.lastModified,
 					// noteID: uuidv4(),
 					note: { ...note, noteID: note.id },
+					role: process.env.REACT_APP_adminID,
 				}
 			)
 			.then(() => {

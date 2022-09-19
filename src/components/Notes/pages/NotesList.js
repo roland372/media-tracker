@@ -66,13 +66,9 @@ const NotesList = () => {
 
 	const handleDeleteNote = async id => {
 		dispatch(deleteNote({ id }));
-		// axios.delete(`http://localhost:5000/notes/delete/${id}`).then(() => {
 		await axios
 			// .delete(`https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
-			.delete(`https://media-tracker-notes.herokuapp.com/notes/delete/${id}`, {
-				role: process.env.REACT_APP_adminID,
-			})
-			// .delete(`https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
+			.delete(`https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
 			.then(() => {
 				getNotes();
 				NoteDeletedNotification();

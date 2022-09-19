@@ -8,7 +8,7 @@ import CardComponent from '../Layout/CardComponent';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
-import axios from 'axios';
+// import axios from 'axios';
 
 const About = () => {
 	// var raw = JSON.stringify({

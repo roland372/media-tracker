@@ -23,23 +23,19 @@ export const fetchNotes = createAsyncThunk('/notes', async () => {
 		.post(
 			'https://media-tracker-notes.herokuapp.com/notes',
 			{
-				// .post(
-				// 	'http://localhost:3001/notes',
-				// 	{
-				// role: 'admin',
 				role: process.env.REACT_APP_adminID,
-			},
-			{
-				headers: {
-					// Accept: 'application/json',
-					// 'Content-Type': 'application/json',
-					// Authorization: 'Bearer ',
-					'Access-Control-Allow-Headers': '*',
-					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Methods': '*',
-				},
-				// data: raw,
 			}
+			// {
+			// 	headers: {
+			// 		// Accept: 'application/json',
+			// 		// 'Content-Type': 'application/json',
+			// 		// Authorization: 'Bearer ',
+			// 		'Access-Control-Allow-Headers': '*',
+			// 		'Access-Control-Allow-Origin': '*',
+			// 		'Access-Control-Allow-Methods': '*',
+			// 	},
+			// 	// data: raw,
+			// }
 		)
 		.then(response => response.data);
 });
