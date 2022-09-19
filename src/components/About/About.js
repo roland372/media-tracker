@@ -8,8 +8,39 @@ import CardComponent from '../Layout/CardComponent';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import axios from 'axios';
 
 const About = () => {
+	var raw = JSON.stringify({
+		role: 'admin',
+	});
+
+	axios
+		// .get(
+		// 	'https://media-tracker-notes.herokuapp.com/notes',
+		// 	{
+		.post(
+			'http://localhost:3001/notes',
+			{
+				role: 'admin',
+			},
+			{
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ',
+					'Access-Control-Allow-Origin': '*',
+				},
+				data: raw,
+			}
+		)
+		.then(function (response) {
+			console.log(response);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+
 	useDocumentTitle('About');
 	return (
 		<CardComponent title='About'>

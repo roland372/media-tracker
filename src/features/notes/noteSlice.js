@@ -11,19 +11,35 @@ const initialState = {
 	error: '',
 };
 
+// var raw = JSON.stringify({
+// 	role: 'admin',
+// });
+
 export const fetchNotes = createAsyncThunk('/notes', async () => {
 	return await axios
 		// .get('http://localhost:3001/notes')
 		// .get('https://media-tracker-notes.herokuapp.com/notes')
 		// .get('https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes')
-		.get('https://media-tracker-notes.herokuapp.com/notes', {
-			headers: {
-				'Content-Type': 'application/json',
-				'Access-Control-Allow-Headers': '*',
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Methods': '*',
+		.post(
+			'https://media-tracker-notes.herokuapp.com/notes',
+			{
+				// .post(
+				// 	'http://localhost:3001/notes',
+				// 	{
+				role: 'admin',
 			},
-		})
+			{
+				headers: {
+					// Accept: 'application/json',
+					// 'Content-Type': 'application/json',
+					// Authorization: 'Bearer ',
+					'Access-Control-Allow-Headers': '*',
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Methods': '*',
+				},
+				// data: raw,
+			}
+		)
 		.then(response => response.data);
 });
 
