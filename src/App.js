@@ -144,9 +144,9 @@ function App() {
 							<Route
 								path='notes/*'
 								element={
-									<AdminRoute>
-										<Notes />
-									</AdminRoute>
+									// <AdminRoute>
+									<Notes />
+									// </AdminRoute>
 								}
 							/>
 							<Route path='emotes/*' element={<Emotes />} />
