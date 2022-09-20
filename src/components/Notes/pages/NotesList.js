@@ -98,7 +98,7 @@ const NotesList = () => {
 				key={note.id}
 				style={{ wordWrap: 'break-word' }}
 			>
-				<div className='border-none rounded bg-primary-dark p-3 text-wrap h-100 d-flex flex-column justify-content-between shadow-lg'>
+				<div className='border-top border-light border-5 rounded bg-primary-dark p-3 text-wrap h-100 d-flex flex-column justify-content-between shadow-lg '>
 					<div className='text-start'>
 						<h3>
 							{note.title.length > 30
