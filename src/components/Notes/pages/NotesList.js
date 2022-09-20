@@ -77,10 +77,22 @@ const NotesList = () => {
 		// getNotes();
 	};
 
-	// console.log(notes?.notes?.[2]?.note?.slice(0, 30));
+	// function stripHTMLTags(original) {
+	// 	return original.replace(/(<([^>]+)>)/gi, '');
+	// }
+
+	// function strip(html) {
+	// 	const tmp = document.implementation.createHTMLDocument('New').body;
+	// 	tmp.innerHTML = html;
+	// 	return tmp.textContent || tmp.innerText || '';
+	// }
+
+	const notesCopy = [...notes?.notes];
+	const sortByDate = notesCopy?.sort((a, b) => b.lastModified - a.lastModified);
+	// console.log(sortByDate?.[0]?.note);
 
 	const renderNotes = () =>
-		notes.notes.map(note => (
+		sortByDate?.map(note => (
 			<div
 				className='col-lg-4 col-sm-6 col-12 my-2 text-wrap flex-fill'
 				key={note.id}
@@ -88,19 +100,31 @@ const NotesList = () => {
 			>
 				<div className='border-none rounded bg-primary-dark p-3 text-wrap h-100 d-flex flex-column justify-content-between shadow-lg'>
 					<div className='text-start'>
-						<h3>{note.title.slice(0, 30)}</h3>
+						<h3>
+							{note.title.length > 30
+								? note.title.slice(0, 30) + '...'
+								: note.title}
+						</h3>
 						<hr />
-						{/* <p>{note.note.slice(0, 50)}</p> */}
-						{note.note.length > 50 ? (
+						{note.note.length > 200 ? (
 							<div
 								dangerouslySetInnerHTML={{
-									__html: note.note.slice(0, 50) + '...',
+									__html:
+										note.note
+											.slice(0, 200)
+											.replace(
+												/<img[^>]+>(<\/img>)?|<iframe.+?<\/iframe>/g,
+												''
+											) + '...',
 								}}
 							/>
 						) : (
 							<div
 								dangerouslySetInnerHTML={{
-									__html: note.note,
+									__html: note.note.replace(
+										/<img[^>]+>(<\/img>)?|<iframe.+?<\/iframe>/g,
+										''
+									),
 								}}
 							/>
 						)}

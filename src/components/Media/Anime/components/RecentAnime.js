@@ -17,6 +17,7 @@ const RecentAnime = ({ allAnime, deleteAnime, getAnimeDatabase, user }) => {
 		);
 
 	// console.log(allAnime[0].anime);
+	// console.log(allAnime);
 
 	return (
 		<RecentMedia cardTitle='Recent Anime'>
