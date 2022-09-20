@@ -146,6 +146,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 					options={animeType}
 					className='text-dark'
 					onChange={e => handleSetType(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -199,6 +200,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 					options={ratingOptions}
 					className='text-dark'
 					onChange={e => handleSetRating(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -210,6 +212,7 @@ const Form = ({ animeDatabase, getAnimeDatabase, handleClose, user }) => {
 					options={statusOptions}
 					className='text-dark'
 					onChange={e => handleSetStatus(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>

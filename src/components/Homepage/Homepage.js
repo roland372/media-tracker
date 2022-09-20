@@ -164,6 +164,7 @@ const Homepage = () => {
 						options={mediaOptions}
 						className='text-dark'
 						onChange={e => setSelectMediaValue(e.value)}
+						isSearchable={false}
 					/>
 
 					{selectMediaValue === 'Anime' ? (

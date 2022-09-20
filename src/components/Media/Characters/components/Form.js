@@ -128,6 +128,7 @@ const Form = ({
 					options={sourceOptions}
 					className='text-dark'
 					onChange={e => handleSetSource(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -136,6 +137,7 @@ const Form = ({
 					options={genderOptions}
 					className='text-dark'
 					onChange={e => handleSetGender(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>

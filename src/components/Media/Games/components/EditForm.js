@@ -165,6 +165,7 @@ const EditForm = ({
 					options={gameType}
 					className='text-dark'
 					onChange={e => handleSetType(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -223,6 +224,7 @@ const EditForm = ({
 					options={ratingOptions}
 					className='text-dark'
 					onChange={e => handleSetRating(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -234,6 +236,7 @@ const EditForm = ({
 					options={statusOptions}
 					className='text-dark'
 					onChange={e => handleSetStatus(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>

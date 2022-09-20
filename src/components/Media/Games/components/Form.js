@@ -135,6 +135,7 @@ const Form = ({ gamesDatabase, handleClose, user, getGamesDatabase }) => {
 					options={gameType}
 					className='text-dark'
 					onChange={e => handleSetType(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -188,6 +189,7 @@ const Form = ({ gamesDatabase, handleClose, user, getGamesDatabase }) => {
 					options={ratingOptions}
 					className='text-dark'
 					onChange={e => handleSetRating(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -199,6 +201,7 @@ const Form = ({ gamesDatabase, handleClose, user, getGamesDatabase }) => {
 					options={statusOptions}
 					className='text-dark'
 					onChange={e => handleSetStatus(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>

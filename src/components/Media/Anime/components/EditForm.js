@@ -187,6 +187,7 @@ const EditForm = ({
 					options={animeType}
 					className='text-dark'
 					onChange={e => handleSetType(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -245,6 +246,7 @@ const EditForm = ({
 					options={ratingOptions}
 					className='text-dark'
 					onChange={e => handleSetRating(e)}
+					isSearchable={false}
 				/>
 			</div>
 			<div className='mt-3 mb-2'>
@@ -263,6 +265,7 @@ const EditForm = ({
 							handleSetStatus(e);
 						}
 					}}
+					isSearchable={false}
 					// onChange={e => handleSetStatus(e)}
 				/>
 			</div>
