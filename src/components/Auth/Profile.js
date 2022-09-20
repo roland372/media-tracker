@@ -28,12 +28,17 @@ import GamesDataService from '../../components/Media/Games/services/games.servic
 import MangaDataService from '../../components/Media/Manga/services/manga.services';
 import EmotesDataService from '../../components/Emotes/services/emotes.services';
 
+//? <----- Redux ----->
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchNotes } from '../../features/notes/noteSlice';
+
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const Profile = () => {
 	useDocumentTitle('Profile');
 
+	const dispatch = useDispatch();
 	const { logOut, user } = useUserAuth();
 
 	const navigate = useNavigate();
@@ -47,6 +52,7 @@ const Profile = () => {
 	const [gamesDatabase, setGamesDatabase] = useState([]);
 	const [mangaDatabase, setMangaDatabase] = useState([]);
 	const [emotesDatabase, setEmotesDatabase] = useState([]);
+	const notesDatabase = useSelector(store => store.notes);
 
 	//* <----- User State ----->
 	const [name, setName] = useState('');
@@ -126,6 +132,8 @@ const Profile = () => {
 		fileUploadNotification();
 	};
 
+	// console.log(user?.uid === process.env.REACT_APP_adminID);
+
 	//* <----- Fetch user data from database ----->
 	useEffect(() => {
 		user && getAnimeDatabase(user?.uid);
@@ -134,6 +142,7 @@ const Profile = () => {
 		user && getMangaDatabase(user?.uid);
 		user && getEmotesDatabase(user?.uid);
 		user && getUsersDatabase();
+		user?.uid === process.env.REACT_APP_adminID && dispatch(fetchNotes());
 		// user && getCurrentUser();
 		// if (user && user.photoURL) {
 		// 	setPhotoURL(user.photoURL);
@@ -142,7 +151,7 @@ const Profile = () => {
 		if (user?.photoURL) {
 			setPhotoURL(user.photoURL);
 		}
-	}, [user]);
+	}, [user, dispatch]);
 
 	//* <----- Get currently logged in user ----->
 	const getUsersDatabase = async () => {
@@ -546,6 +555,19 @@ const Profile = () => {
 																	{''} Emotes
 																</p>
 															</div>
+															{user?.uid === process.env.REACT_APP_adminID ? (
+																<div className='col-6 mb-3'>
+																	<h6>
+																		<Link to='/notes' className='text-color'>
+																			Notes
+																		</Link>
+																	</h6>
+																	<p className='text-color'>
+																		{notesDatabase?.notes?.length}
+																		{''} Notes
+																	</p>
+																</div>
+															) : null}
 														</div>
 														<h6>Color Themes</h6>
 														<hr className='mt-0 mb-4' />
