@@ -28,6 +28,27 @@ const EditForm = props => {
 		}),
 	};
 
+	// if (editorRef?.current?.isNotDirty) {
+	// 	// alert('Not Saved!');
+	// 	// console.log('not saved');
+	// }
+
+	// console.log(editorRef.current);
+
+	// window.onbeforeunload = function (e) {
+	// 	if (1) {
+	// 		alert('test');
+	// 		return;
+	// 	}
+	// 	var dialogText = 'asfasfasdfs';
+	// 	e.returnValue = dialogText;
+	// 	return dialogText;
+	// };
+
+	window.addEventListener('beforeunload', event => {
+		event.returnValue = `Are you sure you want to leave?`;
+	});
+
 	return (
 		<section className='form-group mx-2 mb-2'>
 			<div className='d-flex'>
@@ -73,6 +94,7 @@ const EditForm = props => {
 					// onChange={() => console.log(editorRef.current.getContent())}
 					init={{
 						autoresize_bottom_margin: 50,
+						autosave_ask_before_unload: true,
 						browser_spellcheck: true,
 						content_style:
 							'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
@@ -98,7 +120,7 @@ const EditForm = props => {
 						],
 						// toolbar: formatselect fontselect fontsizeselect
 						toolbar:
-							'undo redo | bold italic underline strikethrough | bullist numlist checklist outdent indent | forecolor backcolor removeformat | link image media | alignleft aligncenter alignright alignjustify | superscript subscript codesample charmap | fullscreen code help',
+							'undo redo | bold italic underline strikethrough | bullist numlist checklist outdent indent | forecolor backcolor removeformat | link image media | alignleft aligncenter alignright alignjustify | superscript subscript codesample charmap | fullscreen code help restoredraft',
 
 						toolbar_mode: 'floating',
 					}}
