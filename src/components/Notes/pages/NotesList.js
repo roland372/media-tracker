@@ -179,7 +179,7 @@ const NotesList = () => {
 					closeVariant='white'
 					className='bg-primary-light text-color'
 				>
-					<Modal.Title>Deleting emote</Modal.Title>
+					<Modal.Title>Deleting note</Modal.Title>
 				</Modal.Header>
 				<Modal.Body className='bg-primary-dark text-color'>
 					Are you sure you want to delete this note?
