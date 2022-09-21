@@ -76,6 +76,7 @@ const EditForm = props => {
 						browser_spellcheck: true,
 						content_style:
 							'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+						contextmenu: false,
 						forced_root_block: '',
 						// force_br_newlines: true,
 						// force_p_newlines: false,
@@ -84,7 +85,7 @@ const EditForm = props => {
 
 						// plugins: autoresize
 						plugins: [
-							'advlist anchor autolink autosave charmap checklist code codesample fullscreen help insertdatetime lists link image media nonbreaking pagebreak paste preview searchreplace save table template wordcount visualchars',
+							'advlist anchor autolink autosave charmap checklist code codesample fullscreen help insertdatetime link lists image media nonbreaking pagebreak paste preview searchreplace save table template wordcount visualchars',
 						],
 						templates: [
 							{

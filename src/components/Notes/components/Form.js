@@ -73,6 +73,7 @@ const Form = props => {
 						browser_spellcheck: true,
 						content_style:
 							'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+						contextmenu: false,
 						forced_root_block: '',
 						// force_br_newlines: true,
 						// force_p_newlines: true,
