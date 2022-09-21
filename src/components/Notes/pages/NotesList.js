@@ -130,7 +130,7 @@ const NotesList = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const renderNotes = () =>
-		sortedNotes
+		sortByDate
 			?.filter(value => {
 				if (searchTerm === '') {
 					return value;
