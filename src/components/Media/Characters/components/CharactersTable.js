@@ -25,7 +25,7 @@ const CharactersTable = ({
 							#
 						</th>
 						<th scope='col'>Image</th>
-						<th scope='col' style={{ width: '200px' }}>
+						<th scope='col' style={{ minWidth: '130px' }}>
 							Character Name
 							<FaSort
 								onClick={() =>
@@ -50,7 +50,7 @@ const CharactersTable = ({
 								}
 							/>
 						</th>
-						<th scope='col' style={{ minWidth: '80px' }}>
+						<th scope='col' style={{ minWidth: '110px' }}>
 							Series Name
 							<FaSort
 								onClick={() =>
@@ -58,7 +58,7 @@ const CharactersTable = ({
 								}
 							/>
 						</th>
-						<th scope='col' style={{ minWidth: '80px' }}>
+						<th scope='col' style={{ minWidth: '100px' }}>
 							Hair Color
 							<FaSort
 								onClick={() =>

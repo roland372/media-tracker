@@ -25,7 +25,7 @@ const MangaTable = ({
 							#
 						</th>
 						<th scope='col'>Image</th>
-						<th scope='col' style={{ width: '200px' }}>
+						<th scope='col' style={{ minWidth: '200px' }}>
 							Manga Title
 							<FaSort
 								onClick={() =>
