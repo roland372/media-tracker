@@ -3,6 +3,8 @@ import React, { useRef, useEffect } from 'react';
 //? <----- Components ----->
 import SubmitButton from './SubmitButton';
 import { Editor } from '@tinymce/tinymce-react';
+import Select from 'react-select';
+import { colorOptions } from '../utils/selectOptions';
 
 const EditForm = props => {
 	const { setNewNote, newNote, handleEditNote } = props;
@@ -18,15 +20,37 @@ const EditForm = props => {
 	// 	}
 	// };
 
+	const customStyles = {
+		control: base => ({
+			...base,
+			height: 40,
+			minHeight: 40,
+		}),
+	};
+
 	return (
 		<section className='form-group mx-2 mb-2'>
-			<input
-				className='form-control mb-3'
-				onChange={e => setNewNote({ ...newNote, title: e.target.value })}
-				placeholder='Enter Title'
-				type='text'
-				value={newNote.title}
-			/>
+			<div className='d-flex'>
+				<input
+					style={{ height: 40, minHeight: 40 }}
+					className='form-control mb-3'
+					onChange={e => setNewNote({ ...newNote, title: e.target.value })}
+					placeholder='Enter Title'
+					type='text'
+					value={newNote.title}
+				/>
+				<div className='ms-2' style={{ zIndex: 100, width: '250px' }}>
+					<Select
+						styles={customStyles}
+						defautValue={{ label: newNote.color, value: newNote.color }}
+						placeholder={newNote.color}
+						options={colorOptions}
+						className='text-dark'
+						onChange={e => setNewNote({ ...newNote, color: e.value })}
+						isSearchable={false}
+					/>
+				</div>
+			</div>
 			{/* <textarea
 				className='form-control'
 				onChange={e => setNewNote({ ...newNote, note: e.target.value })}

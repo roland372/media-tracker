@@ -28,10 +28,11 @@ const AddNote = () => {
 	const navigate = useNavigate();
 
 	const [note, setNote] = useState({
+		color: 'primary',
 		id: uuidv4(),
-		title: '',
-		note: '',
 		lastModified: Date.now(),
+		note: '',
+		title: '',
 	});
 
 	//* Notifications
@@ -49,10 +50,11 @@ const AddNote = () => {
 	const handleAddNote = async () => {
 		dispatch(
 			addNote({
+				color: note.color,
 				id: uuidv4(),
-				title: note.title,
-				note: note.note,
 				lastModified: Date.now(),
+				note: note.note,
+				title: note.title,
 			})
 		);
 		// console.log(note);

@@ -341,6 +341,7 @@ const Profile = () => {
 	// console.log(gamesDatabase?.[0]?.games);
 	// console.log(charactersDatabase?.[0]?.characters);
 	// console.log(emotesDatabase?.[0]?.emotes);
+	// console.log(notesDatabase?.notes);
 
 	return (
 		<div>

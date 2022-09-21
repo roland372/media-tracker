@@ -22,11 +22,12 @@ const EditNote = () => {
 	const navigate = useNavigate();
 	const currentNote = notes?.notes?.filter(note => note?.noteID === params?.id);
 	const [newNote, setNewNote] = useState({
+		color: currentNote[0]?.color,
 		id: currentNote[0]?.id,
+		lastModified: Date.now(),
+		note: currentNote[0]?.note,
 		noteID: params.id,
 		title: currentNote[0]?.title,
-		note: currentNote[0]?.note,
-		lastModified: Date.now(),
 	});
 
 	//* Notifications
@@ -42,14 +43,15 @@ const EditNote = () => {
 		});
 
 	const handleEditNote = async () => {
-		setNewNote({ title: '', note: '', lastModified: '' });
+		setNewNote({ title: '', note: '', color: '', lastModified: '' });
 		dispatch(
 			editNote({
+				color: newNote.color,
 				id: newNote.id,
+				lastModified: Date.now(),
+				note: newNote.note,
 				noteID: params.id,
 				title: newNote.title,
-				note: newNote.note,
-				lastModified: Date.now(),
 			})
 		);
 		// axios.put('http://localhost:5000/notes/edit-note', {

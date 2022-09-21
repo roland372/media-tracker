@@ -49,11 +49,12 @@ const noteSlice = createSlice({
 		},
 
 		editNote: (state, action) => {
-			const { id, title, note, lastModified } = action.payload;
+			const { id, title, note, color, lastModified } = action.payload;
 			const existingNote = state.notes.find(note => note.id === id);
 			if (existingNote) {
 				existingNote.title = title;
 				existingNote.note = note;
+				existingNote.color = color;
 				existingNote.lastModified = lastModified;
 			}
 		},
