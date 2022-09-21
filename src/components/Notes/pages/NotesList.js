@@ -328,6 +328,7 @@ const NotesList = () => {
 							type='text'
 							className='form-control mb-2'
 							placeholder='Search for a note'
+							value={searchTerm}
 							onChange={e => {
 								setSearchTerm(e.target.value);
 							}}
