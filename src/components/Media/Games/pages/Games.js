@@ -79,10 +79,31 @@ const Games = () => {
 		fetchGames(search);
 	};
 
+	// (function () {
+	// 	var cors_api_host = 'cors-anywhere.herokuapp.com';
+	// 	var cors_api_url = 'https://' + cors_api_host + '/';
+	// 	var slice = [].slice;
+	// 	var origin = window.location.protocol + '//' + window.location.host;
+	// 	var open = XMLHttpRequest.prototype.open;
+	// 	XMLHttpRequest.prototype.open = function () {
+	// 		var args = slice.call(arguments);
+	// 		var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
+	// 		if (
+	// 			targetOrigin &&
+	// 			targetOrigin[0].toLowerCase() !== origin &&
+	// 			targetOrigin[1] !== cors_api_host
+	// 		) {
+	// 			args[1] = cors_api_url + args[1];
+	// 		}
+	// 		return open.apply(this, args);
+	// 	};
+	// })();
+
 	const fetchGames = async query => {
 		axios({
 			url:
-				'https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/games?search=' +
+				'https://mediatrackerproxy.herokuapp.com/https://api.igdb.com/v4/games?search=' +
+				// 'https://api.igdb.com/v4/games?search=' +
 				// 'https://circumvent-cors.herokuapp.com/https://api.igdb.com/v4/games?search=' +
 				query +
 				'&fields=name,url, id, cover.*, screenshots.*, websites.*, genres.*, total_rating, total_rating_count, summary, storyline, slug, similar_games.*, release_dates.*, platforms.*, first_release_date, artworks.*',
@@ -91,6 +112,7 @@ const Games = () => {
 				'Client-ID': process.env.REACT_APP_igdbClientID,
 				Authorization: 'Bearer ' + process.env.REACT_APP_igdbAuthorization,
 				'Access-Control-Allow-Origin': '*',
+				'Content-Type': 'application/json',
 			},
 		})
 			.then(response => {
