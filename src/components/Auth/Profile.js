@@ -108,16 +108,16 @@ const Profile = () => {
 			progress: '',
 		});
 
-	const copiedToClipboardNotification = dataType =>
-		toast.success(`${dataType} copied to clipboard`, {
-			position: 'top-center',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: false,
-			draggable: true,
-			progress: '',
-		});
+	// const copiedToClipboardNotification = dataType =>
+	// 	toast.success(`${dataType} copied to clipboard`, {
+	// 		position: 'top-center',
+	// 		autoClose: 2000,
+	// 		hideProgressBar: false,
+	// 		closeOnClick: true,
+	// 		pauseOnHover: false,
+	// 		draggable: true,
+	// 		progress: '',
+	// 	});
 
 	//* <----- Modal functions ----->
 	const handleCloseModal = () => setShowModal(false);
@@ -356,9 +356,19 @@ const Profile = () => {
 
 	// https://beautifier.io/
 
-	const handleBackup = (data, dataType) => {
-		navigator.clipboard.writeText(JSON.stringify(data));
-		copiedToClipboardNotification(dataType);
+	// const handleBackup = (data, dataType) => {
+	// 	navigator.clipboard.writeText(JSON.stringify(data));
+	// 	copiedToClipboardNotification(dataType);
+	// };
+
+	const handleSaveToPC = (jsonData, fileName) => {
+		const fileData = JSON.stringify(jsonData);
+		const blob = new Blob([fileData], { type: 'text/plain' });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.download = `${fileName}.txt`;
+		link.href = url;
+		link.click();
 	};
 
 	return (
@@ -634,7 +644,7 @@ const Profile = () => {
 																<button
 																	className='btn btn-sm text-light shadow-none bg-primary'
 																	onClick={() =>
-																		handleBackup(
+																		handleSaveToPC(
 																			animeDatabase?.[0]?.anime,
 																			'Anime'
 																		)
@@ -647,7 +657,7 @@ const Profile = () => {
 																<button
 																	className='btn btn-sm text-light shadow-none bg-danger'
 																	onClick={() =>
-																		handleBackup(
+																		handleSaveToPC(
 																			charactersDatabase?.[0]?.characters,
 																			'Characters'
 																		)
@@ -660,7 +670,7 @@ const Profile = () => {
 																<button
 																	className='btn btn-sm text-dark shadow-none bg-warning'
 																	onClick={() =>
-																		handleBackup(
+																		handleSaveToPC(
 																			gamesDatabase?.[0]?.games,
 																			'Games'
 																		)
@@ -673,7 +683,7 @@ const Profile = () => {
 																<button
 																	className='btn btn-sm text-light shadow-none bg-success'
 																	onClick={() =>
-																		handleBackup(
+																		handleSaveToPC(
 																			mangaDatabase?.[0]?.manga,
 																			'Manga'
 																		)
@@ -686,7 +696,7 @@ const Profile = () => {
 																<button
 																	className='btn btn-sm text-dark shadow-none bg-light'
 																	onClick={() =>
-																		handleBackup(
+																		handleSaveToPC(
 																			emotesDatabase?.[0]?.emotes,
 																			'Emotes'
 																		)
@@ -699,7 +709,10 @@ const Profile = () => {
 																<button
 																	className='btn btn-sm text-dark shadow-none bg-info'
 																	onClick={() =>
-																		handleBackup(notesDatabase?.notes, 'Notes')
+																		handleSaveToPC(
+																			notesDatabase?.notes,
+																			'Notes'
+																		)
 																	}
 																>
 																	Notes
