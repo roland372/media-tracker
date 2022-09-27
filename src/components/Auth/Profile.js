@@ -108,6 +108,17 @@ const Profile = () => {
 			progress: '',
 		});
 
+	const copiedToClipboardNotification = dataType =>
+		toast.success(`${dataType} copied to clipboard`, {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: false,
+			draggable: true,
+			progress: '',
+		});
+
 	//* <----- Modal functions ----->
 	const handleCloseModal = () => setShowModal(false);
 	const handleShowModal = () => setShowModal(true);
@@ -343,6 +354,13 @@ const Profile = () => {
 	// console.log(emotesDatabase?.[0]?.emotes);
 	// console.log(notesDatabase?.notes);
 
+	// https://beautifier.io/
+
+	const handleBackup = (data, dataType) => {
+		navigator.clipboard.writeText(JSON.stringify(data));
+		copiedToClipboardNotification(dataType);
+	};
+
 	return (
 		<div>
 			{deleteFlag ? (
@@ -479,7 +497,7 @@ const Profile = () => {
 												<div className='col-md-8'>
 													<div className='p-4'>
 														<h6>Information</h6>
-														<hr className='mt-0 mb-4' />
+														<hr className='mt-0' />
 														<div className='row pt-1'>
 															<div className='col-12 mb-3'>
 																<h6>Email</h6>
@@ -487,7 +505,7 @@ const Profile = () => {
 															</div>
 														</div>
 														<h6>Database</h6>
-														<hr className='mt-0 mb-4' />
+														<hr className='mt-0' />
 														<div className='row pt-1'>
 															<div className='col-6 mb-3'>
 																<h6>
@@ -571,7 +589,7 @@ const Profile = () => {
 															) : null}
 														</div>
 														<h6>Color Themes</h6>
-														<hr className='mt-0 mb-4' />
+														<hr className='mt-0' />
 														<div className='pt-1 d-flex justify-content-start'>
 															<div className='mb-3 mx-2'>
 																<button
@@ -609,8 +627,88 @@ const Profile = () => {
 																</button>
 															</div>
 														</div>
+														<h6>Backup</h6>
+														<hr className='mt-0' />
+														<div className='pt-1 d-flex justify-content-start flex-wrap'>
+															<div className='mb-3 mx-2'>
+																<button
+																	className='btn btn-sm text-light shadow-none bg-primary'
+																	onClick={() =>
+																		handleBackup(
+																			animeDatabase?.[0]?.anime,
+																			'Anime'
+																		)
+																	}
+																>
+																	Anime
+																</button>
+															</div>
+															<div className='mb-3 mx-2'>
+																<button
+																	className='btn btn-sm text-light shadow-none bg-danger'
+																	onClick={() =>
+																		handleBackup(
+																			charactersDatabase?.[0]?.characters,
+																			'Characters'
+																		)
+																	}
+																>
+																	Characters
+																</button>
+															</div>
+															<div className='mb-3 mx-2'>
+																<button
+																	className='btn btn-sm text-dark shadow-none bg-warning'
+																	onClick={() =>
+																		handleBackup(
+																			gamesDatabase?.[0]?.games,
+																			'Games'
+																		)
+																	}
+																>
+																	Games
+																</button>
+															</div>
+															<div className='mb-3 mx-2'>
+																<button
+																	className='btn btn-sm text-light shadow-none bg-success'
+																	onClick={() =>
+																		handleBackup(
+																			mangaDatabase?.[0]?.manga,
+																			'Manga'
+																		)
+																	}
+																>
+																	Manga
+																</button>
+															</div>
+															<div className='mb-3 mx-2'>
+																<button
+																	className='btn btn-sm text-dark shadow-none bg-light'
+																	onClick={() =>
+																		handleBackup(
+																			emotesDatabase?.[0]?.emotes,
+																			'Emotes'
+																		)
+																	}
+																>
+																	Emotes
+																</button>
+															</div>
+															<div className='mb-3 mx-2'>
+																<button
+																	className='btn btn-sm text-dark shadow-none bg-info'
+																	onClick={() =>
+																		handleBackup(notesDatabase?.notes, 'Notes')
+																	}
+																>
+																	Notes
+																</button>
+															</div>
+														</div>
+
 														<h6>Settings</h6>
-														<hr className='mt-0 mb-4' />
+														<hr className='mt-0 mb-3' />
 														<div className='row pt-1'>
 															<div className='col-6 mb-3'>
 																<button
