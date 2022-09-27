@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 
 //? <----- Components ----->
 import SubmitButton from './SubmitButton';
@@ -13,7 +13,7 @@ const EditForm = props => {
 
 	const editorRef = useRef(newNote?.note);
 
-	useEffect(() => {}, []);
+	// useEffect(() => {}, []);
 	// const log = () => {
 	// 	if (editorRef.current) {
 	// 		console.log(editorRef.current.getContent());
@@ -28,23 +28,6 @@ const EditForm = props => {
 		}),
 	};
 
-	// if (editorRef?.current?.isNotDirty) {
-	// 	// alert('Not Saved!');
-	// 	// console.log('not saved');
-	// }
-
-	// console.log(editorRef.current);
-
-	// window.onbeforeunload = function (e) {
-	// 	if (1) {
-	// 		alert('test');
-	// 		return;
-	// 	}
-	// 	var dialogText = 'asfasfasdfs';
-	// 	e.returnValue = dialogText;
-	// 	return dialogText;
-	// };
-
 	window.addEventListener('beforeunload', event => {
 		event.returnValue = `Are you sure you want to leave?`;
 	});
@@ -58,7 +41,7 @@ const EditForm = props => {
 					onChange={e => setNewNote({ ...newNote, title: e.target.value })}
 					placeholder='Enter Title'
 					type='text'
-					value={newNote.title}
+					value={newNote?.title}
 				/>
 				<div className='ms-2' style={{ zIndex: 100, width: '250px' }}>
 					<Select
@@ -80,18 +63,26 @@ const EditForm = props => {
 				rows='4'
 				value={newNote.note}
 			/> */}
-
 			<>
 				<Editor
 					apiKey={process.env.REACT_APP_TinyMCEAPIKey}
 					cloudChannel='5-dev'
 					onInit={(evt, editor) => (editorRef.current = editor)}
 					initialValue={newNote?.note}
-					// onChange={e => setNote({ ...note, note: e.target.value })}
-					onBlur={() =>
-						setNewNote({ ...newNote, note: editorRef.current.getContent() })
-					}
-					// onChange={() => console.log(editorRef.current.getContent())}
+					// onEditorChange={() => {
+					// 	console.log('changed');
+					// 	// updateNoteTimeout(editorRef.current.getContent());
+					// }}
+					onBlur={() => {
+						setNewNote({ ...newNote, note: editorRef.current.getContent() });
+						// console.log('blur');
+						// console.log(newNote);
+					}}
+					// onFocus={() => {
+					// 	setNewNote({ ...newNote, note: editorRef.current.getContent() });
+					// 	console.log('focus');
+					// 	console.log(newNote);
+					// }}
 					init={{
 						autoresize_bottom_margin: 50,
 						autosave_ask_before_unload: true,

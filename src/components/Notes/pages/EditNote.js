@@ -43,7 +43,15 @@ const EditNote = () => {
 		});
 
 	const handleEditNote = async () => {
-		setNewNote({ title: '', note: '', color: '', lastModified: '' });
+		// setNewNote({ title: '', note: '', color: '', lastModified: '' });
+		// setNewNote({
+		// 	color: newNote.color,
+		// 	id: newNote.id,
+		// 	lastModified: Date.now(),
+		// 	note: newNote.note,
+		// 	noteID: params.id,
+		// 	title: newNote.title,
+		// });
 		dispatch(
 			editNote({
 				color: newNote.color,
@@ -56,8 +64,6 @@ const EditNote = () => {
 		);
 		// axios.put('http://localhost:5000/notes/edit-note', {
 
-		// console.log(newNote);
-
 		await axios
 			.put(
 				'https://media-tracker-notes.herokuapp.com/notes/edit-note',
@@ -69,11 +75,60 @@ const EditNote = () => {
 				}
 			)
 			.then(() => {
-				console.log('note updated');
+				// console.log('note updated');
 				NoteUpdatedNotification();
 			});
 		navigate('/notes');
 	};
+
+	// const handleUpdateNoteTimeout = async content => {
+	// 	setNewNote({
+	// 		color: newNote.color,
+	// 		id: newNote.id,
+	// 		lastModified: Date.now(),
+	// 		note: content,
+	// 		noteID: params.id,
+	// 		title: newNote.title,
+	// 	});
+	// 	dispatch(
+	// 		editNote({
+	// 			color: newNote.color,
+	// 			id: newNote.id,
+	// 			lastModified: Date.now(),
+	// 			note: content,
+	// 			noteID: params.id,
+	// 			title: newNote.title,
+	// 		})
+	// 	);
+
+	// 	await axios
+	// 		.put('https://media-tracker-notes.herokuapp.com/notes/edit-note', {
+	// 			role: process.env.REACT_APP_adminID,
+	// 			...newNote,
+	// 		})
+	// 		.then(() => {
+	// 			// console.log('note updated');
+	// 			console.log(newNote);
+	// 			// NoteUpdatedNotification();
+	// 		});
+	// };
+
+	// const [timer, setTimer] = useState(null);
+
+	// function updateNoteTimeout(content) {
+	// 	if (timer) {
+	// 		clearTimeout(timer);
+	// 		setTimer(null);
+	// 	}
+	// 	setTimer(
+	// 		setTimeout(() => {
+	// 			// console.log('updated');
+	// 			handleUpdateNoteTimeout(content);
+	// 			// console.log(content);
+	// 			// console.log(newNote);
+	// 		}, 1000)
+	// 	);
+	// }
 
 	return (
 		<CardComponent title='Edit Note'>
