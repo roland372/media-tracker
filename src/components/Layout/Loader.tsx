@@ -1,5 +1,3 @@
-import React from 'react';
-
 //? <----- Components ----->
 import { css } from '@emotion/react';
 import BarLoader from 'react-spinners/BarLoader';
@@ -18,7 +16,7 @@ const Loader = () => {
 				color={'#0d6efd'}
 				loading={true}
 				css={override}
-				size={200}
+				// size={200}
 				height={10}
 				width={2000}
 			/>

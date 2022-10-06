@@ -1,4 +1,16 @@
-export const navLinks = [
+//? <----- TypeScript ----->
+type TNavLinks = {
+	route: string;
+	url: string;
+	text: string;
+};
+
+type TUsefulLinks = {
+	url: string;
+	text: string;
+};
+
+export const navLinks: TNavLinks[] = [
 	{
 		route: 'normal',
 		url: '/',
@@ -61,7 +73,7 @@ export const navLinks = [
 	// }
 ];
 
-export const usefulLinks = [
+export const usefulLinks: TUsefulLinks[] = [
 	{
 		url: 'https://myanimelist.net/',
 		text: 'MyAnimeList',

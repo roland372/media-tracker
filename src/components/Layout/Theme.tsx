@@ -1,6 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 
-const Theme = () => {
+//? <----- TypeScript ----->
+type TTheme = {
+	linkColor: string;
+	primaryDark: string;
+	primaryLight: string;
+	primaryMedium: string;
+	secondaryLight: string;
+	secondaryMedium: string;
+	textColor: string;
+};
+
+const Theme: FC<TTheme> = (): null => {
 	const blueTheme = {
 		primaryDark: '#12232e',
 		primaryMedium: '#203647',
@@ -12,11 +23,11 @@ const Theme = () => {
 	};
 
 	const [theme, setTheme] = useState(() => {
-		const localTheme = JSON.parse(localStorage.getItem('themes'));
+		const localTheme = JSON.parse(localStorage.getItem('themes')!);
 		return localTheme || blueTheme;
 	});
 
-	const setColor = theme => {
+	const setColor = (theme: TTheme) => {
 		document.documentElement.style.setProperty(
 			'--bg-primary-dark',
 			theme.primaryDark

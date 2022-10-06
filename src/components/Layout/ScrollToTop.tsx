@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 
 //? <----- Icons ----->
 import { FaArrowCircleUp } from 'react-icons/fa';
 
-const ScrollToTop = () => {
-	const [visible, setVisible] = useState(false);
+//? <----- TypeScript ----->
+
+const ScrollToTop: FC = (): JSX.Element => {
+	const [visible, setVisible] = useState<boolean>(false);
 
 	const toggleVisible = () => {
 		const scrolled = document.documentElement.scrollTop;

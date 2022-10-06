@@ -1,6 +1,6 @@
-import React from 'react';
+import { FC } from 'react';
 
-const Footer = () => {
+const Footer: FC = (): JSX.Element => {
 	return (
 		<div className='d-flex flex-column border-top'>
 			<footer className='footer mt-auto py-3 bg-primary-dark'>

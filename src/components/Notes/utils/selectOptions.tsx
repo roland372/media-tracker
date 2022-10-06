@@ -1,4 +1,11 @@
-export const colorOptions = [
+//? <----- TypeScript ----->
+type TColorOptions = {
+	value: string;
+	label: JSX.Element;
+};
+
+// export const colorOptions: { value: string; label: JSX.Element }[] = [
+export const colorOptions: TColorOptions[] = [
 	{ value: 'primary', label: <div className='text-primary'>primary</div> },
 	{
 		value: 'secondary',

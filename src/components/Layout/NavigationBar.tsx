@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 //? <----- Router ----->
 import { Link, NavLink } from 'react-router-dom';
@@ -7,7 +7,12 @@ import { Link, NavLink } from 'react-router-dom';
 import { navLinks } from './Links';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 
-const NavigationBar = ({ userData }) => {
+//? <----- TypeScript ----->
+type TProps = {
+	userData: any;
+};
+
+const NavigationBar: FC<TProps> = ({ userData }): JSX.Element => {
 	const normalRoute = navLinks.filter(link => link.route === 'normal');
 	const protectedRoute = navLinks.filter(link => link.route !== 'admin');
 

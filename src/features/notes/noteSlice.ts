@@ -1,42 +1,45 @@
 //? <----- Redux ----->
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import type {} from 'redux-thunk/extend-redux';
 
 //? <----- Other ----->
 import axios from 'axios';
 
+//? <----- TypeScript ----->
+type TInitialState = {
+	loading: boolean;
+	notes: [] | any;
+	error: string | undefined;
+};
+
+type TNote = {
+	color: string;
+	id: string;
+	lastModified: number;
+	note: string;
+	title: string;
+};
+
+type TExistingNote = {
+	color: string;
+	id: string;
+	lastModified: number;
+	note: string;
+	title: string;
+};
+
 // const initialState = [];
-const initialState = {
+const initialState: TInitialState = {
 	loading: false,
 	notes: [],
 	error: '',
 };
 
-// var raw = JSON.stringify({
-// 	role: 'admin',
-// });
-
 export const fetchNotes = createAsyncThunk('/notes', async () => {
 	return await axios
-		// .get('http://localhost:3001/notes')
-		// .get('https://media-tracker-notes.herokuapp.com/notes')
-		// .get('https://cors-anywhere.herokuapp.com/https://media-tracker-notes.herokuapp.com/notes')
-		.post(
-			'https://media-tracker-notes.herokuapp.com/notes',
-			{
-				role: process.env.REACT_APP_adminID,
-			}
-			// {
-			// 	headers: {
-			// 		// Accept: 'application/json',
-			// 		// 'Content-Type': 'application/json',
-			// 		// Authorization: 'Bearer ',
-			// 		'Access-Control-Allow-Headers': '*',
-			// 		'Access-Control-Allow-Origin': '*',
-			// 		'Access-Control-Allow-Methods': '*',
-			// 	},
-			// 	// data: raw,
-			// }
-		)
+		.post<TNote>('https://media-tracker-notes.herokuapp.com/notes', {
+			role: process.env.REACT_APP_adminID,
+		})
 		.then(response => response.data);
 });
 
@@ -50,7 +53,10 @@ const noteSlice = createSlice({
 
 		editNote: (state, action) => {
 			const { id, title, note, color, lastModified } = action.payload;
-			const existingNote = state.notes.find(note => note.id === id);
+			const existingNote = state.notes.find(
+				(note: TExistingNote) => note.id === id
+			);
+
 			if (existingNote) {
 				existingNote.title = title;
 				existingNote.note = note;
@@ -59,11 +65,13 @@ const noteSlice = createSlice({
 			}
 		},
 
-		deleteNote: (state, action) => {
+		deleteNote: (state: any, action) => {
 			const { id } = action.payload;
-			const existingNote = state.notes.find(note => note.id === id);
+			const existingNote = state.notes.find(
+				(note: TExistingNote) => note.id === id
+			);
 			if (existingNote) {
-				return state.filter(note => note.id !== id);
+				return state.filter((note: TExistingNote) => note.id !== id);
 			}
 		},
 	},

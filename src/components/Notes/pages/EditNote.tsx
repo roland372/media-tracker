@@ -1,5 +1,5 @@
 //? <----- React ----->
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 //? <----- Router ----->
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,19 +9,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editNote } from '../../../features/notes/noteSlice';
 
 //? <----- Components ----->
-import CardComponent from '../../../components/Layout/CardComponent';
+import CardComponent from '../../Layout/CardComponent';
 import BackButton from '../components/BackButton';
 import EditForm from '../components/EditForm';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const EditNote = () => {
+//? <----- TypeScript ----->
+type TNotes = {
+	loading: boolean;
+	notes: TNewNote[];
+	error: string;
+};
+
+type TNewNote = {
+	color: string;
+	id: string;
+	lastModified: number;
+	note: string;
+	noteID: string | undefined;
+	title: string;
+};
+
+const EditNote: FC = () => {
 	const params = useParams();
 	const dispatch = useDispatch();
-	const notes = useSelector(store => store.notes);
+	// @ts-ignore
+	const notes: TNotes = useSelector(store => store?.notes);
 	const navigate = useNavigate();
 	const currentNote = notes?.notes?.filter(note => note?.noteID === params?.id);
-	const [newNote, setNewNote] = useState({
+	const [newNote, setNewNote] = useState<TNewNote>({
 		color: currentNote[0]?.color,
 		id: currentNote[0]?.id,
 		lastModified: Date.now(),

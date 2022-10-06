@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 
 //? <----- Components ----->
 import Container from './Container';
@@ -12,14 +12,19 @@ import useDimensions from 'react-cool-dimensions';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Theme from './Theme';
 
-const Layout = ({ children }) => {
+//? <----- TypeScript ----->
+type TProps = {
+	children: JSX.Element | JSX.Element[];
+};
+
+const Layout: FC<TProps> = ({ children }): JSX.Element => {
 	const { observe, width } = useDimensions({});
 
 	const auth = getAuth();
 	const [userData, setUserData] = useState();
 
 	useEffect(() => {
-		onAuthStateChanged(auth, user => {
+		onAuthStateChanged(auth, (user: any) => {
 			if (user) {
 				const currentUser = user;
 				setUserData(currentUser);
@@ -30,7 +35,15 @@ const Layout = ({ children }) => {
 	return (
 		<>
 			<ScrollToTop />
-			<Theme />
+			<Theme
+				primaryDark={'#12232e'}
+				primaryMedium={'#203647'}
+				primaryLight={'#023e8a'}
+				secondaryMedium={'#284155'}
+				secondaryLight={'#4da8da'}
+				textColor={'#ffffff'}
+				linkColor={'#0dcaf0'}
+			/>
 			<section className='sticky-top' ref={observe}>
 				{width < 1200 ? (
 					<Sidebar userData={userData} />

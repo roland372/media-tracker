@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { FC, useRef } from 'react';
 
 //? <----- Components ----->
 import SubmitButton from './SubmitButton';
@@ -6,10 +6,30 @@ import { Editor } from '@tinymce/tinymce-react';
 import Select from 'react-select';
 import { colorOptions } from '../utils/selectOptions';
 
-const Form = props => {
-	const { setNote, note, handleAddNote } = props;
+//? <----- TypeScript ----->
+type TProps = {
+	setNote: Function;
+	note: TNote;
+	handleAddNote: React.MouseEventHandler<HTMLButtonElement>;
+};
 
-	const editorRef = useRef(null);
+type TNote = {
+	color: string;
+	id: string;
+	lastModified: number;
+	note: string;
+	title: string;
+};
+
+type TEditorRef = {
+	current: any;
+};
+
+const Form: FC<TProps> = ({ setNote, note, handleAddNote }): JSX.Element => {
+	// const Form: FC = props => {
+	// 	const { setNote, note, handleAddNote } = props;
+
+	const editorRef: TEditorRef = useRef(null);
 	// const log = () => {
 	// 	if (editorRef.current) {
 	// 		console.log(editorRef.current.getContent());
@@ -19,7 +39,7 @@ const Form = props => {
 	// console.log(note);
 
 	const customStyles = {
-		control: base => ({
+		control: (base: object) => ({
 			...base,
 			height: 40,
 			minHeight: 40,
@@ -39,11 +59,11 @@ const Form = props => {
 				<div className='ms-2' style={{ zIndex: 100, width: '250px' }}>
 					<Select
 						styles={customStyles}
-						defautValue={{ label: 'color', value: 'primary' }}
+						// defautValue={{ label: 'color', value: 'primary' }}
 						placeholder='Select Color'
 						options={colorOptions}
 						className='text-dark'
-						onChange={e => setNote({ ...note, color: e.value })}
+						onChange={e => setNote({ ...note, color: e?.value })}
 						isSearchable={false}
 					/>
 				</div>
@@ -82,7 +102,7 @@ const Form = props => {
 
 						// plugins: autoresize
 						plugins: [
-							'advlist anchor autolink autosave charmap checklist code codesample fullscreen help insertdatetime lists link image media nonbreaking pagebreak paste preview searchreplace save table template wordcount visualchars',
+							'advlist anchor autolink autosave charmap code codesample fullscreen help insertdatetime lists link image media nonbreaking pagebreak paste preview searchreplace save table template wordcount visualchars',
 						],
 						templates: [
 							{
@@ -95,7 +115,7 @@ const Form = props => {
 						],
 						// toolbar: formatselect fontselect fontsizeselect
 						toolbar:
-							'undo redo | bold italic underline strikethrough | bullist numlist checklist outdent indent | forecolor backcolor removeformat | link image media | alignleft aligncenter alignright alignjustify | superscript subscript codesample charmap | fullscreen code help',
+							'undo redo | bold italic underline strikethrough | bullist numlist outdent indent | forecolor backcolor removeformat | link image media | alignleft aligncenter alignright alignjustify | superscript subscript codesample charmap | fullscreen code help',
 
 						toolbar_mode: 'floating',
 					}}

@@ -1,5 +1,5 @@
 //? <----- React ----->
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 //? <----- Router ----->
 import { useNavigate } from 'react-router-dom';
@@ -21,13 +21,22 @@ import axios from 'axios';
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
-const AddNote = () => {
+//? <----- TypeScript ----->
+type TNote = {
+	color: string;
+	id: string;
+	lastModified: number;
+	note: string;
+	title: string;
+};
+
+const AddNote: FC = (): JSX.Element => {
 	useDocumentTitle('Add Note');
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const [note, setNote] = useState({
+	const [note, setNote] = useState<TNote>({
 		color: 'primary',
 		id: uuidv4(),
 		lastModified: Date.now(),
@@ -36,7 +45,7 @@ const AddNote = () => {
 	});
 
 	//* Notifications
-	const NoteAddedNotification = () =>
+	const NoteAddedNotification: Function = () =>
 		toast.success('Note Added', {
 			position: 'top-center',
 			autoClose: 2000,
@@ -47,7 +56,9 @@ const AddNote = () => {
 			progress: '',
 		});
 
-	const handleAddNote = async () => {
+	const handleAddNote: React.MouseEventHandler<
+		HTMLButtonElement
+	> = async () => {
 		dispatch(
 			addNote({
 				color: note.color,
@@ -61,7 +72,7 @@ const AddNote = () => {
 
 		await axios
 			// .post('http://localhost:5000/notes/add-note', {
-			.post(
+			.post<TNote>(
 				'https://media-tracker-notes.herokuapp.com/notes/add-note',
 				// { role: process.env.REACT_APP_adminID },
 				{
@@ -81,7 +92,6 @@ const AddNote = () => {
 				NoteAddedNotification();
 			});
 		navigate('/notes');
-		console.log(note);
 	};
 
 	return (

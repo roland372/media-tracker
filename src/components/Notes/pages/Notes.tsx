@@ -6,8 +6,9 @@ import AddNote from './AddNote';
 import EditNote from './EditNote';
 import ViewNote from './ViewNote';
 import NotesList from './NotesList';
+import { FC } from 'react';
 
-const Notes = () => {
+const Notes: FC = (): JSX.Element => {
 	return (
 		<Routes>
 			<Route path='/' element={<NotesList />} />

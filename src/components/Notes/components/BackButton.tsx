@@ -1,10 +1,12 @@
+import { FC } from 'react';
+
 //? <----- Router ----->
 import { Link } from 'react-router-dom';
 
 //? <----- Components ----->
 import Button from '../../Layout/Button';
 
-const BackButton = () => {
+const BackButton: FC = (): JSX.Element => {
 	return (
 		<section className='text-color'>
 			<div className='d-flex align-items-center justify-content-lg-start ms-2 pt-1'>

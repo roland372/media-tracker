@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { FC, useRef } from 'react';
 
 //? <----- Components ----->
 import SubmitButton from './SubmitButton';
@@ -6,12 +6,29 @@ import { Editor } from '@tinymce/tinymce-react';
 import Select from 'react-select';
 import { colorOptions } from '../utils/selectOptions';
 
-const EditForm = props => {
-	const { setNewNote, newNote, handleEditNote } = props;
+//? <----- TypeScript ----->
+type TProps = {
+	setNewNote: Function;
+	newNote: TNewNote;
+	handleEditNote: React.MouseEventHandler<HTMLButtonElement>;
+};
 
+type TNewNote = {
+	color: string;
+	id: string;
+	lastModified: number;
+	note: string;
+	title: string;
+};
+
+type TEditorRef = {
+	current: any;
+};
+
+const EditForm: FC<TProps> = ({ setNewNote, newNote, handleEditNote }) => {
 	// console.log(newNote?.note);
 
-	const editorRef = useRef(newNote?.note);
+	const editorRef: TEditorRef = useRef(newNote?.note);
 
 	// useEffect(() => {}, []);
 	// const log = () => {
@@ -21,7 +38,7 @@ const EditForm = props => {
 	// };
 
 	const customStyles = {
-		control: base => ({
+		control: (base: object) => ({
 			...base,
 			height: 40,
 			minHeight: 40,
@@ -38,7 +55,7 @@ const EditForm = props => {
 				<input
 					style={{ height: 40, minHeight: 40 }}
 					className='form-control mb-3'
-					onChange={e => setNewNote({ ...newNote, title: e.target.value })}
+					onChange={e => setNewNote({ ...newNote, title: e?.target?.value })}
 					placeholder='Enter Title'
 					type='text'
 					value={newNote?.title}
@@ -46,11 +63,11 @@ const EditForm = props => {
 				<div className='ms-2' style={{ zIndex: 100, width: '250px' }}>
 					<Select
 						styles={customStyles}
-						defautValue={{ label: newNote.color, value: newNote.color }}
+						// defautValue={{ label: newNote.color, value: newNote.color }}
 						placeholder={newNote.color}
 						options={colorOptions}
 						className='text-dark'
-						onChange={e => setNewNote({ ...newNote, color: e.value })}
+						onChange={e => setNewNote({ ...newNote, color: e?.value })}
 						isSearchable={false}
 					/>
 				</div>

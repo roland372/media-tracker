@@ -14,7 +14,7 @@ import { BsTrash } from 'react-icons/bs';
 import { BiLinkExternal } from 'react-icons/bi';
 
 //? <----- Components ----->
-import CardComponent from '../../../components/Layout/CardComponent';
+import CardComponent from '../../Layout/CardComponent';
 import Loader from '../../Layout/Loader';
 import Button from '../../Layout/Button';
 import { Modal } from 'react-bootstrap';
@@ -24,15 +24,37 @@ import axios from 'axios';
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
+//? <----- TypeScript ----->
+type TNote = {
+	color: string;
+	id: string;
+	lastModified: number;
+	note: string;
+	noteID: string;
+	title: string;
+};
+
+type TNotes = {
+	loading: boolean;
+	notes: TNote[];
+	error: string | undefined;
+};
+
+type TStore = {
+	notes: TNotes;
+};
+
+type TLoading = JSX.Element | boolean;
+
 const NotesList = () => {
 	useDocumentTitle('Notes');
 
 	const dispatch = useDispatch();
-	const notes = useSelector(store => store.notes);
+	const notes = useSelector((store: TStore) => store.notes);
 	// const notes = useSelector(state => state.notes);
 
 	//* <----- Loading state ----->
-	const [loading, setLoading] = useState(<Loader />);
+	const [loading, setLoading] = useState<TLoading>(<Loader />);
 
 	//* <----- Modal state ----->
 	const [show, setShow] = useState(false);
@@ -67,7 +89,7 @@ const NotesList = () => {
 		setLoading(false);
 	}, [dispatch]);
 
-	const handleDeleteNote = async id => {
+	const handleDeleteNote = async (id: string) => {
 		dispatch(deleteNote({ id }));
 		await axios
 			// .delete(`https://media-tracker-notes.herokuapp.com/notes/delete/${id}`)
@@ -94,37 +116,37 @@ const NotesList = () => {
 	const notesCopy = [...notes?.notes];
 	const sortByDate = notesCopy?.sort((a, b) => b.lastModified - a.lastModified);
 
-	const [sortedNotes, setSortedNotes] = useState(sortByDate);
-	const [order, setOrder] = useState('DSC');
+	// const [setSortedNotes] = useState(sortByDate);
+	// const [order, setOrder] = useState('DSC');
 
-	const sortNotes = (order, menuItems, column) => {
-		if (order === 'ASC') {
-			const sorted = [...menuItems].sort((a, b) =>
-				a[column] > b[column] ? 1 : -1
-			);
-			// return sorted;
-			setSortedNotes(sorted);
-			setOrder('DSC');
-		}
-		if (order === 'DSC') {
-			const sorted = [...menuItems].sort((a, b) =>
-				a[column] < b[column] ? 1 : -1
-			);
-			// return sorted;
-			setSortedNotes(sorted);
-			setOrder('ASC');
-		}
-	};
+	// const sortNotes = (order, menuItems, column) => {
+	// 	if (order === 'ASC') {
+	// 		const sorted = [...menuItems].sort((a, b) =>
+	// 			a[column] > b[column] ? 1 : -1
+	// 		);
+	// 		// return sorted;
+	// 		setSortedNotes(sorted);
+	// 		setOrder('DSC');
+	// 	}
+	// 	if (order === 'DSC') {
+	// 		const sorted = [...menuItems].sort((a, b) =>
+	// 			a[column] < b[column] ? 1 : -1
+	// 		);
+	// 		// return sorted;
+	// 		setSortedNotes(sorted);
+	// 		setOrder('ASC');
+	// 	}
+	// };
 
-	const handleSortByTitle = () => {
-		sortNotes(order, sortByDate, 'title');
-	};
-	const handleSortByColor = () => {
-		sortNotes(order, sortByDate, 'color');
-	};
-	const handleSortByLastModified = () => {
-		sortNotes(order, sortByDate, 'lastModified');
-	};
+	// const handleSortByTitle = () => {
+	// 	sortNotes(order, sortByDate, 'title');
+	// };
+	// const handleSortByColor = () => {
+	// 	sortNotes(order, sortByDate, 'color');
+	// };
+	// const handleSortByLastModified = () => {
+	// 	sortNotes(order, sortByDate, 'lastModified');
+	// };
 
 	//* searching
 	const [searchTerm, setSearchTerm] = useState('');
@@ -189,6 +211,7 @@ const NotesList = () => {
 							</div>
 							<div className=''>
 								<Button
+									color='transparent'
 									sm
 									text={
 										<Link to={`${note.noteID}`}>
@@ -197,6 +220,7 @@ const NotesList = () => {
 									}
 								/>
 								<Button
+									color='transparent'
 									sm
 									text={
 										<Link to={`edit-note/${note.noteID}`}>
@@ -207,6 +231,7 @@ const NotesList = () => {
 
 								<Button
 									// onClick={() => handleDeleteNote(note.noteID)}
+									color='transparent'
 									onClick={() => {
 										setNoteID(note.noteID);
 										handleShow();
@@ -243,7 +268,7 @@ const NotesList = () => {
 							}}
 						/>
 					</div>
-					<div>
+					{/* <div>
 						<label className='form-label'>Sort by</label>
 						<div className='d-flex justify-content-start'>
 							<Button
@@ -267,7 +292,7 @@ const NotesList = () => {
 								text='Last modified'
 							/>
 						</div>
-					</div>
+					</div> */}
 				</Modal.Body>
 				{/* <Modal.Footer className='bg-primary-dark text-color'>
 					<Button color='warning' onClick={handleClose} text='Cancel' />

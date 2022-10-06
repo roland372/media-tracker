@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 
 //? <----- Router ----->
 import { NavLink } from 'react-router-dom';
@@ -8,8 +8,13 @@ import { Button, CloseButton } from 'react-bootstrap';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { navLinks } from './Links';
 
-const Sidebar = ({ userData }) => {
-	const [show, setShow] = useState(false);
+//? <----- TypeScript ----->
+type TProps = {
+	userData: any;
+};
+
+const Sidebar: FC<TProps> = ({ userData }): JSX.Element => {
+	const [show, setShow] = useState<boolean>(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
