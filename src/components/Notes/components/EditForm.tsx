@@ -115,7 +115,7 @@ const EditForm: FC<TProps> = ({ setNewNote, newNote, handleEditNote }) => {
 
 						// plugins: autoresize
 						plugins: [
-							'advlist anchor autolink autosave charmap checklist code codesample fullscreen help insertdatetime link lists image media nonbreaking pagebreak paste preview searchreplace save table template wordcount visualchars',
+							'advlist anchor autolink autosave charmap code codesample fullscreen help insertdatetime link lists image media nonbreaking pagebreak paste preview searchreplace save table template wordcount visualchars',
 						],
 						templates: [
 							{
@@ -128,7 +128,7 @@ const EditForm: FC<TProps> = ({ setNewNote, newNote, handleEditNote }) => {
 						],
 						// toolbar: formatselect fontselect fontsizeselect
 						toolbar:
-							'undo redo | bold italic underline strikethrough | bullist numlist checklist outdent indent | forecolor backcolor removeformat | link image media | alignleft aligncenter alignright alignjustify | superscript subscript codesample charmap | fullscreen code help restoredraft',
+							'undo redo | bold italic underline strikethrough | bullist numlist outdent indent | forecolor backcolor removeformat | link image media | alignleft aligncenter alignright alignjustify | superscript subscript codesample charmap | fullscreen code help restoredraft',
 
 						toolbar_mode: 'floating',
 					}}
