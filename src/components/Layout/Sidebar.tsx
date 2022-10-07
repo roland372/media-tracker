@@ -33,8 +33,13 @@ const Sidebar: FC<TProps> = ({ userData }): JSX.Element => {
 	};
 
 	return (
-		<nav className='navbar navbar-dark sticky-top bg-primary-dark'>
-			<div className='container bg-primary-dark'>
+		<nav
+			className='navbar navbar-dark sticky-top bg-secondary-medium'
+			style={{
+				borderBottom: '3px solid var(--bg-secondary-light)',
+			}}
+		>
+			<div className='container bg-secondary-medium'>
 				<NavLink className='navbar-brand' to='/'>
 					<span className='text-color'>Media-Tracker</span>
 				</NavLink>
@@ -63,7 +68,7 @@ const Sidebar: FC<TProps> = ({ userData }): JSX.Element => {
 						</li>
 					)}
 					<Button
-						className='navbar-toggler bg-primary-dark'
+						className='navbar-toggler bg-primary-dark shadow-none'
 						variant=''
 						type='button'
 						onClick={handleShow}
