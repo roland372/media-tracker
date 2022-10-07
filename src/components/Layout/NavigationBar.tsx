@@ -27,7 +27,12 @@ const NavigationBar: FC<TProps> = ({ userData }): JSX.Element => {
 	};
 
 	return (
-		<div className='bg-primary-dark'>
+		<div
+			className='bg-secondary-medium'
+			style={{
+				borderBottom: '3px solid var(--bg-secondary-light)',
+			}}
+		>
 			<Navbar
 				// expand='lg'
 				sticky='top'
