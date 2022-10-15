@@ -33,7 +33,7 @@ const Sidebar: FC<TProps> = ({ userData }): JSX.Element => {
 	};
 
 	return (
-		<nav
+		<nav 
 			className='navbar navbar-dark sticky-top bg-secondary-medium'
 			style={{
 				borderBottom: '3px solid var(--bg-secondary-light)',
