@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 //? <----- Router ----->
 import { useNavigate } from 'react-router';
@@ -27,10 +27,7 @@ import CharactersDataService from '../../components/Media/Characters/services/ch
 import GamesDataService from '../../components/Media/Games/services/games.services';
 import MangaDataService from '../../components/Media/Manga/services/manga.services';
 import EmotesDataService from '../../components/Emotes/services/emotes.services';
-
-//? <----- Redux ----->
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchNotes } from '../../features/notes/noteSlice';
+import NotesDataService from '../../components/Notes/services/notes.services';
 
 //? <----- Custom Hooks ----->
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -38,7 +35,6 @@ import useDocumentTitle from '../../hooks/useDocumentTitle';
 const Profile = () => {
 	useDocumentTitle('Profile');
 
-	const dispatch = useDispatch();
 	const { logOut, user } = useUserAuth();
 
 	const navigate = useNavigate();
@@ -52,7 +48,7 @@ const Profile = () => {
 	const [gamesDatabase, setGamesDatabase] = useState([]);
 	const [mangaDatabase, setMangaDatabase] = useState([]);
 	const [emotesDatabase, setEmotesDatabase] = useState([]);
-	const notesDatabase = useSelector(store => store.notes);
+	const [notesDatabase, setNotesDatabase] = useState([]);
 
 	//* <----- User State ----->
 	const [name, setName] = useState('');
@@ -152,8 +148,8 @@ const Profile = () => {
 		user && getGamesDatabase(user?.uid);
 		user && getMangaDatabase(user?.uid);
 		user && getEmotesDatabase(user?.uid);
+		user && getNotesDatabase(user?.uid);
 		user && getUsersDatabase();
-		user?.uid === process.env.REACT_APP_adminID && dispatch(fetchNotes());
 		// user && getCurrentUser();
 		// if (user && user.photoURL) {
 		// 	setPhotoURL(user.photoURL);
@@ -162,7 +158,7 @@ const Profile = () => {
 		if (user?.photoURL) {
 			setPhotoURL(user.photoURL);
 		}
-	}, [user, dispatch]);
+	}, [user]);
 
 	//* <----- Get currently logged in user ----->
 	const getUsersDatabase = async () => {
@@ -208,6 +204,11 @@ const Profile = () => {
 	const getEmotesDatabase = async userId => {
 		const data = await EmotesDataService.getAllEmotes(userId);
 		setEmotesDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+	};
+
+	const getNotesDatabase = async userId => {
+		const data = await NotesDataService.getAllNotes(userId);
+		setNotesDatabase(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
 	};
 
 	//* <----- Handler functions ----->
@@ -592,7 +593,7 @@ const Profile = () => {
 																		</Link>
 																	</h6>
 																	<p className='text-color'>
-																		{notesDatabase?.notes?.length}
+																		{notesDatabase?.[0]?.notes?.length}
 																		{''} Notes
 																	</p>
 																</div>
@@ -710,7 +711,7 @@ const Profile = () => {
 																	className='btn btn-sm text-dark shadow-none bg-info'
 																	onClick={() =>
 																		handleSaveToPC(
-																			notesDatabase?.notes,
+																			notesDatabase?.[0]?.notes,
 																			'Notes'
 																		)
 																	}
