@@ -41,6 +41,29 @@ const SingleMediaCard = ({
 	const handleCloseDelete = () => setShowDelete(false);
 	const handleShowDelete = () => setShowDelete(true);
 
+	const statusColors = {
+		'All Anime': 'secondary',
+		'All Games': 'secondary',
+		'All Manga': 'secondary',
+		'All Characters': 'secondary',
+		Watching: 'success',
+		Playing: 'success',
+		Reading: 'success',
+		Anime: 'success',
+		Completed: 'primary',
+		Game: 'primary',
+		'On-Hold': 'warning',
+		Manga: 'warning',
+		Dropped: 'danger',
+		'Plan to Watch': 'light',
+		'Plan to Play': 'light',
+		'Plan to Read': 'light',
+	};
+
+	const border = `border-bottom border-end border-${
+		statusColors[singleMedia?.status]
+	} border-5`;
+
 	return (
 		<section className='p-2'>
 			<Modal show={show} onHide={handleClose}>
@@ -233,12 +256,17 @@ const SingleMediaCard = ({
 								: 'http://www.cams-it.com/wp-content/uploads/2015/05/default-placeholder-150x200.png'
 						}
 						alt=''
-						className='rounded media-img-card'
+						// className='rounded media-img-card'
+						className={`rounded media-img-card ${
+							statusColors[singleMedia?.status] === undefined ? null : border
+						}`}
 						role='button'
 					/>
 					{/* <div className='bottom-0 start-0 p-2 m-2'>
 						{singleMedia?.title}
 					</div> */}
+					{/* {console.log(singleMedia.status)} */}
+
 					{mediaType === 'Anime' ? (
 						<div>
 							<div className='position-absolute top-0 end-0'>
@@ -249,7 +277,7 @@ const SingleMediaCard = ({
 							<div className='position-absolute top-0 start-0 badge bg-dark m-1'>
 								Ep {singleMedia?.episodesMin} / {singleMedia?.episodesMax}
 							</div>
-							<div className='position-absolute bottom-0 start-0 badge bg-dark m-1'>
+							<div className='position-absolute me-2 mb-2 bottom-0 start-0 badge bg-dark m-1'>
 								<div className='text-wrap'>{singleMedia?.title}</div>
 							</div>
 						</div>
