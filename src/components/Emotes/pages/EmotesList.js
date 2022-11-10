@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from '../../Layout/Button';
+import { copyImageToClipboard } from 'copy-image-clipboard';
 
 //? <----- Icons ----->
 import { AiFillStar } from 'react-icons/ai';
@@ -71,9 +72,22 @@ const EmotesList = () => {
 		setLoading(false);
 	};
 
+	// const handleClick = url => {
+	// 	navigator.clipboard.writeText(url);
+	// 	copiedToClipboardNotification(url);
+	// };
+
 	const handleClick = url => {
-		navigator.clipboard.writeText(url);
-		copiedToClipboardNotification(url);
+		copyImageToClipboard(url)
+			.then(() => {
+				// console.log('Image Copied');
+				copiedToClipboardNotification(url);
+			})
+			.catch(e => {
+				// console.log('Error: ', e.message);
+				navigator.clipboard.writeText(url);
+				copiedToClipboardNotification(url);
+			});
 	};
 
 	useEffect(() => {
