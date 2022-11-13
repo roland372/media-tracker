@@ -79,7 +79,7 @@ const AllCharacters = ({
 				mediaDisplay={charactersDisplay}
 				setMediaDisplay={setCharactersDisplay}
 				setSearchTerm={setSearchTerm}
-				searchPlaceholder='Search for a Character'
+				searchPlaceholder='Character or Series'
 				status={source}
 			/>
 			{charactersDisplay ? (
@@ -93,6 +93,9 @@ const AllCharacters = ({
 									return value;
 								} else if (
 									value.name
+										.toLowerCase()
+										.includes(searchTerm.toLocaleLowerCase()) ||
+									value.series
 										.toLowerCase()
 										.includes(searchTerm.toLocaleLowerCase())
 								) {
