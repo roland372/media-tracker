@@ -123,6 +123,9 @@ const AllCharacters = ({
 										} else if (
 											value.name
 												.toLowerCase()
+												.includes(searchTerm.toLocaleLowerCase()) ||
+											value.series
+												.toLowerCase()
 												.includes(searchTerm.toLocaleLowerCase())
 										) {
 											return value;
@@ -166,6 +169,9 @@ const AllCharacters = ({
 								} else if (
 									value.name
 										.toLowerCase()
+										.includes(searchTerm.toLocaleLowerCase()) ||
+									value.series
+										.toLowerCase()
 										.includes(searchTerm.toLocaleLowerCase())
 								) {
 									return value;
@@ -196,6 +202,9 @@ const AllCharacters = ({
 											return value;
 										} else if (
 											value.name
+												.toLowerCase()
+												.includes(searchTerm.toLocaleLowerCase()) ||
+											value.series
 												.toLowerCase()
 												.includes(searchTerm.toLocaleLowerCase())
 										) {
